@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Detalle del Producto | Lusson</title>
+    <title>Detalle de Producto | Lusson</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;1,400&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         :root { --nude-bg: #f5eee6; --oro: #bca07d; --negro: #1a1a1a; --blanco: #ffffff; }
@@ -18,16 +18,25 @@
         
         .info-producto { display: flex; flex-direction: column; gap: 15px; }
         .marca { color: var(--oro); text-transform: uppercase; letter-spacing: 3px; font-size: 0.8rem; }
-        .nombre-p { font-family: 'Playfair Display', serif; font-size: 2rem; margin: 0; }
-        .precio-p { font-size: 1.5rem; font-weight: 600; color: var(--negro); }
+        .nombre-p { font-family: 'Playfair Display', serif; font-size: 2.2rem; margin: 0; }
+        .precio-p { font-size: 1.8rem; font-weight: 600; color: var(--negro); }
         
-        .descripcion { line-height: 1.6; color: #555; font-size: 0.9rem; }
+        .descripcion { line-height: 1.6; color: #555; font-size: 0.9rem; margin-bottom: 20px; }
         
-        .opciones { margin: 20px 0; }
-        label { display: block; margin-bottom: 8px; font-weight: 600; font-size: 0.8rem; text-transform: uppercase; }
-        select, input { width: 100%; padding: 10px; margin-bottom: 20px; border: 1px solid #ddd; }
+        /* Selector de Cantidad Profesional */
+        .control-cantidad { display: flex; align-items: center; gap: 10px; margin-bottom: 25px; }
+        .btn-qty { 
+            background: #f8f8f8; border: 1px solid #ddd; width: 45px; height: 45px; 
+            font-size: 1.2rem; cursor: pointer; transition: 0.3s; 
+        }
+        .btn-qty:hover { background: var(--oro); color: white; border-color: var(--oro); }
+        #cantidad-valor { width: 50px; text-align: center; font-weight: 600; font-size: 1.1rem; }
 
-        .btn-comprar { background: var(--negro); color: white; border: none; padding: 15px; text-transform: uppercase; letter-spacing: 2px; cursor: pointer; transition: 0.3s; }
+        .btn-comprar { 
+            background: var(--negro); color: white; border: none; padding: 18px; 
+            text-transform: uppercase; letter-spacing: 3px; cursor: pointer; 
+            transition: 0.3s; font-size: 0.9rem; font-weight: 600;
+        }
         .btn-comprar:hover { background: var(--oro); }
 
         .especificaciones { margin-top: 30px; border-top: 1px solid #eee; padding-top: 20px; font-size: 0.85rem; }
@@ -35,8 +44,8 @@
         .recomendados { max-width: 1000px; margin: 60px auto; padding: 20px; border-top: 1px solid #eee; }
         .recomendados h3 { font-family: 'Playfair Display', serif; text-align: center; margin-bottom: 30px; }
         .grid-recomendados { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 20px; }
-        .item-rec { text-align: center; font-size: 0.7rem; }
-        .item-rec img { width: 100%; height: 150px; object-fit: cover; }
+        .item-rec { text-align: center; font-size: 0.7rem; text-decoration: none; color: inherit; }
+        .item-rec img { width: 100%; height: 180px; object-fit: cover; background: #f9f9f9; }
     </style>
 </head>
 <body>
@@ -45,38 +54,33 @@
 
     <div class="contenedor-detalle">
         <div class="imagen-producto">
-            <img id="foto-principal" src="" alt="Producto">
+            <img id="foto-principal" src="https://images.pexels.com/photos/2533266/pexels-photo-2533266.jpeg?auto=compress&w=800" alt="Producto">
         </div>
         
         <div class="info-producto">
             <span class="marca">Marca: Lusson Professional</span>
-            <h1 id="nombre-producto" class="nombre-p">Cargando...</h1>
-            <p id="precio-producto" class="precio-p">$0</p>
+            <h1 id="nombre-producto" class="nombre-p">Labial Matte Velvet</h1>
+            <p id="precio-producto" class="precio-p">$45.000</p>
             
-            <p class="descripcion">Este labial de alta gama ofrece una cobertura total con un acabado impecable. Su fórmula enriquecida con vitamina E mantiene tus labios hidratados durante 24 horas, proporcionando un color intenso y sofisticado que no se transfiere.</p>
+            <p class="descripcion">Descubre la intensidad del color con nuestra fórmula Matte Velvet. Diseñada para la mujer moderna, esta línea ofrece 24 horas de duración sin resecar los labios, gracias a su base de aceites naturales y vitamina E.</p>
             
             <div class="opciones">
-                <label>Colores Disponibles:</label>
-                <select id="colores">
-                    <option>Rojo Pasión</option>
-                    <option>Nude Elegance</option>
-                    <option>Rosa Vintage</option>
-                    <option>Vino Profundo</option>
-                </select>
-
-                <label>Cantidad:</label>
-                <input type="number" value="1" min="1">
+                <label style="display:block; margin-bottom:10px; font-weight:600; font-size:0.7rem; text-transform:uppercase;">Cantidad:</label>
+                <div class="control-cantidad">
+                    <button class="btn-qty" onclick="cambiarCantidad(-1)">-</button>
+                    <span id="cantidad-valor">1</span>
+                    <button class="btn-qty" onclick="cambiarCantidad(1)">+</button>
+                </div>
             </div>
 
-            <button class="btn-comprar">Agregar al Carrito</button>
+            <button class="btn-comprar" onclick="confirmar()">Agregar a la bolsa</button>
 
             <div class="especificaciones">
-                <p><strong>Especificaciones:</strong></p>
+                <p><strong>Detalles Técnicos:</strong></p>
                 <ul>
-                    <li>Contenido: 4.5g</li>
-                    <li>Efecto: Mate Terciopelo</li>
-                    <li>Larga duración: Sí (24h)</li>
-                    <li>Libre de crueldad animal</li>
+                    <li>Acabado: Matte Terciopelo</li>
+                    <li>Fórmula: Hipoalergénica</li>
+                    <li>Contenido: 5.0 ml</li>
                 </ul>
             </div>
         </div>
@@ -85,22 +89,39 @@
     <div class="recomendados">
         <h3>Te puede interesar</h3>
         <div class="grid-recomendados">
-            <div class="item-rec"><img src="assets/labial1.png"><p>Labial Matte N1</p></div>
-            <div class="item-rec"><img src="assets/labial2.png"><p>Gloss Diamond</p></div>
-            <div class="item-rec"><img src="assets/labial3.png"><p>Tinta Silk</p></div>
+            <div class="item-rec">
+                <img src="https://images.pexels.com/photos/3373739/pexels-photo-3373739.jpeg?auto=compress&w=300">
+                <p>Base Perfect Match</p>
+            </div>
+            <div class="item-rec">
+                <img src="https://images.pexels.com/photos/3018845/pexels-photo-3018845.jpeg?auto=compress&w=300">
+                <p>Sombras Galaxy</p>
+            </div>
+            <div class="item-rec">
+                <img src="https://images.pexels.com/photos/2688991/pexels-photo-2688991.jpeg?auto=compress&w=300">
+                <p>Gloss Shimmer</p>
+            </div>
         </div>
     </div>
 
     <script>
-        // Este script lee la información que le enviamos desde la página de labiales
+        // Lógica para los parámetros que vienen de la página anterior
         const params = new URLSearchParams(window.location.search);
-        const nombre = params.get('nombre') || 'Producto Lusson';
-        const precio = params.get('precio') || '0';
-        const foto = params.get('foto') || 'assets/labial1.png';
+        if(params.get('nombre')) document.getElementById('nombre-producto').innerText = params.get('nombre');
+        if(params.get('precio')) document.getElementById('precio-producto').innerText = '$' + params.get('precio');
+        if(params.get('foto')) document.getElementById('foto-principal').src = params.get('foto');
 
-        document.getElementById('nombre-producto').innerText = nombre;
-        document.getElementById('precio-producto').innerText = '$' + precio;
-        document.getElementById('foto-principal').src = foto;
+        // Lógica para el más y el menos
+        let cantidad = 1;
+        function cambiarCantidad(valor) {
+            cantidad += valor;
+            if (cantidad < 1) cantidad = 1; // Para que no sea menor a 1
+            document.getElementById('cantidad-valor').innerText = cantidad;
+        }
+
+        function confirmar() {
+            alert("¡Agregado! Cantidad: " + cantidad + " de " + document.getElementById('nombre-producto').innerText);
+        }
     </script>
 </body>
 </html>
