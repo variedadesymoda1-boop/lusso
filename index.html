@@ -7,94 +7,107 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;1,400&family=Montserrat:wght@200;300;400&display=swap" rel="stylesheet">
     <style>
         :root {
-            --nude-premium: #f7f1ed;
-            --oro-suave: #d4af37;
+            --color-nude: #f5eee6; /* Color para el fondo de Lusson */
+            --oro-suave: #c5b358;
             --negro-lujo: #1a1a1a;
+            --blanco: #ffffff;
         }
 
-        body { margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; background: #fff; color: var(--negro-lujo); }
+        body { margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; background: var(--blanco); color: var(--negro-lujo); }
 
-        /* Cabecera Principal */
-        header { padding: 50px 20px 20px; text-align: center; }
-        .logo { font-family: 'Playfair Display', serif; font-size: 4rem; letter-spacing: 20px; text-transform: uppercase; margin: 0; line-height: 1; }
-        .tagline { font-size: 0.8rem; letter-spacing: 5px; text-transform: uppercase; margin-top: 15px; color: #777; font-weight: 300; }
+        /* Cabecera con Color de Fondo */
+        header { 
+            background-color: var(--color-nude); /* Aquí añadimos el color de fondo */
+            padding: 60px 20px; 
+            text-align: center;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+        .logo { 
+            font-family: 'Playfair Display', serif; 
+            font-size: clamp(2rem, 8vw, 4rem); 
+            letter-spacing: 20px; 
+            text-transform: uppercase; 
+            margin: 0; 
+            font-weight: 400; 
+        }
+        .tagline { 
+            font-size: 0.8rem; 
+            letter-spacing: 5px; 
+            text-transform: uppercase; 
+            margin-top: 20px; 
+            color: #666; 
+        }
 
-        /* Navegación de Categorías */
+        /* Navegación de Botones Elegantes */
         .nav-lujo { 
             display: flex; 
             flex-wrap: wrap; 
             justify-content: center; 
             gap: 10px; 
-            padding: 30px 10px; 
+            padding: 25px 10px; 
             background: #fff;
-            border-top: 1px solid #f0f0f0;
-            border-bottom: 1px solid #f0f0f0;
-            margin-bottom: 20px;
         }
         .btn-cat {
-            background: var(--nude-premium);
+            background: #fdfaf7;
             color: var(--negro-lujo);
-            border: none;
-            padding: 12px 25px;
+            border: 1px solid #eee;
+            padding: 12px 20px;
             text-transform: uppercase;
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             letter-spacing: 2px;
             cursor: pointer;
             text-decoration: none;
-            transition: all 0.3s ease;
+            transition: 0.3s;
         }
-        .btn-cat:hover { background: #ede0d4; transform: translateY(-2px); }
+        .btn-cat:hover { background: var(--color-nude); border-color: var(--oro-suave); }
 
-        /* Mosaico Hero (Como la imagen de referencia) */
-        .mosaico-contenedor {
-            max-width: 1100px;
-            margin: 0 auto;
+        /* Mosaico Principal con Fotos de Moda */
+        .mosaico {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 10px;
             padding: 10px;
+            max-width: 1200px;
+            margin: 0 auto;
             position: relative;
         }
-        .mosaico-contenedor img { width: 100%; height: 400px; object-fit: cover; display: block; }
+        .mosaico img { width: 100%; height: 450px; object-fit: cover; background: #eee; }
         
-        .overlay-frase {
+        .caja-actitud {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            background: rgba(26, 26, 26, 0.85);
+            background: rgba(26, 26, 26, 0.9);
             color: white;
             padding: 40px;
             text-align: center;
             width: 70%;
             max-width: 500px;
-            border: 1px solid rgba(255,255,255,0.1);
         }
-        .overlay-frase h2 { font-family: 'Playfair Display', serif; font-style: italic; font-size: 2rem; margin: 0; font-weight: 400; }
-        .overlay-frase p { text-transform: uppercase; letter-spacing: 5px; font-size: 0.7rem; margin-top: 15px; color: var(--oro-suave); }
+        .caja-actitud h2 { font-family: 'Playfair Display', serif; font-style: italic; font-size: clamp(1.2rem, 4vw, 2.2rem); margin: 0; }
+        .caja-actitud p { text-transform: uppercase; letter-spacing: 5px; font-size: 0.7rem; margin-top: 15px; color: var(--oro-suave); }
 
-        /* Grid de Productos Destacados */
-        .seccion-productos {
-            max-width: 1200px;
-            margin: 60px auto;
+        /* Galería de Productos */
+        .grid-productos {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 40px;
-            padding: 0 20px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            padding: 60px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
         }
-        .card-producto { text-align: center; }
-        .card-producto img { width: 100%; height: 320px; object-fit: cover; background: #f9f9f9; }
-        .card-producto h3 { font-size: 0.8rem; letter-spacing: 3px; text-transform: uppercase; margin: 20px 0 5px; font-weight: 400; }
-        .card-producto p { font-size: 0.65rem; color: #999; text-transform: uppercase; letter-spacing: 1px; }
+        .producto { text-align: center; }
+        .producto img { width: 100%; height: 350px; object-fit: cover; }
+        .producto h3 { font-size: 0.8rem; letter-spacing: 3px; text-transform: uppercase; margin-top: 20px; }
+        .producto p { font-size: 0.6rem; color: #888; text-transform: uppercase; margin-top: 5px; }
 
-        footer { padding: 80px 20px; text-align: center; font-size: 0.7rem; letter-spacing: 4px; color: #ccc; text-transform: uppercase; }
+        footer { padding: 80px; text-align: center; font-size: 0.7rem; letter-spacing: 3px; color: #bbb; }
 
-        /* Ajuste para tablets */
+        /* Ajustes Tablet */
         @media (max-width: 768px) {
-            .logo { font-size: 2.5rem; letter-spacing: 10px; }
-            .mosaico-contenedor img { height: 250px; }
-            .overlay-frase { width: 85%; padding: 25px; }
-            .overlay-frase h2 { font-size: 1.4rem; }
+            .mosaico img { height: 300px; }
+            .caja-actitud { width: 85%; padding: 25px; }
         }
     </style>
 </head>
@@ -118,43 +131,38 @@
         <a href="skincare.html" class="btn-cat">Skincare</a>
     </nav>
 
-    <main class="mosaico-contenedor">
-        <img src="https://images.unsplash.com/photo-1512496015851-a90fb38ba796?q=80&w=1000&auto=format&fit=crop" alt="Maquillaje Rostro">
-        <img src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?q=80&w=1000&auto=format&fit=crop" alt="Detalle Sombras">
-        <img src="https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?q=80&w=1000&auto=format&fit=crop" alt="Modelo Elegante">
-        <img src="https://images.unsplash.com/photo-1515648473266-cd1efdc4308d?q=80&w=1000&auto=format&fit=crop" alt="Look Sofisticado">
+    <main class="mosaico">
+        <img src="https://images.pexels.com/photos/3373739/pexels-photo-3373739.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Modelo Moda">
+        <img src="https://images.pexels.com/photos/3738339/pexels-photo-3738339.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Maquillaje Ojos">
+        <img src="https://images.pexels.com/photos/3018845/pexels-photo-3018845.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Rostro Perfecto">
+        <img src="https://images.pexels.com/photos/2533266/pexels-photo-2533266.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Detalle Cosméticos">
         
-        <div class="overlay-frase">
+        <div class="caja-actitud">
             <h2>"La elegancia es una cuestión de actitud"</h2>
             <p>Lusson Colombia</p>
         </div>
     </main>
 
-    <section class="seccion-productos">
-        <div class="card-producto">
-            <img src="https://images.unsplash.com/photo-1596462502278-27bfdc4033c8?q=80&w=600&auto=format&fit=crop" alt="Bases">
-            <h3>Bases de Alta Cobertura</h3>
-            <p>Textura Sedosa</p>
+    <section class="grid-productos">
+        <div class="producto">
+            <img src="https://images.pexels.com/photos/3373746/pexels-photo-3373746.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Bases">
+            <h3>Bases Profesionales</h3>
+            <p>Acabado Terciopelo</p>
         </div>
-        <div class="card-producto">
-            <img src="https://images.unsplash.com/photo-1586495764447-aa173bfcabaa?q=80&w=600&auto=format&fit=crop" alt="Labiales">
-            <h3>Labiales Mate Premium</h3>
-            <p>Colección Larga Duración</p>
-        </div>
-        <div class="card-producto">
-            <img src="https://images.unsplash.com/photo-1627384113743-6bd5a479fffd?q=80&w=600&auto=format&fit=crop" alt="Cuidado Facial">
-            <h3>Cuidado Facial</h3>
-            <p>Esencia Natural</p>
-        </div>
-        <div class="card-producto">
-            <img src="https://images.unsplash.com/photo-1591360236480-9c6a4cb3a6de?q=80&w=600&auto=format&fit=crop" alt="Paleta">
-            <h3>Paleta de Sombras</h3>
+        <div class="producto">
+            <img src="https://images.pexels.com/photos/2688991/pexels-photo-2688991.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Labiales">
+            <h3>Labiales Alta Gama</h3>
             <p>Pigmentación Intensa</p>
+        </div>
+        <div class="producto">
+            <img src="https://images.pexels.com/photos/3618606/pexels-photo-3618606.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Sombras">
+            <h3>Paleta de Sombras</h3>
+            <p>Tonos Tierra & Oro</p>
         </div>
     </section>
 
     <footer>
-        &copy; 2026 LUSSON - CALIDAD Y ELEGANCIA COLOMBIANA
+        &copy; 2026 LUSSON - ELEGANCIA COLOMBIANA
     </footer>
 
 </body>
