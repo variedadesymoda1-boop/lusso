@@ -11,7 +11,7 @@
             --dorado: #c5b358;
             --negro: #1a1a1a;
             --blanco: #ffffff;
-            --gris-suave: #f9f9f9;
+            --gris-menu: #f2f2f2;
         }
 
         body {
@@ -20,12 +20,12 @@
             background-color: var(--blanco);
             color: var(--negro);
             font-family: 'Montserrat', sans-serif;
-            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
         }
 
-        /* Encabezado Elegante */
+        /* Encabezado */
         header {
-            padding: 40px 20px;
+            padding: 30px 20px;
             text-align: center;
             background-color: var(--blanco);
             border-bottom: 1px solid #eee;
@@ -33,79 +33,88 @@
 
         h1 {
             font-family: 'Playfair Display', serif;
-            font-size: 3.5rem;
-            letter-spacing: 15px;
+            font-size: 3rem;
+            letter-spacing: 12px;
             margin: 0;
             font-weight: 400;
             text-transform: uppercase;
         }
 
-        .subtitulo {
-            font-style: italic;
-            color: var(--dorado);
-            letter-spacing: 3px;
-            margin-top: 10px;
-            font-size: 0.9rem;
+        /* Botón de Maquillaje Principal */
+        .btn-container {
+            margin: 20px 0;
+            text-align: center;
         }
 
-        /* Sección Principal con Actitud */
+        .btn-menu {
+            padding: 15px 40px;
+            border: 1px solid var(--negro);
+            background: var(--negro);
+            color: var(--blanco);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        /* Barra de Categorías (Oculta al inicio) */
+        .barra-categorias {
+            max-height: 0;
+            overflow: hidden;
+            background-color: var(--gris-menu);
+            transition: max-height 0.5s ease-out;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            padding: 0 20px;
+        }
+
+        .barra-categorias.active {
+            max-height: 300px; /* Ajuste para que se vea al abrir */
+            padding: 25px 20px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .categoria-item {
+            text-decoration: none;
+            color: var(--negro);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            padding: 5px 10px;
+            transition: 0.3s;
+        }
+
+        .categoria-item:hover {
+            color: var(--dorado);
+        }
+
+        /* Sección Hero */
         .hero {
-            height: 80vh;
+            height: 60vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
-            background: linear-gradient(rgba(255,255,255,0.8), rgba(255,255,255,0.8)), 
-                        url('https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80'); /* Imagen de fondo elegante */
-            background-size: cover;
-            background-position: center;
             padding: 0 20px;
         }
 
         .frase-actitud {
             font-family: 'Playfair Display', serif;
-            font-size: 2.5rem;
-            max-width: 700px;
-            line-height: 1.2;
-            margin-bottom: 20px;
+            font-size: 2rem;
+            font-style: italic;
+            margin-bottom: 10px;
         }
 
-        .descripcion-local {
-            font-weight: 200;
-            letter-spacing: 1px;
-            color: #555;
-            max-width: 500px;
-            margin-bottom: 40px;
-        }
-
-        /* Botón de Lujo */
-        .btn-lusson {
-            padding: 18px 50px;
-            border: 1px solid var(--negro);
-            background: transparent;
-            color: var(--negro);
-            text-transform: uppercase;
-            letter-spacing: 4px;
-            text-decoration: none;
-            font-size: 0.8rem;
-            transition: all 0.5s ease;
-        }
-
-        .btn-lusson:hover {
-            background-color: var(--negro);
-            color: var(--blanco);
-            cursor: pointer;
-        }
-
-        /* Pie de página */
         footer {
-            padding: 50px 20px;
+            padding: 40px;
             font-size: 0.7rem;
-            letter-spacing: 2px;
-            color: #999;
             text-align: center;
-            text-transform: uppercase;
+            color: #999;
+            letter-spacing: 2px;
         }
     </style>
 </head>
@@ -113,21 +122,44 @@
 
     <header>
         <h1>LUSSON</h1>
-        <div class="subtitulo">Cosmética Premium</div>
     </header>
+
+    <div class="btn-container">
+        <button class="btn-menu" onclick="toggleMenu()">Maquillaje</button>
+    </div>
+
+    <nav class="barra-categorias" id="menuCategorias">
+        <a href="#" class="categoria-item">Sombras</a>
+        <a href="#" class="categoria-item">Pestañas</a>
+        <a href="#" class="categoria-item">Labiales</a>
+        <a href="#" class="categoria-item">Tintas</a>
+        <a href="#" class="categoria-item">Rubores</a>
+        <a href="#" class="categoria-item">Bases</a>
+        <a href="#" class="categoria-item">Polvos Compactos</a>
+        <a href="#" class="categoria-item">Cejas</a>
+        <a href="#" class="categoria-item">Cuidado de la piel</a>
+    </nav>
 
     <main class="hero">
         <h2 class="frase-actitud">"La elegancia es una cuestión de actitud"</h2>
-        <p class="descripcion-local">
-            Redefiniendo el estándar del maquillaje profesional en Colombia. 
-            Calidad excepcional para quienes hacen de su presencia una declaración.
-        </p>
-        <a href="#" class="btn-lusson">Explorar Colección</a>
+        <p style="font-weight: 200; letter-spacing: 1px;">Lujo Colombiano</p>
     </main>
 
     <footer>
-        &copy; 2026 LUSSON COLOMBIA - Todos los derechos reservados
+        &copy; 2026 LUSSON COLOMBIA
     </footer>
+
+    <script>
+        function toggleMenu() {
+            var menu = document.getElementById("menuCategorias");
+            if (menu.classList.contains("active")) {
+                menu.classList.remove("active");
+            } else {
+                menu.classList.add("active");
+            }
+        }
+    </script>
 
 </body>
 </html>
+
