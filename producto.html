@@ -1,1 +1,107 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalle del Producto | Lusson</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;1,400&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root { --nude-bg: #f5eee6; --oro: #bca07d; --negro: #1a1a1a; --blanco: #ffffff; }
+        body { margin: 0; font-family: 'Montserrat', sans-serif; background: var(--blanco); color: var(--negro); }
+        
+        header { background: var(--nude-bg); padding: 20px; text-align: center; }
+        .logo { font-family: 'Playfair Display', serif; font-size: 1.5rem; letter-spacing: 10px; text-decoration: none; color: var(--negro); }
+
+        .contenedor-detalle { max-width: 1000px; margin: 40px auto; padding: 20px; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 50px; }
+        
+        .imagen-producto img { width: 100%; height: auto; border-radius: 5px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        
+        .info-producto { display: flex; flex-direction: column; gap: 15px; }
+        .marca { color: var(--oro); text-transform: uppercase; letter-spacing: 3px; font-size: 0.8rem; }
+        .nombre-p { font-family: 'Playfair Display', serif; font-size: 2rem; margin: 0; }
+        .precio-p { font-size: 1.5rem; font-weight: 600; color: var(--negro); }
+        
+        .descripcion { line-height: 1.6; color: #555; font-size: 0.9rem; }
+        
+        .opciones { margin: 20px 0; }
+        label { display: block; margin-bottom: 8px; font-weight: 600; font-size: 0.8rem; text-transform: uppercase; }
+        select, input { width: 100%; padding: 10px; margin-bottom: 20px; border: 1px solid #ddd; }
+
+        .btn-comprar { background: var(--negro); color: white; border: none; padding: 15px; text-transform: uppercase; letter-spacing: 2px; cursor: pointer; transition: 0.3s; }
+        .btn-comprar:hover { background: var(--oro); }
+
+        .especificaciones { margin-top: 30px; border-top: 1px solid #eee; padding-top: 20px; font-size: 0.85rem; }
+        
+        .recomendados { max-width: 1000px; margin: 60px auto; padding: 20px; border-top: 1px solid #eee; }
+        .recomendados h3 { font-family: 'Playfair Display', serif; text-align: center; margin-bottom: 30px; }
+        .grid-recomendados { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 20px; }
+        .item-rec { text-align: center; font-size: 0.7rem; }
+        .item-rec img { width: 100%; height: 150px; object-fit: cover; }
+    </style>
+</head>
+<body>
+
+    <header><a href="index.html" class="logo">LUSSON</a></header>
+
+    <div class="contenedor-detalle">
+        <div class="imagen-producto">
+            <img id="foto-principal" src="" alt="Producto">
+        </div>
+        
+        <div class="info-producto">
+            <span class="marca">Marca: Lusson Professional</span>
+            <h1 id="nombre-producto" class="nombre-p">Cargando...</h1>
+            <p id="precio-producto" class="precio-p">$0</p>
+            
+            <p class="descripcion">Este labial de alta gama ofrece una cobertura total con un acabado impecable. Su fórmula enriquecida con vitamina E mantiene tus labios hidratados durante 24 horas, proporcionando un color intenso y sofisticado que no se transfiere.</p>
+            
+            <div class="opciones">
+                <label>Colores Disponibles:</label>
+                <select id="colores">
+                    <option>Rojo Pasión</option>
+                    <option>Nude Elegance</option>
+                    <option>Rosa Vintage</option>
+                    <option>Vino Profundo</option>
+                </select>
+
+                <label>Cantidad:</label>
+                <input type="number" value="1" min="1">
+            </div>
+
+            <button class="btn-comprar">Agregar al Carrito</button>
+
+            <div class="especificaciones">
+                <p><strong>Especificaciones:</strong></p>
+                <ul>
+                    <li>Contenido: 4.5g</li>
+                    <li>Efecto: Mate Terciopelo</li>
+                    <li>Larga duración: Sí (24h)</li>
+                    <li>Libre de crueldad animal</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="recomendados">
+        <h3>Te puede interesar</h3>
+        <div class="grid-recomendados">
+            <div class="item-rec"><img src="assets/labial1.png"><p>Labial Matte N1</p></div>
+            <div class="item-rec"><img src="assets/labial2.png"><p>Gloss Diamond</p></div>
+            <div class="item-rec"><img src="assets/labial3.png"><p>Tinta Silk</p></div>
+        </div>
+    </div>
+
+    <script>
+        // Este script lee la información que le enviamos desde la página de labiales
+        const params = new URLSearchParams(window.location.search);
+        const nombre = params.get('nombre') || 'Producto Lusson';
+        const precio = params.get('precio') || '0';
+        const foto = params.get('foto') || 'assets/labial1.png';
+
+        document.getElementById('nombre-producto').innerText = nombre;
+        document.getElementById('precio-producto').innerText = '$' + precio;
+        document.getElementById('foto-principal').src = foto;
+    </script>
+</body>
+</html>
 
