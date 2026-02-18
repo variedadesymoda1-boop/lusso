@@ -164,6 +164,34 @@
     <footer>
         &copy; 2026 LUSSON - ELEGANCIA COLOMBIANA
     </footer>
+    <div id="admin-trigger" onclick="accesoAdmin()" style="position: fixed; bottom: 0; right: 0; width: 30px; height: 30px; cursor: pointer; z-index: 1000;"></div>
+
+    <script>
+        function accesoAdmin() {
+            var password = prompt("Ingrese clave de Administradora Lusson:");
+            if (password === "lusson2026") { 
+                alert("Acceso concedido. Toca cualquier imagen para cambiarla.");
+                activarEdicion();
+            } else {
+                alert("Acceso denegado.");
+            }
+        }
+
+        function activarEdicion() {
+            var imagenes = document.querySelectorAll('img');
+            imagenes.forEach(function(img) {
+                img.style.border = "2px dashed #bca07d"; 
+                img.onclick = function() {
+                    var nuevaUrl = prompt("Pega aquí el enlace de tu nueva imagen:", img.src);
+                    if (nuevaUrl) {
+                        img.src = nuevaUrl;
+                    }
+                };
+            });
+        }
+    </script>
+
+</body> </html>
 
 </body>
 </html>
