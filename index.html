@@ -3,135 +3,151 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lusson | Encuentra tus marcas favoritas</title>
+    <title>Lusson | Encuentra las mejores marcas</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;1,400&family=Montserrat:wght@200;300;400&display=swap" rel="stylesheet">
     <style>
         :root {
-            --oro-viejo: #bca07d;
-            --nude: #f4ece6;
-            --negro-suave: #1a1a1a;
-            --blanco: #ffffff;
+            --nude-premium: #f7f1ed;
+            --oro-suave: #d4af37;
+            --negro-lujo: #1a1a1a;
         }
 
-        body { margin: 0; font-family: 'Montserrat', sans-serif; background: var(--blanco); color: var(--negro-suave); }
+        body { margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; background: #fff; color: var(--negro-lujo); }
 
-        /* Logo y Cabecera */
-        header { padding: 40px 20px; text-align: center; }
-        h1 { font-family: 'Playfair Display', serif; font-size: 3.5rem; letter-spacing: 18px; text-transform: uppercase; margin: 0; font-weight: 400; }
-        .sub-header { font-size: 0.8rem; letter-spacing: 4px; text-transform: uppercase; margin-top: 10px; color: #666; }
+        /* Cabecera Principal */
+        header { padding: 50px 20px 20px; text-align: center; }
+        .logo { font-family: 'Playfair Display', serif; font-size: 4rem; letter-spacing: 20px; text-transform: uppercase; margin: 0; line-height: 1; }
+        .tagline { font-size: 0.8rem; letter-spacing: 5px; text-transform: uppercase; margin-top: 15px; color: #777; font-weight: 300; }
 
-        /* Sección de Botones de Navegación */
-        .nav-container { padding: 20px; text-align: center; background: #fff; border-top: 1px solid #f2f2f2; border-bottom: 1px solid #f2f2f2; margin-top: 20px; }
-        .btn-categoria {
-            background: var(--nude);
-            color: var(--negro-suave);
+        /* Navegación de Categorías */
+        .nav-lujo { 
+            display: flex; 
+            flex-wrap: wrap; 
+            justify-content: center; 
+            gap: 10px; 
+            padding: 30px 10px; 
+            background: #fff;
+            border-top: 1px solid #f0f0f0;
+            border-bottom: 1px solid #f0f0f0;
+            margin-bottom: 20px;
+        }
+        .btn-cat {
+            background: var(--nude-premium);
+            color: var(--negro-lujo);
             border: none;
-            padding: 10px 20px;
-            margin: 5px;
+            padding: 12px 25px;
             text-transform: uppercase;
-            font-size: 0.65rem;
+            font-size: 0.7rem;
             letter-spacing: 2px;
             cursor: pointer;
-            transition: 0.3s;
             text-decoration: none;
-            display: inline-block;
+            transition: all 0.3s ease;
         }
-        .btn-categoria:hover { background: var(--oro-viejo); color: white; }
+        .btn-cat:hover { background: #ede0d4; transform: translateY(-2px); }
 
-        /* Banner Principal (Hero con 4 fotos como la imagen) */
-        .hero-mosaic {
+        /* Mosaico Hero (Como la imagen de referencia) */
+        .mosaico-contenedor {
+            max-width: 1100px;
+            margin: 0 auto;
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 5px;
+            gap: 10px;
             padding: 10px;
-            max-width: 1000px;
-            margin: 0 auto;
             position: relative;
         }
-        .hero-mosaic img { width: 100%; height: 350px; object-fit: cover; }
+        .mosaico-contenedor img { width: 100%; height: 400px; object-fit: cover; display: block; }
         
-        .hero-overlay {
+        .overlay-frase {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            background: rgba(26, 26, 26, 0.8);
+            background: rgba(26, 26, 26, 0.85);
             color: white;
-            padding: 40px 60px;
+            padding: 40px;
             text-align: center;
-            width: 60%;
-            border: 1px solid rgba(255,255,255,0.2);
+            width: 70%;
+            max-width: 500px;
+            border: 1px solid rgba(255,255,255,0.1);
         }
-        .hero-overlay h2 { font-family: 'Playfair Display', serif; font-style: italic; font-size: 1.8rem; margin: 0; }
-        .hero-overlay p { text-transform: uppercase; letter-spacing: 4px; font-size: 0.7rem; margin-top: 15px; color: var(--oro-viejo); }
+        .overlay-frase h2 { font-family: 'Playfair Display', serif; font-style: italic; font-size: 2rem; margin: 0; font-weight: 400; }
+        .overlay-frase p { text-transform: uppercase; letter-spacing: 5px; font-size: 0.7rem; margin-top: 15px; color: var(--oro-suave); }
 
-        /* Cuadrícula de Productos */
-        .grid-productos {
+        /* Grid de Productos Destacados */
+        .seccion-productos {
+            max-width: 1200px;
+            margin: 60px auto;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 30px;
-            padding: 60px 20px;
-            max-width: 1100px;
-            margin: 0 auto;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            padding: 0 20px;
         }
-        .card { text-align: center; transition: 0.4s; }
-        .card img { width: 100%; height: 280px; object-fit: cover; background: #f9f9f9; }
-        .card h3 { font-size: 0.75rem; letter-spacing: 2px; text-transform: uppercase; margin-top: 20px; font-weight: 400; }
-        .card p { font-size: 0.65rem; color: #888; text-transform: uppercase; margin-top: 5px; }
+        .card-producto { text-align: center; }
+        .card-producto img { width: 100%; height: 320px; object-fit: cover; background: #f9f9f9; }
+        .card-producto h3 { font-size: 0.8rem; letter-spacing: 3px; text-transform: uppercase; margin: 20px 0 5px; font-weight: 400; }
+        .card-producto p { font-size: 0.65rem; color: #999; text-transform: uppercase; letter-spacing: 1px; }
 
-        footer { padding: 60px; text-align: center; font-size: 0.6rem; letter-spacing: 3px; color: #bbb; border-top: 1px solid #f2f2f2; }
+        footer { padding: 80px 20px; text-align: center; font-size: 0.7rem; letter-spacing: 4px; color: #ccc; text-transform: uppercase; }
+
+        /* Ajuste para tablets */
+        @media (max-width: 768px) {
+            .logo { font-size: 2.5rem; letter-spacing: 10px; }
+            .mosaico-contenedor img { height: 250px; }
+            .overlay-frase { width: 85%; padding: 25px; }
+            .overlay-frase h2 { font-size: 1.4rem; }
+        }
     </style>
 </head>
 <body>
 
     <header>
-        <h1>LUSSON</h1>
-        <div class="sub-header">Encuentra tus marcas favoritas</div>
+        <div class="logo">LUSSON</div>
+        <div class="tagline">Encuentra las mejores marcas</div>
     </header>
 
-    <nav class="nav-container">
-        <a href="bases.html" class="btn-categoria">Bases</a>
-        <a href="sombras.html" class="btn-categoria">Sombras</a>
-        <a href="pestanas.html" class="btn-categoria">Pestañas</a>
-        <a href="labiales.html" class="btn-categoria">Labiales</a>
-        <a href="tintas.html" class="btn-categoria">Tintas</a>
-        <a href="gloss.html" class="btn-categoria">Gloss</a>
-        <a href="rubores.html" class="btn-categoria">Rubores</a>
-        <a href="correctores.html" class="btn-categoria">Correctores</a>
-        <a href="polvos.html" class="btn-categoria">Polvos</a>
-        <a href="skincare.html" class="btn-categoria">Skincare</a>
+    <nav class="nav-lujo">
+        <a href="bases.html" class="btn-cat">Bases</a>
+        <a href="sombras.html" class="btn-cat">Sombras</a>
+        <a href="pestanas.html" class="btn-cat">Pestañas</a>
+        <a href="labiales.html" class="btn-cat">Labiales</a>
+        <a href="tintas.html" class="btn-cat">Tintas</a>
+        <a href="gloss.html" class="btn-cat">Gloss</a>
+        <a href="rubores.html" class="btn-cat">Rubores</a>
+        <a href="correctores.html" class="btn-cat">Correctores</a>
+        <a href="polvos.html" class="btn-cat">Polvos</a>
+        <a href="skincare.html" class="btn-cat">Skincare</a>
     </nav>
 
-    <div class="hero-mosaic">
-        <img src="https://images.unsplash.com/photo-1596704017254-9b121068fb31?auto=format&fit=crop&w=500&q=80" alt="Modelo 1">
-        <img src="https://images.unsplash.com/photo-1503236123135-0835622070fe?auto=format&fit=crop&w=500&q=80" alt="Modelo 2">
-        <img src="https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?auto=format&fit=crop&w=500&q=80" alt="Modelo 3">
-        <img src="https://images.unsplash.com/photo-1515648473266-cd1efdc4308d?auto=format&fit=crop&w=500&q=80" alt="Modelo 4">
+    <main class="mosaico-contenedor">
+        <img src="https://images.unsplash.com/photo-1512496015851-a90fb38ba796?q=80&w=1000&auto=format&fit=crop" alt="Maquillaje Rostro">
+        <img src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?q=80&w=1000&auto=format&fit=crop" alt="Detalle Sombras">
+        <img src="https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?q=80&w=1000&auto=format&fit=crop" alt="Modelo Elegante">
+        <img src="https://images.unsplash.com/photo-1515648473266-cd1efdc4308d?q=80&w=1000&auto=format&fit=crop" alt="Look Sofisticado">
         
-        <div class="hero-overlay">
+        <div class="overlay-frase">
             <h2>"La elegancia es una cuestión de actitud"</h2>
             <p>Lusson Colombia</p>
         </div>
-    </div>
+    </main>
 
-    <section class="grid-productos">
-        <div class="card">
-            <img src="https://images.unsplash.com/photo-1512496015851-a90fb38ba796?auto=format&fit=crop&w=400&q=80" alt="Bases">
+    <section class="seccion-productos">
+        <div class="card-producto">
+            <img src="https://images.unsplash.com/photo-1596462502278-27bfdc4033c8?q=80&w=600&auto=format&fit=crop" alt="Bases">
             <h3>Bases de Alta Cobertura</h3>
             <p>Textura Sedosa</p>
         </div>
-        <div class="card">
-            <img src="https://images.unsplash.com/photo-1586495764447-aa173bfcabaa?auto=format&fit=crop&w=400&q=80" alt="Labiales">
+        <div class="card-producto">
+            <img src="https://images.unsplash.com/photo-1586495764447-aa173bfcabaa?q=80&w=600&auto=format&fit=crop" alt="Labiales">
             <h3>Labiales Mate Premium</h3>
-            <p>Larga Duración</p>
+            <p>Colección Larga Duración</p>
         </div>
-        <div class="card">
-            <img src="https://images.unsplash.com/photo-1627384113743-6bd5a479fffd?auto=format&fit=crop&w=400&q=80" alt="Skincare">
+        <div class="card-producto">
+            <img src="https://images.unsplash.com/photo-1627384113743-6bd5a479fffd?q=80&w=600&auto=format&fit=crop" alt="Cuidado Facial">
             <h3>Cuidado Facial</h3>
             <p>Esencia Natural</p>
         </div>
-        <div class="card">
-            <img src="https://images.unsplash.com/photo-1591360236480-9c6a4cb3a6de?auto=format&fit=crop&w=400&q=80" alt="Sombras">
+        <div class="card-producto">
+            <img src="https://images.unsplash.com/photo-1591360236480-9c6a4cb3a6de?q=80&w=600&auto=format&fit=crop" alt="Paleta">
             <h3>Paleta de Sombras</h3>
             <p>Pigmentación Intensa</p>
         </div>
