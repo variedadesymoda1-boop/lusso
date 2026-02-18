@@ -11,7 +11,7 @@
             --dorado: #c5b358;
             --negro: #1a1a1a;
             --blanco: #ffffff;
-            --gris-menu: #f2f2f2;
+            --gris-fino: #f8f8f8;
         }
 
         body {
@@ -20,101 +20,89 @@
             background-color: var(--blanco);
             color: var(--negro);
             font-family: 'Montserrat', sans-serif;
-            overflow-x: hidden;
         }
 
-        /* Encabezado */
         header {
-            padding: 30px 20px;
+            padding: 40px 20px;
             text-align: center;
-            background-color: var(--blanco);
-            border-bottom: 1px solid #eee;
+            border-bottom: 1px solid #f0f0f0;
         }
 
         h1 {
             font-family: 'Playfair Display', serif;
             font-size: 3rem;
-            letter-spacing: 12px;
+            letter-spacing: 18px;
             margin: 0;
-            font-weight: 400;
             text-transform: uppercase;
+            font-weight: 400;
         }
 
-        /* Botón de Maquillaje Principal */
-        .btn-container {
-            margin: 20px 0;
+        /* Botón Principal */
+        .nav-container {
             text-align: center;
+            margin: 30px 0;
         }
 
-        .btn-menu {
-            padding: 15px 40px;
-            border: 1px solid var(--negro);
+        .btn-main {
             background: var(--negro);
             color: var(--blanco);
+            border: none;
+            padding: 15px 50px;
             text-transform: uppercase;
-            letter-spacing: 3px;
+            letter-spacing: 4px;
             font-size: 0.8rem;
             cursor: pointer;
-            transition: 0.3s;
+            transition: 0.4s ease;
         }
 
-        /* Barra de Categorías (Oculta al inicio) */
-        .barra-categorias {
+        /* Barra de Categorías Desplegable */
+        .category-bar {
             max-height: 0;
             overflow: hidden;
-            background-color: var(--gris-menu);
-            transition: max-height 0.5s ease-out;
+            background: var(--gris-fino);
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 15px;
-            padding: 0 20px;
+            border-top: 0px solid transparent;
         }
 
-        .barra-categorias.active {
-            max-height: 300px; /* Ajuste para que se vea al abrir */
-            padding: 25px 20px;
-            border-bottom: 1px solid #ddd;
+        .category-bar.open {
+            max-height: 500px;
+            padding: 30px 10px;
+            border-bottom: 1px solid #eee;
         }
 
-        .categoria-item {
+        .cat-link {
             text-decoration: none;
             color: var(--negro);
-            font-size: 0.75rem;
+            padding: 10px 20px;
+            font-size: 0.7rem;
             text-transform: uppercase;
-            letter-spacing: 1.5px;
-            padding: 5px 10px;
+            letter-spacing: 2px;
             transition: 0.3s;
+            border: 1px solid transparent;
         }
 
-        .categoria-item:hover {
+        .cat-link:hover {
             color: var(--dorado);
+            border: 1px solid var(--dorado);
         }
 
-        /* Sección Hero */
-        .hero {
-            height: 60vh;
+        .hero-text {
+            height: 50vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
-            padding: 0 20px;
         }
 
-        .frase-actitud {
+        h2 {
             font-family: 'Playfair Display', serif;
-            font-size: 2rem;
+            font-size: 2.2rem;
             font-style: italic;
-            margin-bottom: 10px;
-        }
-
-        footer {
-            padding: 40px;
-            font-size: 0.7rem;
-            text-align: center;
-            color: #999;
-            letter-spacing: 2px;
+            font-weight: 400;
         }
     </style>
 </head>
@@ -124,42 +112,34 @@
         <h1>LUSSON</h1>
     </header>
 
-    <div class="btn-container">
-        <button class="btn-menu" onclick="toggleMenu()">Maquillaje</button>
+    <div class="nav-container">
+        <button class="btn-main" onclick="toggleNav()">Maquillaje</button>
     </div>
 
-    <nav class="barra-categorias" id="menuCategorias">
-        <a href="#" class="categoria-item">Sombras</a>
-        <a href="#" class="categoria-item">Pestañas</a>
-        <a href="#" class="categoria-item">Labiales</a>
-        <a href="#" class="categoria-item">Tintas</a>
-        <a href="#" class="categoria-item">Rubores</a>
-        <a href="#" class="categoria-item">Bases</a>
-        <a href="#" class="categoria-item">Polvos Compactos</a>
-        <a href="#" class="categoria-item">Cejas</a>
-        <a href="#" class="categoria-item">Cuidado de la piel</a>
+    <nav class="category-bar" id="myNav">
+        <a href="bases.html" class="cat-link">Bases</a>
+        <a href="sombras.html" class="cat-link">Sombras</a>
+        <a href="pestanas.html" class="cat-link">Pestañas</a>
+        <a href="labiales.html" class="cat-link">Labiales</a>
+        <a href="tintas.html" class="cat-link">Tintas</a>
+        <a href="gloss.html" class="cat-link">Gloss</a>
+        <a href="rubores.html" class="cat-link">Rubores</a>
+        <a href="correctores.html" class="cat-link">Correctores</a>
+        <a href="polvos.html" class="cat-link">Polvos</a>
+        <a href="skincare.html" class="cat-link">Skincare</a>
     </nav>
 
-    <main class="hero">
-        <h2 class="frase-actitud">"La elegancia es una cuestión de actitud"</h2>
-        <p style="font-weight: 200; letter-spacing: 1px;">Lujo Colombiano</p>
-    </main>
-
-    <footer>
-        &copy; 2026 LUSSON COLOMBIA
-    </footer>
+    <div class="hero-text">
+        <h2>"La elegancia es una cuestión de actitud"</h2>
+        <p style="letter-spacing: 5px; font-weight: 200; font-size: 0.8rem;">PRODUCTO COLOMBIANO</p>
+    </div>
 
     <script>
-        function toggleMenu() {
-            var menu = document.getElementById("menuCategorias");
-            if (menu.classList.contains("active")) {
-                menu.classList.remove("active");
-            } else {
-                menu.classList.add("active");
-            }
+        function toggleNav() {
+            document.getElementById("myNav").classList.toggle("open");
         }
     </script>
-
 </body>
 </html>
+
 
