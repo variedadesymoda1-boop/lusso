@@ -40,6 +40,40 @@
         .btn-comprar { background: var(--negro); color: white; border: none; padding: 18px; text-transform: uppercase; letter-spacing: 3px; cursor: pointer; font-weight: 600; margin-top: 20px; }
         .btn-comprar:hover { background: var(--oro); }
     </style>
+     .contenedor-carrusel {
+        overflow: hidden;
+        width: 100%;
+        padding: 20px 0;
+        background: #fff;
+    }
+
+    .fila-movimiento {
+        display: flex;
+        width: calc(250px * 10);
+        animation: deslizar 20s linear infinite;
+    }
+
+    .item-rec {
+        width: 200px;
+        flex-shrink: 0;
+        margin: 0 25px;
+        text-align: center;
+    }
+
+    .item-rec img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        border-radius: 5px;
+    }
+
+    @keyframes deslizar {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(-50%); }
+    }
+
+    .contenedor-carrusel:hover .fila-movimiento {
+        animation-play-state: paused;
 </head>
 <body>
 
@@ -74,7 +108,19 @@
             <button class="btn-comprar" onclick="alert('¡Agregado a tu bolsa!')">Agregar a la bolsa</button>
         </div>
     </div>
-
+<div class="recomendados">
+    <h3 style="text-align: center; font-family: 'Playfair Display', serif;">Te puede interesar</h3>
+    <div class="contenedor-carrusel">
+        <div class="fila-movimiento">
+            <div class="item-rec"><img src="assets/labial1.png"><p>Labial Matte N1</p></div>
+            <div class="item-rec"><img src="assets/labial2.png"><p>Gloss Diamond</p></div>
+            <div class="item-rec"><img src="assets/labial3.png"><p>Tinta Silk</p></div>
+            <div class="item-rec"><img src="assets/labial1.png"><p>Labial Matte N1</p></div>
+            <div class="item-rec"><img src="assets/labial2.png"><p>Gloss Diamond</p></div>
+        </div>
+    </div>
+</div>
+    
     <script>
         // Capturar datos de la página anterior
         const params = new URLSearchParams(window.location.search);
