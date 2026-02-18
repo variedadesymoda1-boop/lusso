@@ -1,1 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lusson | Labiales de Alta Gama</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;1,400&family=Montserrat:wght@200;300;400&display=swap" rel="stylesheet">
+    <style>
+        :root { --nude-bg: #f5eee6; --oro: #bca07d; --negro: #1a1a1a; --blanco: #ffffff; }
+        body { margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; background: var(--blanco); }
+        
+        header { background-color: var(--nude-bg); padding: 40px 20px; text-align: center; }
+        .logo { font-family: 'Playfair Display', serif; font-size: 2.5rem; letter-spacing: 15px; text-transform: uppercase; text-decoration: none; color: var(--negro); }
+        
+        .titulo-seccion { text-align: center; padding: 40px 20px; text-transform: uppercase; letter-spacing: 5px; font-weight: 300; }
+
+        .grid-productos {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .producto { text-align: center; margin-bottom: 30px; }
+        .producto img { width: 100%; height: 350px; object-fit: cover; background: #eee; transition: 0.3s; }
+        .producto h3 { font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase; margin-top: 15px; }
+        .producto p { font-size: 0.7rem; color: var(--oro); letter-spacing: 2px; }
+        
+        .btn-volver { display: block; width: 150px; margin: 40px auto; padding: 15px; border: 1px solid var(--negro); text-align: center; text-decoration: none; color: var(--negro); font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="index.html" class="logo">LUSSON</a>
+    </header>
+
+    <h2 class="titulo-seccion">Colección de Labiales</h2>
+
+    <section class="grid-productos">
+        <div class="producto">
+            <img src="assets/labial1.png" alt="Labial Mate">
+            <h3>Labial Matte Velvet</h3>
+            <p>Larga Duración</p>
+        </div>
+
+        <div class="producto">
+            <img src="assets/labial2.png" alt="Gloss">
+            <h3>Gloss Diamond Shimmer</h3>
+            <p>Efecto Espejo</p>
+        </div>
+
+        <div class="producto">
+            <img src="assets/labial3.png" alt="Tinta">
+            <h3>Tinta Silk Rose</h3>
+            <p>Acabado Natural</p>
+        </div>
+    </section>
+
+    <a href="index.html" class="btn-volver">Volver al inicio</a>
+
+</body>
+</html>
 
