@@ -55,17 +55,23 @@
         let total = 0;
 
         // Generamos los 30 productos automáticamente para ahorrar espacio en el código
-        for (let i = 1; i <= 30; i++) {
-            const precioRandom = 35000 + (i * 500); // Precios variados entre 35k y 50k
+                for (let i = 1; i <= 30; i++) {
+            const precioRandom = 35000 + (i * 500);
+            const nombre = `Labial Lusson N°${i}`;
+            const foto = `assets/labial${i}.png`;
+            
             contenedor.innerHTML += `
                 <div class="producto">
-                    <img src="assets/labial${i}.png" alt="Labial ${i}">
-                    <h3>Labial Lusson N°${i}</h3>
+                    <a href="producto.html?nombre=${encodeURIComponent(nombre)}&precio=${precioRandom.toLocaleString()}&foto=${foto}" style="text-decoration:none; color:inherit;">
+                        <img src="${foto}" alt="${nombre}">
+                        <h3>${nombre}</h3>
+                    </a>
                     <p class="precio">$${precioRandom.toLocaleString()}</p>
                     <button class="btn-agregar" onclick="sumar(${precioRandom})">Agregar a la bolsa</button>
                 </div>
             `;
-        }
+                }
+        
 
         function sumar(precio) {
             cuenta++;
