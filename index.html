@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lusson | Maquillaje de Lujo Colombiano</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@200;400&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --dorado: #c5b358;
+            --negro: #1a1a1a;
+            --blanco: #ffffff;
+            --gris-suave: #f9f9f9;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--blanco);
+            color: var(--negro);
+            font-family: 'Montserrat', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Encabezado Elegante */
+        header {
+            padding: 40px 20px;
+            text-align: center;
+            background-color: var(--blanco);
+            border-bottom: 1px solid #eee;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            letter-spacing: 15px;
+            margin: 0;
+            font-weight: 400;
+            text-transform: uppercase;
+        }
+
+        .subtitulo {
+            font-style: italic;
+            color: var(--dorado);
+            letter-spacing: 3px;
+            margin-top: 10px;
+            font-size: 0.9rem;
+        }
+
+        /* Sección Principal con Actitud */
+        .hero {
+            height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: linear-gradient(rgba(255,255,255,0.8), rgba(255,255,255,0.8)), 
+                        url('https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80'); /* Imagen de fondo elegante */
+            background-size: cover;
+            background-position: center;
+            padding: 0 20px;
+        }
+
+        .frase-actitud {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            max-width: 700px;
+            line-height: 1.2;
+            margin-bottom: 20px;
+        }
+
+        .descripcion-local {
+            font-weight: 200;
+            letter-spacing: 1px;
+            color: #555;
+            max-width: 500px;
+            margin-bottom: 40px;
+        }
+
+        /* Botón de Lujo */
+        .btn-lusson {
+            padding: 18px 50px;
+            border: 1px solid var(--negro);
+            background: transparent;
+            color: var(--negro);
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            text-decoration: none;
+            font-size: 0.8rem;
+            transition: all 0.5s ease;
+        }
+
+        .btn-lusson:hover {
+            background-color: var(--negro);
+            color: var(--blanco);
+            cursor: pointer;
+        }
+
+        /* Pie de página */
+        footer {
+            padding: 50px 20px;
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+            color: #999;
+            text-align: center;
+            text-transform: uppercase;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>LUSSON</h1>
+        <div class="subtitulo">Cosmética Premium</div>
+    </header>
+
+    <main class="hero">
+        <h2 class="frase-actitud">"La elegancia es una cuestión de actitud"</h2>
+        <p class="descripcion-local">
+            Redefiniendo el estándar del maquillaje profesional en Colombia. 
+            Calidad excepcional para quienes hacen de su presencia una declaración.
+        </p>
+        <a href="#" class="btn-lusson">Explorar Colección</a>
+    </main>
+
+    <footer>
+        &copy; 2026 LUSSON COLOMBIA - Todos los derechos reservados
+    </footer>
+
+</body>
+</html>
