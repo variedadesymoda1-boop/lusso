@@ -3,107 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lusson | Maquillaje de Lujo Colombiano</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@200;400&display=swap" rel="stylesheet">
-    
+    <title>Lusson | Maquillaje de Lujo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital@1&family=Montserrat:wght@200;400&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --dorado: #c5b358;
-            --negro: #1a1a1a;
-            --blanco: #ffffff;
-            --gris-fino: #f8f8f8;
-        }
-
-        body {
-            margin: 0;
-            padding: 0;
-            background-color: var(--blanco);
-            color: var(--negro);
-            font-family: 'Montserrat', sans-serif;
-        }
-
-        header {
-            padding: 40px 20px;
-            text-align: center;
-            border-bottom: 1px solid #f0f0f0;
-        }
-
-        h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: 3rem;
-            letter-spacing: 18px;
-            margin: 0;
-            text-transform: uppercase;
-            font-weight: 400;
-        }
-
-        /* Botón Principal */
-        .nav-container {
-            text-align: center;
-            margin: 30px 0;
-        }
-
-        .btn-main {
-            background: var(--negro);
-            color: var(--blanco);
+        body { margin: 0; font-family: 'Montserrat', sans-serif; background: white; text-align: center; }
+        header { padding: 50px 20px; border-bottom: 1px solid #eee; }
+        h1 { font-family: 'Playfair Display', serif; font-size: 2.5rem; letter-spacing: 15px; text-transform: uppercase; margin: 0; }
+        
+        /* Botón Maquillaje */
+        .btn-principal {
+            margin: 40px 0;
+            padding: 15px 40px;
+            background: black;
+            color: white;
             border: none;
-            padding: 15px 50px;
             text-transform: uppercase;
-            letter-spacing: 4px;
+            letter-spacing: 5px;
             font-size: 0.8rem;
             cursor: pointer;
-            transition: 0.4s ease;
         }
 
-        /* Barra de Categorías Desplegable */
-        .category-bar {
-            max-height: 0;
-            overflow: hidden;
-            background: var(--gris-fino);
-            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-            display: flex;
+        /* Barra de Categorías */
+        #menu-maquillaje {
+            display: none; /* Inicia oculto */
+            background: #f9f9f9;
+            padding: 20px;
             flex-wrap: wrap;
             justify-content: center;
-            border-top: 0px solid transparent;
-        }
-
-        .category-bar.open {
-            max-height: 500px;
-            padding: 30px 10px;
+            gap: 15px;
             border-bottom: 1px solid #eee;
         }
 
-        .cat-link {
+        .enlace-cat {
             text-decoration: none;
-            color: var(--negro);
-            padding: 10px 20px;
+            color: black;
             font-size: 0.7rem;
             text-transform: uppercase;
             letter-spacing: 2px;
-            transition: 0.3s;
+            padding: 10px;
             border: 1px solid transparent;
         }
+        
+        .enlace-cat:hover { border: 1px solid #c5b358; }
 
-        .cat-link:hover {
-            color: var(--dorado);
-            border: 1px solid var(--dorado);
-        }
-
-        .hero-text {
-            height: 50vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-        }
-
-        h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.2rem;
-            font-style: italic;
-            font-weight: 400;
-        }
+        .hero { padding: 100px 20px; }
+        h2 { font-family: 'Playfair Display', serif; font-style: italic; font-weight: 400; font-size: 1.8rem; }
     </style>
 </head>
 <body>
@@ -112,34 +56,36 @@
         <h1>LUSSON</h1>
     </header>
 
-    <div class="nav-container">
-        <button class="btn-main" onclick="toggleNav()">Maquillaje</button>
-    </div>
+    <button class="btn-principal" onclick="mostrarMenu()">Maquillaje</button>
 
-    <nav class="category-bar" id="myNav">
-        <a href="bases.html" class="cat-link">Bases</a>
-        <a href="sombras.html" class="cat-link">Sombras</a>
-        <a href="pestanas.html" class="cat-link">Pestañas</a>
-        <a href="labiales.html" class="cat-link">Labiales</a>
-        <a href="tintas.html" class="cat-link">Tintas</a>
-        <a href="gloss.html" class="cat-link">Gloss</a>
-        <a href="rubores.html" class="cat-link">Rubores</a>
-        <a href="correctores.html" class="cat-link">Correctores</a>
-        <a href="polvos.html" class="cat-link">Polvos</a>
-        <a href="skincare.html" class="cat-link">Skincare</a>
+    <nav id="menu-maquillaje">
+        <a href="bases.html" class="enlace-cat">Bases</a>
+        <a href="sombras.html" class="enlace-cat">Sombras</a>
+        <a href="pestanas.html" class="enlace-cat">Pestañas</a>
+        <a href="labiales.html" class="enlace-cat">Labiales</a>
+        <a href="tintas.html" class="enlace-cat">Tintas</a>
+        <a href="gloss.html" class="enlace-cat">Gloss</a>
+        <a href="rubores.html" class="enlace-cat">Rubores</a>
+        <a href="correctores.html" class="enlace-cat">Correctores</a>
+        <a href="polvos.html" class="enlace-cat">Polvos</a>
+        <a href="skincare.html" class="enlace-cat">Skincare</a>
     </nav>
 
-    <div class="hero-text">
+    <div class="hero">
         <h2>"La elegancia es una cuestión de actitud"</h2>
-        <p style="letter-spacing: 5px; font-weight: 200; font-size: 0.8rem;">PRODUCTO COLOMBIANO</p>
+        <p style="letter-spacing: 4px; color: #888; font-size: 0.7rem;">COSMÉTICA PROFESIONAL COLOMBIANA</p>
     </div>
 
     <script>
-        function toggleNav() {
-            document.getElementById("myNav").classList.toggle("open");
+        function mostrarMenu() {
+            var x = document.getElementById("menu-maquillaje");
+            if (x.style.display === "flex") {
+                x.style.display = "none";
+            } else {
+                x.style.display = "flex";
+            }
         }
     </script>
 </body>
 </html>
-
 
