@@ -9,7 +9,7 @@
         :root { --nude-bg: #f5eee6; --oro: #bca07d; --negro: #1a1a1a; --blanco: #ffffff; }
         body { margin: 0; font-family: 'Montserrat', sans-serif; background: var(--blanco); overflow-x: hidden; }
         
-        /* Icono de Bolsa con número de unidades */
+        /* Icono de Bolsa */
         .bolsa-flotante {
             position: fixed; top: 20px; right: 20px; background: var(--negro);
             color: white; width: 60px; height: 60px; border-radius: 50%; 
@@ -18,15 +18,18 @@
         }
         .contador { position: absolute; top: 0; right: 0; background: var(--oro); color: white; border-radius: 50%; width: 22px; height: 22px; font-size: 0.7rem; display: flex; align-items: center; justify-content: center; font-weight: bold; }
 
-        /* Cuadro Detallado del Carrito (Popup) */
+        /* Cuadro del Carrito */
         #carrito-detalle {
             position: fixed; top: 90px; right: 20px; background: white;
             width: 320px; max-width: 90%; border: 1px solid #ddd; padding: 20px;
             display: none; box-shadow: 0 10px 40px rgba(0,0,0,0.2); border-radius: 12px; z-index: 999;
         }
-        .item-linea { display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 12px; border-bottom: 1px solid #f0f0f0; padding-bottom: 8px; }
+        .item-linea { display: flex; justify-content: space-between; align-items: center; font-size: 0.85rem; margin-bottom: 12px; border-bottom: 1px solid #f0f0f0; padding-bottom: 8px; }
+        
+        /* Botón de Eliminar */
+        .btn-eliminar { color: #ff4d4d; cursor: pointer; font-weight: bold; margin-left: 10px; font-size: 1.1rem; border: none; background: none; }
+        .btn-eliminar:hover { color: #cc0000; }
 
-        /* Diseño Responsivo del Catálogo */
         header { background: var(--nude-bg); padding: 40px 20px; text-align: center; }
         .logo { font-family: 'Playfair Display', serif; font-size: 2rem; letter-spacing: 12px; text-decoration: none; color: var(--negro); }
 
@@ -43,11 +46,8 @@
         .btn-add { background: var(--negro); color: white; border: none; padding: 12px; width: 100%; cursor: pointer; text-transform: uppercase; font-size: 0.7rem; font-weight: 600; margin-top: 10px; border-radius: 4px; }
         .btn-whatsapp { background: #25d366; color: white; border: none; padding: 15px; width: 100%; cursor: pointer; font-weight: bold; margin-top: 20px; border-radius: 6px; font-size: 0.9rem; }
 
-        /* Ajustes para Celular */
         @media (max-width: 600px) {
-            .logo { font-size: 1.5rem; letter-spacing: 6px; }
             .grid-productos { grid-template-columns: repeat(2, 1fr); padding: 10px; gap: 10px; }
-            .producto img { height: 160px; }
             #carrito-detalle { right: 5%; width: 90%; }
         }
     </style>
@@ -92,6 +92,12 @@
             actualizarUI();
         }
 
+        // FUNCIÓN NUEVA: Para eliminar un producto por completo
+        function eliminarDelCarrito(nombre) {
+            carrito = carrito.filter(item => item.nombre !== nombre);
+            actualizarUI();
+        }
+
         function actualizarUI() {
             const lista = document.getElementById('lista-items');
             const badget = document.getElementById('cant-total');
@@ -107,8 +113,14 @@
                 unidadesTotales += item.cantidad;
                 lista.innerHTML += `
                     <div class="item-linea">
-                        <div><strong>${item.nombre}</strong><br><small>Cant: ${item.cantidad}</small></div>
-                        <span>$${subtotal.toLocaleString()}</span>
+                        <div>
+                            <strong>${item.nombre}</strong><br>
+                            <small>Cant: ${item.cantidad}</small>
+                        </div>
+                        <div style="display:flex; align-items:center;">
+                            <span>$${subtotal.toLocaleString()}</span>
+                            <button class="btn-eliminar" onclick="eliminarDelCarrito('${item.nombre}')">×</button>
+                        </div>
                     </div>`;
             });
 
@@ -117,7 +129,6 @@
             if(carrito.length === 0) lista.innerHTML = '<p style="font-size: 0.8rem; color: #888;">Tu bolsa está vacía.</p>';
         }
 
-        // Generar productos
         const tienda = document.getElementById('contenedor-tienda');
         for (let i = 1; i <= 30; i++) {
             const p = 35000;
@@ -141,7 +152,7 @@
             carrito.forEach(item => {
                 pedido += `• ${item.nombre} | Cant: ${item.cantidad} | Sub: $${(item.precio * item.cantidad).toLocaleString()}\n`;
             });
-            pedido += `\n💰 TOTAL: $${document.getElementById('total-dinero').innerText}\n\n¿Me indican cómo pagar?`;
+            pedido += `\n💰 TOTAL: $${document.getElementById('total-dinero').innerText}`;
             window.open(`https://wa.me/${miTel}?text=${encodeURIComponent(pedido)}`, '_blank');
         }
     </script>
