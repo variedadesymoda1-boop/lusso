@@ -9,70 +9,57 @@
         :root { --nude-bg: #f5eee6; --oro: #bca07d; --negro: #1a1a1a; --blanco: #ffffff; }
         body { margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; background: var(--blanco); }
         
-        /* Carrito Flotante */
-        .carrito-flotante {
-            position: fixed; top: 10px; right: 10px; background: var(--negro);
-            color: white; padding: 12px 20px; border-radius: 5px; z-index: 1000;
-            font-size: 0.7rem; letter-spacing: 2px; cursor: pointer;
-        }
-
         header { background-color: var(--nude-bg); padding: 30px 20px; text-align: center; }
         .logo { font-family: 'Playfair Display', serif; font-size: 1.8rem; letter-spacing: 10px; text-decoration: none; color: var(--negro); }
         
         .grid-productos {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px; padding: 40px 10px; max-width: 1200px; margin: 0 auto;
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); 
+            gap: 20px; padding: 40px 15px; max-width: 1200px; margin: 0 auto;
         }
 
-        .producto { text-align: center; border: 1px solid #f2f2f2; padding: 15px; border-radius: 5px; }
-        .producto img { width: 100%; height: 220px; object-fit: cover; background: #fafafa; margin-bottom: 10px; }
-        .producto h3 { font-size: 0.7rem; letter-spacing: 1px; text-transform: uppercase; margin: 5px 0; }
+        .producto { text-align: center; border: 1px solid #f2f2f2; padding: 15px; border-radius: 5px; transition: 0.3s; }
+        .producto:hover { border-color: var(--oro); transform: translateY(-5px); }
+        
+        .producto img { width: 100%; height: 220px; object-fit: cover; background: #fafafa; margin-bottom: 10px; border-radius: 3px; cursor: pointer; }
+        .producto h3 { font-size: 0.7rem; letter-spacing: 1px; text-transform: uppercase; margin: 5px 0; color: var(--negro); cursor: pointer; }
         .precio { color: var(--oro); font-weight: bold; font-size: 0.9rem; margin-bottom: 10px; }
         
         .btn-agregar {
             background: var(--negro); color: white; border: none;
-            padding: 8px; text-transform: uppercase; font-size: 0.6rem;
+            padding: 10px; text-transform: uppercase; font-size: 0.6rem;
             letter-spacing: 1px; width: 100%; cursor: pointer;
         }
     </style>
 </head>
 <body>
 
-    <div class="carrito-flotante" onclick="alert('Pronto: Aquí verás tu resumen de compra')">
-        🛍️ MI BOLSA: <span id="cuenta">0</span> | $<span id="total">0</span>
-    </div>
-
-    <header>
-        <a href="index.html" class="logo">LUSSON</a>
-    </header>
+    <header><a href="index.html" class="logo">LUSSON</a></header>
 
     <div id="contenedor-labiales" class="grid-productos">
         </div>
 
     <script>
         const contenedor = document.getElementById('contenedor-labiales');
-        let cuenta = 0;
-        let total = 0;
 
-        // Generamos los 30 productos automáticamente para ahorrar espacio en el código
+        // Generamos los labiales
         for (let i = 1; i <= 30; i++) {
-            const precioRandom = 35000 + (i * 500); // Precios variados entre 35k y 50k
+            const precioBase = 35000 + (i * 200); 
+            const nombre = `Labial Lusson N°${i}`;
+            const foto = `assets/labial${i}.png`; 
+            
             contenedor.innerHTML += `
                 <div class="producto">
-                    <img src="assets/labial${i}.png" alt="Labial ${i}">
-                    <h3>Labial Lusson N°${i}</h3>
-                    <p class="precio">$${precioRandom.toLocaleString()}</p>
-                    <button class="btn-agregar" onclick="sumar(${precioRandom})">Agregar a la bolsa</button>
+                    <a href="producto.html?nombre=${encodeURIComponent(nombre)}&precio=${precioBase.toLocaleString()}&foto=${foto}" style="text-decoration:none; color:inherit;">
+                        <img src="${foto}" alt="${nombre}" onerror="this.src='https://images.pexels.com/photos/2533266/pexels-photo-2533266.jpeg?auto=compress&w=300'">
+                        <h3>${nombre}</h3>
+                    </a>
+                    <p class="precio">$${precioBase.toLocaleString()}</p>
+                    <button class="btn-agregar">Ver detalles</button>
                 </div>
             `;
-        }
-
-        function sumar(precio) {
-            cuenta++;
-            total += precio;
-            document.getElementById('cuenta').innerText = cuenta;
-            document.getElementById('total').innerText = total.toLocaleString();
         }
     </script>
 </body>
 </html>
+
