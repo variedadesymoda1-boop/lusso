@@ -3,81 +3,130 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lusson | Catálogo Labiales</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;1,400&family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
+    <title>Detalle de Producto | Lusson</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;1,400&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         :root { --nude-bg: #f5eee6; --oro: #bca07d; --negro: #1a1a1a; --blanco: #ffffff; }
-        body { margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; background: var(--blanco); }
+        body { margin: 0; font-family: 'Montserrat', sans-serif; background: var(--blanco); color: var(--negro); overflow-x: hidden; }
         
-        /* Carrito Flotante */
-        .carrito-flotante {
-            position: fixed; top: 10px; right: 10px; background: var(--negro);
-            color: white; padding: 12px 20px; border-radius: 5px; z-index: 1000;
-            font-size: 0.7rem; letter-spacing: 2px; cursor: pointer;
+        header { background: var(--nude-bg); padding: 20px; text-align: center; }
+        .logo { font-family: 'Playfair Display', serif; font-size: 1.5rem; letter-spacing: 10px; text-decoration: none; color: var(--negro); }
+
+        .btn-regresar {
+            display: inline-block; text-decoration: none; color: var(--negro);
+            font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase;
+            margin-bottom: 20px; cursor: pointer; border: 1px solid #ddd;
+            padding: 10px 15px; transition: 0.3s;
+        }
+        .btn-regresar:hover { background: var(--negro); color: white; }
+
+        /* Contenedor principal adaptable */
+        .contenedor-detalle { 
+            max-width: 1000px; 
+            margin: 20px auto; 
+            padding: 20px; 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+            gap: 30px; 
         }
 
-        header { background-color: var(--nude-bg); padding: 30px 20px; text-align: center; }
-        .logo { font-family: 'Playfair Display', serif; font-size: 1.8rem; letter-spacing: 10px; text-decoration: none; color: var(--negro); }
+        .imagen-producto img { width: 100%; height: auto; border-radius: 5px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
         
-        .grid-productos {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px; padding: 40px 10px; max-width: 1200px; margin: 0 auto;
-        }
+        .info-producto { display: flex; flex-direction: column; gap: 15px; }
+        .nombre-p { font-family: 'Playfair Display', serif; font-size: 2.2rem; margin: 0; }
+        .precio-p { font-size: 1.8rem; font-weight: 600; color: var(--negro); }
+        
+        .desc-con-imagen { display: flex; gap: 15px; align-items: flex-start; margin-top: 10px; }
+        .img-mini { width: 80px; height: 80px; object-fit: cover; border-radius: 5px; }
+        .texto-desc { line-height: 1.6; color: #555; font-size: 0.9rem; flex: 1; }
+        
+        .control-cantidad { display: flex; align-items: center; gap: 10px; margin-top: 10px; }
+        .btn-qty { background: #f8f8f8; border: 1px solid #ddd; width: 45px; height: 45px; font-size: 1.2rem; cursor: pointer; }
+        #cantidad-valor { width: 40px; text-align: center; font-weight: 600; }
 
-        .producto { text-align: center; border: 1px solid #f2f2f2; padding: 15px; border-radius: 5px; }
-        .producto img { width: 100%; height: 220px; object-fit: cover; background: #fafafa; margin-bottom: 10px; }
-        .producto h3 { font-size: 0.7rem; letter-spacing: 1px; text-transform: uppercase; margin: 5px 0; }
-        .precio { color: var(--oro); font-weight: bold; font-size: 0.9rem; margin-bottom: 10px; }
+        .btn-comprar { background: var(--negro); color: white; border: none; padding: 18px; text-transform: uppercase; letter-spacing: 3px; cursor: pointer; font-weight: 600; margin-top: 20px; width: 100%; }
+        .btn-comprar:hover { background: var(--oro); }
+
+        /* --- ESTILOS DEL CARRUSEL RESPONSIVO --- */
+        .contenedor-carrusel { overflow: hidden; width: 100%; padding: 20px 0; background: #fff; }
+        .fila-movimiento { display: flex; width: calc(250px * 10); animation: deslizar 20s linear infinite; }
+        .item-rec { width: 180px; flex-shrink: 0; margin: 0 15px; text-align: center; }
+        .item-rec img { width: 100%; height: 180px; object-fit: cover; border-radius: 5px; }
         
-        .btn-agregar {
-            background: var(--negro); color: white; border: none;
-            padding: 8px; text-transform: uppercase; font-size: 0.6rem;
-            letter-spacing: 1px; width: 100%; cursor: pointer;
+        @keyframes deslizar { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+        
+        /* AJUSTES PARA CELULARES */
+        @media (max-width: 600px) {
+            .nombre-p { font-size: 1.6rem; }
+            .contenedor-detalle { grid-template-columns: 1fr; padding: 15px; }
+            .logo { font-size: 1.2rem; letter-spacing: 5px; }
         }
     </style>
 </head>
 <body>
 
-    <div class="carrito-flotante" onclick="alert('Pronto: Aquí verás tu resumen de compra')">
-        🛍️ MI BOLSA: <span id="cuenta">0</span> | $<span id="total">0</span>
+    <header><a href="index.html" class="logo">LUSSON</a></header>
+
+    <div class="contenedor-detalle">
+        <div class="imagen-producto">
+            <img id="foto-principal" src="https://images.pexels.com/photos/2533266/pexels-photo-2533266.jpeg?auto=compress&w=800" alt="Producto">
+        </div>
+        
+        <div class="info-producto">
+            <a href="javascript:history.back()" class="btn-regresar">← Volver al catálogo</a>
+
+            <span style="color:var(--oro); letter-spacing:2px; font-size:0.7rem;">LUSSON PROFESSIONAL</span>
+            <h1 id="nombre-producto" class="nombre-p">Labial Matte</h1>
+            <p id="precio-producto" class="precio-p">$0</p>
+            
+            <div class="desc-con-imagen">
+                <img id="foto-mini" src="https://images.pexels.com/photos/2533266/pexels-photo-2533266.jpeg?auto=compress&w=200" class="img-mini">
+                <p class="texto-desc">Fórmula de alta gama enriquecida con vitamina E. Color intenso y duradero con acabado aterciopelado que resalta tu elegancia natural.</p>
+            </div>
+            
+            <div style="margin-top:20px;">
+                <label style="font-size:0.7rem; font-weight:600;">CANTIDAD:</label>
+                <div class="control-cantidad">
+                    <button class="btn-qty" onclick="cambiarCantidad(-1)">-</button>
+                    <span id="cantidad-valor">1</span>
+                    <button class="btn-qty" onclick="cambiarCantidad(1)">+</button>
+                </div>
+            </div>
+
+            <button class="btn-comprar" onclick="alert('¡Producto agregado!')">Agregar a la bolsa</button>
+        </div>
     </div>
 
-    <header>
-        <a href="index.html" class="logo">LUSSON</a>
-    </header>
-
-    <div id="contenedor-labiales" class="grid-productos">
+    <div class="recomendados" style="padding: 40px 0; border-top: 1px solid #eee;">
+        <h3 style="text-align: center; font-family: 'Playfair Display', serif; text-transform: uppercase; letter-spacing: 3px; font-size: 1rem;">Te puede interesar</h3>
+        <div class="contenedor-carrusel">
+            <div class="fila-movimiento">
+                <div class="item-rec"><img src="assets/labial1.png"><p style="font-size:0.6rem;">Matte N1</p></div>
+                <div class="item-rec"><img src="assets/labial2.png"><p style="font-size:0.6rem;">Gloss Shimmer</p></div>
+                <div class="item-rec"><img src="assets/labial3.png"><p style="font-size:0.6rem;">Tinta Silk</p></div>
+                <div class="item-rec"><img src="https://images.pexels.com/photos/3373739/pexels-photo-3373739.jpeg?auto=compress&w=300"><p style="font-size:0.6rem;">Base Perfect</p></div>
+                <div class="item-rec"><img src="assets/labial1.png"><p style="font-size:0.6rem;">Matte N1</p></div>
+                <div class="item-rec"><img src="assets/labial2.png"><p style="font-size:0.6rem;">Gloss Shimmer</p></div>
+            </div>
         </div>
+    </div>
 
     <script>
-        const contenedor = document.getElementById('contenedor-labiales');
-        let cuenta = 0;
-        let total = 0;
+        const params = new URLSearchParams(window.location.search);
+        const nombre = params.get('nombre') || 'Producto Lusson';
+        const precio = params.get('precio') || '0';
+        const foto = params.get('foto') || 'https://images.pexels.com/photos/2533266/pexels-photo-2533266.jpeg?auto=compress&w=800';
 
-        // Generamos los 30 productos automáticamente para ahorrar espacio en el código
-                for (let i = 1; i <= 30; i++) {
-            const precioRandom = 35000 + (i * 500);
-            const nombre = `Labial Lusson N°${i}`;
-            const foto = `assets/labial${i}.png`;
-            
-            contenedor.innerHTML += `
-                <div class="producto">
-                    <a href="producto.html?nombre=${encodeURIComponent(nombre)}&precio=${precioRandom.toLocaleString()}&foto=${foto}" style="text-decoration:none; color:inherit;">
-                        <img src="${foto}" alt="${nombre}">
-                        <h3>${nombre}</h3>
-                    </a>
-                    <p class="precio">$${precioRandom.toLocaleString()}</p>
-                    <button class="btn-agregar" onclick="sumar(${precioRandom})">Agregar a la bolsa</button>
-                </div>
-            `;
-                }
-        
+        document.getElementById('nombre-producto').innerText = nombre;
+        document.getElementById('precio-producto').innerText = '$' + precio;
+        document.getElementById('foto-principal').src = foto;
+        document.getElementById('foto-mini').src = foto;
 
-        function sumar(precio) {
-            cuenta++;
-            total += precio;
-            document.getElementById('cuenta').innerText = cuenta;
-            document.getElementById('total').innerText = total.toLocaleString();
+        let cantidad = 1;
+        function cambiarCantidad(valor) {
+            cantidad += valor;
+            if (cantidad < 1) cantidad = 1;
+            document.getElementById('cantidad-valor').innerText = cantidad;
         }
     </script>
 </body>
