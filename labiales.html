@@ -9,46 +9,52 @@
         :root { --nude-bg: #f5eee6; --oro: #bca07d; --negro: #1a1a1a; --blanco: #ffffff; }
         body { margin: 0; font-family: 'Montserrat', sans-serif; background: var(--blanco); overflow-x: hidden; }
         
+        /* Navegación Superior */
+        header { 
+            background: var(--nude-bg); 
+            padding: 20px; 
+            text-align: center; 
+            position: relative;
+        }
+        .logo { font-family: 'Playfair Display', serif; font-size: 1.8rem; letter-spacing: 10px; text-decoration: none; color: var(--negro); display: block; margin-bottom: 10px; }
+        
+        .nav-enlaces { display: flex; justify-content: center; gap: 20px; }
+        .link-nav { text-decoration: none; color: var(--negro); font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase; font-weight: 600; }
+        .link-nav:hover { color: var(--oro); }
+
         /* Icono de Bolsa */
         .bolsa-flotante {
             position: fixed; top: 20px; right: 20px; background: var(--negro);
-            color: white; width: 60px; height: 60px; border-radius: 50%; 
+            color: white; width: 55px; height: 55px; border-radius: 50%; 
             display: flex; align-items: center; justify-content: center;
             cursor: pointer; z-index: 1000; box-shadow: 0 4px 15px rgba(0,0,0,0.3);
         }
-        .contador { position: absolute; top: 0; right: 0; background: var(--oro); color: white; border-radius: 50%; width: 22px; height: 22px; font-size: 0.7rem; display: flex; align-items: center; justify-content: center; font-weight: bold; }
+        .contador { position: absolute; top: 0; right: 0; background: var(--oro); color: white; border-radius: 50%; width: 20px; height: 20px; font-size: 0.6rem; display: flex; align-items: center; justify-content: center; font-weight: bold; }
 
         /* Cuadro del Carrito */
         #carrito-detalle {
-            position: fixed; top: 90px; right: 20px; background: white;
+            position: fixed; top: 85px; right: 20px; background: white;
             width: 320px; max-width: 90%; border: 1px solid #ddd; padding: 20px;
             display: none; box-shadow: 0 10px 40px rgba(0,0,0,0.2); border-radius: 12px; z-index: 999;
         }
-        .item-linea { display: flex; justify-content: space-between; align-items: center; font-size: 0.85rem; margin-bottom: 12px; border-bottom: 1px solid #f0f0f0; padding-bottom: 8px; }
-        
-        /* Botón de Eliminar */
-        .btn-eliminar { color: #ff4d4d; cursor: pointer; font-weight: bold; margin-left: 10px; font-size: 1.1rem; border: none; background: none; }
-        .btn-eliminar:hover { color: #cc0000; }
+        .item-linea { display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem; margin-bottom: 12px; border-bottom: 1px solid #f0f0f0; padding-bottom: 8px; }
+        .btn-eliminar { color: #ff4d4d; cursor: pointer; font-weight: bold; border: none; background: none; font-size: 1.1rem; }
 
-        header { background: var(--nude-bg); padding: 40px 20px; text-align: center; }
-        .logo { font-family: 'Playfair Display', serif; font-size: 2rem; letter-spacing: 12px; text-decoration: none; color: var(--negro); }
-
+        /* Cuadrícula de productos */
         .grid-productos { 
             display: grid; 
             grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); 
-            gap: 20px; padding: 30px; max-width: 1200px; margin: 0 auto; 
+            gap: 15px; padding: 20px; max-width: 1200px; margin: 0 auto; 
         }
-
-        .producto { text-align: center; border: 1px solid #eee; padding: 15px; border-radius: 8px; transition: 0.3s; background: #fff; }
-        .producto:hover { border-color: var(--oro); transform: translateY(-5px); }
-        .producto img { width: 100%; height: 200px; object-fit: cover; border-radius: 5px; }
+        .producto { text-align: center; border: 1px solid #eee; padding: 12px; border-radius: 8px; background: #fff; transition: 0.3s; }
+        .producto img { width: 100%; height: 180px; object-fit: cover; border-radius: 5px; }
         
-        .btn-add { background: var(--negro); color: white; border: none; padding: 12px; width: 100%; cursor: pointer; text-transform: uppercase; font-size: 0.7rem; font-weight: 600; margin-top: 10px; border-radius: 4px; }
-        .btn-whatsapp { background: #25d366; color: white; border: none; padding: 15px; width: 100%; cursor: pointer; font-weight: bold; margin-top: 20px; border-radius: 6px; font-size: 0.9rem; }
+        .btn-add { background: var(--negro); color: white; border: none; padding: 12px; width: 100%; cursor: pointer; text-transform: uppercase; font-size: 0.65rem; font-weight: 600; margin-top: 10px; border-radius: 4px; }
+        .btn-whatsapp { background: #25d366; color: white; border: none; padding: 15px; width: 100%; cursor: pointer; font-weight: bold; margin-top: 20px; border-radius: 6px; }
 
         @media (max-width: 600px) {
-            .grid-productos { grid-template-columns: repeat(2, 1fr); padding: 10px; gap: 10px; }
-            #carrito-detalle { right: 5%; width: 90%; }
+            .grid-productos { grid-template-columns: repeat(2, 1fr); padding: 10px; }
+            .logo { font-size: 1.4rem; letter-spacing: 5px; }
         }
     </style>
 </head>
@@ -60,9 +66,7 @@
 
     <div id="carrito-detalle">
         <h3 style="font-family: 'Playfair Display', serif; margin-top: 0;">Mi Bolsa Lusson</h3>
-        <div id="lista-items">
-            <p style="font-size: 0.8rem; color: #888;">Tu bolsa está vacía.</p>
-        </div>
+        <div id="lista-items"><p style="font-size: 0.8rem; color: #888;">Tu bolsa está vacía.</p></div>
         <div style="border-top: 2px solid var(--nude-bg); margin-top: 15px; padding-top: 10px; font-weight: bold; display: flex; justify-content: space-between;">
             <span>TOTAL:</span>
             <span>$<span id="total-dinero">0</span></span>
@@ -70,7 +74,14 @@
         <button class="btn-whatsapp" onclick="comprarWhatsApp()">PEDIR POR WHATSAPP</button>
     </div>
 
-    <header><a href="index.html" class="logo">LUSSON</a></header>
+    <header>
+        <a href="index.html" class="logo">LUSSON</a>
+        <div class="nav-enlaces">
+            <a href="index.html" class="link-nav">← INICIO</a>
+            <span class="link-nav" style="color:var(--oro)">|</span>
+            <a href="#" class="link-nav" style="color:var(--oro)">CATÁLOGO</a>
+        </div>
+    </header>
 
     <div id="contenedor-tienda" class="grid-productos"></div>
 
@@ -92,7 +103,6 @@
             actualizarUI();
         }
 
-        // FUNCIÓN NUEVA: Para eliminar un producto por completo
         function eliminarDelCarrito(nombre) {
             carrito = carrito.filter(item => item.nombre !== nombre);
             actualizarUI();
@@ -102,7 +112,6 @@
             const lista = document.getElementById('lista-items');
             const badget = document.getElementById('cant-total');
             const totalTexto = document.getElementById('total-dinero');
-            
             lista.innerHTML = '';
             let totalGeneral = 0;
             let unidadesTotales = 0;
@@ -113,17 +122,13 @@
                 unidadesTotales += item.cantidad;
                 lista.innerHTML += `
                     <div class="item-linea">
-                        <div>
-                            <strong>${item.nombre}</strong><br>
-                            <small>Cant: ${item.cantidad}</small>
-                        </div>
-                        <div style="display:flex; align-items:center;">
+                        <div><strong>${item.nombre}</strong><br><small>Cant: ${item.cantidad}</small></div>
+                        <div style="display:flex; align-items:center; gap:10px;">
                             <span>$${subtotal.toLocaleString()}</span>
                             <button class="btn-eliminar" onclick="eliminarDelCarrito('${item.nombre}')">×</button>
                         </div>
                     </div>`;
             });
-
             badget.innerText = unidadesTotales;
             totalTexto.innerText = totalGeneral.toLocaleString();
             if(carrito.length === 0) lista.innerHTML = '<p style="font-size: 0.8rem; color: #888;">Tu bolsa está vacía.</p>';
@@ -147,7 +152,7 @@
 
         function comprarWhatsApp() {
             if (carrito.length === 0) return alert("¡Agrega productos a tu bolsa primero!");
-            const miTel = "573000000000"; // ← CAMBIA ESTO POR TU NÚMERO
+            const miTel = "573000000000"; // ← TU NÚMERO
             let pedido = "¡Hola Lusson Colombia! 🌟 Quiero hacer este pedido:\n\n";
             carrito.forEach(item => {
                 pedido += `• ${item.nombre} | Cant: ${item.cantidad} | Sub: $${(item.precio * item.cantidad).toLocaleString()}\n`;
