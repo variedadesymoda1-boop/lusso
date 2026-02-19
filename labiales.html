@@ -3,63 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lusson | Catálogo Labiales</title>
+    <title>Lusson | Catálogo</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;1,400&family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
     <style>
         :root { --nude-bg: #f5eee6; --oro: #bca07d; --negro: #1a1a1a; --blanco: #ffffff; }
-        body { margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; background: var(--blanco); }
+        body { margin: 0; font-family: 'Montserrat', sans-serif; background: var(--blanco); }
         
-        header { background-color: var(--nude-bg); padding: 30px 20px; text-align: center; }
-        .logo { font-family: 'Playfair Display', serif; font-size: 1.8rem; letter-spacing: 10px; text-decoration: none; color: var(--negro); }
-        
-        .grid-productos {
-            display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); 
-            gap: 20px; padding: 40px 15px; max-width: 1200px; margin: 0 auto;
+        .bolsa-flotante {
+            position: fixed; bottom: 20px; right: 20px; background: var(--negro);
+            color: white; padding: 15px 25px; border-radius: 50px; z-index: 1000;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3); font-size: 0.8rem; letter-spacing: 2px;
         }
 
-        .producto { text-align: center; border: 1px solid #f2f2f2; padding: 15px; border-radius: 5px; transition: 0.3s; }
-        .producto:hover { border-color: var(--oro); transform: translateY(-5px); }
-        
-        .producto img { width: 100%; height: 220px; object-fit: cover; background: #fafafa; margin-bottom: 10px; border-radius: 3px; cursor: pointer; }
-        .producto h3 { font-size: 0.7rem; letter-spacing: 1px; text-transform: uppercase; margin: 5px 0; color: var(--negro); cursor: pointer; }
-        .precio { color: var(--oro); font-weight: bold; font-size: 0.9rem; margin-bottom: 10px; }
-        
-        .btn-agregar {
-            background: var(--negro); color: white; border: none;
-            padding: 10px; text-transform: uppercase; font-size: 0.6rem;
-            letter-spacing: 1px; width: 100%; cursor: pointer;
+        header { background: var(--nude-bg); padding: 20px; text-align: center; }
+        .logo { font-family: 'Playfair Display', serif; font-size: 1.5rem; letter-spacing: 10px; text-decoration: none; color: var(--negro); }
+
+        .grid-productos {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 15px; padding: 20px; max-width: 1200px; margin: 0 auto;
         }
+
+        .producto { text-align: center; border: 1px solid #eee; padding: 10px; border-radius: 8px; transition: 0.3s; }
+        .producto:hover { border-color: var(--oro); }
+        .producto img { width: 100%; height: 180px; object-fit: cover; border-radius: 5px; cursor: pointer; }
+        .precio { color: var(--oro); font-weight: bold; margin: 5px 0; }
+        
+        .btn-add { background: var(--negro); color: white; border: none; padding: 10px; width: 100%; cursor: pointer; text-transform: uppercase; font-size: 0.6rem; }
     </style>
 </head>
 <body>
 
+    <div class="bolsa-flotante">🛍️ UNIDADES: <span id="cuenta-unidades">0</span></div>
+
     <header><a href="index.html" class="logo">LUSSON</a></header>
 
-    <div id="contenedor-labiales" class="grid-productos">
-        </div>
+    <div id="contenedor-labiales" class="grid-productos"></div>
 
     <script>
+        let unidadesTotales = 0;
         const contenedor = document.getElementById('contenedor-labiales');
 
-        // Generamos los labiales
         for (let i = 1; i <= 30; i++) {
-            const precioBase = 35000 + (i * 200); 
+            const precio = 35000;
             const nombre = `Labial Lusson N°${i}`;
-            const foto = `assets/labial${i}.png`; 
+            const foto = `assets/labial${i}.png`;
             
             contenedor.innerHTML += `
                 <div class="producto">
-                    <a href="producto.html?nombre=${encodeURIComponent(nombre)}&precio=${precioBase.toLocaleString()}&foto=${foto}" style="text-decoration:none; color:inherit;">
-                        <img src="${foto}" alt="${nombre}" onerror="this.src='https://images.pexels.com/photos/2533266/pexels-photo-2533266.jpeg?auto=compress&w=300'">
-                        <h3>${nombre}</h3>
+                    <a href="producto.html?nombre=${encodeURIComponent(nombre)}&precio=${precio}&foto=${foto}" style="text-decoration:none; color:inherit;">
+                        <img src="${foto}" onerror="this.src='https://images.pexels.com/photos/2533266/pexels-photo-2533266.jpeg?auto=compress&w=300'">
+                        <h3 style="font-size:0.7rem;">${nombre}</h3>
                     </a>
-                    <p class="precio">$${precioBase.toLocaleString()}</p>
-                    <button class="btn-agregar">Ver detalles</button>
+                    <p class="precio">$${precio.toLocaleString()}</p>
+                    <button class="btn-add" onclick="sumar()">Añadir al carrito</button>
                 </div>
             `;
+        }
+
+        function sumar() {
+            unidadesTotales++;
+            document.getElementById('cuenta-unidades').innerText = unidadesTotales;
         }
     </script>
 </body>
 </html>
-
