@@ -3,66 +3,146 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lusson | Catálogo</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;1,400&family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
+    <title>Lusson | Tienda Oficial</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;1,400&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         :root { --nude-bg: #f5eee6; --oro: #bca07d; --negro: #1a1a1a; --blanco: #ffffff; }
-        body { margin: 0; font-family: 'Montserrat', sans-serif; background: var(--blanco); }
+        body { margin: 0; font-family: 'Montserrat', sans-serif; background: var(--blanco); overflow-x: hidden; }
         
+        /* Icono de Bolsa con número de unidades */
         .bolsa-flotante {
-            position: fixed; bottom: 20px; right: 20px; background: var(--negro);
-            color: white; padding: 15px 25px; border-radius: 50px; z-index: 1000;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3); font-size: 0.8rem; letter-spacing: 2px;
+            position: fixed; top: 20px; right: 20px; background: var(--negro);
+            color: white; width: 60px; height: 60px; border-radius: 50%; 
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer; z-index: 1000; box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+        .contador { position: absolute; top: 0; right: 0; background: var(--oro); color: white; border-radius: 50%; width: 22px; height: 22px; font-size: 0.7rem; display: flex; align-items: center; justify-content: center; font-weight: bold; }
+
+        /* Cuadro Detallado del Carrito (Popup) */
+        #carrito-detalle {
+            position: fixed; top: 90px; right: 20px; background: white;
+            width: 320px; max-width: 90%; border: 1px solid #ddd; padding: 20px;
+            display: none; box-shadow: 0 10px 40px rgba(0,0,0,0.2); border-radius: 12px; z-index: 999;
+        }
+        .item-linea { display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 12px; border-bottom: 1px solid #f0f0f0; padding-bottom: 8px; }
+
+        /* Diseño Responsivo del Catálogo */
+        header { background: var(--nude-bg); padding: 40px 20px; text-align: center; }
+        .logo { font-family: 'Playfair Display', serif; font-size: 2rem; letter-spacing: 12px; text-decoration: none; color: var(--negro); }
+
+        .grid-productos { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); 
+            gap: 20px; padding: 30px; max-width: 1200px; margin: 0 auto; 
         }
 
-        header { background: var(--nude-bg); padding: 20px; text-align: center; }
-        .logo { font-family: 'Playfair Display', serif; font-size: 1.5rem; letter-spacing: 10px; text-decoration: none; color: var(--negro); }
-
-        .grid-productos {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-            gap: 15px; padding: 20px; max-width: 1200px; margin: 0 auto;
-        }
-
-        .producto { text-align: center; border: 1px solid #eee; padding: 10px; border-radius: 8px; transition: 0.3s; }
-        .producto:hover { border-color: var(--oro); }
-        .producto img { width: 100%; height: 180px; object-fit: cover; border-radius: 5px; cursor: pointer; }
-        .precio { color: var(--oro); font-weight: bold; margin: 5px 0; }
+        .producto { text-align: center; border: 1px solid #eee; padding: 15px; border-radius: 8px; transition: 0.3s; background: #fff; }
+        .producto:hover { border-color: var(--oro); transform: translateY(-5px); }
+        .producto img { width: 100%; height: 200px; object-fit: cover; border-radius: 5px; }
         
-        .btn-add { background: var(--negro); color: white; border: none; padding: 10px; width: 100%; cursor: pointer; text-transform: uppercase; font-size: 0.6rem; }
+        .btn-add { background: var(--negro); color: white; border: none; padding: 12px; width: 100%; cursor: pointer; text-transform: uppercase; font-size: 0.7rem; font-weight: 600; margin-top: 10px; border-radius: 4px; }
+        .btn-whatsapp { background: #25d366; color: white; border: none; padding: 15px; width: 100%; cursor: pointer; font-weight: bold; margin-top: 20px; border-radius: 6px; font-size: 0.9rem; }
+
+        /* Ajustes para Celular */
+        @media (max-width: 600px) {
+            .logo { font-size: 1.5rem; letter-spacing: 6px; }
+            .grid-productos { grid-template-columns: repeat(2, 1fr); padding: 10px; gap: 10px; }
+            .producto img { height: 160px; }
+            #carrito-detalle { right: 5%; width: 90%; }
+        }
     </style>
 </head>
 <body>
 
-    <div class="bolsa-flotante">🛍️ UNIDADES: <span id="cuenta-unidades">0</span></div>
+    <div class="bolsa-flotante" onclick="toggleCarrito()">
+        🛍️ <span id="cant-total" class="contador">0</span>
+    </div>
+
+    <div id="carrito-detalle">
+        <h3 style="font-family: 'Playfair Display', serif; margin-top: 0;">Mi Bolsa Lusson</h3>
+        <div id="lista-items">
+            <p style="font-size: 0.8rem; color: #888;">Tu bolsa está vacía.</p>
+        </div>
+        <div style="border-top: 2px solid var(--nude-bg); margin-top: 15px; padding-top: 10px; font-weight: bold; display: flex; justify-content: space-between;">
+            <span>TOTAL:</span>
+            <span>$<span id="total-dinero">0</span></span>
+        </div>
+        <button class="btn-whatsapp" onclick="comprarWhatsApp()">PEDIR POR WHATSAPP</button>
+    </div>
 
     <header><a href="index.html" class="logo">LUSSON</a></header>
 
-    <div id="contenedor-labiales" class="grid-productos"></div>
+    <div id="contenedor-tienda" class="grid-productos"></div>
 
     <script>
-        let unidadesTotales = 0;
-        const contenedor = document.getElementById('contenedor-labiales');
+        let carrito = [];
 
-        for (let i = 1; i <= 30; i++) {
-            const precio = 35000;
-            const nombre = `Labial Lusson N°${i}`;
-            const foto = `assets/labial${i}.png`;
-            
-            contenedor.innerHTML += `
-                <div class="producto">
-                    <a href="producto.html?nombre=${encodeURIComponent(nombre)}&precio=${precio}&foto=${foto}" style="text-decoration:none; color:inherit;">
-                        <img src="${foto}" onerror="this.src='https://images.pexels.com/photos/2533266/pexels-photo-2533266.jpeg?auto=compress&w=300'">
-                        <h3 style="font-size:0.7rem;">${nombre}</h3>
-                    </a>
-                    <p class="precio">$${precio.toLocaleString()}</p>
-                    <button class="btn-add" onclick="sumar()">Añadir al carrito</button>
-                </div>
-            `;
+        function toggleCarrito() {
+            const cuadro = document.getElementById('carrito-detalle');
+            cuadro.style.display = cuadro.style.display === 'block' ? 'none' : 'block';
         }
 
-        function sumar() {
-            unidadesTotales++;
-            document.getElementById('cuenta-unidades').innerText = unidadesTotales;
+        function agregar(nombre, precio) {
+            const index = carrito.findIndex(item => item.nombre === nombre);
+            if (index > -1) {
+                carrito[index].cantidad++;
+            } else {
+                carrito.push({ nombre, precio, cantidad: 1 });
+            }
+            actualizarUI();
+        }
+
+        function actualizarUI() {
+            const lista = document.getElementById('lista-items');
+            const badget = document.getElementById('cant-total');
+            const totalTexto = document.getElementById('total-dinero');
+            
+            lista.innerHTML = '';
+            let totalGeneral = 0;
+            let unidadesTotales = 0;
+
+            carrito.forEach(item => {
+                const subtotal = item.precio * item.cantidad;
+                totalGeneral += subtotal;
+                unidadesTotales += item.cantidad;
+                lista.innerHTML += `
+                    <div class="item-linea">
+                        <div><strong>${item.nombre}</strong><br><small>Cant: ${item.cantidad}</small></div>
+                        <span>$${subtotal.toLocaleString()}</span>
+                    </div>`;
+            });
+
+            badget.innerText = unidadesTotales;
+            totalTexto.innerText = totalGeneral.toLocaleString();
+            if(carrito.length === 0) lista.innerHTML = '<p style="font-size: 0.8rem; color: #888;">Tu bolsa está vacía.</p>';
+        }
+
+        // Generar productos
+        const tienda = document.getElementById('contenedor-tienda');
+        for (let i = 1; i <= 30; i++) {
+            const p = 35000;
+            const n = `Labial N°${i}`;
+            const f = `assets/labial${i}.png`;
+            tienda.innerHTML += `
+                <div class="producto">
+                    <a href="producto.html?nombre=${encodeURIComponent(n)}&precio=${p}&foto=${f}" style="text-decoration:none; color:inherit;">
+                        <img src="${f}" onerror="this.src='https://images.pexels.com/photos/2533266/pexels-photo-2533266.jpeg?auto=compress&w=300'">
+                        <h3 style="font-size:0.65rem; margin: 10px 0;">${n}</h3>
+                    </a>
+                    <p style="color:var(--oro); font-weight:bold; font-size:0.8rem;">$${p.toLocaleString()}</p>
+                    <button class="btn-add" onclick="agregar('${n}', ${p})">AGREGAR</button>
+                </div>`;
+        }
+
+        function comprarWhatsApp() {
+            if (carrito.length === 0) return alert("¡Agrega productos a tu bolsa primero!");
+            const miTel = "573000000000"; // ← CAMBIA ESTO POR TU NÚMERO
+            let pedido = "¡Hola Lusson Colombia! 🌟 Quiero hacer este pedido:\n\n";
+            carrito.forEach(item => {
+                pedido += `• ${item.nombre} | Cant: ${item.cantidad} | Sub: $${(item.precio * item.cantidad).toLocaleString()}\n`;
+            });
+            pedido += `\n💰 TOTAL: $${document.getElementById('total-dinero').innerText}\n\n¿Me indican cómo pagar?`;
+            window.open(`https://wa.me/${miTel}?text=${encodeURIComponent(pedido)}`, '_blank');
         }
     </script>
 </body>
