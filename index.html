@@ -57,6 +57,38 @@
         
     </nav>
 
+    <div style="background: #fdfaf7; padding: 30px 0; border-bottom: 1px solid #eee;">
+    <h2 style="text-align: center; font-family: 'Playfair Display', serif; letter-spacing: 4px; color: #bca07d; margin-bottom: 10px;">NUEVOS LANZAMIENTOS</h2>
+    <p style="text-align: center; font-size: 0.75rem; letter-spacing: 2px; color: #ff4d4d; font-weight: bold; margin-bottom: 20px;">DESCUENTOS DE TEMPORADA 🏷️</p>
+    
+    <div class="carrusel-contenedor">
+        <div class="fila-animada">
+            <div class="card-lanzamiento"><img src="https://images.pexels.com/photos/3373739/pexels-photo-3373739.jpeg?auto=compress&w=300"><span>RUBORES</span></div>
+            <div class="card-lanzamiento"><img src="https://images.pexels.com/photos/3373736/pexels-photo-3373736.jpeg?auto=compress&w=300"><span>PESTAÑAS</span></div>
+            <div class="card-lanzamiento"><img src="https://images.pexels.com/photos/4046316/pexels-photo-4046316.jpeg?auto=compress&w=300"><span>SKINCARE</span></div>
+            <div class="card-lanzamiento"><img src="https://images.pexels.com/photos/3785110/pexels-photo-3785110.jpeg?auto=compress&w=300"><span>BASES</span></div>
+            <div class="card-lanzamiento"><img src="https://images.pexels.com/photos/2533266/pexels-photo-2533266.jpeg?auto=compress&w=300"><span>LABIALES</span></div>
+            <div class="card-lanzamiento"><img src="assets/Sombrasc.png"><span>SOMBRAS</span></div>
+            <div class="card-lanzamiento"><img src="https://images.pexels.com/photos/3373739/pexels-photo-3373739.jpeg?auto=compress&w=300"><span>RUBORES</span></div>
+            <div class="card-lanzamiento"><img src="https://images.pexels.com/photos/3373736/pexels-photo-3373736.jpeg?auto=compress&w=300"><span>PESTAÑAS</span></div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .carrusel-contenedor { overflow: hidden; width: 100%; }
+    .fila-animada { display: flex; width: calc(200px * 12); animation: deslizarInfinito 25s linear infinite; }
+    .card-lanzamiento { width: 180px; flex-shrink: 0; margin: 0 10px; text-align: center; background: white; padding: 10px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+    .card-lanzamiento img { width: 100%; height: 180px; object-fit: cover; border-radius: 5px; }
+    .card-lanzamiento span { display: block; margin-top: 10px; font-size: 0.65rem; font-weight: 600; letter-spacing: 1px; color: #1a1a1a; }
+    
+    @keyframes deslizarInfinito {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(-50%); }
+    }
+</style>
+    
+
     <main class="mosaico">
         <img src="assets/Sombrasc.png" alt="Sombras" id="img1">
         <img src="https://images.pexels.com/photos/3738339/pexels-photo-3738339.jpeg?auto=compress&w=1260" alt="2" id="img2">
