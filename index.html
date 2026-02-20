@@ -38,6 +38,24 @@
             z-index: 9999;
             cursor: pointer;
             font-weight: bold;
+            /* AJUSTE PARA QUE SE VEA BIEN EN CELULAR, TABLET Y PC */
+    @media (max-width: 600px) {
+        .mosaico {
+            grid-template-columns: 1fr !important; /* Una sola columna en celular */
+        }
+        .mosaico img {
+            height: 300px !important; /* Fotos un poco más bajas en celular */
+        }
+        header {
+            flex-direction: column; /* Logo arriba y nombre abajo en celular */
+            padding: 15px;
+        }
+        header h1 {
+            font-size: 1.4rem;
+            letter-spacing: 5px;
+        }
+    }
+            
         }
     </style>
 </head>
