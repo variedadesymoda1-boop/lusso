@@ -59,12 +59,18 @@
                .logo { font-size: 1.4rem; letter-spacing: 5px; }
     }
 
-    /* Diseño de la X para cerrar el resumen */
-    .btn-cerrar {
+        .btn-cerrar {
         position: absolute;
-        /* ... resto del código ... */
+        top: 10px;
+        right: 15px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #bca07d; /* Dorado Lusson */
+        cursor: pointer;
+        border: none;
+        background: none;
     }
-</style> ```
+</style>
     
 </head>
 <body>
@@ -74,6 +80,10 @@
     </div>
 
     <div id="carrito-detalle">
+        <div id="carrito-detalle">
+    <button class="btn-cerrar" onclick="toggleCarrito()">×</button>
+    <h3 style="font-family: 'Playfair Display', serif; margin-top: 0;">Mi Bolsa Lusson</h3>
+            
         <h3 style="font-family: 'Playfair Display', serif; margin-top: 0;">Mi Bolsa Lusson</h3>
         <div id="lista-items"><p style="font-size: 0.8rem; color: #888;">Tu bolsa está vacía.</p></div>
         <div style="border-top: 2px solid var(--nude-bg); margin-top: 15px; padding-top: 10px; font-weight: bold; display: flex; justify-content: space-between;">
