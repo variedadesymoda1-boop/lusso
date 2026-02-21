@@ -150,10 +150,23 @@
 
     <button id="btn-guardar-cambios" onclick="guardarEnGithub()">GUARDAR CAMBIOS EN WEB</button>
 
-    <footer>
-        &copy; 2026 LUSSON - ELEGANCIA COLOMBIANA
-        <div class="secreto-admin" onclick="contadorToques()"></div>
+    <footer style="background: #1a1a1a; color: white; padding: 50px 20px; text-align: center; margin-top: 50px; position: relative;">
+    <h2 style="font-family: 'Playfair Display', serif; letter-spacing: 8px; margin-bottom: 20px;">LUSSON</h2>
+    <p style="font-size: 0.8rem; letter-spacing: 2px; color: #bca07d; margin-bottom: 30px;">ELEGANCIA EN CADA DETALLE</p>
+    
+    <div style="display: flex; justify-content: center; gap: 30px; margin-bottom: 30px;">
+        <a href="#" style="color: white; text-decoration: none; font-size: 0.7rem; letter-spacing: 1px;">INSTAGRAM</a>
+        <a href="#" style="color: white; text-decoration: none; font-size: 0.7rem; letter-spacing: 1px;">TIKTOK</a>
+        <a href="#" style="color: white; text-decoration: none; font-size: 0.7rem; letter-spacing: 1px;">CATÁLOGO PDF</a>
+    </div>
+    
+    <div style="border-top: 1px solid #333; padding-top: 20px; font-size: 0.6rem; color: #888;">
+        <p>&copy; 2026 LUSSON - TODOS LOS DERECHOS RESERVADOS</p>
+    </div>
+
+    <div class="secreto-admin" onclick="contadorToques()" style="position: absolute; bottom: 10px; right: 10px; width: 20px; height: 20px; cursor: pointer;"></div>
     </footer>
+    
 
     <script>
         let toques = 0;
