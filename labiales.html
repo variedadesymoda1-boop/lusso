@@ -6,178 +6,532 @@
     <title>Lusson | Tienda Oficial</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
-        :root { --nude-bg: #f5eee6; --oro: #bca07d; --negro: #1a1a1a; --blanco: #ffffff; }
-        body { margin: 0; font-family: 'Montserrat', sans-serif; background: var(--blanco); color: var(--negro); }
+        :root {
+            --nude-bg: #f5eee6;
+            --oro: #bca07d;
+            --negro: #1a1a1a;
+            --blanco: #ffffff;
+        }
         
-        header { background: var(--nude-bg); padding: 20px; text-align: center; position: relative; border-bottom: 1px solid #ddd; }
-        .logo { font-family: 'Playfair Display', serif; font-size: 1.8rem; letter-spacing: 5px; text-decoration: none; color: var(--negro); }
-        .nav-enlaces { display: flex; justify-content: center; gap: 20px; margin-top: 10px; }
-        .link-nav { text-decoration: none; color: var(--negro); font-size: 0.7rem; font-weight: bold; text-transform: uppercase; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: var(--blanco);
+            color: var(--negro);
+        }
+
+        header {
+            background: var(--nude-bg);
+            padding: 20px;
+            text-align: center;
+            position: relative;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            letter-spacing: 5px;
+            text-decoration: none;
+            color: var(--negro);
+        }
+        
+        .nav-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 10px;
+        }
+        
+        .nav-link {
+            text-decoration: none;
+            color: var(--negro);
+            font-size: 0.7rem;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        
+        .nav-link.active {
+            color: var(--oro);
+        }
 
         /* Carrito Flotante */
-        .bolsa-flotante { position: fixed; top: 20px; right: 20px; background: var(--negro); color: white; width: 55px; height: 55px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 1000; box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
-        .contador { position: absolute; top: 0; right: 0; background: var(--oro); color: white; font-size: 0.7rem; padding: 2px 6px; border-radius: 50%; }
+        .floating-bag {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--negro);
+            color: white;
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 1000;
+        }
+        
+        .floating-bag::before {
+            content: "🛍️";
+            font-size: 1.5rem;
+        }
+        
+        .contador {
+            position: absolute;
+            top: 0;
+            right: 0;
+            background: var(--oro);
+            color: white;
+            font-size: 0.7rem;
+            padding: 2px 6px;
+            border-radius: 50%;
+            transform: translate(25%, -25%);
+        }
 
         /* Diseño del Catálogo */
-        .grid-productos { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 15px; padding: 20px; max-width: 1200px; margin: 0 auto; }
-        .producto { text-align: center; border: 1px solid #eee; padding: 12px; background: white; border-radius: 8px; transition: 0.3s; }
-        .producto img { width: 100%; height: 200px; object-fit: cover; border-radius: 4px; cursor: pointer; }
-        .btn-add { background: var(--negro); color: white; border: none; padding: 10px; width: 100%; cursor: pointer; font-size: 0.8rem; margin-top: 10px; font-weight: bold; }
-
-        /* Estilos del Carrito Detalle */
-        #carrito-detalle { position: fixed; top: 85px; right: 20px; background: white; width: 320px; max-width: 90%; border: 1px solid #ddd; padding: 20px; display: none; z-index: 1000; box-shadow: 0 10px 40px rgba(0,0,0,0.2); border-radius: 8px; }
-        .item-linea { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; font-size: 0.8rem; border-bottom: 1px solid #eee; padding-bottom: 5px; }
-        .btn-eliminar { color: #ff4d4d; cursor: pointer; font-weight: bold; background: none; border: none; }
+        .productos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 20px;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
         
-        .admin-active .producto { border: 2px dashed var(--oro); }
+        .producto {
+            text-align: center;
+            border: 1px solid #eee;
+            padding: 12px;
+            background: white;
+            border-radius: 8px;
+            transition: 0.3s;
+        }
+        
+        .producto:hover {
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .producto img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        
+        .producto h3 {
+            margin: 10px 0;
+            font-size: 0.9rem;
+        }
+        
+        .producto p {
+            color: var(--oro);
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .btn-add {
+            background: var(--negro);
+            color: white;
+            border: none;
+            padding: 10px;
+            width: 100%;
+            cursor: pointer;
+            font-size: 0.8rem;
+            border-radius: 4px;
+            transition: background 0.3s;
+        }
+        
+        .btn-add:hover {
+            background: var(--oro);
+        }
+
+        /* Estilos del detalle del carrito */
+        #cart-detail {
+            position: fixed;
+            top: 85px;
+            right: 20px;
+            background: white;
+            width: 320px;
+            max-width: 90%;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            z-index: 1001;
+            display: none;
+        }
+        
+        #cart-detail h3 {
+            margin-bottom: 15px;
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .item-line {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            padding: 5px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .item-info {
+            flex: 1;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .btn-eliminar {
+            color: #ff4d4d;
+            cursor: pointer;
+            font-weight: bold;
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            padding: 0 5px;
+        }
+        
+        .btn-eliminar:hover {
+            color: #ff0000;
+        }
+        
+        .cart-total {
+            border-top: 2px solid var(--nude-bg);
+            margin-top: 15px;
+            padding-top: 10px;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .cart-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .cart-buttons button {
+            flex: 1;
+        }
+        
+        .btn-whatsapp {
+            background: #25d366 !important;
+        }
+        
+        .btn-whatsapp:hover {
+            background: #128C7E !important;
+        }
+        
+        /* Modo admin */
+        .admin-active .producto {
+            border: 2px dashed var(--oro);
+            cursor: pointer;
+        }
+        
+        .admin-active .producto h3,
+        .admin-active .producto p {
+            cursor: pointer;
+        }
+        
+        .admin-active .producto h3:hover,
+        .admin-active .producto p:hover {
+            background: rgba(188, 160, 125, 0.1);
+        }
     </style>
 </head>
 <body>
-
     <header>
         <a href="index.html" class="logo">LUSSON</a>
-        <div class="nav-enlaces">
-            <a href="index.html" class="link-nav">← INICIO</a>
-            <a href="#" class="link-nav" style="color:var(--oro)">LABIALES</a>
+        <div class="nav-links">
+            <a href="index.html" class="nav-link">INICIO</a>
+            <a href="#" class="nav-link active">LABIALES</a>
         </div>
     </header>
 
-    <div class="bolsa-flotante" onclick="toggleCarrito()">
-        🛍️ <span id="cant-total" class="contador">0</span>
+    <!-- Carrito Flotante -->
+    <div class="floating-bag" onclick="toggleCarrito()">
+        <span id="total-cantidad" class="contador">0</span>
     </div>
 
-    <div id="carrito-detalle">
-        <h3 style="margin-top:0">Mi Bolsa Lusson</h3>
-        <div id="lista-items"></div>
-        <div style="border-top: 2px solid var(--nude-bg); margin-top:15px; padding-top:10px; font-weight:bold;">
-            TOTAL: $<span id="total-dinero">0</span>
+    <!-- Detalle del Carrito -->
+    <div id="cart-detail">
+        <h3>Mi Bolsa Lusson</h3>
+        <div id="cart-items"></div>
+        <div class="cart-total">
+            <span>TOTAL:</span>
+            <span>$<span id="total-dinero">0</span></span>
         </div>
-        <button class="btn-add" style="background:#25d366" onclick="comprarWhatsApp()">PEDIR POR WHATSAPP</button>
-        <button class="btn-add" onclick="toggleCarrito()">CERRAR</button>
+        <div class="cart-buttons">
+            <button class="btn-add btn-whatsapp" onclick="comprarWhatsApp()">Pedir por WhatsApp</button>
+            <button class="btn-add" onclick="toggleCarrito()">Cerrar</button>
+        </div>
     </div>
 
+    <!-- Contenedor de Productos -->
     <main>
-        <div id="contenedor-tienda" class="grid-productos"></div>
+        <div id="tienda-contenedor" class="productos-grid"></div>
     </main>
 
-    <div onclick="conteoJefa()" style="width: 20px; height: 20px; background: transparent; margin: 40px auto; cursor: default;"></div>
+    <!-- Elemento oculto para activar modo admin -->
+    <div onclick="contarClicksJefa()" style="width: 20px; height: 20px; background: transparent; margin: 40px auto; cursor: default;"></div>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
         // --- CONFIGURACIÓN SUPABASE ---
-        const supabaseUrl = 'https://azfingejfhjmbkcrtlbb.supabase.co'; 
+        const supabaseUrl = 'https://azfinejfjhmbkcrrtlbb.supabase.co';
         const supabaseKey = 'sb_publishable_oEmSiQhpAZ9HToa9C2nHXg_5qHIZDUD';
-        const supabase = supabase.createClient(
-  'https://azfingejfhjmbkcrtlbb.supabase.co', 
-  'sb_publishable_oEmSiQhpAZ9HToa9C2nHXg_5qHIZDUD'
-);
-        
+        const supabase = supabase.createClient(supabaseUrl, supabaseKey);
 
+        // Variables globales
         let carrito = [];
-        let clicsJefa = 0;
+        let clicksJefa = 0;
 
         // --- CARGAR PRODUCTOS ---
-        async function cargarProductosDesdeBD() {
-            const { data: productos, error } = await supabase.from('productos').select('*');
-            if (error) return console.error(error);
+        async function cargarProductos() {
+            try {
+                const { data: productos, error } = await supabase
+                    .from('productos')
+                    .select('*');
 
-            const tienda = document.getElementById('contenedor-tienda');
-            tienda.innerHTML = '';
+                if (error) {
+                    console.error('Error cargando productos:', error);
+                    return;
+                }
 
-            productos.forEach(prod => {
-                tienda.innerHTML += `
-                    <div class="producto">
-                        <img src="${prod.Imagen}" onclick="accionImagen(${prod.id})">
-                        <h3 onclick="if(esJefa()) editarNombre(${prod.id})">${prod.nombre}</h3>
-                        <p style="color:var(--oro); font-weight:bold;" onclick="if(esJefa()) actualizarPrecio(${prod.id})">
-                            $${prod.precio.toLocaleString()} ✏️
-                        </p>
-                        <button class="btn-add" onclick="agregar('${prod.nombre}', ${prod.precio})">AGREGAR</button>
-                    </div>`;
-            });
+                const tienda = document.getElementById('tienda-contenedor');
+                if (!tienda) return;
+                
+                tienda.innerHTML = '';
+
+                productos.forEach(producto => {
+                    const precioFormateado = new Intl.NumberFormat('es-CO').format(producto.precio);
+                    
+                    tienda.innerHTML += `
+                        <div class="producto" data-id="${producto.id}">
+                            <img src="${producto.imagen}" alt="${producto.nombre}" onclick="accionImagen(${producto.id})">
+                            <h3 onclick="if(esJefa()) editarNombre(${producto.id})">${producto.nombre}</h3>
+                            <p onclick="if(esJefa()) editarPrecio(${producto.id})">$${precioFormateado}</p>
+                            <button class="btn-add" onclick="agregarAlCarrito('${producto.nombre}', ${producto.precio})">AGREGAR</button>
+                        </div>
+                    `;
+                });
+            } catch (error) {
+                console.error('Error:', error);
+            }
         }
 
         // --- FUNCIONES CARRITO ---
-        function agregar(nombre, precio) {
-            const item = carrito.find(i => i.nombre === nombre);
-            item ? item.cantidad++ : carrito.push({ nombre, precio, cantidad: 1 });
-            actualizarUI();
+        function agregarAlCarrito(nombre, precio) {
+            const itemExistente = carrito.find(item => item.nombre === nombre);
+            
+            if (itemExistente) {
+                itemExistente.cantidad++;
+            } else {
+                carrito.push({
+                    nombre: nombre,
+                    precio: precio,
+                    cantidad: 1
+                });
+            }
+            
+            actualizarCarritoUI();
         }
 
-        function actualizarUI() {
-            const lista = document.getElementById('lista-items');
-            let total = 0, unidades = 0;
-            lista.innerHTML = '';
+        function actualizarCarritoUI() {
+            const cartItems = document.getElementById('cart-items');
+            const totalDinero = document.getElementById('total-dinero');
+            const totalCantidad = document.getElementById('total-cantidad');
             
+            if (!cartItems || !totalDinero || !totalCantidad) return;
+            
+            let total = 0;
+            let unidades = 0;
+            cartItems.innerHTML = '';
+
             carrito.forEach((item, index) => {
                 const subtotal = item.precio * item.cantidad;
                 total += subtotal;
                 unidades += item.cantidad;
-                lista.innerHTML += `
-                    <div class="item-linea">
-                        <span>${item.nombre} (x${item.cantidad})</span>
-                        <span>$${subtotal.toLocaleString()} <button class="btn-eliminar" onclick="eliminar(${index})">X</button></span>
-                    </div>`;
+                
+                cartItems.innerHTML += `
+                    <div class="item-line">
+                        <div class="item-info">
+                            <span>${item.nombre} (x${item.cantidad})</span>
+                            <span>$${subtotal.toLocaleString('es-CO')}</span>
+                        </div>
+                        <button class="btn-eliminar" onclick="eliminarDelCarrito(${index})">×</button>
+                    </div>
+                `;
             });
-            document.getElementById('total-dinero').innerText = total.toLocaleString();
-            document.getElementById('cant-total').innerText = unidades;
+
+            totalDinero.textContent = total.toLocaleString('es-CO');
+            totalCantidad.textContent = unidades;
         }
 
-        function eliminar(index) { carrito.splice(index, 1); actualizarUI(); }
-        function toggleCarrito() { const c = document.getElementById('carrito-detalle'); c.style.display = c.style.display === 'block' ? 'none' : 'block'; }
+        function eliminarDelCarrito(index) {
+            carrito.splice(index, 1);
+            actualizarCarritoUI();
+        }
+
+        function toggleCarrito() {
+            const cartDetail = document.getElementById('cart-detail');
+            if (cartDetail) {
+                cartDetail.style.display = cartDetail.style.display === 'none' ? 'block' : 'none';
+            }
+        }
 
         function comprarWhatsApp() {
+            if (carrito.length === 0) {
+                alert('¡Tu bolsa está vacía!');
+                return;
+            }
+            
             let mensaje = "¡Hola Lusson! Mi pedido es:\n";
-            carrito.forEach(i => mensaje += `- ${i.nombre} x${i.cantidad}\n`);
-            mensaje += `Total: $${document.getElementById('total-dinero').innerText}`;
-            window.open(`https://wa.me/573000000000?text=${encodeURIComponent(mensaje)}`);
+            carrito.forEach(item => {
+                mensaje += `- ${item.nombre} x${item.cantidad}\n`;
+            });
+            
+            const total = document.getElementById('total-dinero').textContent;
+            mensaje += `Total: $${total}`;
+            
+            window.open(`https://wa.me/57300000000?text=${encodeURIComponent(mensaje)}`);
         }
 
         // --- MODO JEFA (EDITABLE) ---
-        function esJefa() { return document.body.classList.contains('admin-active'); }
+        function esJefa() {
+            return document.body.classList.contains('admin-active');
+        }
 
-        function conteoJefa() {
-            clicsJefa++;
-            if (clicsJefa === 5) {
-                const user = prompt("Usuario de Lusson:");
-                const pass = prompt("Contraseña:");
-                if (user === "lusso2026" && pass === "11209") {
+        function contarClicksJefa() {
+            clicksJefa++;
+            
+            if (clicksJefa === 5) {
+                const usuario = prompt("Usuario de Lusson:");
+                const pase = prompt("Contraseña:");
+                
+                if (usuario === "lusso2026" && pase === "11209") {
                     document.body.classList.add('admin-active');
                     alert("¡Bienvenida Jefa! Modo edición activado.");
                 }
-                clicsJefa = 0;
+                
+                clicksJefa = 0;
             }
         }
 
-        async function actualizarPrecio(id) {
-            const nuevo = prompt("¿Nuevo precio?");
-            if (nuevo) {
-                await supabase.from('productos').update({ precio: parseInt(nuevo) }).eq('id', id);
-                location.reload();
-            }
-        }
-
-        function accionImagen(id) {
-            if (esJefa()) {
-                const fileInput = document.createElement('input');
-                fileInput.type = 'file';
-                fileInput.onchange = async (e) => {
-                    const file = e.target.files[0];
-                    const nombreImg = `prod_${Date.now()}.png`;
-                    const { data } = await supabase.storage.from('fotos-lusson').upload(nombreImg, file);
-                    if (data) {
-                        const { data: urlData } = supabase.storage.from('fotos-lusson').getPublicUrl(nombreImg);
-                        await supabase.from('productos').update({ Imagen: urlData.publicUrl }).eq('id', id);
+        async function editarNombre(id) {
+            if (!esJefa()) return;
+            
+            const nuevoNombre = prompt("Nuevo nombre del producto:");
+            if (nuevoNombre && nuevoNombre.trim()) {
+                try {
+                    const { error } = await supabase
+                        .from('productos')
+                        .update({ nombre: nuevoNombre.trim() })
+                        .eq('id', id);
+                    
+                    if (error) {
+                        console.error('Error actualizando nombre:', error);
+                        alert('Error al actualizar el nombre');
+                    } else {
                         location.reload();
                     }
+                } catch (error) {
+                    console.error('Error:', error);
+                }
+            }
+        }
+
+        async function editarPrecio(id) {
+            if (!esJefa()) return;
+            
+            const nuevoPrecio = prompt("Nuevo precio (solo números):");
+            if (nuevoPrecio && !isNaN(nuevoPrecio)) {
+                try {
+                    const { error } = await supabase
+                        .from('productos')
+                        .update({ precio: parseInt(nuevoPrecio) })
+                        .eq('id', id);
+                    
+                    if (error) {
+                        console.error('Error actualizando precio:', error);
+                        alert('Error al actualizar el precio');
+                    } else {
+                        location.reload();
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                }
+            }
+        }
+
+        async function accionImagen(id) {
+            if (esJefa()) {
+                // Modo admin: cambiar imagen
+                const fileInput = document.createElement('input');
+                fileInput.type = 'file';
+                fileInput.accept = 'image/*';
+                
+                fileInput.onchange = async (e) => {
+                    const archivo = e.target.files[0];
+                    if (!archivo) return;
+                    
+                    const nombreImg = `producto_${Date.now()}.png`;
+                    
+                    try {
+                        // Subir imagen a Supabase Storage
+                        const { data: uploadData, error: uploadError } = await supabase.storage
+                            .from('fotos-lusson')
+                            .upload(nombreImg, archivo);
+                        
+                        if (uploadError) {
+                            console.error('Error subiendo imagen:', uploadError);
+                            alert('Error al subir la imagen');
+                            return;
+                        }
+                        
+                        // Obtener URL pública
+                        const { data: urlData } = supabase.storage
+                            .from('fotos-lusson')
+                            .getPublicUrl(nombreImg);
+                        
+                        // Actualizar producto en la base de datos
+                        const { error: updateError } = await supabase
+                            .from('productos')
+                            .update({ imagen: urlData.publicUrl })
+                            .eq('id', id);
+                        
+                        if (updateError) {
+                            console.error('Error actualizando producto:', updateError);
+                            alert('Error al actualizar la imagen');
+                        } else {
+                            location.reload();
+                        }
+                        
+                    } catch (error) {
+                        console.error('Error:', error);
+                        alert('Error al procesar la imagen');
+                    }
                 };
+                
                 fileInput.click();
+                
             } else {
+                // Modo usuario: ver detalle del producto
                 window.location.href = `producto.html?id=${id}`;
             }
         }
 
-        cargarProductosDesdeBD();
+        // Inicializar la tienda
+        document.addEventListener('DOMContentLoaded', cargarProductos);
     </script>
 </body>
 </html>
