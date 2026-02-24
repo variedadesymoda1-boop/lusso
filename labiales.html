@@ -175,7 +175,7 @@
     }
     
         async function cargarProductosDesdeBD() {
-  const { data: productos, error } = await _supabase
+  const { data: productos, error } = await supabase
     .from('productos')
     .select('*');
 
