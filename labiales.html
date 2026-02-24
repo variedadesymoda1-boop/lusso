@@ -3,23 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lusson | Tienda Oficial</title>
+    <title>Lusson Labiales | Tienda Oficial</title>
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
     <header class="header">
         <nav class="nav container">
-            <div class="logo">
+            <div class="logo" id="secretAdminBtn">
                 <a href="/">LUSSON<span class="dot">.</span></a>
             </div>
             <ul class="nav-menu">
-                <li><a href="#inicio">INICIO</a></li>
-                <li><a href="#labiales">LABIALES</a></li>
-                <li><a href="#contacto">CONTACTO</a></li>
+                <li><a href="../index.html">INICIO</a></li>
+                <li><a href="labiales.html" class="active">LABIALES</a></li>
+                <li><a href="../rubores/rubores.html">RUBORES</a></li>
+                <li><a href="../contacto.html">CONTACTO</a></li>
             </ul>
             <div class="cart-icon">
                 <i class="fas fa-shopping-bag"></i>
@@ -34,19 +38,16 @@
     </header>
 
     <main>
+        <!-- Hero Section -->
         <section id="inicio" class="hero">
             <div class="container">
                 <div class="hero-content">
-                    <h1 class="hero-title">LUSSON<span class="dot">.</span></h1>
-                    <div class="hero-subtitle">LABIALES DE ALTA PIGMENTACIÓN</div>
-                    <h2 class="hero-headline">Labios perfectos,<br>color que dura.</h2>
+                    <h1 class="hero-title">LABIALES<span class="dot">.</span></h1>
+                    <div class="hero-subtitle">COLOR QUE DURA</div>
+                    <h2 class="hero-headline">Labios perfectos,<br>todo el día.</h2>
                     <p class="hero-description">
                         Fórmula vegana e hipoalergénica. Colores intensos que hidratan y cuidan tus labios.
                     </p>
-                    <div class="hero-buttons">
-                        <a href="#labiales" class="btn btn-primary">Ver colección</a>
-                        <a href="#contacto" class="btn btn-outline">Consultar stock</a>
-                    </div>
                 </div>
             </div>
             <div class="hero-background">
@@ -54,89 +55,22 @@
             </div>
         </section>
 
+        <!-- PRODUCTOS - Se cargan desde Supabase -->
         <section id="labiales" class="products">
             <div class="container">
                 <div class="section-header">
                     <h2 class="section-title">Nuestros <span class="gradient-text">Labiales</span></h2>
-                    <p class="section-description">Descubre nuestra colección de labiales de larga duración</p>
+                    <p class="section-description" id="productCount">Cargando productos...</p>
                 </div>
                 
-                <div class="products-grid">
-                    <article class="product-card">
-                        <div class="product-image">
-                            <i class="fas fa-lipstick"></i>
-                        </div>
-                        <h3 class="product-title">Red Velvet</h3>
-                        <p class="product-description">Rojo intenso mate de larga duración.</p>
-                        <div class="product-price">$12.990</div>
-                        <button class="btn btn-primary btn-small add-to-cart">
-                            <i class="fas fa-shopping-bag"></i> Agregar
-                        </button>
-                    </article>
-
-                    <article class="product-card">
-                        <div class="product-image">
-                            <i class="fas fa-lipstick"></i>
-                        </div>
-                        <h3 class="product-title">Pink Sugar</h3>
-                        <p class="product-description">Rosa suave con acabado satinado e hidratante.</p>
-                        <div class="product-price">$11.990</div>
-                        <button class="btn btn-primary btn-small add-to-cart">
-                            <i class="fas fa-shopping-bag"></i> Agregar
-                        </button>
-                    </article>
-
-                    <article class="product-card">
-                        <div class="product-image">
-                            <i class="fas fa-lipstick"></i>
-                        </div>
-                        <h3 class="product-title">Nude Glow</h3>
-                        <p class="product-description">Tono nude natural con brillo sutil.</p>
-                        <div class="product-price">$10.990</div>
-                        <button class="btn btn-primary btn-small add-to-cart">
-                            <i class="fas fa-shopping-bag"></i> Agregar
-                        </button>
-                    </article>
-
-                    <article class="product-card">
-                        <div class="product-image">
-                            <i class="fas fa-lipstick"></i>
-                        </div>
-                        <h3 class="product-title">Berry Wine</h3>
-                        <p class="product-description">Tinto berry mate, ideal para noche.</p>
-                        <div class="product-price">$12.990</div>
-                        <button class="btn btn-primary btn-small add-to-cart">
-                            <i class="fas fa-shopping-bag"></i> Agregar
-                        </button>
-                    </article>
-
-                    <article class="product-card">
-                        <div class="product-image">
-                            <i class="fas fa-lipstick"></i>
-                        </div>
-                        <h3 class="product-title">Coral Summer</h3>
-                        <p class="product-description">Coral vibrante, textura cremosa.</p>
-                        <div class="product-price">$11.990</div>
-                        <button class="btn btn-primary btn-small add-to-cart">
-                            <i class="fas fa-shopping-bag"></i> Agregar
-                        </button>
-                    </article>
-
-                    <article class="product-card">
-                        <div class="product-image">
-                            <i class="fas fa-lipstick"></i>
-                        </div>
-                        <h3 class="product-title">Mauve Dream</h3>
-                        <p class="product-description">Malva elegante, acabado semi-mate.</p>
-                        <div class="product-price">$11.990</div>
-                        <button class="btn btn-primary btn-small add-to-cart">
-                            <i class="fas fa-shopping-bag"></i> Agregar
-                        </button>
-                    </article>
+                <div class="products-grid" id="productsGrid">
+                    <!-- Los productos se cargan aquí desde JavaScript -->
+                    <div class="loading">Cargando productos...</div>
                 </div>
             </div>
         </section>
 
+        <!-- CARRITO -->
         <div class="cart-sidebar" id="cartSidebar">
             <div class="cart-header">
                 <h3>Mi Bolsa <span class="cart-count-display">(0)</span></h3>
@@ -150,87 +84,100 @@
                     <span>TOTAL:</span>
                     <span class="total-amount">$0</span>
                 </div>
-                <a href="https://wa.me/tunumero" class="btn btn-whatsapp btn-block" target="_blank" id="whatsappOrder">
+                <a href="#" class="btn btn-whatsapp btn-block" target="_blank" id="whatsappOrder">
                     <i class="fab fa-whatsapp"></i> Pedir por WhatsApp
                 </a>
             </div>
         </div>
+    </main>
 
-        <section id="contacto" class="contact">
-            <div class="container">
-                <div class="contact-header">
-                    <h2 class="contact-title">¿Dudas o consultas?</h2>
-                    <p class="contact-description">
-                        Escríbenos y te ayudaremos a elegir el tono perfecto para ti.
-                    </p>
+    <!-- MODAL DE ADMIN (OCULTO) - Aparece con doble click en logo -->
+    <div class="admin-modal" id="adminModal">
+        <div class="admin-modal-content">
+            <div class="admin-modal-header">
+                <h2>Panel de Administración</h2>
+                <button class="close-admin"><i class="fas fa-times"></i></button>
+            </div>
+            
+            <!-- Login Form -->
+            <div class="login-form" id="loginForm">
+                <h3>Iniciar Sesión</h3>
+                <div class="form-group">
+                    <input type="email" id="loginEmail" placeholder="Email">
                 </div>
-
-                <div class="contact-grid">
-                    <div class="contact-info">
-                        <div class="contact-card">
-                            <div class="contact-icon">
-                                <i class="fab fa-whatsapp"></i>
-                            </div>
-                            <div>
-                                <h4>WhatsApp</h4>
-                                <a href="https://wa.me/tunumero">+52 55 1234 5678</a>
-                            </div>
+                <div class="form-group">
+                    <input type="password" id="loginPassword" placeholder="Contraseña">
+                </div>
+                <button class="btn btn-primary btn-block" id="loginBtn">Ingresar</button>
+                <p class="error-message" id="loginError"></p>
+            </div>
+            
+            <!-- Admin Panel (visible solo cuando está logueado) -->
+            <div class="admin-panel" id="adminPanel" style="display: none;">
+                <div class="admin-tabs">
+                    <button class="tab-btn active" data-tab="add">Agregar Producto</button>
+                    <button class="tab-btn" data-tab="list">Lista Productos</button>
+                </div>
+                
+                <!-- Tab Agregar Producto -->
+                <div class="tab-content active" id="tabAdd">
+                    <form id="addProductForm">
+                        <div class="form-group">
+                            <label>Nombre del producto</label>
+                            <input type="text" id="productName" required>
                         </div>
-                        
-                        <div class="contact-card">
-                            <div class="contact-icon">
-                                <i class="far fa-envelope"></i>
-                            </div>
-                            <div>
-                                <h4>Email</h4>
-                                <a href="mailto:hola@lusson.com">hola@lusson.com</a>
-                            </div>
+                        <div class="form-group">
+                            <label>Descripción</label>
+                            <textarea id="productDesc" rows="3" required></textarea>
                         </div>
-                        
-                        <div class="contact-social">
-                            <h4>Síguenos</h4>
-                            <div class="social-links">
-                                <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                                <a href="#" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
-                                <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
-                            </div>
+                        <div class="form-group">
+                            <label>Precio ($)</label>
+                            <input type="number" id="productPrice" required>
                         </div>
-                    </div>
-
-                    <div class="contact-form">
-                        <h3>Envíanos un mensaje</h3>
-                        <form>
-                            <div class="form-group">
-                                <input type="text" placeholder="Nombre completo">
-                            </div>
-                            <div class="form-group">
-                                <input type="email" placeholder="Email">
-                            </div>
-                            <div class="form-group">
-                                <textarea placeholder="¿Qué tono te interesa? ¿Tienes dudas?" rows="4"></textarea>
-                            </div>
-                            <button type="submit" class="btn btn-primary btn-block">Enviar mensaje</button>
-                        </form>
+                        <div class="form-group">
+                            <label>Categoría</label>
+                            <select id="productCategory">
+                                <option value="labiales">Labiales</option>
+                                <option value="rubores">Rubores</option>
+                                <option value="otros">Otros</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Imagen del producto</label>
+                            <input type="file" id="productImage" accept="image/*" required>
+                            <div class="image-preview" id="imagePreview"></div>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block">Guardar Producto</button>
+                    </form>
+                </div>
+                
+                <!-- Tab Lista Productos -->
+                <div class="tab-content" id="tabList">
+                    <div class="admin-products-list" id="adminProductsList">
+                        <!-- Lista de productos para editar/eliminar -->
                     </div>
                 </div>
             </div>
-        </section>
-    </main>
+        </div>
+    </div>
+
+    <!-- TOAST NOTIFICATIONS -->
+    <div class="toast-container" id="toastContainer"></div>
 
     <footer class="footer">
         <div class="container">
             <div class="footer-grid">
                 <div class="footer-brand">
                     <div class="logo">LUSSON<span class="dot">.</span></div>
-                    <p>Labiales de alta calidad, veganos y libres de crueldad animal.</p>
+                    <p>Maquillaje de alta calidad, vegano y libre de crueldad animal.</p>
                 </div>
                 
                 <div class="footer-links">
-                    <h4>Enlaces</h4>
+                    <h4>Productos</h4>
                     <ul>
-                        <li><a href="#inicio">Inicio</a></li>
-                        <li><a href="#labiales">Labiales</a></li>
-                        <li><a href="#contacto">Contacto</a></li>
+                        <li><a href="labiales.html">Labiales</a></li>
+                        <li><a href="../rubores/rubores.html">Rubores</a></li>
+                        <li><a href="../index.html">Todos</a></li>
                     </ul>
                 </div>
                 
@@ -265,5 +212,245 @@
     </footer>
 
     <script src="script.js"></script>
-</body>
-                            </html>
+    <script>
+        // CONFIGURACIÓN DE SUPABASE - ¡CAMBIA ESTO!
+        const SUPABASE_URL = 'https://tu-proyecto.supabase.co';
+        const SUPABASE_ANON_KEY = 'tu-anon-key';
+        
+        // Inicializar Supabase
+        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        
+        // Variable para saber si el admin está logueado
+        let isAdminLoggedIn = false;
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            // Cargar productos
+            loadProducts();
+            
+            // Botón secreto: doble click en el logo
+            const secretBtn = document.getElementById('secretAdminBtn');
+            if (secretBtn) {
+                secretBtn.addEventListener('dblclick', function(e) {
+                    e.preventDefault();
+                    openAdminModal();
+                });
+            }
+            
+            // Configurar modal de admin
+            setupAdminModal();
+        });
+        
+        // Función para cargar productos desde Supabase
+        async function loadProducts() {
+            try {
+                const { data: productos, error } = await supabase
+                    .from('productos')
+                    .select('*')
+                    .eq('categoria', 'labiales')
+                    .order('created_at', { ascending: false });
+                
+                if (error) throw error;
+                
+                const productsGrid = document.getElementById('productsGrid');
+                const productCount = document.getElementById('productCount');
+                
+                if (productos && productos.length > 0) {
+                    productCount.textContent = `${productos.length} productos disponibles`;
+                    
+                    let html = '';
+                    productos.forEach(prod => {
+                        html += `
+                            <article class="product-card">
+                                <div class="product-image">
+                                    ${prod.imagen_url ? 
+                                        `<img src="${prod.imagen_url}" alt="${prod.nombre}" class="product-img">` : 
+                                        `<i class="fas fa-lipstick"></i>`
+                                    }
+                                </div>
+                                <h3 class="product-title">${prod.nombre}</h3>
+                                <p class="product-description">${prod.descripcion}</p>
+                                <div class="product-price">$${prod.precio.toLocaleString()}</div>
+                                <button class="btn btn-primary btn-small add-to-cart" 
+                                        data-id="${prod.id}"
+                                        data-name="${prod.nombre}"
+                                        data-price="${prod.precio}">
+                                    <i class="fas fa-shopping-bag"></i> Agregar
+                                </button>
+                            </article>
+                        `;
+                    });
+                    productsGrid.innerHTML = html;
+                    
+                    // Agregar eventos a los botones de agregar al carrito
+                    document.querySelectorAll('.add-to-cart').forEach(btn => {
+                        btn.addEventListener('click', function() {
+                            addToCart({
+                                id: this.dataset.id,
+                                name: this.dataset.name,
+                                price: parseInt(this.dataset.price)
+                            });
+                        });
+                    });
+                } else {
+                    productsGrid.innerHTML = '<p class="no-products">No hay productos disponibles</p>';
+                    productCount.textContent = '0 productos disponibles';
+                }
+            } catch (error) {
+                console.error('Error cargando productos:', error);
+                document.getElementById('productsGrid').innerHTML = 
+                    '<p class="error">Error cargando productos. Intenta más tarde.</p>';
+            }
+        }
+        
+        // Función para abrir modal de admin
+        function openAdminModal() {
+            const modal = document.getElementById('adminModal');
+            modal.style.display = 'flex';
+            
+            // Si ya está logueado, mostrar panel directamente
+            if (isAdminLoggedIn) {
+                document.getElementById('loginForm').style.display = 'none';
+                document.getElementById('adminPanel').style.display = 'block';
+                loadAdminProducts();
+            } else {
+                document.getElementById('loginForm').style.display = 'block';
+                document.getElementById('adminPanel').style.display = 'none';
+            }
+        }
+        
+        // Configurar modal de admin
+        function setupAdminModal() {
+            const modal = document.getElementById('adminModal');
+            const closeBtn = document.querySelector('.close-admin');
+            
+            // Cerrar modal
+            closeBtn.addEventListener('click', () => {
+                modal.style.display = 'none';
+            });
+            
+            // Cerrar al hacer click fuera
+            window.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.style.display = 'none';
+                }
+            });
+            
+            // Botón de login
+            document.getElementById('loginBtn').addEventListener('click', handleLogin);
+            
+            // Tabs
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                    
+                    this.classList.add('active');
+                    document.getElementById(`tab${this.dataset.tab}`).classList.add('active');
+                    
+                    if (this.dataset.tab === 'list') {
+                        loadAdminProducts();
+                    }
+                });
+            });
+            
+            // Formulario agregar producto
+            document.getElementById('addProductForm').addEventListener('submit', handleAddProduct);
+            
+            // Preview de imagen
+            document.getElementById('productImage').addEventListener('change', handleImagePreview);
+        }
+        
+        // Función para login
+        async function handleLogin() {
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+            const errorEl = document.getElementById('loginError');
+            
+            if (!email || !password) {
+                errorEl.textContent = 'Ingresa email y contraseña';
+                return;
+            }
+            
+            try {
+                const { data, error } = await supabase.auth.signInWithPassword({
+                    email: email,
+                    password: password
+                });
+                
+                if (error) throw error;
+                
+                // Login exitoso
+                isAdminLoggedIn = true;
+                document.getElementById('loginForm').style.display = 'none';
+                document.getElementById('adminPanel').style.display = 'block';
+                errorEl.textContent = '';
+                
+                // Cargar productos para admin
+                loadAdminProducts();
+                
+                showToast('Login exitoso', 'success');
+                
+            } catch (error) {
+                errorEl.textContent = 'Email o contraseña incorrectos';
+                showToast('Error de login', 'error');
+            }
+        }
+        
+        // Función para agregar producto
+        async function handleAddProduct(e) {
+            e.preventDefault();
+            
+            const nombre = document.getElementById('productName').value;
+            const descripcion = document.getElementById('productDesc').value;
+            const precio = parseInt(document.getElementById('productPrice').value);
+            const categoria = document.getElementById('productCategory').value;
+            const imagenFile = document.getElementById('productImage').files[0];
+            
+            if (!nombre || !descripcion || !precio || !imagenFile) {
+                showToast('Completa todos los campos', 'error');
+                return;
+            }
+            
+            try {
+                // Subir imagen a Supabase Storage
+                const fileName = `${Date.now()}_${imagenFile.name}`;
+                const { data: uploadData, error: uploadError } = await supabase.storage
+                    .from('productos')
+                    .upload(fileName, imagenFile);
+                
+                if (uploadError) throw uploadError;
+                
+                // Obtener URL pública de la imagen
+                const { data: urlData } = supabase.storage
+                    .from('productos')
+                    .getPublicUrl(fileName);
+                
+                // Guardar producto en la base de datos
+                const { data, error } = await supabase
+                    .from('productos')
+                    .insert([
+                        {
+                            nombre: nombre,
+                            descripcion: descripcion,
+                            precio: precio,
+                            categoria: categoria,
+                            imagen_url: urlData.publicUrl
+                        }
+                    ]);
+                
+                if (error) throw error;
+                
+                // Limpiar formulario
+                document.getElementById('addProductForm').reset();
+                document.getElementById('imagePreview').innerHTML = '';
+                
+                showToast('Producto agregado exitosamente', 'success');
+                
+                // Recargar productos
+                loadProducts();
+                loadAdminProducts();
+                
+            } catch (error) {
+                console.error('Error:', error);
+                showToast('Error al agregar producto', 'error');
+        
