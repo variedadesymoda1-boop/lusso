@@ -161,8 +161,6 @@
             totalTexto.innerText = totalGeneral.toLocaleString();
             if(carrito.length === 0) lista.innerHTML = '<p style="font-size: 0.8rem; color: #888;">Tu bolsa está vacía.</p>';
         }
-    
-
         function comprarWhatsApp() {
             if (carrito.length === 0) return alert("¡Agrega productos a tu bolsa primero!");
             const miTel = "573000000000"; // ← TU NÚMERO
@@ -183,7 +181,7 @@
     const tienda = document.getElementById('contenedor-tienda');
     tienda.innerHTML = ''; 
     
-            productos.forEach(prod => {
+   productos.forEach(prod => {
   tienda.innerHTML += `
     <div class="producto">
       <img src="${prod.Imagen}" 
@@ -208,10 +206,10 @@
     </div>`;
 });
       
+      
         
         
-  }
-}
+  
 
 cargarProductosDesdeBD();
       // 1. Función para entrar al modo administrador
