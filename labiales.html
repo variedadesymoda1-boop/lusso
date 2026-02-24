@@ -72,6 +72,13 @@
    }
         
 </style>
+ <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+  const supabaseUrl = '//https://azfingejfhjmbkcrtlbb.supabase.co';  
+  const supabaseKey = '//sb_publishable_oEmSiQhpAZ9HToa9C2nHXg_5qHIZDUD';
+  const supabase = supabase.createClient(supabaseUrl, supabaseKey);
+</script>
     
 </head>
 <body>
@@ -177,6 +184,31 @@
             });
             pedido += `\n💰 TOTAL: $${document.getElementById('total-dinero').innerText}`;
             window.open(`https://wa.me/${miTel}?text=${encodeURIComponent(pedido)}`, '_blank');
+            async function cargarProductosDesdeBD() {
+  const { data: productos, error } = await supabase
+    .from('productos')
+    .select('*');
+
+  if (error) {
+    console.error("Error:", error);
+  } else if (productos && productos.length > 0) {
+    const tienda = document.getElementById('contenedor-tienda');
+    tienda.innerHTML = ''; 
+    
+    productos.forEach(prod => {
+      tienda.innerHTML += `
+        <div class="producto">
+          <img src="${prod.imagen}" onerror="this.src='https://images.pexels.com/photos/2533266/pexels-photo-2533266.jpeg?auto=compress&cs=tinysrgb&w=600'">
+          <h3>${prod.nombre}</h3>
+          <p style="color:var(--oro); font-weight:bold;">$${prod.precio.toLocaleString()}</p>
+          <button class="btn-add" onclick="agregar('${prod.nombre}', ${prod.precio})">AGREGAR</button>
+        </div>`;
+    });
+  }
+}
+
+cargarProductosDesdeBD();
+            
         }
     </script>
 </body>
