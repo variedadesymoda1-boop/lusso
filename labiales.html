@@ -195,20 +195,71 @@
     const tienda = document.getElementById('contenedor-tienda');
     tienda.innerHTML = ''; 
     
-        productos.forEach(prod => {
+            productos.forEach(prod => {
       tienda.innerHTML += `
         <div class="producto">
-          <img src="${prod.Imagen}" onerror="this.src='https://images.pexels.com/photos/2533266/pexels-photo-2533266.jpeg?auto=compress&cs=tinysrgb&w=600'">
+          <img src="${prod.Imagen}" onclick="const file=document.createElement('input'); file.type='file'; file.onchange=e=>subirImagen(e.target.files[0], ${prod.id}); file.click();" style="cursor:pointer;">
           <h3>${prod.nombre}</h3>
-          <p style="color:var(--oro); font-weight:bold;">$${prod.precio.toLocaleString()}</p>
+          <p style="color:var(--oro); font-weight:bold; cursor:pointer;" onclick="actualizarPrecio(${prod.id})">$${prod.precio.toLocaleString()} ✏️</p>
           <button class="btn-add" onclick="agregar('${prod.nombre}', ${prod.precio})">AGREGAR</button>
         </div>`;
     });
+        
         
   }
 }
 
 cargarProductosDesdeBD();
+      // 1. Función para entrar al modo administrador
+function modoEdicion() {
+  const clave = prompt("Introduce la clave de administradora:");
+  if (clave === "lusson2026") {
+    document.body.classList.add('admin-active');
+    alert("¡Modo Jefa activado!");
+  } else {
+    alert("Clave incorrecta");
+  }
+}
+
+// 2. Función para cambiar el precio en Supabase
+async function actualizarPrecio(idProducto) {
+  const nuevoPrecio = prompt("¿Cuál es el nuevo precio?");
+  if (nuevoPrecio) {
+    const { error } = await supabase
+      .from('productos')
+      .update({ precio: parseInt(nuevoPrecio) })
+      .eq('id', idProducto);
+
+    if (error) {
+      alert("Error: " + error.message);
+    } else {
+      alert("¡Precio actualizado!");
+      location.reload();
+    }
+  }
+}
+
+async function subirImagen(archivo, idProducto) {
+  const nombreArchivo = `producto_${Date.now()}.png`;
+  
+  const { data, error } = await supabase.storage
+    .from('fotos-lusson')
+    .upload(nombreArchivo, archivo);
+
+  if (data) {
+    const { data: urlData } = supabase.storage
+      .from('fotos-lusson')
+      .getPublicUrl(nombreArchivo);
+
+    await supabase
+      .from('productos')
+      .update({ Imagen: urlData.publicUrl })
+      .eq('id', idProducto);
+      
+    alert("¡Imagen actualizada!");
+    location.reload();
+  }
+        }
             
         }
     </script>
