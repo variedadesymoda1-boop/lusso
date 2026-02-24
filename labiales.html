@@ -174,7 +174,7 @@
       window.open(`https://wa.me/${miTel}?text=${encodeURIComponent(pedido)}`, '_blank');
     }
     
-        async function cargarProductosDesdeBD() {
+       async function cargarProductosDesdeBD() {
   const { data: productos, error } = await supabase
     .from('productos')
     .select('*');
