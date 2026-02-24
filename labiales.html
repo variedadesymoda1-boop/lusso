@@ -162,21 +162,10 @@
             if(carrito.length === 0) lista.innerHTML = '<p style="font-size: 0.8rem; color: #888;">Tu bolsa está vacía.</p>';
         }
 
-        const tienda = document.getElementById('contenedor-tienda');
-        for (let i = 1; i <= 30; i++) {
-            const p = 35000;
-            const n = `Labial N°${i}`;
-            const f = `assets/labial${i}.png`;
-            tienda.innerHTML += `
-                <div class="producto">
-                    <a href="producto.html?nombre=${encodeURIComponent(n)}&precio=${p}&foto=${f}" style="text-decoration:none; color:inherit;">
-                        <img src="${f}" onerror="this.src='https://images.pexels.com/photos/2533266/pexels-photo-2533266.jpeg?auto=compress&w=300'">
-                        <h3 style="font-size:0.65rem; margin: 10px 0;">${n}</h3>
-                    </a>
-                    <p style="color:var(--oro); font-weight:bold; font-size:0.8rem;">$${p.toLocaleString()}</p>
-                    <button class="btn-add" onclick="agregar('${n}', ${p})">AGREGAR</button>
-                </div>`;
-        }
+        constante tienda = documento.obtenerElementoPorId('contenedor-tienda');
+para (dejar i = 1; i <= 30; i++) {
+    }
+    
 
         function comprarWhatsApp() {
             if (carrito.length === 0) return alert("¡Agrega productos a tu bolsa primero!");
@@ -199,14 +188,30 @@
     tienda.innerHTML = ''; 
     
             productos.forEach(prod => {
-      tienda.innerHTML += `
-        <div class="producto">
-          <img src="${prod.Imagen}" onclick="const file=document.createElement('input'); file.type='file'; file.onchange=e=>subirImagen(e.target.files[0], ${prod.id}); file.click();" style="cursor:pointer;">
-          <h3>${prod.nombre}</h3>
-          <p style="color:var(--oro); font-weight:bold; cursor:pointer;" onclick="actualizarPrecio(${prod.id})">$${prod.precio.toLocaleString()} ✏️</p>
-          <button class="btn-add" onclick="agregar('${prod.nombre}', ${prod.precio})">AGREGAR</button>
-        </div>`;
-    });
+  tienda.innerHTML += `
+    <div class="producto">
+      <img src="${prod.Imagen}" 
+           onclick="if(document.body.classList.contains('admin-active')){ 
+             const file=document.createElement('input'); 
+             file.type='file'; 
+             file.onchange=e=>subirImagen(e.target.files[0], ${prod.id}); 
+             file.click(); 
+           } else { 
+             window.location.href='producto.html?id=${prod.id}'; 
+           }" 
+           style="cursor:pointer;">
+      
+      <h3>${prod.nombre}</h3>
+      
+      <p style="color:var(--oro); font-weight:bold; cursor:pointer;" 
+         onclick="if(document.body.classList.contains('admin-active')) actualizarPrecio(${prod.id})">
+        $${prod.precio.toLocaleString()} ✏️
+      </p>
+      
+      <button class="btn-add" onclick="agregar('${prod.nombre}', ${prod.precio})">AGREGAR</button>
+    </div>`;
+});
+      
         
         
   }
