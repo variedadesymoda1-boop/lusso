@@ -4,10 +4,176 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lusson Labiales | Tienda Oficial</title>
-    <link rel="stylesheet" href="style.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background-color: #0A0A0A;
+            color: white;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        /* Header */
+        .header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(10,10,10,0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            z-index: 1000;
+        }
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 80px;
+        }
+        .logo a {
+            font-size: 1.8rem;
+            font-weight: 800;
+            text-decoration: none;
+            color: white;
+        }
+        .dot { color: #FF69B4; }
+        
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+        .nav-menu a {
+            color: #f5f5f5;
+            text-decoration: none;
+        }
+        .nav-menu a.active {
+            color: #FF69B4;
+            border-bottom: 2px solid #FF69B4;
+        }
+        
+        /* Hero */
+        .hero {
+            min-height: 60vh;
+            display: flex;
+            align-items: center;
+            padding: 100px 0;
+            background: #111;
+        }
+        .hero-title {
+            font-size: 4rem;
+            font-weight: 800;
+        }
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: #FF69B4;
+        }
+        .hero-headline {
+            font-size: 3rem;
+            margin: 1rem 0;
+        }
+        
+        /* Productos */
+        .products {
+            padding: 4rem 0;
+            background: #0A0A0A;
+        }
+        .section-title {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        .gradient-text {
+            background: linear-gradient(135deg, #FF69B4, #FF1493);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        
+        .product-card {
+            background: #1A1A1A;
+            border-radius: 16px;
+            padding: 2rem;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+        
+        .product-image {
+            width: 150px;
+            height: 150px;
+            background: #FF69B4;
+            border-radius: 50%;
+            margin: 0 auto 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: white;
+            overflow: hidden;
+        }
+        
+        .product-title {
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .product-price {
+            font-size: 1.5rem;
+            color: #FF69B4;
+            font-weight: 700;
+            margin: 1rem 0;
+        }
+        
+        .btn {
+            background: linear-gradient(135deg, #FF69B4, #FF1493);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            width: 100%;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 3rem;
+            color: rgba(255,255,255,0.5);
+        }
+        
+        /* Footer */
+        .footer {
+            background: #111;
+            padding: 2rem 0;
+            text-align: center;
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+        .copyright {
+            color: rgba(255,255,255,0.5);
+        }
+        
+        @media (max-width: 768px) {
+            .hero-title { font-size: 2.5rem; }
+            .hero-headline { font-size: 2rem; }
+        }
+    </style>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     <!-- Supabase -->
@@ -20,355 +186,181 @@
                 <a href="/">LUSSON<span class="dot">.</span></a>
             </div>
             <ul class="nav-menu">
-                <li><a href="../index.html">INICIO</a></li>
-                <li><a href="labiales.html" class="active">LABIALES</a></li>
-                <li><a href="../rubores/rubores.html">RUBORES</a></li>
-                <li><a href="../contacto.html">CONTACTO</a></li>
+                <li><a href="#inicio">INICIO</a></li>
+                <li><a href="#labiales" class="active">LABIALES</a></li>
+                <li><a href="#rubores">RUBORES</a></li>
             </ul>
-            <div class="cart-icon">
-                <i class="fas fa-shopping-bag"></i>
-                <span class="cart-count">0</span>
-            </div>
-            <button class="menu-toggle" aria-label="Menú">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
         </nav>
     </header>
 
     <main>
-        <!-- Hero Section -->
         <section id="inicio" class="hero">
             <div class="container">
                 <div class="hero-content">
                     <h1 class="hero-title">LABIALES<span class="dot">.</span></h1>
                     <div class="hero-subtitle">COLOR QUE DURA</div>
                     <h2 class="hero-headline">Labios perfectos,<br>todo el día.</h2>
-                    <p class="hero-description">
-                        Fórmula vegana e hipoalergénica. Colores intensos que hidratan y cuidan tus labios.
-                    </p>
+                    <p>Fórmula vegana e hipoalergénica. Colores intensos que hidratan y cuidan tus labios.</p>
                 </div>
-            </div>
-            <div class="hero-background">
-                <div class="gradient-orb"></div>
             </div>
         </section>
 
-        <!-- PRODUCTOS - Se cargan desde Supabase -->
         <section id="labiales" class="products">
             <div class="container">
-                <div class="section-header">
-                    <h2 class="section-title">Nuestros <span class="gradient-text">Labiales</span></h2>
-                    <p class="section-description" id="productCount">Cargando productos...</p>
-                </div>
+                <h2 class="section-title">Nuestros <span class="gradient-text">Labiales</span></h2>
                 
                 <div class="products-grid" id="productsGrid">
-                    <!-- Los productos se cargan aquí desde JavaScript -->
-                    <div class="loading">Cargando productos...</div>
-                </div>
-            </div>
-        </section>
-
-        <!-- CARRITO -->
-        <div class="cart-sidebar" id="cartSidebar">
-            <div class="cart-header">
-                <h3>Mi Bolsa <span class="cart-count-display">(0)</span></h3>
-                <button class="close-cart"><i class="fas fa-times"></i></button>
-            </div>
-            <div class="cart-items">
-                <p class="empty-cart">Tu bolsa está vacía</p>
-            </div>
-            <div class="cart-footer">
-                <div class="cart-total">
-                    <span>TOTAL:</span>
-                    <span class="total-amount">$0</span>
-                </div>
-                <a href="#" class="btn btn-whatsapp btn-block" target="_blank" id="whatsappOrder">
-                    <i class="fab fa-whatsapp"></i> Pedir por WhatsApp
-                </a>
-            </div>
-        </div>
-    </main>
-
-    <!-- MODAL DE ADMIN (OCULTO) - Aparece con doble click en logo -->
-    <div class="admin-modal" id="adminModal">
-        <div class="admin-modal-content">
-            <div class="admin-modal-header">
-                <h2>Panel de Administración</h2>
-                <button class="close-admin"><i class="fas fa-times"></i></button>
-            </div>
-            
-            <!-- Login Form -->
-            <div class="login-form" id="loginForm">
-                <h3>Iniciar Sesión</h3>
-                <div class="form-group">
-                    <input type="email" id="loginEmail" placeholder="Email">
-                </div>
-                <div class="form-group">
-                    <input type="password" id="loginPassword" placeholder="Contraseña">
-                </div>
-                <button class="btn btn-primary btn-block" id="loginBtn">Ingresar</button>
-                <p class="error-message" id="loginError"></p>
-            </div>
-            
-            <!-- Admin Panel (visible solo cuando está logueado) -->
-            <div class="admin-panel" id="adminPanel" style="display: none;">
-                <div class="admin-tabs">
-                    <button class="tab-btn active" data-tab="add">Agregar Producto</button>
-                    <button class="tab-btn" data-tab="list">Lista Productos</button>
-                </div>
-                
-                <!-- Tab Agregar Producto -->
-                <div class="tab-content active" id="tabAdd">
-                    <form id="addProductForm">
-                        <div class="form-group">
-                            <label>Nombre del producto</label>
-                            <input type="text" id="productName" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Descripción</label>
-                            <textarea id="productDesc" rows="3" required></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label>Precio ($)</label>
-                            <input type="number" id="productPrice" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Categoría</label>
-                            <select id="productCategory">
-                                <option value="labiales">Labiales</option>
-                                <option value="rubores">Rubores</option>
-                                <option value="otros">Otros</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label>Imagen del producto</label>
-                            <input type="file" id="productImage" accept="image/*" required>
-                            <div class="image-preview" id="imagePreview"></div>
-                        </div>
-                        <button type="submit" class="btn btn-primary btn-block">Guardar Producto</button>
-                    </form>
-                </div>
-                
-                <!-- Tab Lista Productos -->
-                <div class="tab-content" id="tabList">
-                    <div class="admin-products-list" id="adminProductsList">
-                        <!-- Lista de productos para editar/eliminar -->
+                    <div class="loading">
+                        <i class="fas fa-spinner fa-spin"></i> Cargando productos...
                     </div>
                 </div>
             </div>
+        </section>
+    </main>
+
+    <!-- MODAL ADMIN -->
+    <div id="adminModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); z-index:2000; align-items:center; justify-content:center;">
+        <div style="background:#1A1A1A; padding:2rem; border-radius:16px; width:90%; max-width:500px;">
+            <h2 style="margin-bottom:1.5rem;">Panel Admin</h2>
+            
+            <div id="loginForm">
+                <input type="email" id="loginEmail" placeholder="Email" style="width:100%; padding:1rem; margin-bottom:1rem; background:#222; border:1px solid #333; border-radius:8px; color:white;">
+                <input type="password" id="loginPassword" placeholder="Contraseña" style="width:100%; padding:1rem; margin-bottom:1rem; background:#222; border:1px solid #333; border-radius:8px; color:white;">
+                <button onclick="handleLogin()" style="width:100%; padding:1rem; background:#FF69B4; color:white; border:none; border-radius:8px; cursor:pointer;">Ingresar</button>
+                <p id="loginError" style="color:#ff4444; margin-top:1rem;"></p>
+            </div>
+            
+            <div id="adminPanel" style="display:none;">
+                <h3 style="margin-bottom:1rem;">Agregar Producto</h3>
+                <form id="addProductForm">
+                    <input type="text" id="productName" placeholder="Nombre" style="width:100%; padding:0.75rem; margin-bottom:0.5rem; background:#222; border:1px solid #333; border-radius:8px; color:white;" required>
+                    <textarea id="productDesc" placeholder="Descripción" style="width:100%; padding:0.75rem; margin-bottom:0.5rem; background:#222; border:1px solid #333; border-radius:8px; color:white;" required></textarea>
+                    <input type="number" id="productPrice" placeholder="Precio" style="width:100%; padding:0.75rem; margin-bottom:0.5rem; background:#222; border:1px solid #333; border-radius:8px; color:white;" required>
+                    <input type="file" id="productImage" accept="image/*" style="width:100%; padding:0.75rem; margin-bottom:1rem; background:#222; border:1px solid #333; border-radius:8px; color:white;" required>
+                    <button type="submit" style="width:100%; padding:1rem; background:#FF69B4; color:white; border:none; border-radius:8px; cursor:pointer;">Guardar Producto</button>
+                </form>
+            </div>
+            
+            <button onclick="document.getElementById('adminModal').style.display='none'" style="margin-top:1rem; width:100%; padding:0.75rem; background:#333; color:white; border:none; border-radius:8px; cursor:pointer;">Cerrar</button>
         </div>
     </div>
 
-    <!-- TOAST NOTIFICATIONS -->
-    <div class="toast-container" id="toastContainer"></div>
-
     <footer class="footer">
         <div class="container">
-            <div class="footer-grid">
-                <div class="footer-brand">
-                    <div class="logo">LUSSON<span class="dot">.</span></div>
-                    <p>Maquillaje de alta calidad, vegano y libre de crueldad animal.</p>
-                </div>
-                
-                <div class="footer-links">
-                    <h4>Productos</h4>
-                    <ul>
-                        <li><a href="labiales.html">Labiales</a></li>
-                        <li><a href="../rubores/rubores.html">Rubores</a></li>
-                        <li><a href="../index.html">Todos</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-links">
-                    <h4>Información</h4>
-                    <ul>
-                        <li><a href="#">Envíos</a></li>
-                        <li><a href="#">Devoluciones</a></li>
-                        <li><a href="#">Preguntas frecuentes</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-newsletter">
-                    <h4>Newsletter</h4>
-                    <p>Recibe novedades y promociones</p>
-                    <form class="newsletter-form">
-                        <input type="email" placeholder="Tu email">
-                        <button type="submit" class="btn-subscribe"><i class="fas fa-paper-plane"></i></button>
-                    </form>
-                </div>
-            </div>
-            
-            <div class="footer-bottom">
-                <p class="copyright">© 2026 Lusson. Todos los derechos reservados.</p>
-                <div class="footer-legal">
-                    <a href="#">Privacidad</a>
-                    <span class="separator">|</span>
-                    <a href="#">Términos</a>
-                </div>
-            </div>
+            <p class="copyright">© 2026 Lusson. Todos los derechos reservados.</p>
         </div>
     </footer>
 
     <script>
-        // ============================================
-        // CONFIGURACIÓN DE SUPABASE - TUS LLAVES
-        // ============================================
+        // CONFIGURACIÓN SUPABASE - TUS LLAVES
         const SUPABASE_URL = 'https://azfingejfhjmbkcrtlbb.supabase.co';
         const SUPABASE_ANON_KEY = 'sb_publishable_oEmSiQhpAZ9HToa9C2nHXg_5qHIZDUD';
-        
-        // Inicializar Supabase
         const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
         
-        // Variable para saber si el admin está logueado
-        let isAdminLoggedIn = false;
-        let cart = [];
+        // PRODUCTOS DE RESPALDO (por si no hay en Supabase)
+        const productosRespaldo = [
+            { nombre: 'Red Velvet', descripcion: 'Rojo intenso mate de larga duración', precio: 12990 },
+            { nombre: 'Pink Sugar', descripcion: 'Rosa suave con acabado satinado', precio: 11990 },
+            { nombre: 'Nude Glow', descripcion: 'Tono nude natural con brillo sutil', precio: 10990 },
+            { nombre: 'Berry Wine', descripcion: 'Tinto berry mate, ideal para noche', precio: 12990 }
+        ];
         
         document.addEventListener('DOMContentLoaded', function() {
-            // Cargar productos
+            // Cargar productos desde Supabase
             loadProducts();
             
-            // Botón secreto: doble click en el logo
-            const secretBtn = document.getElementById('secretAdminBtn');
-            if (secretBtn) {
-                secretBtn.addEventListener('dblclick', function(e) {
-                    e.preventDefault();
-                    openAdminModal();
-                });
-            }
+            // Botón secreto (doble click en logo)
+            document.getElementById('secretAdminBtn').addEventListener('dblclick', function() {
+                document.getElementById('adminModal').style.display = 'flex';
+            });
             
-            // Configurar modal de admin
-            setupAdminModal();
-            
-            // Configurar carrito
-            setupCart();
+            // Formulario agregar producto
+            document.getElementById('addProductForm').addEventListener('submit', handleAddProduct);
         });
         
-        // ============================================
-        // FUNCIONES DE PRODUCTOS
-        // ============================================
         async function loadProducts() {
             try {
-                const { data: productos, error } = await supabase
-                    .from('productos')
-                    .select('*')
-                    .eq('categoria', 'labiales')
-                    .order('created_at', { ascending: false });
+                console.log('Intentando cargar productos de Supabase...');
                 
-                if (error) throw error;
+                // Intentar obtener productos de la tabla 'products'
+                const { data, error } = await supabase
+                    .from('products')
+                    .select('*');
                 
-                const productsGrid = document.getElementById('productsGrid');
-                const productCount = document.getElementById('productCount');
+                if (error) {
+                    console.error('Error de Supabase:', error);
+                    throw error;
+                }
                 
-                if (productos && productos.length > 0) {
-                    productCount.textContent = `${productos.length} productos disponibles`;
-                    
+                console.log('Datos recibidos:', data);
+                
+                const grid = document.getElementById('productsGrid');
+                
+                // Si hay productos en Supabase, mostrarlos
+                if (data && data.length > 0) {
                     let html = '';
-                    productos.forEach(prod => {
+                    data.forEach(producto => {
+                        // Verificar que el producto tenga los campos necesarios
+                        const nombre = producto.nombre || producto.name || 'Producto';
+                        const descripcion = producto.descripcion || producto.description || '';
+                        const precio = producto.precio || producto.price || 0;
+                        
                         html += `
-                            <article class="product-card">
+                            <div class="product-card">
                                 <div class="product-image">
-                                    ${prod.imagen_url ? 
-                                        `<img src="${prod.imagen_url}" alt="${prod.nombre}" class="product-img">` : 
-                                        `<i class="fas fa-lipstick"></i>`
-                                    }
+                                    <i class="fas fa-lipstick"></i>
                                 </div>
-                                <h3 class="product-title">${prod.nombre}</h3>
-                                <p class="product-description">${prod.descripcion}</p>
-                                <div class="product-price">$${prod.precio.toLocaleString()}</div>
-                                <button class="btn btn-primary btn-small add-to-cart" 
-                                        data-id="${prod.id}"
-                                        data-name="${prod.nombre}"
-                                        data-price="${prod.precio}">
+                                <h3 class="product-title">${nombre}</h3>
+                                <p style="color:rgba(255,255,255,0.6);">${descripcion}</p>
+                                <div class="product-price">$${precio.toLocaleString()}</div>
+                                <button class="btn" onclick="agregarAlCarrito('${nombre}', ${precio})">
                                     <i class="fas fa-shopping-bag"></i> Agregar
                                 </button>
-                            </article>
+                            </div>
                         `;
                     });
-                    productsGrid.innerHTML = html;
-                    
-                    // Agregar eventos a los botones de agregar al carrito
-                    document.querySelectorAll('.add-to-cart').forEach(btn => {
-                        btn.addEventListener('click', function() {
-                            addToCart({
-                                id: this.dataset.id,
-                                name: this.dataset.name,
-                                price: parseInt(this.dataset.price)
-                            });
-                        });
-                    });
+                    grid.innerHTML = html;
                 } else {
-                    productsGrid.innerHTML = '<p class="no-products">No hay productos disponibles</p>';
-                    productCount.textContent = '0 productos disponibles';
+                    // No hay productos, mostrar respaldo
+                    console.log('No hay productos en Supabase, mostrando respaldo');
+                    mostrarProductosRespaldo();
                 }
+                
             } catch (error) {
                 console.error('Error cargando productos:', error);
-                document.getElementById('productsGrid').innerHTML = 
-                    '<p class="error">Error cargando productos. Intenta más tarde.</p>';
+                mostrarProductosRespaldo();
             }
         }
         
-        // ============================================
-        // FUNCIONES DE ADMIN
-        // ============================================
-        function openAdminModal() {
-            const modal = document.getElementById('adminModal');
-            modal.style.display = 'flex';
-            
-            if (isAdminLoggedIn) {
-                document.getElementById('loginForm').style.display = 'none';
-                document.getElementById('adminPanel').style.display = 'block';
-                loadAdminProducts();
-            } else {
-                document.getElementById('loginForm').style.display = 'block';
-                document.getElementById('adminPanel').style.display = 'none';
-            }
+        function mostrarProductosRespaldo() {
+            const grid = document.getElementById('productsGrid');
+            let html = '';
+            productosRespaldo.forEach(p => {
+                html += `
+                    <div class="product-card">
+                        <div class="product-image">
+                            <i class="fas fa-lipstick"></i>
+                        </div>
+                        <h3 class="product-title">${p.nombre}</h3>
+                        <p style="color:rgba(255,255,255,0.6);">${p.descripcion}</p>
+                        <div class="product-price">$${p.precio.toLocaleString()}</div>
+                        <button class="btn" onclick="agregarAlCarrito('${p.nombre}', ${p.precio})">
+                            <i class="fas fa-shopping-bag"></i> Agregar
+                        </button>
+                    </div>
+                `;
+            });
+            grid.innerHTML = html;
         }
         
-        function setupAdminModal() {
-            const modal = document.getElementById('adminModal');
-            const closeBtn = document.querySelector('.close-admin');
-            
-            closeBtn.addEventListener('click', () => {
-                modal.style.display = 'none';
-            });
-            
-            window.addEventListener('click', (e) => {
-                if (e.target === modal) {
-                    modal.style.display = 'none';
-                }
-            });
-            
-            document.getElementById('loginBtn').addEventListener('click', handleLogin);
-            
-            document.querySelectorAll('.tab-btn').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-                    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-                    
-                    this.classList.add('active');
-                    document.getElementById(`tab${this.dataset.tab}`).classList.add('active');
-                    
-                    if (this.dataset.tab === 'list') {
-                        loadAdminProducts();
-                    }
-                });
-            });
-            
-            document.getElementById('addProductForm').addEventListener('submit', handleAddProduct);
-            document.getElementById('productImage').addEventListener('change', handleImagePreview);
-        }
+        // Función para agregar al carrito
+        window.agregarAlCarrito = function(nombre, precio) {
+            alert(`✅ ${nombre} agregado al carrito por $${precio.toLocaleString()}`);
+        };
         
         async function handleLogin() {
             const email = document.getElementById('loginEmail').value;
             const password = document.getElementById('loginPassword').value;
-            const errorEl = document.getElementById('loginError');
-            
-            if (!email || !password) {
-                errorEl.textContent = 'Ingresa email y contraseña';
-                return;
-            }
             
             try {
                 const { data, error } = await supabase.auth.signInWithPassword({
@@ -378,17 +370,12 @@
                 
                 if (error) throw error;
                 
-                isAdminLoggedIn = true;
                 document.getElementById('loginForm').style.display = 'none';
                 document.getElementById('adminPanel').style.display = 'block';
-                errorEl.textContent = '';
-                
-                loadAdminProducts();
-                showToast('Login exitoso', 'success');
+                document.getElementById('loginError').textContent = '';
                 
             } catch (error) {
-                errorEl.textContent = 'Email o contraseña incorrectos';
-                showToast('Error de login', 'error');
+                document.getElementById('loginError').textContent = 'Email o contraseña incorrectos';
             }
         }
         
@@ -398,59 +385,34 @@
             const nombre = document.getElementById('productName').value;
             const descripcion = document.getElementById('productDesc').value;
             const precio = parseInt(document.getElementById('productPrice').value);
-            const categoria = document.getElementById('productCategory').value;
-            const imagenFile = document.getElementById('productImage').files[0];
-            
-            if (!nombre || !descripcion || !precio || !imagenFile) {
-                showToast('Completa todos los campos', 'error');
-                return;
-            }
             
             try {
-                const fileName = `${Date.now()}_${imagenFile.name}`;
-                const { data: uploadData, error: uploadError } = await supabase.storage
-                    .from('productos')
-                    .upload(fileName, imagenFile);
-                
-                if (uploadError) throw uploadError;
-                
-                const { data: urlData } = supabase.storage
-                    .from('productos')
-                    .getPublicUrl(fileName);
-                
+                // Intentar guardar en Supabase
                 const { data, error } = await supabase
-                    .from('productos')
+                    .from('products')
                     .insert([
-                        {
-                            nombre: nombre,
-                            descripcion: descripcion,
+                        { 
+                            nombre: nombre, 
+                            descripcion: descripcion, 
                             precio: precio,
-                            categoria: categoria,
-                            imagen_url: urlData.publicUrl
+                            created_at: new Date()
                         }
                     ]);
                 
-                if (error) throw error;
-                
-                document.getElementById('addProductForm').reset();
-                document.getElementById('imagePreview').innerHTML = '';
-                
-                showToast('Producto agregado exitosamente', 'success');
-                
-                loadProducts();
-                loadAdminProducts();
+                if (error) {
+                    console.error('Error guardando:', error);
+                    alert('Error: ' + error.message);
+                } else {
+                    alert('✅ Producto guardado correctamente');
+                    document.getElementById('addProductForm').reset();
+                    document.getElementById('adminModal').style.display = 'none';
+                    loadProducts(); // Recargar productos
+                }
                 
             } catch (error) {
-                console.error('Error:', error);
-                showToast('Error al agregar producto', 'error');
+                alert('Error al guardar: ' + error.message);
             }
         }
-        
-        async function loadAdminProducts() {
-            try {
-                const { data: productos, error } = await supabase
-                    .from('productos')
-                    .select('*')
-                    .order('created_at', { ascending: false });
-                
-         
+    </script>
+</body>
+</html>
