@@ -161,15 +161,19 @@
             totalTexto.innerText = totalGeneral.toLocaleString();
             if(carrito.length === 0) lista.innerHTML = '<p style="font-size: 0.8rem; color: #888;">Tu bolsa está vacía.</p>';
         }
-        function comprarWhatsApp() {
-            if (carrito.length === 0) return alert("¡Agrega productos a tu bolsa primero!");
-            const miTel = "573000000000"; // ← TU NÚMERO
-            let pedido = "¡Hola Lusson Colombia! 🌟 Quiero hacer este pedido:\n\n";
-            carrito.forEach(item => {
-                pedido += `• ${item.nombre} | Cant: ${item.cantidad} | Sub: $${(item.precio * item.cantidad).toLocaleString()}\n`;
-            });
-            pedido += `\n💰 TOTAL: $${document.getElementById('total-dinero').innerText}`;
-            window.open(`https://wa.me/${miTel}?text=${encodeURIComponent(pedido)}`, '_blank');
+            const tienda = document.getElementById('contenedor-tienda');
+
+    function comprarWhatsApp() {
+      if (carrito.length === 0) return alert("¡Agrega productos a tu bolsa primero!");
+      const miTel = "573000000000"; 
+      let pedido = "¡Hola Lusson Colombia! 🌟 Quiero hacer este pedido:\n\n";
+      carrito.forEach(item => {
+        pedido += `- ${item.nombre} | Cant: ${item.cantidad} | Sub: $${(item.precio * item.cantidad).toLocaleString()}\n`;
+      });
+      pedido += `\n💰 TOTAL: $${document.getElementById('total-dinero').innerText}`;
+      window.open(`https://wa.me/${miTel}?text=${encodeURIComponent(pedido)}`, '_blank');
+    }
+    
             async function cargarProductosDesdeBD() {
   const { data: productos, error } = await supabase
     .from('productos')
