@@ -174,41 +174,47 @@
       window.open(`https://wa.me/${miTel}?text=${encodeURIComponent(pedido)}`, '_blank');
     }
     
-            async function cargarProductosDesdeBD() {
-  const { data: productos, error } = await supabase
+        async function cargarProductosDesdeBD() {
+  const { data: productos, error } = await _supabase
     .from('productos')
     .select('*');
 
   if (error) {
-    console.error("Error:", error);
-  } else if (productos && productos.length > 0) {
-    const tienda = document.getElementById('contenedor-tienda');
-    tienda.innerHTML = ''; 
+    console.error('Error al cargar productos:', error);
+    return;
+  }
+
+  const tienda = document.getElementById('contenedor-tienda');
+  tienda.innerHTML = ''; // Limpia la tienda antes de cargar
+
+  productos.forEach(prod => {
+    tienda.innerHTML += `
+      <div class="producto">
+        <img src="${prod.Imagen}" 
+             onclick="if(document.body.classList.contains('admin-active')){ 
+               const file=document.createElement('input'); 
+               file.type='file'; 
+               file.onchange=e=>subirImagen(e.target.files[0], ${prod.id}); 
+               file.click(); 
+             } else { 
+               window.location.href='producto.html?id=${prod.id}'; 
+             }" 
+             style="cursor:pointer;">
+        
+        <h3>${prod.nombre}</h3>
+        
+        <p style="color:var(--oro); font-weight:bold; cursor:pointer;" 
+           onclick="if(document.body.classList.contains('admin-active')) actualizarPrecio(${prod.id})">
+          $${prod.precio.toLocaleString()} ✏️
+        </p>
+        
+        <button class="btn-add" onclick="agregar('${prod.nombre}', ${prod.precio})">AGREGAR</button>
+      </div>`;
+  });
+        }
     
-   productos.forEach(prod => {
-  tienda.innerHTML += `
-    <div class="producto">
-      <img src="${prod.Imagen}" 
            onclick="if(document.body.classList.contains('admin-active')){ 
-             const file=document.createElement('input'); 
-             file.type='file'; 
-             file.onchange=e=>subirImagen(e.target.files[0], ${prod.id}); 
-             file.click(); 
-           } else { 
-             window.location.href='producto.html?id=${prod.id}'; 
-           }" 
-           style="cursor:pointer;">
-      
-      <h3>${prod.nombre}</h3>
-      
-      <p style="color:var(--oro); font-weight:bold; cursor:pointer;" 
-         onclick="if(document.body.classList.contains('admin-active')) actualizarPrecio(${prod.id})">
-        $${prod.precio.toLocaleString()} ✏️
-      </p>
-      
-      <button class="btn-add" onclick="agregar('${prod.nombre}', ${prod.precio})">AGREGAR</button>
-    </div>`;
-});
+    
       
       
         
