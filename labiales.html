@@ -180,12 +180,12 @@
     .select('*');
 
   if (error) {
-    console.error('Error al cargar productos:', error);
+    console.error('Error:', error);
     return;
   }
 
   const tienda = document.getElementById('contenedor-tienda');
-  tienda.innerHTML = ''; // Limpia la tienda antes de cargar
+  tienda.innerHTML = '';
 
   productos.forEach(prod => {
     tienda.innerHTML += `
@@ -211,17 +211,10 @@
         <button class="btn-add" onclick="agregar('${prod.nombre}', ${prod.precio})">AGREGAR</button>
       </div>`;
   });
-        }
-    
-           
-    
-      
-      
-        
-        
-  
+}
 
 cargarProductosDesdeBD();
+    
       // 1. Función para entrar al modo administrador
 function modoEdicion() {
   const clave = prompt("Introduce la clave de administradora:");
