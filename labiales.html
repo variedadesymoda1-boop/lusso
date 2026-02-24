@@ -108,21 +108,18 @@
         </div>
     </header>
 
-    </header>
-
 <div id="contenedor-tienda" class="grid-productos"></div>
 
 <div onclick="conteoJefa()" style="width: 5px; height: 5px; background: transparent; border-radius: 50%; margin: 20px auto; cursor: default;"></div>
 
 <script>
   let carrito = [];
-    
-        let carrito = [];
 
-        function toggleCarrito() {
-            const cuadro = document.getElementById('carrito-detalle');
-            cuadro.style.display = cuadro.style.display === 'block' ? 'none' : 'block';
-        }
+  function toggleCarrito() {
+    const cuadro = document.getElementById('carrito-detalles');
+    cuadro.style.display = cuadro.style.display === 'block' ? 'none' : 'block';
+  }
+    
 
         function agregar(nombre, precio) {
             const index = carrito.findIndex(item => item.nombre === nombre);
