@@ -195,15 +195,16 @@
     const tienda = document.getElementById('contenedor-tienda');
     tienda.innerHTML = ''; 
     
-    productos.forEach(prod => {
+        productos.forEach(prod => {
       tienda.innerHTML += `
         <div class="producto">
-          <img src="${prod.imagen}" onerror="this.src='https://images.pexels.com/photos/2533266/pexels-photo-2533266.jpeg?auto=compress&cs=tinysrgb&w=600'">
+          <img src="${prod.Imagen}" onerror="this.src='https://images.pexels.com/photos/2533266/pexels-photo-2533266.jpeg?auto=compress&cs=tinysrgb&w=600'">
           <h3>${prod.nombre}</h3>
           <p style="color:var(--oro); font-weight:bold;">$${prod.precio.toLocaleString()}</p>
           <button class="btn-add" onclick="agregar('${prod.nombre}', ${prod.precio})">AGREGAR</button>
         </div>`;
     });
+        
   }
 }
 
