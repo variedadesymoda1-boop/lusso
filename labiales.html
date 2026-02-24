@@ -211,17 +211,19 @@
         </div>
     </footer>
 
-    <script src="script.js"></script>
     <script>
-        // CONFIGURACIÓN DE SUPABASE - ¡CAMBIA ESTO!
-        const SUPABASE_URL = 'https://tu-proyecto.supabase.co';
-        const SUPABASE_ANON_KEY = 'tu-anon-key';
+        // ============================================
+        // CONFIGURACIÓN DE SUPABASE - TUS LLAVES
+        // ============================================
+        const SUPABASE_URL = 'https://azfingejfhjmbkcrtlbb.supabase.co';
+        const SUPABASE_ANON_KEY = 'sb_publishable_oEmSiQhpAZ9HToa9C2nHXg_5qHIZDUD';
         
         // Inicializar Supabase
         const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
         
         // Variable para saber si el admin está logueado
         let isAdminLoggedIn = false;
+        let cart = [];
         
         document.addEventListener('DOMContentLoaded', function() {
             // Cargar productos
@@ -238,9 +240,14 @@
             
             // Configurar modal de admin
             setupAdminModal();
+            
+            // Configurar carrito
+            setupCart();
         });
         
-        // Función para cargar productos desde Supabase
+        // ============================================
+        // FUNCIONES DE PRODUCTOS
+        // ============================================
         async function loadProducts() {
             try {
                 const { data: productos, error } = await supabase
@@ -302,12 +309,13 @@
             }
         }
         
-        // Función para abrir modal de admin
+        // ============================================
+        // FUNCIONES DE ADMIN
+        // ============================================
         function openAdminModal() {
             const modal = document.getElementById('adminModal');
             modal.style.display = 'flex';
             
-            // Si ya está logueado, mostrar panel directamente
             if (isAdminLoggedIn) {
                 document.getElementById('loginForm').style.display = 'none';
                 document.getElementById('adminPanel').style.display = 'block';
@@ -318,27 +326,22 @@
             }
         }
         
-        // Configurar modal de admin
         function setupAdminModal() {
             const modal = document.getElementById('adminModal');
             const closeBtn = document.querySelector('.close-admin');
             
-            // Cerrar modal
             closeBtn.addEventListener('click', () => {
                 modal.style.display = 'none';
             });
             
-            // Cerrar al hacer click fuera
             window.addEventListener('click', (e) => {
                 if (e.target === modal) {
                     modal.style.display = 'none';
                 }
             });
             
-            // Botón de login
             document.getElementById('loginBtn').addEventListener('click', handleLogin);
             
-            // Tabs
             document.querySelectorAll('.tab-btn').forEach(btn => {
                 btn.addEventListener('click', function() {
                     document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
@@ -353,14 +356,10 @@
                 });
             });
             
-            // Formulario agregar producto
             document.getElementById('addProductForm').addEventListener('submit', handleAddProduct);
-            
-            // Preview de imagen
             document.getElementById('productImage').addEventListener('change', handleImagePreview);
         }
         
-        // Función para login
         async function handleLogin() {
             const email = document.getElementById('loginEmail').value;
             const password = document.getElementById('loginPassword').value;
@@ -379,15 +378,12 @@
                 
                 if (error) throw error;
                 
-                // Login exitoso
                 isAdminLoggedIn = true;
                 document.getElementById('loginForm').style.display = 'none';
                 document.getElementById('adminPanel').style.display = 'block';
                 errorEl.textContent = '';
                 
-                // Cargar productos para admin
                 loadAdminProducts();
-                
                 showToast('Login exitoso', 'success');
                 
             } catch (error) {
@@ -396,7 +392,6 @@
             }
         }
         
-        // Función para agregar producto
         async function handleAddProduct(e) {
             e.preventDefault();
             
@@ -412,7 +407,6 @@
             }
             
             try {
-                // Subir imagen a Supabase Storage
                 const fileName = `${Date.now()}_${imagenFile.name}`;
                 const { data: uploadData, error: uploadError } = await supabase.storage
                     .from('productos')
@@ -420,12 +414,10 @@
                 
                 if (uploadError) throw uploadError;
                 
-                // Obtener URL pública de la imagen
                 const { data: urlData } = supabase.storage
                     .from('productos')
                     .getPublicUrl(fileName);
                 
-                // Guardar producto en la base de datos
                 const { data, error } = await supabase
                     .from('productos')
                     .insert([
@@ -440,209 +432,25 @@
                 
                 if (error) throw error;
                 
-                // Limpiar formulario
                 document.getElementById('addProductForm').reset();
                 document.getElementById('imagePreview').innerHTML = '';
                 
                 showToast('Producto agregado exitosamente', 'success');
                 
-                // Recargar productos
                 loadProducts();
                 loadAdminProducts();
                 
             } catch (error) {
                 console.error('Error:', error);
                 showToast('Error al agregar producto', 'error');
-    
-.admin-modal {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.8);
-    z-index: 2000;
-    align-items: center;
-    justify-content: center;
-}
-
-.admin-modal-content {
-    background: var(--color-gray);
-    width: 90%;
-    max-width: 600px;
-    max-height: 80vh;
-    overflow-y: auto;
-    border-radius: var(--border-radius);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.admin-modal-header {
-    padding: var(--spacing-md);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    position: sticky;
-    top: 0;
-    background: var(--color-gray);
-}
-
-.close-admin {
-    background: none;
-    border: none;
-    color: white;
-    font-size: 1.5rem;
-    cursor: pointer;
-}
-
-.login-form, .admin-panel {
-    padding: var(--spacing-md);
-}
-
-.error-message {
-    color: #ff4444;
-    margin-top: var(--spacing-sm);
-    text-align: center;
-}
-
-.admin-tabs {
-    display: flex;
-    gap: var(--spacing-sm);
-    margin-bottom: var(--spacing-md);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    padding-bottom: var(--spacing-sm);
-}
-
-.tab-btn {
-    background: none;
-    border: none;
-    color: rgba(255, 255, 255, 0.6);
-    padding: var(--spacing-sm) var(--spacing-md);
-    cursor: pointer;
-    transition: all 0.3s;
-    font-size: 1rem;
-}
-
-.tab-btn.active {
-    color: var(--color-accent);
-    border-bottom: 2px solid var(--color-accent);
-}
-
-.tab-content {
-    display: none;
-}
-
-.tab-content.active {
-    display: block;
-}
-
-.image-preview {
-    margin-top: var(--spacing-sm);
-    text-align: center;
-}
-
-.preview-img {
-    max-width: 200px;
-    max-height: 200px;
-    border-radius: var(--border-radius-sm);
-}
-
-.admin-products-list {
-    max-height: 400px;
-    overflow-y: auto;
-}
-
-.admin-product-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: var(--spacing-sm);
-    background: var(--color-light-gray);
-    border-radius: var(--border-radius-sm);
-    margin-bottom: var(--spacing-xs);
-}
-
-.admin-product-info {
-    display: flex;
-    flex-direction: column;
-}
-
-.admin-product-info strong {
-    color: white;
-}
-
-.admin-product-info span {
-    color: rgba(255, 255, 255, 0.6);
-    font-size: 0.9rem;
-}
-
-.admin-product-actions {
-    display: flex;
-    gap: var(--spacing-xs);
-}
-
-.toast-container {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    z-index: 3000;
-}
-
-.toast {
-    padding: 1rem 1.5rem;
-    border-radius: var(--border-radius-sm);
-    margin-top: 0.5rem;
-    color: white;
-    animation: slideIn 0.3s;
-}
-
-.toast-success {
-    background: #28a745;
-}
-
-.toast-error {
-    background: #dc3545;
-}
-
-.toast-info {
-    background: var(--color-accent);
-}
-
-@keyframes slideIn {
-    from {
-        transform: translateX(100%);
-        opacity: 0;
-    }
-    to {
-        transform: translateX(0);
-        opacity: 1;
-    }
-}
-
-.product-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 50%;
-}
-
-.product-image {
-    overflow: hidden;
-}
-
-.loading, .no-products, .error {
-    text-align: center;
-    padding: var(--spacing-xl);
-    color: rgba(255, 255, 255, 0.6);
-    grid-column: 1 / -1;
-}
-
-.error {
-    color: #ff4444;
-}
-
-.nav-menu a.active {
-    color: var(--color-accent);
-    border-bottom: 2px solid var(--color-accent);
+            }
         }
+        
+        async function loadAdminProducts() {
+            try {
+                const { data: productos, error } = await supabase
+                    .from('productos')
+                    .select('*')
+                    .order('created_at', { ascending: false });
+                
+         
