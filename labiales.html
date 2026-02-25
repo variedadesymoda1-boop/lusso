@@ -11,51 +11,47 @@
     <style>
         :root { --oro: #D4AF37; --nude: #fdfaf7; --negro: #1a1a1a; --blanco: #ffffff; }
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        body { font-family: 'Montserrat', sans-serif; background-color: var(--nude); color: var(--negro); overflow-x: hidden; }
+        body { font-family: 'Montserrat', sans-serif; background-color: var(--nude); color: var(--negro); }
 
-        /* HEADER PREMIUM */
-        header { background: var(--blanco); padding: 1.5rem; text-align: center; border-bottom: 1px solid #eee; position: sticky; top: 0; z-index: 1000; }
+        /* HEADER */
+        header { background: var(--blanco); padding: 1.5rem; text-align: center; border-bottom: 1px solid #eee; position: sticky; top: 0; z-index: 100; }
         .logo { font-family: 'Playfair Display', serif; font-size: 2.2rem; letter-spacing: 6px; color: var(--negro); text-decoration: none; }
-        .sub-logo { font-size: 0.7rem; letter-spacing: 4px; color: var(--oro); font-weight: 600; margin-top: 5px; text-transform: uppercase; }
+        .sub-logo { font-size: 0.7rem; letter-spacing: 4px; color: var(--oro); font-weight: 600; margin-top: 5px; }
         
-        .cart-trigger { position: fixed; top: 25px; right: 30px; font-size: 1.6rem; cursor: pointer; z-index: 1001; }
+        /* CARRITO */
+        .cart-trigger { position: fixed; top: 25px; right: 30px; font-size: 1.6rem; cursor: pointer; z-index: 101; }
         .badge { position: absolute; top: -8px; right: -10px; background: var(--oro); color: white; padding: 2px 7px; border-radius: 50%; font-size: 0.75rem; font-weight: bold; }
 
-        /* PANEL DEL CARRITO */
-        #cart-panel { position: fixed; top: 0; right: -100%; width: 400px; max-width: 100%; height: 100%; background: white; z-index: 2000; transition: 0.4s; padding: 40px; box-shadow: -10px 0 30px rgba(0,0,0,0.1); display: flex; flex-direction: column; }
+        #cart-panel { position: fixed; top: 0; right: -100%; width: 400px; max-width: 100%; height: 100%; background: white; z-index: 200; transition: 0.4s; padding: 40px; box-shadow: -10px 0 30px rgba(0,0,0,0.1); display: flex; flex-direction: column; }
         #cart-panel.active { right: 0; }
         .cart-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; border-bottom: 2px solid var(--nude); padding-bottom: 20px; }
 
-        /* CATÁLOGO */
+        /* PRODUCTOS */
         .container { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 40px; }
-        .card { background: white; border-radius: 20px; padding: 25px; text-align: center; transition: 0.3s; border: 1px solid #eee; box-shadow: 0 5px 15px rgba(0,0,0,0.02); }
-        .img-box { width: 100%; height: 320px; border-radius: 12px; overflow: hidden; margin-bottom: 20px; background: #fdfdfd; border: 1px solid #f0f0f0; }
+        .card { background: white; border-radius: 20px; padding: 25px; text-align: center; border: 1px solid #eee; transition: 0.3s; }
+        .img-box { width: 100%; height: 320px; border-radius: 12px; overflow: hidden; margin-bottom: 20px; background: #fdfdfd; }
         .img-box img { width: 100%; height: 100%; object-fit: cover; }
         .price { color: var(--oro); font-weight: 700; font-size: 1.5rem; margin: 15px 0; }
         .btn-add { background: var(--negro); color: white; border: none; padding: 15px; width: 100%; border-radius: 10px; cursor: pointer; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; }
 
-        /* WHATSAPP */
-        .wa-float { position: fixed; bottom: 30px; left: 30px; background: #25d366; color: white; width: 65px; height: 65px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 35px; box-shadow: 0 6px 20px rgba(37,211,102,0.3); z-index: 900; text-decoration: none; }
+        /* BOTÓN WHATSAPP */
+        .wa-float { position: fixed; bottom: 30px; left: 30px; background: #25d366; color: white; width: 65px; height: 65px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 35px; z-index: 90; text-decoration: none; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
 
-        /* FOOTER Y CÍRCULO SECRETO */
-        footer { background: var(--negro); color: white; padding: 60px 20px; text-align: center; margin-top: 80px; position: relative; }
+        /* FOOTER Y CÍRCULO SEGURO */
+        footer { background: var(--negro); color: white; padding: 60px 20px; text-align: center; margin-top: 80px; }
         
-        /* EL CÍRCULO MEJORADO PARA EVELYN */
-        #secret-circle { 
-            width: 40px; 
-            height: 40px; 
-            background: #222; 
-            border: 1px solid #333;
+        #jefa-circle { 
+            width: 45px; 
+            height: 45px; 
+            background: #333; 
             border-radius: 50%; 
             margin: 0 auto 15px auto; 
-            cursor: pointer; 
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: 0.2s;
+            cursor: pointer;
+            border: 2px solid #444;
+            display: block;
         }
-        #secret-circle:active { background: var(--oro); transform: scale(0.9); }
+        #jefa-circle:active { background: var(--oro); }
     </style>
 </head>
 <body>
@@ -63,7 +59,7 @@
     <header>
         <a href="#" class="logo">LUSSON</a>
         <p class="sub-logo">COLOMBIA</p>
-        <div class="cart-trigger" id="open-cart">
+        <div class="cart-trigger" onclick="toggleCart()">
             <i class="fas fa-shopping-cart"></i>
             <span class="badge" id="cart-count">0</span>
         </div>
@@ -71,12 +67,12 @@
 
     <div id="cart-panel">
         <div class="cart-header">
-            <h3 style="font-family:'Playfair Display'">Carrito de Compras</h3>
-            <span id="close-cart" style="cursor:pointer; font-size: 1.8rem;">✕</span>
+            <h3>Carrito de Compras</h3>
+            <span onclick="toggleCart()" style="cursor:pointer; font-size: 1.5rem;">✕</span>
         </div>
-        <div id="cart-list" style="flex-grow:1; overflow-y:auto; margin-bottom: 20px;"></div>
+        <div id="cart-list" style="flex-grow:1; overflow-y:auto;"></div>
         <div style="padding-top:30px; border-top:2px solid var(--nude);">
-            <div style="display:flex; justify-content:space-between; font-weight:700; font-size: 1.3rem; margin-bottom:20px">
+            <div style="display:flex; justify-content:space-between; font-weight:700; margin-bottom:20px">
                 <span>TOTAL:</span>
                 <span>$<span id="total-price">0</span></span>
             </div>
@@ -87,7 +83,7 @@
     <main class="container">
         <div id="catalog-grid" class="grid">
             <div style="grid-column: 1/-1; text-align:center; padding:100px;">
-                <p id="status-msg">Sincronizando colección premium...</p>
+                <p id="status-msg">Iniciando catálogo...</p>
             </div>
         </div>
     </main>
@@ -97,120 +93,96 @@
     </a>
 
     <footer>
-        <div id="secret-circle"></div>
-        <div style="font-size: 0.9rem; letter-spacing: 1px; color: #888;">
+        <div id="jefa-circle"></div>
+        <div style="font-size: 0.8rem; color: #666;">
             lusson 2026<br>
             © 2026 Lusson Colombia. Todos los derechos reservados.
         </div>
     </footer>
 
     <script>
-        // CONFIGURACIÓN SUPABASE
+        // --- 1. LÓGICA INDEPENDIENTE PARA LOS 5 TOQUES (MODO JEFA) ---
+        // Esto funciona aunque Supabase falle
+        let clicks = 0;
+        let timer;
+        const circle = document.getElementById('jefa-circle');
+
+        circle.addEventListener('click', () => {
+            clicks++;
+            clearTimeout(timer);
+            console.log("Toque: " + clicks); // Esto te permite ver en consola si funciona
+
+            if (clicks === 5) {
+                const user = prompt("Usuario:");
+                const pass = prompt("Contraseña:");
+                
+                if (user === "lusson2026" && pass === "lusson2026") {
+                    window.location.href = "https://supabase.com/dashboard/project/azfingejfhjmbkcrtlbb/editor/18556";
+                } else {
+                    alert("Acceso denegado");
+                }
+                clicks = 0;
+            }
+            timer = setTimeout(() => { clicks = 0; }, 4000); // 4 segundos para tocar 5 veces
+        });
+
+        // --- 2. CONEXIÓN CON SUPABASE ---
         const supabaseUrl = 'https://azfingejfhjmbkcrtlbb.supabase.co';
         const supabaseKey = 'sb_publishable_oEmSiQhpAZ9HToa9C2nHXg_5qHIZDUD';
         const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
 
         let cart = [];
-        let clicks = 0;
-        let timer;
 
-        // --- SISTEMA DE ACCESO "MODO JEFA" MEJORADO ---
-        const circle = document.getElementById('secret-circle');
-        
-        circle.addEventListener('click', function() {
-            clicks++;
-            console.log("Toque registrado: " + clicks);
-            
-            // Reiniciar si pasa mucho tiempo entre toques
-            clearTimeout(timer);
-            timer = setTimeout(() => { clicks = 0; }, 3000);
-
-            if (clicks === 5) {
-                clicks = 0;
-                // Pequeña demora para que el navegador procese los toques antes del prompt
-                setTimeout(() => {
-                    const user = prompt("USUARIO ADMINISTRADOR:");
-                    if (user === "lusson2026") {
-                        const pass = prompt("CONTRASEÑA:");
-                        if (pass === "lusson2026") {
-                            window.location.href = "https://supabase.com/dashboard/project/azfingejfhjmbkcrtlbb/editor/18556";
-                        } else {
-                            alert("Contraseña incorrecta");
-                        }
-                    } else if (user !== null) {
-                        alert("Usuario no reconocido");
-                    }
-                }, 100);
-            }
-        });
-
-        // --- CARGAR PRODUCTOS ---
         async function loadCatalog() {
-            const status = document.getElementById('status-msg');
-            const grid = document.getElementById('catalog-grid');
-
             try {
                 const { data, error } = await supabase.from('productos').select('*');
                 if (error) throw error;
 
-                if (!data || data.length === 0) {
-                    status.innerText = "No hay productos en el catálogo todavía.";
-                    return;
-                }
-
+                const grid = document.getElementById('catalog-grid');
                 grid.innerHTML = '';
+
                 data.forEach(p => {
                     grid.innerHTML += `
                         <div class="card">
                             <div class="img-box"><img src="${p.Imagen}" alt="${p.nombre}"></div>
                             <h3>${p.nombre}</h3>
                             <p class="price">$${p.precio.toLocaleString()}</p>
-                            <button class="btn-add" onclick="addToCart('${p.nombre}', ${p.precio})">Añadir al Carrito</button>
+                            <button class="btn-add" onclick="addToCart('${p.nombre}', ${p.precio})">AÑADIR AL CARRITO</button>
                         </div>`;
                 });
-            } catch (err) {
-                status.innerText = "Error: " + err.message;
+            } catch (e) {
+                document.getElementById('status-msg').innerText = "Error cargando productos. Verifica tus políticas en Supabase.";
             }
         }
 
-        // --- FUNCIONES DEL CARRITO ---
-        const panel = document.getElementById('cart-panel');
-        document.getElementById('open-cart').onclick = () => panel.classList.add('active');
-        document.getElementById('close-cart').onclick = () => panel.classList.remove('active');
-
+        // --- 3. FUNCIONES DEL CARRITO ---
+        function toggleCart() { document.getElementById('cart-panel').classList.toggle('active'); }
+        
         function addToCart(nombre, precio) {
             cart.push({ nombre, precio });
-            updateUI();
-            panel.classList.add('active');
+            updateCart();
+            if(!document.getElementById('cart-panel').classList.contains('active')) toggleCart();
         }
 
-        function updateUI() {
+        function updateCart() {
             const list = document.getElementById('cart-list');
             let total = 0;
             list.innerHTML = '';
-            
-            cart.forEach((item, index) => {
-                total += item.precio;
+            cart.forEach((i, idx) => {
+                total += i.precio;
                 list.innerHTML += `
-                    <div style="display:flex; justify-content:space-between; align-items:center; padding:15px; background:#f9f9f9; border-radius:10px; margin-bottom:10px;">
-                        <div><strong>${item.nombre}</strong><br><small>$${item.precio.toLocaleString()}</small></div>
-                        <button onclick="removeItem(${index})" style="border:none; color:red; background:none; font-size:1.2rem; cursor:pointer">✕</button>
+                    <div style="display:flex; justify-content:space-between; margin-bottom:10px; padding:10px; background:#f9f9f9; border-radius:8px;">
+                        <span>${i.nombre}</span>
+                        <button onclick="cart.splice(${idx},1); updateCart()" style="border:none; color:red; cursor:pointer; background:none; font-weight:bold;">✕</button>
                     </div>`;
             });
             document.getElementById('total-price').innerText = total.toLocaleString();
             document.getElementById('cart-count').innerText = cart.length;
         }
 
-        function removeItem(index) {
-            cart.splice(index, 1);
-            updateUI();
-        }
-
         function sendWhatsApp() {
-            if(cart.length === 0) return alert("Tu carrito está vacío");
-            let msg = "¡Hola Lusson! 🌟 Quiero realizar este pedido:\n\n";
-            cart.forEach(i => msg += `- ${i.nombre} ($${i.precio.toLocaleString()})\n`);
-            msg += `\nTotal: $${document.getElementById('total-price').innerText}`;
+            let msg = "Pedido Lusson:\n";
+            cart.forEach(i => msg += `- ${i.nombre}\n`);
             window.open(`https://wa.me/573000000000?text=${encodeURIComponent(msg)}`);
         }
 
@@ -218,3 +190,4 @@
     </script>
 </body>
 </html>
+
