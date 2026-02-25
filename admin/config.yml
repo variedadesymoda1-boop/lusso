@@ -1,6 +1,6 @@
 backend:
   name: git-gateway
-  branch: main
+  branch: main # Asegúrate de que tu rama se llame 'main'
 
 media_folder: "assets/img"
 public_folder: "/assets/img"
@@ -8,7 +8,7 @@ public_folder: "/assets/img"
 collections:
   - name: "labiales"
     label: "Mis Labiales"
-    folder: "_labiales" # Aquí se guardarán tus cambios
+    folder: "_labiales"
     create: true
     slug: "{{slug}}"
     fields:
