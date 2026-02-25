@@ -3,87 +3,79 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lusson | Catálogo de Labiales</title>
+    <title>Lusson | Catálogo Profesional</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/feather-icons"></script>
     <style>
-        :root { --oro: #bca07d; --negro: #1a1a1a; --gris: #f5eee6; }
-        body { font-family: 'Montserrat', sans-serif; margin: 0; background: white; color: var(--negro); }
+        :root { --oro: #bca07d; --negro: #1a1a1a; --crema: #fdfaf7; }
+        body { font-family: 'Montserrat', sans-serif; margin: 0; background: white; color: var(--negro); overflow-x: hidden; }
 
-        /* HEADER COMPACTO */
-        header { background: var(--gris); padding: 20px; text-align: center; }
-        header h1 { font-family: 'Playfair Display', serif; font-size: 1.5rem; letter-spacing: 5px; margin: 0; }
+        /* CABECERA Y CARRITO */
+        header { background: var(--crema); padding: 15px 25px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; position: sticky; top: 0; z-index: 100; }
+        header h1 { font-family: 'Playfair Display', serif; font-size: 1.3rem; letter-spacing: 5px; margin: 0; }
         
-        /* NAVEGACIÓN */
-        nav { display: flex; justify-content: center; gap: 15px; padding: 10px; border-bottom: 1px solid #eee; }
-        nav a { text-decoration: none; color: var(--negro); font-size: 0.7rem; font-weight: 600; letter-spacing: 1px; }
+        .cart-icon-container { position: relative; cursor: pointer; }
+        .cart-badge { position: absolute; top: -8px; right: -8px; background: #ff4d4d; color: white; font-size: 0.6rem; padding: 2px 6px; border-radius: 50%; font-weight: bold; }
 
-        /* CATÁLOGO TIPO GRILLA PEQUEÑA */
+        nav { display: flex; justify-content: center; gap: 20px; padding: 12px; font-size: 0.7rem; font-weight: 600; letter-spacing: 2px; background: white; border-bottom: 1px solid #f5f5f5; }
+        nav a { text-decoration: none; color: var(--negro); }
+
+        /* CATÁLOGO RESPONSIVO (2 fotos en celular, 4+ en PC) */
         .catalogo-grid { 
             display: grid; 
-            /* Esto crea columnas pequeñas de mínimo 160px */
-            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); 
-            gap: 15px; 
-            padding: 20px; 
-            max-width: 1000px; 
-            margin: 0 auto; 
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); 
+            gap: 15px; padding: 20px; max-width: 1200px; margin: 0 auto; 
         }
 
-        /* TARJETA DE PRODUCTO PEQUEÑA */
-        .card-producto { 
-            background: white; 
-            border: 1px solid #eee;
-            border-radius: 8px; 
-            overflow: hidden;
-            transition: 0.3s;
-            text-align: left;
-        }
-        .card-producto:hover { border-color: var(--oro); shadow: 0 5px 15px rgba(0,0,0,0.05); }
-
-        /* FOTO PEQUEÑA (THUMBNAIL) */
-        .card-producto img { 
-            width: 100%; 
-            height: 160px; /* Altura fija pequeña */
-            object-fit: cover; 
-            border-bottom: 1px solid #eee;
-        }
-
-        .info-producto { padding: 10px; }
+        .card-producto { background: white; border: 1px solid #f0f0f0; border-radius: 10px; overflow: hidden; transition: 0.3s; }
+        .card-producto img { width: 100%; height: 160px; object-fit: cover; background: #f9f9f9; border-bottom: 1px solid #f0f0f0; }
         
-        /* TEXTO PEQUEÑO */
-        .card-producto h3 { 
-            font-family: 'Montserrat', sans-serif; 
-            font-size: 0.8rem; 
-            font-weight: 600;
-            margin: 5px 0; 
-            white-space: nowrap; /* Evita que el texto ocupe dos líneas */
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        /* PRECIO Y CARRITO */
-        .footer-card { display: flex; justify-content: space-between; align-items: center; margin-top: 5px; }
-        .precio { color: var(--oro); font-weight: 600; font-size: 0.9rem; }
+        .info { padding: 10px; }
+        .info h3 { font-size: 0.7rem; margin: 5px 0; font-weight: 600; text-transform: uppercase; height: 35px; overflow: hidden; }
         
-        .btn-carrito { 
-            background: var(--negro); 
-            color: white; 
-            border: none; 
-            width: 30px; height: 30px; 
-            border-radius: 50%; 
-            display: flex; align-items: center; justify-content: center;
-            cursor: pointer; transition: 0.2s;
-        }
-        .btn-carrito:hover { background: var(--oro); }
-        .btn-carrito svg { width: 16px; height: 16px; }
+        .footer-card { display: flex; justify-content: space-between; align-items: center; }
+        .precio { color: var(--oro); font-weight: 600; font-size: 0.85rem; }
+        
+        .btn-add-cart { background: var(--negro); color: white; border: none; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; }
 
-        footer { background: var(--negro); color: white; padding: 20px; text-align: center; font-size: 0.7rem; margin-top: 30px; }
+        /* PANEL DEL CARRITO (Lado derecho) */
+        .cart-modal { position: fixed; top: 0; right: -100%; width: 100%; max-width: 350px; height: 100%; background: white; box-shadow: -5px 0 15px rgba(0,0,0,0.1); transition: 0.4s; z-index: 1000; display: flex; flex-direction: column; }
+        .cart-modal.active { right: 0; }
+        .cart-header { padding: 20px; background: var(--crema); display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; }
+        .cart-content { flex: 1; overflow-y: auto; padding: 20px; }
+        .cart-item { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; border-bottom: 1px solid #f9f9f9; padding-bottom: 10px; }
+        .cart-item-info h4 { font-size: 0.75rem; margin: 0; }
+        .cart-item-info p { font-size: 0.7rem; color: var(--oro); margin: 5px 0; }
+        .btn-remove { background: none; border: none; color: #ff4d4d; cursor: pointer; }
+
+        .cart-footer { padding: 20px; border-top: 1px solid #eee; }
+        .total-box { display: flex; justify-content: space-between; font-weight: 600; margin-bottom: 20px; }
+        .btn-buy { background: #25d366; color: white; border: none; width: 100%; padding: 15px; border-radius: 5px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; }
+
+        /* WHATSAPP FLOTANTE */
+        .whatsapp-float { position: fixed; bottom: 20px; left: 20px; background: #25d366; width: 55px; height: 55px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 10px rgba(0,0,0,0.3); z-index: 900; }
+        .whatsapp-float svg { color: white; width: 30px; height: 30px; }
+
+        /* PIE DE PÁGINA PROFESIONAL (Sin dirección) */
+        footer { background: var(--negro); color: white; padding: 50px 20px; text-align: center; position: relative; }
+        footer h2 { font-family: 'Playfair Display'; letter-spacing: 5px; font-size: 1.2rem; }
+        .footer-line { width: 50px; height: 1px; background: var(--oro); margin: 15px auto; }
+        
+        /* PUNTO SECRETO MODO JEFA */
+        #secret-point { position: absolute; bottom: 10px; right: 10px; width: 20px; height: 20px; cursor: pointer; opacity: 0.05; }
+
+        @media (max-width: 600px) { .catalogo-grid { grid-template-columns: 1fr 1fr; } }
     </style>
 </head>
 <body>
 
     <header>
+        <div style="width: 24px;"></div>
         <h1>LUSSON</h1>
+        <div class="cart-icon-container" onclick="toggleCart()">
+            <i data-feather="shopping-bag"></i>
+            <span class="cart-badge" id="cart-count">0</span>
+        </div>
     </header>
 
     <nav>
@@ -93,66 +85,128 @@
     </nav>
 
     <main class="catalogo-grid" id="lista-labiales">
-        <p style="grid-column: 1 / -1; text-align: center; color: #888;">Cargando catálogo...</p>
-    </main>
+        </main>
+
+    <div class="cart-modal" id="cart-modal">
+        <div class="cart-header">
+            <span>CARRITO DE COMPRAS</span>
+            <button onclick="toggleCart()" style="background:none; border:none; cursor:pointer;"><i data-feather="x"></i></button>
+        </div>
+        <div class="cart-content" id="cart-items-container"></div>
+        <div class="cart-footer">
+            <div class="total-box"><span>TOTAL:</span><span id="cart-total">$ 0</span></div>
+            <button class="btn-buy" onclick="enviarPedido()"><i data-feather="message-circle"></i> ENVIAR PEDIDO</button>
+        </div>
+    </div>
+
+    <a href="https://wa.me/573153564016" class="whatsapp-float"><i data-feather="message-circle"></i></a>
 
     <footer>
-        <p>© 2026 LUSSON COLOMBIA</p>
+        <h2>LUSSON</h2>
+        <div class="footer-line"></div>
+        <p style="font-size: 0.6rem; letter-spacing: 2px; color: var(--oro);">COSMÉTICA DE ALTA GAMA</p>
+        <p style="font-size: 0.5rem; color: #444; margin-top: 30px;">© 2026 LUSSON COLOMBIA - TODOS LOS DERECHOS RESERVADOS</p>
+        
+        <div id="secret-point" onclick="modoJefa()"></div>
     </footer>
 
     <script>
-        // Activar iconos
         feather.replace();
+        let carrito = [];
 
-        // --- SCRIPT BETA PARA LEER TUS LABIALES ---
-        // Este script intenta buscar los archivos que crea el panel.
-        // Nota: Puede tardar unos minutos en funcionar después de subir algo.
-        async function cargarCatalogoReal() {
-            const contenedor = document.getElementById('lista-labiales');
-            contenedor.innerHTML = ''; // Limpiar mensaje de carga
+        // BASE DE DATOS DE PRODUCTOS (Se conecta con tu panel)
+        const productos = [
+            { 
+                id: 1, 
+                nombre: "Brillo Bloomshell", 
+                precio: 35000, 
+                // Esta ruta busca la foto que subiste en el panel
+                foto: "assets/img/bloomshell.jpg" 
+            }
+        ];
 
-            // Simulamos la lectura del primer archivo que subiste.
-            // En un futuro, esto leerá automáticamente todos los archivos.
-            const labiales = [
-                {
-                    titulo: "Brillo Bloomshell",
-                    precio: "35000",
-                    // IMPORTANTE: Esta ruta debe coincidir con la que muestra el panel
-                    imagen: "/assets/img/" + "bloomshell.jpg" 
-                },
-                // Aquí aparecerán los demás automáticamente
-            ];
-
-            labiales.forEach(labial => {
-                // Formatear precio con puntitos
-                let precioFormateado = new Intl.NumberFormat('es-CO').format(labial.precio);
-
-                const tarjetaHTML = `
-                    <div class="card-producto" onclick="abrirDetalle('${labial.titulo}')">
-                        <img src="${labial.imagen}" alt="${labial.titulo}" onerror="this.src='https://via.placeholder.com/160?text=Sin+Foto'">
-                        <div class="info-producto">
-                            <h3>${labial.titulo}</h3>
+        function cargarProductos() {
+            const grid = document.getElementById('lista-labiales');
+            grid.innerHTML = '';
+            productos.forEach(p => {
+                grid.innerHTML += `
+                    <div class="card-producto">
+                        <img src="${p.foto}" onerror="this.src='https://via.placeholder.com/160?text=Lusson+Beauty'">
+                        <div class="info">
+                            <h3>${p.nombre}</h3>
                             <div class="footer-card">
-                                <span class="precio">$ ${precioFormateado}</span>
-                                <button class="btn-carrito" onclick="event.stopPropagation(); agregarCarrito('${labial.titulo}')">
-                                    <i data-feather="shopping-cart"></i>
-                                </button>
+                                <span class="precio">$ ${p.precio.toLocaleString()}</span>
+                                <button class="btn-add-cart" onclick="agregarAlCarrito(${p.id})"><i data-feather="plus"></i></button>
                             </div>
                         </div>
                     </div>
                 `;
-                contenedor.innerHTML += tarjetaHTML;
             });
-            feather.replace(); // Reactivar iconos en los nuevos elementos
+            feather.replace();
         }
 
-        // Funciones futuras (por ahora solo muestran un mensaje)
-        function abrirDetalle(nombre) { alert("Pronto: Abrir detalles de " + nombre); }
-        function agregarCarrito(nombre) { alert("¡" + nombre + " agregado al carrito!"); }
+        // LÓGICA DEL CARRITO
+        function toggleCart() { document.getElementById('cart-modal').classList.toggle('active'); }
 
-        // Ejecutar carga
-        setTimeout(cargarCatalogoReal, 1000);
+        function agregarAlCarrito(id) {
+            const prod = productos.find(p => p.id === id);
+            carrito.push(prod);
+            actualizarCarrito();
+            if(!document.getElementById('cart-modal').classList.contains('active')) toggleCart();
+        }
+
+        function eliminarDelCarrito(index) {
+            carrito.splice(index, 1);
+            actualizarCarrito();
+        }
+
+        function actualizarCarrito() {
+            const container = document.getElementById('cart-items-container');
+            const count = document.getElementById('cart-count');
+            const totalLabel = document.getElementById('cart-total');
+            container.innerHTML = '';
+            let total = 0;
+            carrito.forEach((item, index) => {
+                total += item.precio;
+                container.innerHTML += `
+                    <div class="cart-item">
+                        <div class="cart-item-info">
+                            <h4>${item.nombre}</h4>
+                            <p>$ ${item.precio.toLocaleString()}</p>
+                        </div>
+                        <button class="btn-remove" onclick="eliminarDelCarrito(${index})"><i data-feather="trash-2"></i></button>
+                    </div>
+                `;
+            });
+            count.innerText = carrito.length;
+            totalLabel.innerText = `$ ${total.toLocaleString()}`;
+            feather.replace();
+        }
+
+        function enviarPedido() {
+            if(carrito.length === 0) return alert("Tu carrito está vacío");
+            let mensaje = "¡Hola Lusson! ✨ Quiero comprar:\n\n";
+            let total = 0;
+            carrito.forEach(item => {
+                mensaje += `• ${item.nombre} ($ ${item.precio.toLocaleString()})\n`;
+                total += item.precio;
+            });
+            mensaje += `\n*TOTAL A PAGAR: $ ${total.toLocaleString()}*`;
+            window.open(`https://wa.me/573153564016?text=${encodeURIComponent(mensaje)}`, '_blank');
+        }
+
+        // --- LÓGICA MODO JEFA (5 TOQUES) ---
+        let toques = 0;
+        function modoJefa() {
+            toques++;
+            if (toques === 5) { 
+                toques = 0;
+                window.location.href = "admin/index.html"; 
+            }
+            setTimeout(() => { toques = 0; }, 3000);
+        }
+
+        cargarProductos();
     </script>
 </body>
 </html>
-
