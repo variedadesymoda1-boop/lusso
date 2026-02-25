@@ -4,55 +4,47 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lusson | Catálogo Premium</title>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
     <style>
         :root { --oro: #D4AF37; --nude: #fdfaf7; --negro: #1a1a1a; --blanco: #ffffff; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Montserrat', sans-serif; background-color: var(--nude); color: var(--negro); }
 
-        /* HEADER PREMIUM */
-        header { background: var(--blanco); padding: 1.5rem; text-align: center; border-bottom: 1px solid #eee; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        /* HEADER ELEGANTE */
+        header { background: var(--blanco); padding: 1.5rem; text-align: center; border-bottom: 1px solid #eee; position: sticky; top: 0; z-index: 100; }
         .logo { font-family: 'Playfair Display', serif; font-size: 2.2rem; letter-spacing: 6px; color: var(--negro); text-decoration: none; display: block; }
         .sub-logo { font-size: 0.7rem; letter-spacing: 4px; color: var(--oro); font-weight: 600; margin-top: 5px; }
         
         /* BOTÓN CARRITO */
-        .cart-trigger { position: fixed; top: 25px; right: 30px; font-size: 1.6rem; cursor: pointer; z-index: 101; color: var(--negro); }
+        .cart-trigger { position: fixed; top: 25px; right: 30px; font-size: 1.6rem; cursor: pointer; z-index: 101; }
         .badge { position: absolute; top: -8px; right: -10px; background: var(--oro); color: white; padding: 2px 7px; border-radius: 50%; font-size: 0.75rem; font-weight: bold; }
 
         /* PANEL DEL CARRITO */
-        #cart-panel { position: fixed; top: 0; right: -100%; width: 400px; max-width: 100%; height: 100%; background: white; z-index: 200; transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1); padding: 40px; box-shadow: -10px 0 30px rgba(0,0,0,0.1); display: flex; flex-direction: column; }
+        #cart-panel { position: fixed; top: 0; right: -100%; width: 400px; max-width: 100%; height: 100%; background: white; z-index: 200; transition: 0.4s; padding: 40px; box-shadow: -10px 0 30px rgba(0,0,0,0.1); display: flex; flex-direction: column; }
         #cart-panel.active { right: 0; }
         .cart-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; border-bottom: 2px solid var(--nude); padding-bottom: 20px; }
-        .close-btn { font-size: 1.8rem; cursor: pointer; color: #ccc; transition: 0.3s; }
-        .close-btn:hover { color: var(--negro); }
-        
         .cart-items { flex-grow: 1; overflow-y: auto; }
-        .cart-item { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; padding: 15px; background: #fafafa; border-radius: 12px; border: 1px solid #f0f0f0; }
-        .remove-item { color: #ff4d4d; cursor: pointer; font-size: 1.2rem; border: none; background: none; }
+        .cart-item { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; padding: 15px; background: #fafafa; border-radius: 12px; }
 
         /* CATÁLOGO */
         .container { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 40px; }
-        .card { background: white; border-radius: 20px; padding: 25px; text-align: center; transition: 0.3s; border: 1px solid #eee; position: relative; }
-        .card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.06); border-color: var(--oro); }
+        .card { background: white; border-radius: 20px; padding: 25px; text-align: center; transition: 0.3s; border: 1px solid #eee; }
+        .card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.06); }
         .img-box { width: 100%; height: 320px; border-radius: 12px; overflow: hidden; margin-bottom: 20px; background: #fdfdfd; }
         .img-box img { width: 100%; height: 100%; object-fit: cover; }
-        .card h3 { font-family: 'Playfair Display', serif; font-size: 1.4rem; margin-bottom: 10px; }
         .price { color: var(--oro); font-weight: 700; font-size: 1.5rem; margin: 15px 0; }
-        .btn-add { background: var(--negro); color: white; border: none; padding: 15px; width: 100%; border-radius: 10px; cursor: pointer; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; transition: 0.3s; }
-        .btn-add:hover { background: var(--oro); }
+        .btn-add { background: var(--negro); color: white; border: none; padding: 15px; width: 100%; border-radius: 10px; cursor: pointer; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; }
 
-        /* BOTÓN WHATSAPP */
-        .wa-float { position: fixed; bottom: 30px; left: 30px; background: #25d366; color: white; width: 65px; height: 65px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 35px; box-shadow: 0 6px 20px rgba(37,211,102,0.3); z-index: 90; text-decoration: none; transition: 0.3s; }
-        .wa-float:hover { transform: scale(1.1); }
+        /* WHATSAPP */
+        .wa-float { position: fixed; bottom: 30px; left: 30px; background: #25d366; color: white; width: 65px; height: 65px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 35px; box-shadow: 0 6px 20px rgba(37,211,102,0.3); z-index: 90; text-decoration: none; }
 
-        /* FOOTER */
-        footer { background: var(--negro); color: #666; padding: 60px 20px; text-align: center; margin-top: 80px; }
-        .footer-logo { font-family: 'Playfair Display', serif; font-size: 1.8rem; color: white; letter-spacing: 5px; margin-bottom: 20px; display: block; }
-        #secret-trigger { cursor: default; padding: 20px; font-size: 0.85rem; border-top: 1px solid #333; display: inline-block; margin-top: 20px; }
+        /* FOOTER Y BOTÓN SECRETO */
+        footer { background: var(--negro); color: white; padding: 60px 20px; text-align: center; margin-top: 80px; }
+        #jefa-btn { cursor: pointer; padding: 20px; display: inline-block; border: 1px solid #333; border-radius: 10px; }
     </style>
 </head>
 <body>
@@ -68,27 +60,23 @@
 
     <div id="cart-panel">
         <div class="cart-header">
-            <h3 style="font-family:'Playfair Display'; font-size: 1.8rem;">Carrito de Compras</h3>
-            <span class="close-btn" onclick="toggleCart()">✕</span>
+            <h3>Carrito de Compras</h3>
+            <span onclick="toggleCart()" style="cursor:pointer">✕</span>
         </div>
-        <div class="cart-items" id="cart-list">
-            </div>
+        <div class="cart-items" id="cart-list"></div>
         <div style="padding-top:30px; border-top:2px solid var(--nude);">
-            <div style="display:flex; justify-content:space-between; font-weight:700; font-size:1.4rem; margin-bottom:25px">
+            <div style="display:flex; justify-content:space-between; font-weight:700; margin-bottom:20px">
                 <span>TOTAL:</span>
-                <span style="color:var(--oro)">$<span id="total-price">0</span></span>
+                <span>$<span id="total-price">0</span></span>
             </div>
-            <button class="btn-add" style="background:#25d366" onclick="sendWhatsApp()">
-                <i class="fab fa-whatsapp"></i> FINALIZAR POR WHATSAPP
-            </button>
+            <button class="btn-add" style="background:#25d366" onclick="sendWhatsApp()">FINALIZAR POR WHATSAPP</button>
         </div>
     </div>
 
     <main class="container">
         <div id="catalog-grid" class="grid">
             <div style="grid-column: 1/-1; text-align:center; padding:100px;">
-                <i class="fas fa-spinner fa-spin" style="font-size: 2rem; color: var(--oro); margin-bottom: 20px;"></i><br>
-                Sincronizando con la colección premium...
+                <p id="status-msg">Iniciando catálogo de lujo...</p>
             </div>
         </div>
     </main>
@@ -98,111 +86,98 @@
     </a>
 
     <footer>
-        <span class="footer-logo">LUSSON</span>
-        <div id="secret-trigger" onclick="checkJefa()">
+        <div id="jefa-btn" onclick="contarToques()">
             © 2026 Lusson Colombia. Todos los derechos reservados.
         </div>
     </footer>
 
     <script>
-        // CONFIGURACIÓN SUPABASE
+        // DATOS DE SUPABASE
         const supabaseUrl = 'https://azfingejfhjmbkcrtlbb.supabase.co';
         const supabaseKey = 'sb_publishable_oEmSiQhpAZ9HToa9C2nHXg_5qHIZDUD';
-        const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+        
+        let supabase;
+        try {
+            supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+        } catch (e) {
+            document.getElementById('status-msg').innerHTML = "❌ Error: No se pudo cargar la librería de Supabase.";
+        }
 
         let cart = [];
         let clicks = 0;
 
-        // CARGAR CATÁLOGO
-        async function loadLusson() {
-            try {
-                const { data: productos, error } = await supabase
-                    .from('productos')
-                    .select('*');
+        // FUNCIÓN 5 TOQUES (MÁS SIMPLE)
+        function contarToques() {
+            clicks++;
+            console.log("Click número: " + clicks);
+            
+            if (clicks === 1) {
+                // Pequeña vibración visual opcional o mensaje en consola para saber que funciona
+                setTimeout(() => { clicks = 0; }, 5000); // Tienes 5 segundos para completar los 5 toques
+            }
 
-                if (error) throw error;
-
-                const grid = document.getElementById('catalog-grid');
-                grid.innerHTML = '';
-
-                if (!productos || productos.length === 0) {
-                    grid.innerHTML = '<div style="grid-column:1/-1; text-align:center;">No hay productos disponibles por ahora.</div>';
-                    return;
+            if (clicks === 5) {
+                const pass = prompt("Acceso Lusson. Ingrese clave:");
+                if (pass === "11209") {
+                    window.location.href = "https://supabase.com/dashboard/project/azfingejfhjmbkcrtlbb/editor/18556";
+                } else {
+                    alert("Clave incorrecta");
                 }
-
-                productos.forEach(p => {
-                    grid.innerHTML += `
-                        <div class="card">
-                            <div class="img-box">
-                                <img src="${p.Imagen}" alt="${p.nombre}">
-                            </div>
-                            <h3>${p.nombre}</h3>
-                            <p class="price">$${p.precio.toLocaleString()}</p>
-                            <button class="btn-add" onclick="addToCart('${p.nombre}', ${p.precio})">AÑADIR AL CARRITO</button>
-                        </div>`;
-                });
-            } catch (err) {
-                console.error("Error cargando productos:", err);
-                document.getElementById('catalog-grid').innerHTML = '<div style="grid-column:1/-1; text-align:center;">Error de conexión. Verifica los permisos de Supabase.</div>';
+                clicks = 0;
             }
         }
 
-        // FUNCIONES CARRITO
-        function toggleCart() { document.getElementById('cart-panel').classList.toggle('active'); }
+        // CARGAR PRODUCTOS
+        async function loadLusson() {
+            const status = document.getElementById('status-msg');
+            const grid = document.getElementById('catalog-grid');
 
+            const { data, error } = await supabase.from('productos').select('*');
+
+            if (error) {
+                status.innerHTML = "❌ Error de conexión: " + error.message;
+                return;
+            }
+
+            if (data.length === 0) {
+                status.innerHTML = "No hay productos en la base de datos.";
+                return;
+            }
+
+            grid.innerHTML = '';
+            data.forEach(p => {
+                grid.innerHTML += `
+                    <div class="card">
+                        <div class="img-box"><img src="${p.Imagen}" alt="${p.nombre}"></div>
+                        <h3>${p.nombre}</h3>
+                        <p class="price">$${p.precio.toLocaleString()}</p>
+                        <button class="btn-add" onclick="addToCart('${p.nombre}', ${p.precio})">AÑADIR AL CARRITO</button>
+                    </div>`;
+            });
+        }
+
+        // CARRITO Y OTROS
+        function toggleCart() { document.getElementById('cart-panel').classList.toggle('active'); }
         function addToCart(nombre, precio) {
             cart.push({ nombre, precio });
             updateCartUI();
             if(!document.getElementById('cart-panel').classList.contains('active')) toggleCart();
         }
-
-        function removeFromCart(index) {
-            cart.splice(index, 1);
-            updateCartUI();
-        }
-
         function updateCartUI() {
             const list = document.getElementById('cart-list');
-            const totalText = document.getElementById('total-price');
-            const countBadge = document.getElementById('cart-count');
             let total = 0;
             list.innerHTML = '';
-
             cart.forEach((item, index) => {
                 total += item.precio;
-                list.innerHTML += `
-                    <div class="cart-item">
-                        <div style="text-align:left">
-                            <strong style="font-size:1.1rem">${item.nombre}</strong><br>
-                            <span style="color:var(--oro); font-weight:600">$${item.precio.toLocaleString()}</span>
-                        </div>
-                        <button class="remove-item" onclick="removeFromCart(${index})">✕</button>
-                    </div>`;
+                list.innerHTML += `<div class="cart-item"><span>${item.nombre}</span><span>$${item.precio.toLocaleString()}</span></div>`;
             });
-
-            totalText.innerText = total.toLocaleString();
-            countBadge.innerText = cart.length;
+            document.getElementById('total-price').innerText = total.toLocaleString();
+            document.getElementById('cart-count').innerText = cart.length;
         }
-
         function sendWhatsApp() {
-            if(cart.length === 0) return alert("El carrito está vacío.");
-            let mensaje = "¡Hola Lusson! 🌟 Deseo realizar el siguiente pedido:\n\n";
-            cart.forEach(i => mensaje += `- ${i.nombre} ($${i.precio.toLocaleString()})\n`);
-            mensaje += `\n*TOTAL A PAGAR: $${document.getElementById('total-price').innerText}*`;
-            window.open(`https://wa.me/573000000000?text=${encodeURIComponent(mensaje)}`);
-        }
-
-        // MODO JEFA: 5 TOQUES
-        function checkJefa() {
-            clicks++;
-            if(clicks === 5) {
-                const pass = prompt("Acceso Lusson. Ingrese clave:");
-                if(pass === "11209") {
-                    window.location.href = "https://supabase.com/dashboard/project/azfingejfhjmbkcrtlbb/editor/18556";
-                }
-                clicks = 0;
-            }
-            setTimeout(() => { clicks = 0; }, 3000);
+            let pedido = "Pedido Lusson:\n";
+            cart.forEach(i => pedido += `- ${i.nombre}\n`);
+            window.open(`https://wa.me/573000000000?text=${encodeURIComponent(pedido)}`);
         }
 
         window.onload = loadLusson;
