@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lusson | Catálogo</title>
+    <title>Lusson | Catálogo Premium</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
@@ -12,75 +12,71 @@
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         body { font-family: 'Montserrat', sans-serif; background-color: var(--nude); color: var(--negro); }
 
-        /* HEADER Y CARRITO SUPERIOR */
-        header { background: var(--blanco); padding: 1.5rem; text-align: center; border-bottom: 1px solid #eee; position: sticky; top: 0; z-index: 1000; display: flex; justify-content: center; align-items: center; }
-        .logo { font-family: 'Playfair Display', serif; font-size: 2rem; letter-spacing: 5px; color: var(--negro); text-decoration: none; }
-        .cart-icon-btn { position: absolute; right: 25px; font-size: 1.8rem; cursor: pointer; color: var(--negro); }
-        .cart-count-badge { position: absolute; top: -8px; right: -10px; background: var(--oro); color: white; border-radius: 50%; padding: 2px 7px; font-size: 0.8rem; font-weight: bold; }
+        /* HEADER */
+        header { background: var(--blanco); padding: 1rem 5%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        .logo { font-family: 'Playfair Display', serif; font-size: 1.8rem; letter-spacing: 4px; color: var(--negro); text-decoration: none; font-weight: 700; }
+        .cart-icon { font-size: 1.5rem; cursor: pointer; position: relative; }
+        .cart-count { position: absolute; top: -10px; right: -10px; background: var(--oro); color: white; font-size: 0.7rem; padding: 2px 6px; border-radius: 50%; font-weight: bold; }
 
-        /* CUADRO DE COMPRAS (PANEL LATERAL) */
-        #cart-panel { position: fixed; top: 0; right: -100%; width: 400px; max-width: 100%; height: 100%; background: white; z-index: 2000; transition: 0.4s; padding: 30px; box-shadow: -10px 0 30px rgba(0,0,0,0.1); display: flex; flex-direction: column; }
+        /* CARRITO (PANEL LATERAL) */
+        #cart-panel { position: fixed; top: 0; right: -100%; width: 350px; max-width: 100%; height: 100%; background: white; z-index: 2000; transition: 0.4s; padding: 25px; box-shadow: -5px 0 15px rgba(0,0,0,0.1); display: flex; flex-direction: column; }
         #cart-panel.active { right: 0; }
-        .cart-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--nude); padding-bottom: 15px; margin-bottom: 20px; }
-        .close-cart { font-size: 2rem; cursor: pointer; color: #ccc; }
-        .cart-items-container { flex-grow: 1; overflow-y: auto; }
-        .item-in-cart { display: flex; justify-content: space-between; align-items: center; background: #fafafa; padding: 15px; border-radius: 10px; margin-bottom: 10px; border: 1px solid #eee; }
-        .delete-item { color: #ff4d4d; cursor: pointer; font-size: 1.2rem; border: none; background: none; }
+        .cart-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid #eee; padding-bottom: 10px; }
+        .close-cart { font-size: 1.5rem; cursor: pointer; color: #888; }
+        .cart-items { flex-grow: 1; overflow-y: auto; }
+        .cart-item { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; padding: 10px; background: #f9f9f9; border-radius: 8px; }
+        .remove-btn { color: #ff4d4d; cursor: pointer; font-size: 1.1rem; border: none; background: none; }
 
-        /* CATÁLOGO GRID */
-        .container { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
-        h1 { font-family: 'Playfair Display'; text-align: center; margin-bottom: 40px; font-size: 2.5rem; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; }
-        .card { background: white; border-radius: 15px; padding: 20px; text-align: center; border: 1px solid #eee; transition: 0.3s; }
-        .card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
-        .img-box { width: 100%; height: 250px; background: #f9f9f9; border-radius: 10px; margin-bottom: 15px; overflow: hidden; }
+        /* CATÁLOGO */
+        .container { max-width: 1200px; margin: 30px auto; padding: 0 20px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 25px; }
+        .card { background: white; border-radius: 12px; padding: 15px; text-align: center; border: 1px solid #eee; transition: 0.3s; }
+        .card:hover { transform: translateY(-5px); box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+        .img-box { width: 100%; height: 220px; border-radius: 8px; overflow: hidden; margin-bottom: 15px; background: #fafafa; }
         .img-box img { width: 100%; height: 100%; object-fit: cover; }
-        .product-name { font-size: 1.1rem; font-weight: 600; margin-bottom: 10px; }
-        .price-row { display: flex; justify-content: center; align-items: center; gap: 15px; }
-        .price { color: var(--oro); font-weight: 700; font-size: 1.3rem; }
-        .add-to-cart-btn { background: none; border: 1px solid var(--negro); padding: 8px 12px; border-radius: 50%; cursor: pointer; transition: 0.3s; }
-        .add-to-cart-btn:hover { background: var(--negro); color: white; }
+        .card h3 { font-size: 1rem; margin-bottom: 8px; }
+        .price-container { display: flex; justify-content: center; align-items: center; gap: 10px; }
+        .price { color: var(--oro); font-weight: 700; font-size: 1.1rem; }
+        .add-btn { color: var(--negro); cursor: pointer; font-size: 1.2rem; transition: 0.2s; }
+        .add-btn:hover { color: var(--oro); }
 
-        /* WHATSAPP FLOTANTE */
-        .wa-float { position: fixed; bottom: 30px; left: 30px; background: #25d366; color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 30px; z-index: 900; box-shadow: 0 4px 15px rgba(0,0,0,0.2); text-decoration: none; }
+        /* WHATSAPP */
+        .wa-float { position: fixed; bottom: 25px; left: 25px; background: #25d366; color: white; width: 55px; height: 55px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 28px; z-index: 900; box-shadow: 0 4px 12px rgba(0,0,0,0.15); text-decoration: none; }
 
-        /* FOOTER Y BOTÓN SECRETO */
-        footer { background: var(--negro); color: white; padding: 60px 20px; text-align: center; margin-top: 60px; }
-        #secret-trigger { width: 15px; height: 15px; background: #222; border-radius: 50%; margin: 0 auto 15px; cursor: pointer; display: block; }
+        /* FOOTER Y TOQUE SECRETO */
+        footer { background: var(--negro); color: white; padding: 50px 20px; text-align: center; margin-top: 50px; }
+        #secret-trigger { width: 10px; height: 10px; background: transparent; margin: 0 auto 15px; cursor: pointer; display: block; }
     </style>
 </head>
 <body>
 
     <header>
         <a href="#" class="logo">LUSSON</a>
-        <div class="cart-icon-btn" onclick="toggleCart()">
+        <div class="cart-icon" onclick="toggleCart()">
             <i class="fas fa-shopping-cart"></i>
-            <span class="badge cart-count-badge" id="cart-count">0</span>
+            <span class="cart-count" id="cart-badge">0</span>
         </div>
     </header>
 
     <div id="cart-panel">
         <div class="cart-header">
-            <h2 style="font-family:'Playfair Display'">Mi Carrito</h2>
+            <h2 style="font-family:'Playfair Display'">Tu Carrito</h2>
             <span class="close-cart" onclick="toggleCart()">✕</span>
         </div>
-        <div class="cart-items-container" id="cart-list">
-            </div>
-        <div style="padding-top:20px; border-top:2px solid var(--nude)">
-            <div style="display:flex; justify-content:space-between; font-weight:700; font-size:1.3rem; margin-bottom:20px">
-                <span>Total:</span>
+        <div class="cart-items" id="cart-list"></div>
+        <div style="padding-top:20px; border-top:1px solid #eee">
+            <div style="display:flex; justify-content:space-between; font-weight:700; margin-bottom:20px">
+                <span>TOTAL:</span>
                 <span>$<span id="total-price">0</span></span>
             </div>
-            <button onclick="finalizarWhatsApp()" style="width:100%; background:#25d366; color:white; border:none; padding:15px; border-radius:10px; font-weight:600; cursor:pointer;">
-                <i class="fab fa-whatsapp"></i> FINALIZAR PEDIDO
+            <button onclick="enviarWhatsApp()" style="width:100%; background:#25d366; color:white; border:none; padding:12px; border-radius:8px; font-weight:600; cursor:pointer;">
+                PEDIR POR WHATSAPP
             </button>
         </div>
     </div>
 
     <main class="container">
-        <h1>Catálogo de Labiales</h1>
-        <div id="product-grid" class="grid">
-            </div>
+        <div id="product-grid" class="grid"></div>
     </main>
 
     <a href="https://wa.me/573000000000" class="wa-float" target="_blank">
@@ -88,115 +84,104 @@
     </a>
 
     <footer>
-        <div id="secret-trigger" onclick="checkJefa()"></div>
+        <div id="secret-trigger" onclick="checkAdmin()"></div>
         <p>© 2026 Lusson Colombia. Todos los derechos reservados.</p>
     </footer>
 
     <script>
-        // 1. LISTA DE 15 PRODUCTOS (DATOS LOCALES)
+        // 1. LOS 15 PRODUCTOS (SIN SUPABASE)
         const productos = [
-            { id: 1, nombre: "Rojo Pasión", precio: 45000, img: "https://images.unsplash.com/photo-1586776977607-310e9c725c37?auto=format&fit=crop&q=80&w=400" },
-            { id: 2, nombre: "Nude Elegance", precio: 42000, img: "https://images.unsplash.com/photo-1625006050679-c61edb4b1af9?auto=format&fit=crop&q=80&w=400" },
-            { id: 3, nombre: "Rosa Vintage", precio: 40000, img: "https://images.unsplash.com/photo-1591360236630-fdd4407b1d97?auto=format&fit=crop&q=80&w=400" },
-            { id: 4, nombre: "Chocolate Matte", precio: 48000, img: "https://images.unsplash.com/photo-1571646034647-52e6ea84b28c?auto=format&fit=crop&q=80&w=400" },
-            { id: 5, nombre: "Vino Tinto", precio: 45000, img: "https://images.unsplash.com/photo-1503236123135-08396a2400d7?auto=format&fit=crop&q=80&w=400" },
-            { id: 6, nombre: "Coral Summer", precio: 38000, img: "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&q=80&w=400" },
-            { id: 7, nombre: "Mauve Silk", precio: 42000, img: "https://images.unsplash.com/photo-1596704017254-9b121068fb31?auto=format&fit=crop&q=80&w=400" },
-            { id: 8, nombre: "Berry Punch", precio: 44000, img: "https://images.unsplash.com/photo-1512496015851-a90fb38ba796?auto=format&fit=crop&q=80&w=400" },
-            { id: 9, nombre: "Peach Glow", precio: 39000, img: "https://images.unsplash.com/photo-1599733589046-10c005739ef0?auto=format&fit=crop&q=80&w=400" },
-            { id: 10, nombre: "Velvet Red", precio: 46000, img: "https://images.unsplash.com/photo-1586776977607-310e9c725c37?auto=format&fit=crop&q=80&w=400" },
-            { id: 11, nombre: "Dusty Rose", precio: 41000, img: "https://images.unsplash.com/photo-1625006050679-c61edb4b1af9?auto=format&fit=crop&q=80&w=400" },
-            { id: 12, nombre: "Midnight Plum", precio: 47000, img: "https://images.unsplash.com/photo-1571646034647-52e6ea84b28c?auto=format&fit=crop&q=80&w=400" },
-            { id: 13, nombre: "Terracotta", precio: 43000, img: "https://images.unsplash.com/photo-1591360236630-fdd4407b1d97?auto=format&fit=crop&q=80&w=400" },
-            { id: 14, nombre: "Satin Nude", precio: 42000, img: "https://images.unsplash.com/photo-1503236123135-08396a2400d7?auto=format&fit=crop&q=80&w=400" },
-            { id: 15, nombre: "Classic Pink", precio: 40000, img: "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&q=80&w=400" }
+            { id: 1, n: "Labial Mate Rojo", p: 45000, i: "https://images.unsplash.com/photo-1586776977607-310e9c725c37?w=400" },
+            { id: 2, n: "Nude Elegance", p: 42000, i: "https://images.unsplash.com/photo-1625006050679-c61edb4b1af9?w=400" },
+            { id: 3, n: "Rosa Velvet", p: 40000, i: "https://images.unsplash.com/photo-1591360236630-fdd4407b1d97?w=400" },
+            { id: 4, n: "Chocolate Dark", p: 48000, i: "https://images.unsplash.com/photo-1571646034647-52e6ea84b28c?w=400" },
+            { id: 5, n: "Vino Intenso", p: 45000, i: "https://images.unsplash.com/photo-1503236123135-08396a2400d7?w=400" },
+            { id: 6, n: "Coral Fresh", p: 38000, i: "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=400" },
+            { id: 7, n: "Mauve Silk", p: 42000, i: "https://images.unsplash.com/photo-1596704017254-9b121068fb31?w=400" },
+            { id: 8, n: "Berry Gloss", p: 44000, i: "https://images.unsplash.com/photo-1512496015851-a90fb38ba796?w=400" },
+            { id: 9, n: "Peach Cream", p: 39000, i: "https://images.unsplash.com/photo-1599733589046-10c005739ef0?w=400" },
+            { id: 10, n: "Ruby Luxury", p: 46000, i: "https://images.unsplash.com/photo-1586776977607-310e9c725c37?w=400" },
+            { id: 11, n: "Terracotta", p: 41000, i: "https://images.unsplash.com/photo-1625006050679-c61edb4b1af9?w=400" },
+            { id: 12, n: "Plum Night", p: 47000, i: "https://images.unsplash.com/photo-1571646034647-52e6ea84b28c?w=400" },
+            { id: 13, n: "Sandy Nude", p: 43000, i: "https://images.unsplash.com/photo-1591360236630-fdd4407b1d97?w=400" },
+            { id: 14, n: "Sweet Candy", p: 42000, i: "https://images.unsplash.com/photo-1503236123135-08396a2400d7?w=400" },
+            { id: 15, n: "Lilac Petal", p: 40000, i: "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=400" }
         ];
 
-        let carrito = [];
-        let clicksModoJefa = 0;
+        let cart = [];
+        let clicks = 0;
 
-        // 2. RENDERIZAR CATÁLOGO
-        function cargarCatalogo() {
+        // 2. RENDERIZAR
+        function render() {
             const grid = document.getElementById('product-grid');
             productos.forEach(p => {
                 grid.innerHTML += `
                     <div class="card">
-                        <div class="img-box"><img src="${p.img}" alt="${p.nombre}"></div>
-                        <div class="product-name">${p.nombre}</div>
-                        <div class="price-row">
-                            <span class="price">$${p.precio.toLocaleString()}</span>
-                            <button class="add-to-cart-btn" onclick="agregarAlCarrito(${p.id})">
-                                <i class="fas fa-cart-plus"></i>
-                            </button>
+                        <div class="img-box"><img src="${p.i}" alt="${p.n}"></div>
+                        <h3>${p.n}</h3>
+                        <div class="price-container">
+                            <span class="price">$${p.p.toLocaleString()}</span>
+                            <i class="fas fa-cart-plus add-btn" onclick="addToCart(${p.id})"></i>
                         </div>
                     </div>`;
             });
         }
 
-        // 3. LÓGICA DEL CARRITO
+        // 3. CARRITO
         function toggleCart() { document.getElementById('cart-panel').classList.toggle('active'); }
 
-        function agregarAlCarrito(id) {
-            const prod = productos.find(p => p.id === id);
-            carrito.push(prod);
-            actualizarInterfazCarrito();
+        function addToCart(id) {
+            const prod = productos.find(x => x.id === id);
+            cart.push(prod);
+            updateUI();
             if(!document.getElementById('cart-panel').classList.contains('active')) toggleCart();
         }
 
-        function eliminarDelCarrito(index) {
-            carrito.splice(index, 1);
-            actualizarInterfazCarrito();
+        function remove(idx) {
+            cart.splice(idx, 1);
+            updateUI();
         }
 
-        function actualizarInterfazCarrito() {
-            const lista = document.getElementById('cart-list');
-            const totalElemento = document.getElementById('total-price');
-            const contadorIcono = document.getElementById('cart-count');
+        function updateUI() {
+            const list = document.getElementById('cart-list');
             let total = 0;
-            
-            lista.innerHTML = '';
-            carrito.forEach((item, index) => {
-                total += item.precio;
-                lista.innerHTML += `
-                    <div class="item-in-cart">
-                        <div style="text-align:left">
-                            <strong>${item.nombre}</strong><br>
-                            <small>$${item.precio.toLocaleString()}</small>
-                        </div>
-                        <button class="delete-item" onclick="eliminarDelCarrito(${index})">✕</button>
-                    </div>`;
+            list.innerHTML = '';
+            cart.forEach((item, index) => {
+                total += item.p;
+                list.innerHTML += `<div class="cart-item">
+                    <span>${item.n} ($${item.p.toLocaleString()})</span>
+                    <i class="fas fa-trash remove-btn" onclick="remove(${index})"></i>
+                </div>`;
             });
-            
-            totalElemento.innerText = total.toLocaleString();
-            contadorIcono.innerText = carrito.length;
+            document.getElementById('total-price').innerText = total.toLocaleString();
+            document.getElementById('cart-badge').innerText = cart.length;
         }
 
-        function finalizarWhatsApp() {
-            if(carrito.length === 0) return alert("Tu carrito está vacío.");
-            let mensaje = "¡Hola Lusson! 🌟 Quiero realizar el siguiente pedido:\n\n";
-            carrito.forEach(i => mensaje += `- ${i.nombre} ($${i.precio.toLocaleString()})\n`);
-            mensaje += `\nTotal: $${document.getElementById('total-price').innerText}`;
-            window.open(`https://wa.me/573000000000?text=${encodeURIComponent(mensaje)}`);
+        function enviarWhatsApp() {
+            if(cart.length === 0) return alert("Carrito vacío");
+            let msg = "¡Hola! Mi pedido Lusson:\n";
+            cart.forEach(i => msg += `- ${i.n}\n`);
+            window.open(`https://wa.me/573000000000?text=${encodeURIComponent(msg)}`);
         }
 
-        // 4. MODO JEFA (LOS 5 TOQUES)
-        function checkJefa() {
-            clicksModoJefa++;
-            if (clicksModoJefa === 5) {
-                clicksModoJefa = 0;
-                let user = prompt("USUARIO:");
-                if (user === "lusson2026") {
-                    let pass = prompt("CONTRASEÑA:");
-                    if (pass === "lusson2026") {
-                        alert("Acceso concedido.");
-                        window.location.href = "https://supabase.com"; // O el link que prefieras
-                    } else { alert("Clave incorrecta."); }
+        // 4. MODO JEFA (5 TOQUES)
+        function checkAdmin() {
+            clicks++;
+            if(clicks === 5) {
+                clicks = 0;
+                let u = prompt("USUARIO:");
+                if(u === "lusson2026") {
+                    let p = prompt("CONTRASEÑA:");
+                    if(p === "lusson2026") {
+                        // TE ENVÍA DIRECTO AL EDITOR DE TU ARCHIVO EN GITHUB
+                        window.location.href = "https://github.com/variedadesymoda1-boop/lusso/edit/main/labiales.html";
+                    } else { alert("Error"); }
                 }
             }
-            setTimeout(() => { clicksModoJefa = 0; }, 4000);
+            setTimeout(() => { clicks = 0; }, 4000);
         }
 
-        window.onload = cargarCatalogo;
+        window.onload = render;
     </script>
 </body>
 </html>
