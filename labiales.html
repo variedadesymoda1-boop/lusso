@@ -13,70 +13,83 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Montserrat', sans-serif; background-color: var(--nude); color: var(--negro); }
 
-        /* HEADER Y LOGO */
+        /* HEADER PREMIUM */
         header { background: var(--blanco); padding: 1.5rem; text-align: center; border-bottom: 1px solid #eee; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
-        .logo { font-family: 'Playfair Display', serif; font-size: 2.2rem; letter-spacing: 6px; color: var(--negro); text-decoration: none; }
+        .logo { font-family: 'Playfair Display', serif; font-size: 2.2rem; letter-spacing: 6px; color: var(--negro); text-decoration: none; display: block; }
+        .sub-logo { font-size: 0.7rem; letter-spacing: 4px; color: var(--oro); font-weight: 600; margin-top: 5px; }
         
-        /* CARRITO FLOTANTE */
-        .cart-trigger { position: fixed; top: 25px; right: 30px; font-size: 1.5rem; cursor: pointer; z-index: 101; }
-        .badge { position: absolute; top: -8px; right: -10px; background: var(--oro); color: white; padding: 2px 6px; border-radius: 50%; font-size: 0.7rem; font-weight: bold; }
+        /* BOTÓN CARRITO */
+        .cart-trigger { position: fixed; top: 25px; right: 30px; font-size: 1.6rem; cursor: pointer; z-index: 101; color: var(--negro); }
+        .badge { position: absolute; top: -8px; right: -10px; background: var(--oro); color: white; padding: 2px 7px; border-radius: 50%; font-size: 0.75rem; font-weight: bold; }
 
         /* PANEL DEL CARRITO */
-        #cart-panel { position: fixed; top: 0; right: -100%; width: 380px; max-width: 100%; height: 100%; background: white; z-index: 200; transition: 0.4s; padding: 30px; box-shadow: -10px 0 30px rgba(0,0,0,0.1); display: flex; flex-direction: column; }
+        #cart-panel { position: fixed; top: 0; right: -100%; width: 400px; max-width: 100%; height: 100%; background: white; z-index: 200; transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1); padding: 40px; box-shadow: -10px 0 30px rgba(0,0,0,0.1); display: flex; flex-direction: column; }
         #cart-panel.active { right: 0; }
-        .cart-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; border-bottom: 2px solid var(--nude); padding-bottom: 15px; }
+        .cart-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; border-bottom: 2px solid var(--nude); padding-bottom: 20px; }
+        .close-btn { font-size: 1.8rem; cursor: pointer; color: #ccc; transition: 0.3s; }
+        .close-btn:hover { color: var(--negro); }
+        
         .cart-items { flex-grow: 1; overflow-y: auto; }
-        .cart-item { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; padding: 10px; background: #fafafa; border-radius: 8px; }
-        .remove-btn { color: #ff4d4d; cursor: pointer; font-weight: bold; border: none; background: none; font-size: 1.1rem; }
+        .cart-item { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; padding: 15px; background: #fafafa; border-radius: 12px; border: 1px solid #f0f0f0; }
+        .remove-item { color: #ff4d4d; cursor: pointer; font-size: 1.2rem; border: none; background: none; }
 
         /* CATÁLOGO */
         .container { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
-        .card { background: white; border-radius: 15px; padding: 20px; text-align: center; transition: 0.3s; border: 1px solid #eee; }
-        .card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.05); }
-        .img-box { width: 100%; height: 300px; border-radius: 10px; overflow: hidden; margin-bottom: 15px; background: #f9f9f9; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 40px; }
+        .card { background: white; border-radius: 20px; padding: 25px; text-align: center; transition: 0.3s; border: 1px solid #eee; position: relative; }
+        .card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.06); border-color: var(--oro); }
+        .img-box { width: 100%; height: 320px; border-radius: 12px; overflow: hidden; margin-bottom: 20px; background: #fdfdfd; }
         .img-box img { width: 100%; height: 100%; object-fit: cover; }
-        .price { color: var(--oro); font-weight: 700; font-size: 1.3rem; margin: 10px 0; }
-        .btn-add { background: var(--negro); color: white; border: none; padding: 12px; width: 100%; border-radius: 8px; cursor: pointer; font-weight: 600; letter-spacing: 1px; }
+        .card h3 { font-family: 'Playfair Display', serif; font-size: 1.4rem; margin-bottom: 10px; }
+        .price { color: var(--oro); font-weight: 700; font-size: 1.5rem; margin: 15px 0; }
+        .btn-add { background: var(--negro); color: white; border: none; padding: 15px; width: 100%; border-radius: 10px; cursor: pointer; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; transition: 0.3s; }
+        .btn-add:hover { background: var(--oro); }
 
-        /* BOTÓN WHATSAPP FLOTANTE */
-        .wa-float { position: fixed; bottom: 30px; left: 30px; background: #25d366; color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 30px; box-shadow: 0 4px 15px rgba(37,211,102,0.3); z-index: 90; text-decoration: none; }
+        /* BOTÓN WHATSAPP */
+        .wa-float { position: fixed; bottom: 30px; left: 30px; background: #25d366; color: white; width: 65px; height: 65px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 35px; box-shadow: 0 6px 20px rgba(37,211,102,0.3); z-index: 90; text-decoration: none; transition: 0.3s; }
+        .wa-float:hover { transform: scale(1.1); }
 
         /* FOOTER */
-        footer { background: var(--negro); color: #888; padding: 40px; text-align: center; margin-top: 60px; }
-        #secret-text { cursor: default; padding: 15px; display: inline-block; }
+        footer { background: var(--negro); color: #666; padding: 60px 20px; text-align: center; margin-top: 80px; }
+        .footer-logo { font-family: 'Playfair Display', serif; font-size: 1.8rem; color: white; letter-spacing: 5px; margin-bottom: 20px; display: block; }
+        #secret-trigger { cursor: default; padding: 20px; font-size: 0.85rem; border-top: 1px solid #333; display: inline-block; margin-top: 20px; }
     </style>
 </head>
 <body>
 
     <header>
         <a href="#" class="logo">LUSSON</a>
+        <p class="sub-logo">COLOMBIA</p>
         <div class="cart-trigger" onclick="toggleCart()">
-            <i class="fas fa-shopping-bag"></i>
+            <i class="fas fa-shopping-cart"></i>
             <span class="badge" id="cart-count">0</span>
         </div>
     </header>
 
     <div id="cart-panel">
         <div class="cart-header">
-            <h3 style="font-family:'Playfair Display'">Tu Bolsa</h3>
-            <span style="cursor:pointer; font-size:1.5rem" onclick="toggleCart()">✕</span>
+            <h3 style="font-family:'Playfair Display'; font-size: 1.8rem;">Carrito de Compras</h3>
+            <span class="close-btn" onclick="toggleCart()">✕</span>
         </div>
-        <div class="cart-items" id="cart-list"></div>
-        <div style="padding-top:20px; border-top:1px solid #eee">
-            <div style="display:flex; justify-content:space-between; font-weight:700; font-size:1.2rem; margin-bottom:20px">
+        <div class="cart-items" id="cart-list">
+            </div>
+        <div style="padding-top:30px; border-top:2px solid var(--nude);">
+            <div style="display:flex; justify-content:space-between; font-weight:700; font-size:1.4rem; margin-bottom:25px">
                 <span>TOTAL:</span>
-                <span>$<span id="total-price">0</span></span>
+                <span style="color:var(--oro)">$<span id="total-price">0</span></span>
             </div>
             <button class="btn-add" style="background:#25d366" onclick="sendWhatsApp()">
-                <i class="fab fa-whatsapp"></i> COMPRAR POR WHATSAPP
+                <i class="fab fa-whatsapp"></i> FINALIZAR POR WHATSAPP
             </button>
         </div>
     </div>
 
     <main class="container">
         <div id="catalog-grid" class="grid">
-            <div style="grid-column: 1/-1; text-align:center; padding:50px;">Cargando colección premium...</div>
+            <div style="grid-column: 1/-1; text-align:center; padding:100px;">
+                <i class="fas fa-spinner fa-spin" style="font-size: 2rem; color: var(--oro); margin-bottom: 20px;"></i><br>
+                Sincronizando con la colección premium...
+            </div>
         </div>
     </main>
 
@@ -85,13 +98,14 @@
     </a>
 
     <footer>
-        <div id="secret-text" onclick="checkJefa()">
+        <span class="footer-logo">LUSSON</span>
+        <div id="secret-trigger" onclick="checkJefa()">
             © 2026 Lusson Colombia. Todos los derechos reservados.
         </div>
     </footer>
 
     <script>
-        // 2. CONFIGURACIÓN SUPABASE
+        // CONFIGURACIÓN SUPABASE
         const supabaseUrl = 'https://azfingejfhjmbkcrtlbb.supabase.co';
         const supabaseKey = 'sb_publishable_oEmSiQhpAZ9HToa9C2nHXg_5qHIZDUD';
         const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
@@ -99,34 +113,41 @@
         let cart = [];
         let clicks = 0;
 
-        // 3. CARGAR PRODUCTOS
+        // CARGAR CATÁLOGO
         async function loadLusson() {
-            const { data: productos, error } = await supabase
-                .from('productos')
-                .select('*');
+            try {
+                const { data: productos, error } = await supabase
+                    .from('productos')
+                    .select('*');
 
-            if (error) {
-                console.error(error);
-                return;
+                if (error) throw error;
+
+                const grid = document.getElementById('catalog-grid');
+                grid.innerHTML = '';
+
+                if (!productos || productos.length === 0) {
+                    grid.innerHTML = '<div style="grid-column:1/-1; text-align:center;">No hay productos disponibles por ahora.</div>';
+                    return;
+                }
+
+                productos.forEach(p => {
+                    grid.innerHTML += `
+                        <div class="card">
+                            <div class="img-box">
+                                <img src="${p.Imagen}" alt="${p.nombre}">
+                            </div>
+                            <h3>${p.nombre}</h3>
+                            <p class="price">$${p.precio.toLocaleString()}</p>
+                            <button class="btn-add" onclick="addToCart('${p.nombre}', ${p.precio})">AÑADIR AL CARRITO</button>
+                        </div>`;
+                });
+            } catch (err) {
+                console.error("Error cargando productos:", err);
+                document.getElementById('catalog-grid').innerHTML = '<div style="grid-column:1/-1; text-align:center;">Error de conexión. Verifica los permisos de Supabase.</div>';
             }
-
-            const grid = document.getElementById('catalog-grid');
-            grid.innerHTML = '';
-
-            productos.forEach(p => {
-                grid.innerHTML += `
-                    <div class="card">
-                        <div class="img-box">
-                            <img src="${p.Imagen}" alt="${p.nombre}">
-                        </div>
-                        <h3 style="font-family:'Playfair Display'">${p.nombre}</h3>
-                        <p class="price">$${p.precio.toLocaleString()}</p>
-                        <button class="btn-add" onclick="addToCart('${p.nombre}', ${p.precio})">Añadir a la bolsa</button>
-                    </div>`;
-            });
         }
 
-        // 4. FUNCIONES DEL CARRITO
+        // FUNCIONES CARRITO
         function toggleCart() { document.getElementById('cart-panel').classList.toggle('active'); }
 
         function addToCart(nombre, precio) {
@@ -151,8 +172,11 @@
                 total += item.precio;
                 list.innerHTML += `
                     <div class="cart-item">
-                        <div><strong>${item.nombre}</strong><br><small>$${item.precio.toLocaleString()}</small></div>
-                        <button class="remove-btn" onclick="removeFromCart(${index})">✕</button>
+                        <div style="text-align:left">
+                            <strong style="font-size:1.1rem">${item.nombre}</strong><br>
+                            <span style="color:var(--oro); font-weight:600">$${item.precio.toLocaleString()}</span>
+                        </div>
+                        <button class="remove-item" onclick="removeFromCart(${index})">✕</button>
                     </div>`;
             });
 
@@ -161,27 +185,26 @@
         }
 
         function sendWhatsApp() {
-            if(cart.length === 0) return alert("Tu bolsa está vacía");
-            let mensaje = "¡Hola Lusson! 🌟 Quiero pedir:\n\n";
+            if(cart.length === 0) return alert("El carrito está vacío.");
+            let mensaje = "¡Hola Lusson! 🌟 Deseo realizar el siguiente pedido:\n\n";
             cart.forEach(i => mensaje += `- ${i.nombre} ($${i.precio.toLocaleString()})\n`);
-            mensaje += `\nTotal: $${document.getElementById('total-price').innerText}`;
+            mensaje += `\n*TOTAL A PAGAR: $${document.getElementById('total-price').innerText}*`;
             window.open(`https://wa.me/573000000000?text=${encodeURIComponent(mensaje)}`);
         }
 
-        // 5. MODO JEFA: 5 TOQUES EN EL COPYRIGHT
+        // MODO JEFA: 5 TOQUES
         function checkJefa() {
             clicks++;
             if(clicks === 5) {
-                const pass = prompt("Acceso Lusson. Clave:");
+                const pass = prompt("Acceso Lusson. Ingrese clave:");
                 if(pass === "11209") {
                     window.location.href = "https://supabase.com/dashboard/project/azfingejfhjmbkcrtlbb/editor/18556";
                 }
                 clicks = 0;
             }
-            setTimeout(() => { clicks = 0; }, 2000); // Reiniciar si no son rápidos
+            setTimeout(() => { clicks = 0; }, 3000);
         }
 
-        // EJECUTAR AL CARGAR
         window.onload = loadLusson;
     </script>
 </body>
