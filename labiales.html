@@ -4,131 +4,94 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lusson | Catálogo Premium</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
     <style>
-        /* Paleta de Colores Premium */
-        :root { --oro: #D4AF37; --nude: #fdfaf7; --negro: #1a1a1a; --blanco: #ffffff; --gris-claro: #f5f5f5; }
+        :root { --oro: #D4AF37; --nude: #fdfaf7; --negro: #1a1a1a; --blanco: #ffffff; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Montserrat', sans-serif; background-color: var(--nude); color: var(--negro); }
 
-        /* Header Elegante */
+        /* HEADER Y LOGO */
         header { background: var(--blanco); padding: 1.5rem; text-align: center; border-bottom: 1px solid #eee; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
-        .logo { font-family: 'Playfair Display', serif; font-size: 2.2rem; letter-spacing: 6px; color: var(--negro); text-decoration: none; display: inline-block; }
-        .sub-logo { font-size: 0.8rem; letter-spacing: 4px; color: var(--oro); margin-top: 5px; font-weight: 600; }
+        .logo { font-family: 'Playfair Display', serif; font-size: 2.2rem; letter-spacing: 6px; color: var(--negro); text-decoration: none; }
         
-        /* Botón del Carrito */
-        .cart-trigger { position: fixed; top: 25px; right: 30px; font-size: 1.5rem; cursor: pointer; z-index: 101; color: var(--negro); }
-        .badge { position: absolute; top: -8px; right: -10px; background: var(--oro); color: var(--blanco); padding: 2px 6px; border-radius: 50%; font-size: 0.7rem; font-weight: bold; }
+        /* CARRITO FLOTANTE */
+        .cart-trigger { position: fixed; top: 25px; right: 30px; font-size: 1.5rem; cursor: pointer; z-index: 101; }
+        .badge { position: absolute; top: -8px; right: -10px; background: var(--oro); color: white; padding: 2px 6px; border-radius: 50%; font-size: 0.7rem; font-weight: bold; }
 
-        /* Sección Hero */
-        .hero { text-align: center; padding: 60px 20px; background: linear-gradient(to bottom, var(--blanco), var(--nude)); }
-        .hero h1 { font-family: 'Playfair Display', serif; font-size: 3rem; color: var(--negro); margin-bottom: 10px; }
-        .hero p { color: #666; max-width: 600px; margin: 0 auto; font-style: italic; }
-
-        /* Catálogo */
-        .container { max-width: 1200px; margin: 0 auto; padding: 40px 20px; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 40px; }
-        .card { background: var(--blanco); border-radius: 15px; padding: 25px; text-align: center; transition: all 0.3s ease; border: 1px solid #eee; position: relative; overflow: hidden; }
-        .card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.08); border-color: var(--oro); }
-        .img-box { width: 100%; height: 320px; background: var(--gris-claro); border-radius: 10px; overflow: hidden; margin-bottom: 20px; position: relative; }
-        .img-box img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
-        .card:hover .img-box img { transform: scale(1.05); }
-        .card h3 { font-family: 'Playfair Display', serif; font-size: 1.4rem; margin-bottom: 10px; }
-        .price { color: var(--oro); font-weight: 700; font-size: 1.5rem; margin: 15px 0; }
-        .btn-add { background: var(--negro); color: var(--blanco); border: none; padding: 15px; width: 100%; border-radius: 8px; cursor: pointer; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; transition: background 0.3s; }
-        .btn-add:hover { background: var(--oro); }
-
-        /* Panel Carrito */
-        #cart-panel { position: fixed; top: 0; right: -100%; width: 400px; max-width: 100%; height: 100%; background: var(--blanco); z-index: 200; transition: 0.4s; padding: 40px; box-shadow: -10px 0 30px rgba(0,0,0,0.1); display: flex; flex-direction: column; }
+        /* PANEL DEL CARRITO */
+        #cart-panel { position: fixed; top: 0; right: -100%; width: 380px; max-width: 100%; height: 100%; background: white; z-index: 200; transition: 0.4s; padding: 30px; box-shadow: -10px 0 30px rgba(0,0,0,0.1); display: flex; flex-direction: column; }
         #cart-panel.active { right: 0; }
-        .cart-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; border-bottom: 2px solid var(--nude); padding-bottom: 20px; }
-        .cart-header h3 { font-family: 'Playfair Display', serif; font-size: 1.8rem; }
-        .close-cart { font-size: 1.5rem; cursor: pointer; color: #888; transition: color 0.3s; }
-        .close-cart:hover { color: var(--negro); }
-        .cart-items-container { flex-grow: 1; overflow-y: auto; }
-        .item { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid #eee; }
-        .remove-item { color: #ff4d4d; cursor: pointer; font-size: 1.2rem; border: none; background: none; transition: transform 0.2s; }
-        .remove-item:hover { transform: scale(1.2); }
-        .cart-footer { margin-top: 30px; border-top: 2px solid var(--nude); padding-top: 30px; }
-        .btn-whatsapp { background: #25d366; color: white; display: flex; align-items: center; justify-content: center; gap: 10px; font-size: 1.1rem; }
-        .btn-whatsapp:hover { background: #1ebc57; }
+        .cart-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; border-bottom: 2px solid var(--nude); padding-bottom: 15px; }
+        .cart-items { flex-grow: 1; overflow-y: auto; }
+        .cart-item { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; padding: 10px; background: #fafafa; border-radius: 8px; }
+        .remove-btn { color: #ff4d4d; cursor: pointer; font-weight: bold; border: none; background: none; font-size: 1.1rem; }
 
-        /* Botón Flotante de WhatsApp (Solo Icono) */
-        .wa-float { position: fixed; bottom: 30px; left: 30px; background: #25d366; color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 30px; box-shadow: 0 4px 15px rgba(37,211,102,0.4); z-index: 900; transition: transform 0.3s; text-decoration: none; }
-        .wa-float:hover { transform: scale(1.1); }
+        /* CATÁLOGO */
+        .container { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
+        .card { background: white; border-radius: 15px; padding: 20px; text-align: center; transition: 0.3s; border: 1px solid #eee; }
+        .card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.05); }
+        .img-box { width: 100%; height: 300px; border-radius: 10px; overflow: hidden; margin-bottom: 15px; background: #f9f9f9; }
+        .img-box img { width: 100%; height: 100%; object-fit: cover; }
+        .price { color: var(--oro); font-weight: 700; font-size: 1.3rem; margin: 10px 0; }
+        .btn-add { background: var(--negro); color: white; border: none; padding: 12px; width: 100%; border-radius: 8px; cursor: pointer; font-weight: 600; letter-spacing: 1px; }
 
-        /* Footer Mejorado */
-        footer { background: var(--negro); color: #888; padding: 60px 20px; text-align: center; margin-top: 60px; }
-        .footer-content { max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 20px; }
-        .footer-logo { font-family: 'Playfair Display', serif; font-size: 1.8rem; color: var(--blanco); letter-spacing: 4px; }
-        .copyright { font-size: 0.9rem; margin-top: 20px; border-top: 1px solid #333; padding-top: 20px; width: 100%; }
-        #secret-trigger { height: 30px; width: 100px; margin: 0 auto; cursor: default; }
+        /* BOTÓN WHATSAPP FLOTANTE */
+        .wa-float { position: fixed; bottom: 30px; left: 30px; background: #25d366; color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 30px; box-shadow: 0 4px 15px rgba(37,211,102,0.3); z-index: 90; text-decoration: none; }
+
+        /* FOOTER */
+        footer { background: var(--negro); color: #888; padding: 40px; text-align: center; margin-top: 60px; }
+        #secret-text { cursor: default; padding: 15px; display: inline-block; }
     </style>
 </head>
 <body>
 
     <header>
-        <div>
-            <span class="logo">LUSSON</span>
-            <p class="sub-logo">COLOMBIA</p>
-        </div>
+        <a href="#" class="logo">LUSSON</a>
         <div class="cart-trigger" onclick="toggleCart()">
             <i class="fas fa-shopping-bag"></i>
             <span class="badge" id="cart-count">0</span>
         </div>
     </header>
 
-    <section class="hero">
-        <h1>Colección Exclusiva</h1>
-        <p>Descubre el arte del color con nuestra línea premium de labiales de larga duración.</p>
-    </section>
-
     <div id="cart-panel">
         <div class="cart-header">
-            <h3>Tu Bolsa</h3>
-            <span class="close-cart" onclick="toggleCart()">✕</span>
+            <h3 style="font-family:'Playfair Display'">Tu Bolsa</h3>
+            <span style="cursor:pointer; font-size:1.5rem" onclick="toggleCart()">✕</span>
         </div>
-        <div class="cart-items-container" id="cart-items-list">
+        <div class="cart-items" id="cart-list"></div>
+        <div style="padding-top:20px; border-top:1px solid #eee">
+            <div style="display:flex; justify-content:space-between; font-weight:700; font-size:1.2rem; margin-bottom:20px">
+                <span>TOTAL:</span>
+                <span>$<span id="total-price">0</span></span>
             </div>
-        <div class="cart-footer">
-            <div style="display:flex; justify-content:space-between; font-weight:700; font-size: 1.4rem; margin-bottom: 25px;">
-                <span>Total:</span>
-                <span style="color:var(--oro)">$<span id="total-price">0</span></span>
-            </div>
-            <button class="btn-add btn-whatsapp" onclick="sendWhatsApp()">
-                <i class="fab fa-whatsapp"></i> FINALIZAR PEDIDO
+            <button class="btn-add" style="background:#25d366" onclick="sendWhatsApp()">
+                <i class="fab fa-whatsapp"></i> COMPRAR POR WHATSAPP
             </button>
         </div>
     </div>
 
     <main class="container">
         <div id="catalog-grid" class="grid">
-            <div style="text-align:center; grid-column: 1/-1; padding: 50px; font-size: 1.2rem; color: #888;">
-                <i class="fas fa-spinner fa-spin" style="color:var(--oro); font-size: 2rem;"></i><br><br>
-                Cargando colección premium...
-            </div>
+            <div style="grid-column: 1/-1; text-align:center; padding:50px;">Cargando colección premium...</div>
         </div>
     </main>
 
-    <a href="https://wa.me/573000000000?text=Hola!%20Necesito%20asesoría%20con%20mis%20labiales" class="wa-float" target="_blank">
+    <a href="https://wa.me/573000000000" class="wa-float" target="_blank">
         <i class="fab fa-whatsapp"></i>
     </a>
 
     <footer>
-        <div class="footer-content">
-            <span class="footer-logo">LUSSON</span>
-            <div class="copyright">
-                <p onclick="checkJefa()" style="cursor: default;">© 2026 Lusson Colombia. Todos los derechos reservados.</p>
-                
-            </div>
+        <div id="secret-text" onclick="checkJefa()">
+            © 2026 Lusson Colombia. Todos los derechos reservados.
         </div>
-        <div id="secret-trigger" onclick="checkJefa()"></div>
     </footer>
 
     <script>
-        // CONEXIÓN SUPABASE
+        // 2. CONFIGURACIÓN SUPABASE
         const supabaseUrl = 'https://azfingejfhjmbkcrtlbb.supabase.co';
         const supabaseKey = 'sb_publishable_oEmSiQhpAZ9HToa9C2nHXg_5qHIZDUD';
         const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
@@ -136,7 +99,7 @@
         let cart = [];
         let clicks = 0;
 
-        // CARGAR PRODUCTOS
+        // 3. CARGAR PRODUCTOS
         async function loadLusson() {
             const { data: productos, error } = await supabase
                 .from('productos')
@@ -144,17 +107,11 @@
 
             if (error) {
                 console.error(error);
-                document.getElementById('catalog-grid').innerHTML = '<div style="grid-column:1/-1; text-align:center;">Error al cargar el catálogo.</div>';
                 return;
             }
 
             const grid = document.getElementById('catalog-grid');
             grid.innerHTML = '';
-
-            if (productos.length === 0) {
-                grid.innerHTML = '<div style="grid-column:1/-1; text-align:center;">No hay productos disponibles.</div>';
-                return;
-            }
 
             productos.forEach(p => {
                 grid.innerHTML += `
@@ -162,14 +119,14 @@
                         <div class="img-box">
                             <img src="${p.Imagen}" alt="${p.nombre}">
                         </div>
-                        <h3>${p.nombre}</h3>
+                        <h3 style="font-family:'Playfair Display'">${p.nombre}</h3>
                         <p class="price">$${p.precio.toLocaleString()}</p>
-                        <button class="btn-add" onclick="addToCart('${p.nombre}', ${p.precio})">AÑADIR A LA BOLSA</button>
+                        <button class="btn-add" onclick="addToCart('${p.nombre}', ${p.precio})">Añadir a la bolsa</button>
                     </div>`;
             });
         }
 
-        // FUNCIONES CARRITO
+        // 4. FUNCIONES DEL CARRITO
         function toggleCart() { document.getElementById('cart-panel').classList.toggle('active'); }
 
         function addToCart(nombre, precio) {
@@ -184,22 +141,18 @@
         }
 
         function updateCartUI() {
-            const list = document.getElementById('cart-items-list');
+            const list = document.getElementById('cart-list');
             const totalText = document.getElementById('total-price');
             const countBadge = document.getElementById('cart-count');
-            
-            list.innerHTML = '';
             let total = 0;
+            list.innerHTML = '';
 
             cart.forEach((item, index) => {
                 total += item.precio;
                 list.innerHTML += `
-                    <div class="item">
-                        <div>
-                            <strong style="font-size:1.1rem">${item.nombre}</strong><br>
-                            <span style="color:var(--oro); font-weight:600">$${item.precio.toLocaleString()}</span>
-                        </div>
-                        <button class="remove-item" onclick="removeFromCart(${index})">✕</button>
+                    <div class="cart-item">
+                        <div><strong>${item.nombre}</strong><br><small>$${item.precio.toLocaleString()}</small></div>
+                        <button class="remove-btn" onclick="removeFromCart(${index})">✕</button>
                     </div>`;
             });
 
@@ -209,27 +162,27 @@
 
         function sendWhatsApp() {
             if(cart.length === 0) return alert("Tu bolsa está vacía");
-            let mensaje = "¡Hola Lusson! 🌟 Deseo realizar el siguiente pedido:\n\n";
+            let mensaje = "¡Hola Lusson! 🌟 Quiero pedir:\n\n";
             cart.forEach(i => mensaje += `- ${i.nombre} ($${i.precio.toLocaleString()})\n`);
-            mensaje += `\n*Total a pagar: $${document.getElementById('total-price').innerText}*`;
+            mensaje += `\nTotal: $${document.getElementById('total-price').innerText}`;
             window.open(`https://wa.me/573000000000?text=${encodeURIComponent(mensaje)}`);
         }
 
-        // MODO JEFA: 5 TOQUES
+        // 5. MODO JEFA: 5 TOQUES EN EL COPYRIGHT
         function checkJefa() {
             clicks++;
             if(clicks === 5) {
-                const pass = prompt("Acceso Administrativo Lusson. Clave:");
+                const pass = prompt("Acceso Lusson. Clave:");
                 if(pass === "11209") {
-                    alert("¡Bienvenida Jefa! Redirigiendo al panel de control...");
                     window.location.href = "https://supabase.com/dashboard/project/azfingejfhjmbkcrtlbb/editor/18556";
                 }
                 clicks = 0;
             }
+            setTimeout(() => { clicks = 0; }, 2000); // Reiniciar si no son rápidos
         }
 
-        loadLusson();
+        // EJECUTAR AL CARGAR
+        window.onload = loadLusson;
     </script>
 </body>
 </html>
-
