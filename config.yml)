@@ -1,1 +1,16 @@
+backend:
+  name: git-gateway
+  branch: main # Asegúrate de que tu rama se llame main
 
+media_folder: "lusso/images/uploads" # Aquí se guardarán las fotos que subas
+public_folder: "/lusso/images/uploads"
+
+collections:
+  - name: "labiales"
+    label: "Mis Labiales"
+    folder: "lusso/data" # Aquí guardaremos la lista de productos
+    create: true
+    fields:
+      - {label: "Nombre del Labial", name: "nombre", widget: "string"}
+      - {label: "Precio", name: "precio", widget: "number"}
+      - {label: "Imagen del Producto", name: "imagen", widget: "image"}
