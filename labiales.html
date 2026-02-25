@@ -8,44 +8,52 @@
     <script src="https://unpkg.com/feather-icons"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
     <style>
-        :root { --oro: #bca07d; --negro: #1a1a1a; --crema: #fdfaf7; }
+        :root { --oro: #bca07d; --negro: #1a1a1a; --crema: #fdfaf7; --whatsgreen: #25D366; }
         body { font-family: 'Montserrat', sans-serif; margin: 0; background: white; color: var(--negro); overflow-x: hidden; }
 
+        /* HEADER */
         header { background: var(--crema); padding: 15px 25px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; position: sticky; top: 0; z-index: 100; }
         header h1 { font-family: 'Playfair Display', serif; font-size: 1.2rem; letter-spacing: 4px; margin: 0; }
-        
         .cart-icon { position: relative; cursor: pointer; }
         .cart-badge { position: absolute; top: -8px; right: -8px; background: #ff4d4d; color: white; font-size: 0.6rem; padding: 2px 6px; border-radius: 50%; }
-
         nav { display: flex; justify-content: center; gap: 15px; padding: 10px; font-size: 0.65rem; font-weight: 600; letter-spacing: 2px; }
         nav a { text-decoration: none; color: var(--negro); }
 
+        /* CATÁLOGO */
         .catalogo-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; padding: 15px; max-width: 1200px; margin: 0 auto; }
-
         .card-producto { background: white; border: 1px solid #f0f0f0; border-radius: 8px; overflow: hidden; display: flex; flex-direction: column; }
         .card-producto img { width: 100%; height: 160px; object-fit: cover; background: #fafafa; }
-        
         .info { padding: 8px; flex-grow: 1; }
         .info h3 { font-size: 0.65rem; margin: 5px 0; font-weight: 600; text-transform: uppercase; height: 32px; overflow: hidden; }
-        
         .footer-card { display: flex; justify-content: space-between; align-items: center; margin-top: auto; }
         .precio { color: var(--oro); font-weight: 600; font-size: 0.85rem; }
-        
         .btn-add { background: var(--negro); color: white; border: none; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; }
 
+        /* CARRITO */
         .cart-modal { position: fixed; top: 0; right: -100%; width: 100%; max-width: 320px; height: 100%; background: white; box-shadow: -5px 0 15px rgba(0,0,0,0.1); transition: 0.4s; z-index: 1000; display: flex; flex-direction: column; }
         .cart-modal.active { right: 0; }
         .cart-header { padding: 15px; background: var(--crema); display: flex; justify-content: space-between; border-bottom: 1px solid #eee; }
         .cart-content { flex: 1; overflow-y: auto; padding: 15px; font-size: 0.8rem; }
-        .btn-buy { background: #25d366; color: white; border: none; width: 100%; padding: 12px; border-radius: 5px; font-weight: 600; cursor: pointer; margin-top: 10px; }
+        .btn-buy { background: var(--whatsgreen); color: white; border: none; width: 100%; padding: 12px; border-radius: 5px; font-weight: 600; cursor: pointer; margin-top: 10px; }
 
-        .whatsapp-float { position: fixed; bottom: 20px; left: 20px; background: #25d366; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 900; }
-        .whatsapp-float svg { color: white; width: 26px; }
+        /* NUEVO WHATSAPP FLOTANTE DE LUJO */
+        .whatsapp-float { 
+            position: fixed; bottom: 25px; left: 25px; 
+            background: var(--whatsgreen); 
+            width: 55px; height: 55px; 
+            border-radius: 50%; 
+            display: flex; align-items: center; justify-content: center; 
+            box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3); 
+            z-index: 900; transition: 0.3s;
+        }
+        .whatsapp-float:hover { transform: scale(1.1); box-shadow: 0 8px 20px rgba(37, 211, 102, 0.4); }
+        /* Icono oficial SVG de WhatsApp */
+        .whatsapp-icon { width: 32px; height: 32px; fill: white; }
 
-        /* FOOTER CON LÍNEA DECORATIVA / MODO JEFA */
+        /* FOOTER Y LÍNEA JEFA */
         footer { background: var(--negro); color: white; padding: 40px 20px; text-align: center; }
-        .linea-jefa { width: 100px; height: 3px; background: var(--oro); margin: 20px auto; cursor: pointer; border: none; border-radius: 10px; transition: 0.3s; }
-        .linea-jefa:active { background: white; }
+        .linea-jefa { width: 80px; height: 3px; background: var(--oro); margin: 25px auto; cursor: pointer; border: none; border-radius: 2px; transition: 0.3s; opacity: 0.7; }
+        .linea-jefa:active { transform: scaleX(1.2); opacity: 1; background: white; }
 
         @media (max-width: 600px) { .catalogo-grid { grid-template-columns: 1fr 1fr; } }
     </style>
@@ -68,7 +76,7 @@
     </nav>
 
     <main class="catalogo-grid" id="lista-labiales">
-        <p style="grid-column: 1/-1; text-align: center; padding: 50px; color: #888;">Cargando catálogo real...</p>
+        <p style="grid-column: 1/-1; text-align: center; padding: 50px; color: #888;">Conectando con el inventario...</p>
     </main>
 
     <div class="cart-modal" id="cart-modal">
@@ -76,17 +84,19 @@
         <div class="cart-content" id="cart-items"></div>
         <div class="cart-footer" style="padding:15px; border-top:1px solid #eee;">
             <div style="display:flex; justify-content:space-between; margin-bottom:15px; font-weight:600;"><span>TOTAL:</span><span id="cart-total">$ 0</span></div>
-            <button class="btn-buy" onclick="enviarPedido()">PEDIR POR WHATSAPP</button>
+            <button class="btn-buy" onclick="enviarPedido()">CONFIRMAR PEDIDO</button>
         </div>
     </div>
 
-    <a href="https://wa.me/573153564016" class="whatsapp-float"><i data-feather="message-circle"></i></a>
+    <a href="https://wa.me/573153564016" class="whatsapp-float" target="_blank" aria-label="Chat en WhatsApp">
+        <svg class="whatsapp-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.463 1.065 2.875 1.213 3.074.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+    </a>
 
     <footer>
         <h2 style="font-family:'Playfair Display'; letter-spacing:4px; font-size:1rem; margin:0;">LUSSON</h2>
-        <hr class="linea-jefa" onclick="modoJefa()">
+        <hr class="linea-jefa" onclick="modoJefa()" title="Acceso Administrativo">
         <p style="font-size: 0.5rem; letter-spacing: 2px; color: var(--oro); margin: 0;">COSMÉTICA DE ALTA GAMA</p>
-        <p style="font-size: 0.45rem; color: #444; margin-top: 20px;">© 2026 LUSSON COLOMBIA - DERECHOS RESERVADOS</p>
+        <p style="font-size: 0.45rem; color: #444; margin-top: 20px;">© 2026 LUSSON COLOMBIA</p>
     </footer>
 
     <script>
@@ -107,25 +117,22 @@
                     const text = await contentRes.text();
                     const data = jsyaml.load(text.split('---')[1]);
                     
-                    // LÓGICA PARA ENCONTRAR LA FOTO: Limpiamos la ruta para que siempre funcione
-                    let imgPath = data.image;
-                    if (imgPath.startsWith('/')) imgPath = imgPath.substring(1);
-                    if (!imgPath.startsWith('assets/')) imgPath = 'assets/img/' + imgPath.split('/').pop();
-                    
+                    // SOLUCIÓN DEFINITIVA PARA IMÁGENES: Usar la ruta exacta del panel
+                    // Si la imagen no carga, muestra un placeholder elegante de error.
                     grid.innerHTML += `
                         <div class="card-producto">
-                            <img src="${imgPath}" onerror="this.src='https://via.placeholder.com/150?text=Lusson+Beauty'">
+                            <img src="${data.image}" alt="${data.title}" onerror="this.src='https://via.placeholder.com/150/f5eee6/bca07d?text=Sin+Foto'">
                             <div class="info">
                                 <h3>${data.title}</h3>
                                 <div class="footer-card">
                                     <span class="precio">$ ${data.precio}</span>
-                                    <button class="btn-add" onclick="agregarAlCarrito('${data.title}', '${data.precio}')"><i data-feather="plus" style="width:14px;"></i></button>
+                                    <button class="btn-add" onclick="agregarAlCarrito('${data.title.replace(/'/g, "\\'")}', '${data.precio}')"><i data-feather="plus" style="width:14px;"></i></button>
                                 </div>
                             </div>
                         </div>`;
                 }
                 feather.replace();
-            } catch (e) { grid.innerHTML = '<p style="grid-column:1/-1; text-align:center;">Sincronizando productos...</p>'; }
+            } catch (e) { grid.innerHTML = '<p style="grid-column:1/-1; text-align:center;">No se encontraron productos.</p>'; }
         }
 
         function toggleCart() { document.getElementById('cart-modal').classList.toggle('active'); }
@@ -140,7 +147,7 @@
             const container = document.getElementById('cart-items');
             container.innerHTML = '';
             carrito.forEach((item, i) => {
-                container.innerHTML += `<div style="display:flex; justify-content:space-between; margin-bottom:10px;"><span>${item.nombre}</span><span>$ ${item.precio}</span><i data-feather="trash-2" onclick="carrito.splice(${i},1);actualizarCarrito()" style="width:14px; cursor:pointer; color:red;"></i></div>`;
+                container.innerHTML += `<div style="display:flex; justify-content:space-between; margin-bottom:10px; font-size:0.75rem;"><span>${item.nombre}<br><b>$ ${item.precio}</b></span><i data-feather="trash-2" onclick="carrito.splice(${i},1);actualizarCarrito()" style="width:14px; cursor:pointer; color:red;"></i></div>`;
             });
             document.getElementById('cart-count').innerText = carrito.length;
             feather.replace();
@@ -148,11 +155,10 @@
 
         function enviarPedido() {
             if(carrito.length === 0) return;
-            let msg = "¡Hola Lusson! ✨ Mi pedido:\n" + carrito.map(i => `- ${i.nombre} ($ ${i.precio})`).join('\n');
+            let msg = "¡Hola Lusson! ✨ Deseo comprar:\n" + carrito.map(i => `• ${i.nombre} ($ ${i.precio})`).join('\n');
             window.open(`https://wa.me/573153564016?text=${encodeURIComponent(msg)}`);
         }
 
-        // --- LÓGICA MODO JEFA (5 TOQUES) ---
         let toques = 0;
         function modoJefa() {
             toques++;
