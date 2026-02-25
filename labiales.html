@@ -3,144 +3,182 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lusson Labiales | Tienda Oficial</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Inter', sans-serif; background-color: #0A0A0A; color: white; line-height: 1.6; }
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
-        
-        /* Header */
-        .header { position: fixed; top: 0; width: 100%; background: rgba(10,10,10,0.95); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(255,255,255,0.05); z-index: 1000; }
-        .nav { display: flex; justify-content: space-between; align-items: center; height: 80px; }
-        .logo a { font-size: 1.8rem; font-weight: 800; text-decoration: none; color: white; letter-spacing: 2px; }
-        .dot { color: #FF69B4; }
-        .nav-menu { display: flex; gap: 2rem; list-style: none; }
-        .nav-menu a { color: #f5f5f5; text-decoration: none; font-size: 0.9rem; font-weight: 600; }
-        .nav-menu a.active { color: #FF69B4; border-bottom: 2px solid #FF69B4; }
-        
-        /* Hero */
-        .hero { min-height: 40vh; display: flex; align-items: center; padding: 120px 0 60px; background: linear-gradient(to bottom, #111, #0A0A0A); }
-        .hero-title { font-size: 3.5rem; font-weight: 800; }
-        .hero-subtitle { font-size: 1.2rem; color: #FF69B4; letter-spacing: 3px; }
-        
-        /* Productos */
-        .products { padding: 4rem 0; }
-        .section-title { font-size: 2.5rem; text-align: center; margin-bottom: 3rem; }
-        .gradient-text { background: linear-gradient(135deg, #FF69B4, #FF1493); -webkit-background-clip: text; background-clip: text; color: transparent; }
-        
-        .products-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; }
-        .product-card { background: #1A1A1A; border-radius: 16px; padding: 1.5rem; text-align: center; border: 1px solid rgba(255,255,255,0.05); transition: 0.3s; }
-        .product-card:hover { transform: translateY(-5px); border-color: #FF69B4; }
-        
-        .product-image-container { width: 100%; height: 250px; border-radius: 12px; margin-bottom: 1.5rem; overflow: hidden; background: #222; }
-        .product-image-container img { width: 100%; height: 100%; object-fit: cover; }
-        
-        .product-title { font-size: 1.2rem; margin-bottom: 0.5rem; font-weight: 700; }
-        .product-price { font-size: 1.4rem; color: #FF69B4; font-weight: 800; margin: 1rem 0; }
-        
-        .btn { background: linear-gradient(135deg, #FF69B4, #FF1493); color: white; border: none; padding: 0.8rem; border-radius: 8px; cursor: pointer; font-weight: 700; width: 100%; text-transform: uppercase; }
-        
-        /* Footer */
-        .footer { background: #111; padding: 2rem 0; text-align: center; border-top: 1px solid rgba(255,255,255,0.05); margin-top: 4rem; }
-    </style>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <title>Lusson | Catálogo Premium</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+        :root { --oro: #bca07d; --nude: #fdfaf7; --negro: #1a1a1a; --rosa: #FF69B4; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Montserrat', sans-serif; background-color: var(--nude); color: var(--negro); }
+
+        /* Navegación Elegante */
+        header { background: white; padding: 1.5rem; text-align: center; border-bottom: 1px solid #eee; position: sticky; top: 0; z-index: 100; }
+        .logo { font-family: 'Playfair Display', serif; font-size: 2.2rem; letter-spacing: 6px; color: var(--negro); text-decoration: none; }
+        
+        /* Carrito Flotante */
+        .cart-trigger { position: fixed; top: 20px; right: 20px; background: var(--negro); color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 1001; box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
+        .badge { position: absolute; top: 0; right: 0; background: var(--oro); padding: 4px 8px; border-radius: 50%; font-size: 0.7rem; }
+
+        /* Catálogo */
+        .container { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
+        .card { background: white; border-radius: 15px; padding: 20px; text-align: center; transition: 0.3s; border: 1px solid #f0f0f0; }
+        .card:hover { transform: translateY(-10px); box-shadow: 0 15px 35px rgba(0,0,0,0.05); }
+        .img-box { width: 100%; height: 300px; background: #f9f9f9; border-radius: 10px; overflow: hidden; margin-bottom: 15px; border: 1px solid #eee; }
+        .img-box img { width: 100%; height: 100%; object-fit: cover; }
+        .price { color: var(--oro); font-weight: 700; font-size: 1.3rem; margin: 10px 0; }
+        .btn-add { background: var(--negro); color: white; border: none; padding: 12px; width: 100%; border-radius: 8px; cursor: pointer; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
+
+        /* Panel Carrito */
+        #cart-panel { position: fixed; top: 0; right: -100%; width: 380px; max-width: 100%; height: 100%; background: white; z-index: 2000; transition: 0.4s; padding: 30px; box-shadow: -10px 0 30px rgba(0,0,0,0.1); }
+        #cart-panel.active { right: 0; }
+        .cart-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; border-bottom: 2px solid var(--nude); padding-bottom: 15px; }
+        .close-cart { font-size: 1.5rem; cursor: pointer; color: #888; }
+        .item { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .remove-item { color: #ff4d4d; cursor: pointer; font-weight: bold; border: none; background: none; }
+        
+        /* Botones de Soporte */
+        .wa-float { position: fixed; bottom: 30px; left: 30px; background: #25d366; color: white; padding: 15px 25px; border-radius: 50px; text-decoration: none; font-weight: 600; display: flex; align-items: center; gap: 10px; box-shadow: 0 5px 15px rgba(37,211,102,0.3); z-index: 900; }
+
+        /* Footer Secreto */
+        footer { margin-top: 100px; padding: 40px; text-align: center; color: #ccc; font-size: 0.8rem; }
+        #secret-trigger { height: 20px; width: 100px; margin: 0 auto; cursor: default; }
+    </style>
 </head>
 <body>
-    <header class="header">
-        <nav class="nav container">
-            <div class="logo" id="secretAdminBtn">
-                <a href="index.html">LUSSON<span class="dot">.</span></a>
-            </div>
-            <ul class="nav-menu">
-                <li><a href="index.html">INICIO</a></li>
-                <li><a href="#" class="active">LABIALES</a></li>
-            </ul>
-        </nav>
+
+    <header>
+        <a href="index.html" class="logo">LUSSON</a>
+        <p style="font-size: 0.7rem; letter-spacing: 3px; color: var(--oro); margin-top: 5px;">COLOMBIA</p>
     </header>
 
-    <main>
-        <section class="hero">
-            <div class="container">
-                <div class="hero-subtitle">COLECCIÓN BLOOMSHELL</div>
-                <h1 class="hero-title">LABIALES<span class="dot">.</span></h1>
-                <p style="max-width: 600px; color: #888;">Fórmula profesional de larga duración. Encuentra el tono perfecto para tu estilo único.</p>
-            </div>
-        </section>
+    <div class="cart-trigger" onclick="toggleCart()">
+        🛍️ <span class="badge" id="cart-count">0</span>
+    </div>
 
-        <section class="products">
-            <div class="container">
-                <h2 class="section-title">Nuestra <span class="gradient-text">Colección</span></h2>
-                <div class="products-grid" id="productsGrid">
-                    <div style="text-align: center; grid-column: 1/-1; padding: 3rem; color: #555;">Conectando con la bodega...</div>
-                </div>
+    <div id="cart-panel">
+        <div class="cart-header">
+            <h3>Bolsa de Compras</h3>
+            <span class="close-cart" onclick="toggleCart()">✕</span>
+        </div>
+        <div id="cart-items-list"></div>
+        <div style="margin-top: 30px; border-top: 2px solid var(--nude); padding-top: 20px;">
+            <div style="display:flex; justify-content:space-between; font-weight:700; font-size: 1.2rem; margin-bottom: 20px;">
+                <span>TOTAL:</span>
+                <span>$<span id="total-price">0</span></span>
             </div>
-        </section>
+            <button class="btn-add" style="background:#25d366" onclick="sendWhatsApp()">COMPRAR POR WHATSAPP</button>
+        </div>
+    </div>
+
+    <main class="container">
+        <div id="catalog-grid" class="grid">
+            <div style="text-align:center; grid-column: 1/-1;">Cargando colección premium...</div>
+        </div>
     </main>
 
-    <footer class="footer">
-        <p>© 2026 Lusson Colombia. Desarrollado por Xailon.</p>
+    <a href="https://wa.me/573000000000?text=Hola!%20Necesito%20asesoría%20con%20mis%20labiales" class="wa-float" target="_blank">
+        <span>Necesitas asesoría?</span> 📱
+    </a>
+
+    <footer>
+        <p>© 2026 Lusson. Todos los derechos reservados.</p>
+        <div id="secret-trigger" onclick="checkJefa()"></div>
     </footer>
 
     <script>
-        // CONEXIÓN A TU SUPABASE REAL
-        const SUPABASE_URL = 'https://azfingejfhjmbkcrtlbb.supabase.co';
-        const SUPABASE_KEY = 'sb_publishable_oEmSiQhpAZ9HToa9C2nHXg_5qHIZDUD';
-        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-        
-        async function loadProducts() {
-            try {
-                // CORRECCIÓN: Usamos 'productos' que es tu tabla real
-                const { data, error } = await supabase
-                    .from('productos')
-                    .select('*');
-                
-                if (error) throw error;
-                
-                const grid = document.getElementById('productsGrid');
-                
-                if (data && data.length > 0) {
-                    let html = '';
-                    data.forEach(p => {
-                        // CORRECCIÓN: 'Imagen' y 'nombre' según tus columnas en Supabase
-                        html += `
-                            <div class="product-card">
-                                <div class="product-image-container">
-                                    <img src="${p.Imagen}" alt="${p.nombre}">
-                                </div>
-                                <h3 class="product-title">${p.nombre}</h3>
-                                <div class="product-price">$${p.precio.toLocaleString()}</div>
-                                <button class="btn" onclick="pedirWhatsApp('${p.nombre}', ${p.precio})">
-                                    Pedir Ahora
-                                </button>
-                            </div>
-                        `;
-                    });
-                    grid.innerHTML = html;
-                } else {
-                    grid.innerHTML = '<div style="grid-column: 1/-1;">No hay productos disponibles en este momento.</div>';
+        // CONFIGURACIÓN SUPABASE - TUS LLAVES
+        const supabaseUrl = 'https://azfingejfhjmbkcrtlbb.supabase.co';
+        const supabaseKey = 'sb_publishable_oEmSiQhpAZ9HToa9C2nHXg_5qHIZDUD';
+        const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+
+        let cart = [];
+        let clicks = 0;
+
+        // CARGAR PRODUCTOS
+        async function loadLusson() {
+            const { data: productos, error } = await supabase
+                .from('productos')
+                .select('*');
+
+            if (error) return console.error(error);
+
+            const grid = document.getElementById('catalog-grid');
+            grid.innerHTML = '';
+
+            productos.forEach(p => {
+                grid.innerHTML += `
+                    <div class="card">
+                        <div class="img-box">
+                            <img src="${p.Imagen}" alt="${p.nombre}">
+                        </div>
+                        <h3 style="font-family:'Playfair Display'">${p.nombre}</h3>
+                        <p class="price">$${p.precio.toLocaleString()}</p>
+                        <button class="btn-add" onclick="addToCart('${p.nombre}', ${p.precio})">Añadir a la bolsa</button>
+                    </div>`;
+            });
+        }
+
+        // FUNCIONES CARRITO
+        function toggleCart() { document.getElementById('cart-panel').classList.toggle('active'); }
+
+        function addToCart(nombre, precio) {
+            cart.push({ nombre, precio });
+            updateCartUI();
+            if(!document.getElementById('cart-panel').classList.contains('active')) toggleCart();
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            const list = document.getElementById('cart-items-list');
+            const totalText = document.getElementById('total-price');
+            const countBadge = document.getElementById('cart-count');
+            
+            list.innerHTML = '';
+            let total = 0;
+
+            cart.forEach((item, index) => {
+                total += item.precio;
+                list.innerHTML += `
+                    <div class="item">
+                        <div style="font-size:0.9rem">
+                            <strong>${item.nombre}</strong><br>
+                            <span style="color:var(--oro)">$${item.precio.toLocaleString()}</span>
+                        </div>
+                        <button class="remove-item" onclick="removeFromCart(${index})">✕</button>
+                    </div>`;
+            });
+
+            totalText.innerText = total.toLocaleString();
+            countBadge.innerText = cart.length;
+        }
+
+        function sendWhatsApp() {
+            if(cart.length === 0) return alert("Tu bolsa está vacía");
+            let mensaje = "¡Hola Lusson! 🌟 Quiero realizar este pedido:\n\n";
+            cart.forEach(i => mensaje += `- ${i.nombre} ($${i.precio.toLocaleString()})\n`);
+            mensaje += `\nTotal a pagar: $${document.getElementById('total-price').innerText}`;
+            window.open(`https://wa.me/573000000000?text=${encodeURIComponent(mensaje)}`);
+        }
+
+        // MODO JEFA: 5 TOQUES
+        function checkJefa() {
+            clicks++;
+            if(clicks === 5) {
+                const pass = prompt("Acceso Administrativo Lusson. Clave:");
+                if(pass === "11209") {
+                    alert("Bienvenida Jefa. Ahora puedes gestionar precios y fotos desde el panel de Supabase.");
+                    window.location.href = "https://supabase.com/dashboard/project/azfingejfhjmbkcrtlbb/editor/18556";
                 }
-            } catch (error) {
-                console.error('Error:', error);
-                document.getElementById('productsGrid').innerHTML = 'Error al cargar el catálogo.';
+                clicks = 0;
             }
         }
 
-        function pedirWhatsApp(nombre, precio) {
-            const mensaje = encodeURIComponent(`¡Hola Lusson! 🌟 Quiero pedir el labial: ${nombre} ($${precio.toLocaleString()})`);
-            window.open(`https://wa.me/573000000000?text=${mensaje}`, '_blank');
-        }
-
-        // Cargar al iniciar
-        loadProducts();
-
-        // Botón Secreto para Modo Jefa (Doble clic en el logo LUSSON)
-        document.getElementById('secretAdminBtn').addEventListener('dblclick', () => {
-            const pass = prompt("Clave de Jefa:");
-            if(pass === "11209") {
-                alert("Modo Edición Activado. Ahora puedes editar desde Supabase.");
-            }
-        });
+        loadLusson();
     </script>
 </body>
 </html>
