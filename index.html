@@ -3,43 +3,64 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lusson | Administradora Pro</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;1,400&family=Montserrat:wght@200;300;400&display=swap" rel="stylesheet">
+    <title>Lusson | Inicio</title>
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@300;600&display=swap" rel="stylesheet">
     <style>
-        :root { --nude-bg: #f5eee6; --oro: #bca07d; --negro: #1a1a1a; --blanco: #ffffff; }
-        body { margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; background: var(--blanco); color: var(--negro); }
-        header { background-color: var(--nude-bg); padding: 60px 20px; text-align: center; border-bottom: 1px solid rgba(0,0,0,0.05); }
-        .logo { font-family: 'Playfair Display', serif; font-size: clamp(2.5rem, 8vw, 4rem); letter-spacing: 20px; text-transform: uppercase; margin: 0; font-weight: 400; }
-        .tagline { font-size: 0.8rem; letter-spacing: 5px; text-transform: uppercase; margin-top: 20px; color: #666; }
-        .nav-lujo { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; padding: 25px 10px; background: #fff; }
-        .btn-cat { background: #fdfaf7; color: var(--negro); border: 1px solid #eee; padding: 12px 20px; text-transform: uppercase; font-size: 0.65rem; letter-spacing: 2px; text-decoration: none; }
-        .mosaico { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 10px; max-width: 1200px; margin: 0 auto; position: relative; }
-        .mosaico img { width: 100%; height: 400px; object-fit: cover; background: #eee; }
-        .caja-actitud { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(26, 26, 26, 0.9); color: white; padding: 40px; text-align: center; width: 70%; max-width: 500px; }
-        .grid-productos { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; padding: 60px 20px; max-width: 1200px; margin: 0 auto; }
-        .producto { text-align: center; }
-        .producto img { width: 100%; height: 350px; object-fit: cover; }
-        footer { padding: 60px; text-align: center; font-size: 0.7rem; letter-spacing: 3px; color: #bbb; position: relative; }
-        .secreto-admin { width: 50px; height: 30px; background: transparent; margin: 10px auto; }
+        :root { --oro: #D4AF37; --negro: #1a1a1a; }
+        body { font-family: 'Montserrat', sans-serif; margin: 0; background: #fff; color: var(--negro); }
         
-        /* Botón de Guardar que aparecerá en modo Jefa */
-        #btn-guardar-cambios {
-            display: none;
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: var(--oro);
-            color: white;
-            padding: 15px 30px;
-            border: none;
-            border-radius: 50px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-            z-index: 9999;
-            cursor: pointer;
-            font-weight: bold;
-                    font-weight: bold;
-    }
+        /* PORTADA */
+        .hero { height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; background: #fdfaf7; padding: 20px; }
+        .logo { font-family: 'Playfair Display', serif; font-size: 3.5rem; letter-spacing: 8px; margin-bottom: 10px; }
+        .subtitle { letter-spacing: 3px; font-weight: 300; text-transform: uppercase; margin-bottom: 30px; }
+        
+        .btn { border: 1px solid var(--negro); padding: 15px 40px; text-decoration: none; color: var(--negro); transition: 0.3s; font-weight: 600; }
+        .btn:hover { background: var(--negro); color: white; }
+
+        footer { background: white; padding: 40px; text-align: center; border-top: 1px solid #eee; }
+        /* PUNTO SECRETO */
+        #secret-point { width: 12px; height: 12px; background: #fdfaf7; margin: 0 auto 20px; cursor: pointer; border-radius: 50%; }
+    </style>
+</head>
+<body>
+
+    <section class="hero">
+        <h1 class="logo">LUSSON</h1>
+        <p class="subtitle">Cosmética de Lujo</p>
+        <a href="labiales.html" class="btn">VER CATÁLOGO</a>
+    </section>
+
+    <footer>
+        <div id="secret-point" onclick="modoJefa()"></div>
+        <p>© 2026 Lusson Colombia.</p>
+    </footer>
+
+    <script>
+        // Lógica de los 5 toques
+        let toques = 0;
+        function modoJefa() {
+            toques++;
+            if (toques === 5) {
+                window.location.href = "admin/index.html"; 
+            }
+            setTimeout(() => { toques = 0; }, 3000);
+        }
+
+        // Script para que el login se cierre solo al entrar
+        if (window.netlifyIdentity) {
+            window.netlifyIdentity.on("init", user => {
+                if (!user) {
+                    window.netlifyIdentity.on("login", () => {
+                        document.location.href = "/admin/";
+                    });
+                }
+            });
+        }
+    </script>
+</body>
+</html>
+
 
     /* AJUSTE PARA QUE SE VEA BIEN EN CELULAR, TABLET Y PC */
     @media (max-width: 600px) {
