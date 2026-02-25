@@ -3,249 +3,136 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lusson | Inicio</title>
+    <title>Lusson | Cosmética de Lujo</title>
+    
     <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@300;600&display=swap" rel="stylesheet">
-    <style>
-        :root { --oro: #D4AF37; --negro: #1a1a1a; }
-        body { font-family: 'Montserrat', sans-serif; margin: 0; background: #fff; color: var(--negro); }
-        
-        /* PORTADA */
-        .hero { height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; background: #fdfaf7; padding: 20px; }
-        .logo { font-family: 'Playfair Display', serif; font-size: 3.5rem; letter-spacing: 8px; margin-bottom: 10px; }
-        .subtitle { letter-spacing: 3px; font-weight: 300; text-transform: uppercase; margin-bottom: 30px; }
-        
-        .btn { border: 1px solid var(--negro); padding: 15px 40px; text-decoration: none; color: var(--negro); transition: 0.3s; font-weight: 600; }
-        .btn:hover { background: var(--negro); color: white; }
 
-        footer { background: white; padding: 40px; text-align: center; border-top: 1px solid #eee; }
-        /* PUNTO SECRETO */
-        #secret-point { width: 12px; height: 12px; background: #fdfaf7; margin: 0 auto 20px; cursor: pointer; border-radius: 50%; }
+    <style>
+        :root { --oro: #bca07d; --negro: #1a1a1a; --crema: #fdfaf7; }
+        
+        body { font-family: 'Montserrat', sans-serif; margin: 0; background: #fff; color: var(--negro); overflow-x: hidden; }
+
+        /* HEADER Y LOGO */
+        header { background: #f5eee6; padding: 20px; text-align: center; display: flex; align-items: center; justify-content: center; gap: 15px; }
+        header img { height: 60px; width: auto; }
+        header h1 { font-family: 'Playfair Display', serif; font-size: 2rem; letter-spacing: 10px; margin: 0; }
+
+        /* NAVEGACIÓN */
+        nav { display: flex; justify-content: center; gap: 15px; padding: 15px; background: white; border-bottom: 1px solid #eee; flex-wrap: wrap; }
+        nav a { text-decoration: none; color: var(--negro); font-size: 0.7rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; padding: 5px 10px; }
+
+        /* LANZAMIENTOS (CARRUSEL) */
+        .seccion-lanzamientos { background: var(--crema); padding: 40px 0; border-bottom: 1px solid #eee; }
+        .titulo-seccion { text-align: center; font-family: 'Playfair Display', serif; letter-spacing: 4px; color: var(--oro); margin-bottom: 5px; }
+        .oferta-tag { text-align: center; font-size: 0.7rem; letter-spacing: 2px; color: #ff4d4d; font-weight: bold; margin-bottom: 20px; }
+        
+        .carrusel-contenedor { overflow: hidden; width: 100%; }
+        .fila-animada { display: flex; width: max-content; animation: deslizarInfinito 30s linear infinite; }
+        .card-lanzamiento { width: 180px; margin: 0 15px; background: white; padding: 15px; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); text-align: center; }
+        .card-lanzamiento img { width: 100%; height: 180px; object-fit: cover; border-radius: 8px; margin-bottom: 10px; }
+        .card-lanzamiento span { font-size: 0.65rem; font-weight: 600; letter-spacing: 1px; }
+
+        /* MOSAICO PRINCIPAL (CONTROL DE IMÁGENES GIGANTES) */
+        .mosaico { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 10px; padding: 10px; }
+        .mosaico img { width: 100%; height: 400px; object-fit: cover; }
+        .caja-actitud { background: var(--crema); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 40px; }
+        .caja-actitud h2 { font-family: 'Playfair Display', serif; font-style: italic; font-size: 1.5rem; }
+
+        /* FOOTER PROFESIONAL */
+        footer { background: var(--negro); color: white; padding: 60px 20px; text-align: center; position: relative; }
+        footer h2 { font-family: 'Playfair Display', serif; letter-spacing: 8px; margin-bottom: 10px; }
+        .footer-links { display: flex; justify-content: center; gap: 30px; margin: 20px 0; }
+        .footer-links a { color: white; text-decoration: none; font-size: 0.7rem; letter-spacing: 1px; opacity: 0.7; }
+        
+        /* BOTÓN FLOTANTE WHATSAPP */
+        .whatsapp-float { position: fixed; width: 50px; height: 50px; bottom: 20px; left: 20px; background: #25d366; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 10px rgba(0,0,0,0.3); z-index: 100; }
+        .whatsapp-float img { width: 30px; }
+
+        /* PUNTO SECRETO ADMINISTRADOR */
+        #secret-point { position: absolute; bottom: 10px; right: 10px; width: 15px; height: 15px; cursor: pointer; opacity: 0.1; }
+
+        @keyframes deslizarInfinito { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+        /* AJUSTE PARA MÓVILES */
+        @media (max-width: 600px) {
+            header h1 { font-size: 1.5rem; letter-spacing: 5px; }
+            .mosaico img { height: 300px; }
+        }
     </style>
 </head>
 <body>
 
-    <section class="hero">
-        <h1 class="logo">LUSSON</h1>
-        <p class="subtitle">Cosmética de Lujo</p>
-        <a href="labiales.html" class="btn">VER CATÁLOGO</a>
+    <header>
+        <img src="assets/subirlo.png" alt="Lusson Logo">
+        <h1>LUSSON</h1>
+    </header>
+
+    <nav>
+        <a href="bases.html">Bases</a>
+        <a href="#">Sombras</a>
+        <a href="#">Pestañas</a>
+        <a href="labiales.html">Labiales</a>
+    </nav>
+
+    <section class="seccion-lanzamientos">
+        <h2 class="titulo-seccion">NUEVOS LANZAMIENTOS</h2>
+        <p class="oferta-tag">DESCUENTOS DE TEMPORADA 🏷️</p>
+        <div class="carrusel-contenedor">
+            <div class="fila-animada">
+                <div class="card-lanzamiento"><img src="https://images.pexels.com/photos/3373739/pexels-photo-3373739.jpeg?auto=compress&w=300"><span>RUBORES</span></div>
+                <div class="card-lanzamiento"><img src="https://images.pexels.com/photos/3373736/pexels-photo-3373736.jpeg?auto=compress&w=300"><span>PESTAÑAS</span></div>
+                <div class="card-lanzamiento"><img src="https://images.pexels.com/photos/4046316/pexels-photo-4046316.jpeg?auto=compress&w=300"><span>SKINCARE</span></div>
+                <div class="card-lanzamiento"><img src="assets/Base de maquillaje.png"><span>BASES</span></div>
+                <div class="card-lanzamiento"><img src="https://images.pexels.com/photos/2533266/pexels-photo-2533266.jpeg?auto=compress&w=300"><span>LABIALES</span></div>
+                <div class="card-lanzamiento"><img src="https://images.pexels.com/photos/3373739/pexels-photo-3373739.jpeg?auto=compress&w=300"><span>RUBORES</span></div>
+                <div class="card-lanzamiento"><img src="https://images.pexels.com/photos/3373736/pexels-photo-3373736.jpeg?auto=compress&w=300"><span>PESTAÑAS</span></div>
+            </div>
+        </div>
     </section>
 
+    <main class="mosaico">
+        <img src="https://images.pexels.com/photos/3738339/pexels-photo-3738339.jpeg?auto=compress&w=800" alt="Sombras">
+        <div class="caja-actitud">
+            <h2>"La elegancia es una cuestión de actitud"</h2>
+            <p>Lusson Colombia</p>
+        </div>
+        <img src="https://images.pexels.com/photos/3018845/pexels-photo-3018845.jpeg?auto=compress&w=800" alt="Maquillaje">
+        <img src="https://images.pexels.com/photos/2533266/pexels-photo-2533266.jpeg?auto=compress&w=800" alt="Labiales">
+    </main>
+
     <footer>
+        <h2>LUSSON</h2>
+        <p style="color: var(--oro); letter-spacing: 2px; font-size: 0.8rem;">ELEGANCIA EN CADA DETALLE</p>
+        <div class="footer-links">
+            <a href="#">INSTAGRAM</a>
+            <a href="#">TIKTOK</a>
+            <a href="#">CATÁLOGO PDF</a>
+        </div>
+        <p style="font-size: 0.6rem; color: #555; margin-top: 20px;">© 2026 LUSSON - TODOS LOS DERECHOS RESERVADOS</p>
+        
         <div id="secret-point" onclick="modoJefa()"></div>
-        <p>© 2026 Lusson Colombia.</p>
     </footer>
 
+    <a href="https://wa.me/573000000000" class="whatsapp-float" target="_blank">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
+    </a>
+
     <script>
-        // Lógica de los 5 toques
         let toques = 0;
         function modoJefa() {
             toques++;
-            if (toques === 5) {
-                window.location.href = "admin/index.html"; 
-            }
+            if (toques === 5) { window.location.href = "admin/index.html"; }
             setTimeout(() => { toques = 0; }, 3000);
         }
 
-        // Script para que el login se cierre solo al entrar
         if (window.netlifyIdentity) {
             window.netlifyIdentity.on("init", user => {
                 if (!user) {
-                    window.netlifyIdentity.on("login", () => {
-                        document.location.href = "/admin/";
-                    });
+                    window.netlifyIdentity.on("login", () => { document.location.href = "/admin/"; });
                 }
             });
         }
     </script>
 </body>
-</html>
-
-
-    /* AJUSTE PARA QUE SE VEA BIEN EN CELULAR, TABLET Y PC */
-    @media (max-width: 600px) {
-        .mosaico {
-            grid-template-columns: 1fr !important;
-        }
-        .mosaico img {
-            height: 300px !important;
-        }
-        header {
-            flex-direction: column;
-            padding: 15px;
-        }
-        header h1 {
-            font-size: 1.4rem;
-            letter-spacing: 5px;
-        }
-    }
-            .card-lanzamiento { 
-        width: 180px; 
-        flex-shrink: 0; 
-        margin: 0 15px; 
-        text-align: center; 
-        background: white; 
-        padding: 10px; 
-        border-radius: 12px; 
-        box-shadow: 0 10px 20px rgba(188, 160, 125, 0.15); 
-        border: 1px solid #f5eee6;
-        transition: transform 0.3s ease;
-    }
-    .card-lanzamiento:hover {
-        transform: translateY(-10px);
-        border-color: #bca07d;
-    }
-        
-</style>
-    
-</head>
-<body>
-
-    <header style="background: #f5eee6; padding: 20px; text-align: center; display: flex; align-items: center; justify-content: center; gap: 15px;">
-    <img src="assets/subirlo.png" alt="Logo" style="height: 100px; width: auto;">
-    <h1 style="font-family: 'Playfair Display', serif; font-size: 2rem; letter-spacing: 10px; margin: 0; color: #1a1a1a;">LUSSON</h1>
-    </header>
-    
-
-    <nav class="nav-lujo">
-        <a href="bases.html" class="btn-cat">Bases y correctores</a>
-        <a href="#" class="btn-cat">Sombras</a>
-        <a href="#" class="btn-cat">Pestañas</a>
-        <a href="labiales.html" class="btn-cat">Labiales</a>
-        
-    </nav> 
-
-    <div style="background: #fdfaf7; padding: 30px 0; border-bottom: 1px solid #eee;">
-    <h2 style="text-align: center; font-family: 'Playfair Display', serif; letter-spacing: 4px; color: #bca07d; margin-bottom: 10px;">NUEVOS LANZAMIENTOS</h2>
-    <p style="text-align: center; font-size: 0.75rem; letter-spacing: 2px; color: #ff4d4d; font-weight: bold; margin-bottom: 20px;">DESCUENTOS DE TEMPORADA 🏷️</p>
-    
-    <div class="carrusel-contenedor">
-        <div class="fila-animada">
-            <div class="card-lanzamiento"><img src="https://images.pexels.com/photos/3373739/pexels-photo-3373739.jpeg?auto=compress&w=300"><span>RUBORES</span></div>
-            <div class="card-lanzamiento"><img src="https://images.pexels.com/photos/3373736/pexels-photo-3373736.jpeg?auto=compress&w=300"><span>PESTAÑAS</span></div>
-            <div class="card-lanzamiento"><img src="https://images.pexels.com/photos/4046316/pexels-photo-4046316.jpeg?auto=compress&w=300"><span>SKINCARE</span></div>
-            <div class="card-lanzamiento"><img src="assets/Base de maquillaje.png"><span>BASES</span></div>
-            <div class="card-lanzamiento"><img src="https://images.pexels.com/photos/2533266/pexels-photo-2533266.jpeg?auto=compress&w=300"><span>LABIALES</span></div>
-            <div class="card-lanzamiento"><img src="assets/Sombrasc.png"><span>SOMBRAS</span></div>
-            <div class="card-lanzamiento"><img src="https://images.pexels.com/photos/3373739/pexels-photo-3373739.jpeg?auto=compress&w=300"><span>RUBORES</span></div>
-            <div class="card-lanzamiento"><img src="https://images.pexels.com/photos/3373736/pexels-photo-3373736.jpeg?auto=compress&w=300"><span>PESTAÑAS</span></div>
-        </div>
-    </div>
-</div>
-
-<style>
-    .carrusel-contenedor { overflow: hidden; width: 100%; }
-    .fila-animada { display: flex; width: calc(200px * 12); animation: deslizarInfinito 25s linear infinite; }
-    .card-lanzamiento { width: 180px; flex-shrink: 0; margin: 0 10px; text-align: center; background: white; padding: 10px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
-    .card-lanzamiento img { width: 100%; height: 180px; object-fit: cover; border-radius: 5px; }
-    .card-lanzamiento span { display: block; margin-top: 10px; font-size: 0.65rem; font-weight: 600; letter-spacing: 1px; color: #1a1a1a; }
-    
-    @keyframes deslizarInfinito {
-        0% { transform: translateX(0); }
-        100% { transform: translateX(-50%); }
-    }
-</style>
-    
-
-    <main class="mosaico">
-        <img src="assets/Sombrasc.png" alt="Sombras" id="img1">
-        <img src="https://images.pexels.com/photos/3738339/pexels-photo-3738339.jpeg?auto=compress&w=1260" alt="2" id="img2">
-        <img src="https://images.pexels.com/photos/3018845/pexels-photo-3018845.jpeg?auto=compress&w=1260" alt="3" id="img3">
-        <img src="https://images.pexels.com/photos/2533266/pexels-photo-2533266.jpeg?auto=compress&w=1260" alt="4" id="img4">
-        <div class="caja-actitud">
-            <h2>"La elegancia es una cuestión de actitud"</h2>
-            <p>Lusson Colombia</p>
-        </div>
-    </main>
-
-    <section class="grid-productos">
-        <div class="producto">
-            <img src="https://images.pexels.com/photos/3373746/pexels-photo-3373746.jpeg?auto=compress&w=600" alt="Bases" id="img5">
-            <h3>Bases Profesionales</h3>
-        </div>
-        <div class="producto">
-            <img src="https://images.pexels.com/photos/2688991/pexels-photo-2688991.jpeg?auto=compress&w=600" alt="Labiales" id="img6">
-            <h3>Labiales Alta Gama</h3>
-        </div>
-    </section>
-
-    <button id="btn-guardar-cambios" onclick="guardarEnGithub()">GUARDAR CAMBIOS EN WEB</button>
-
-    <footer style="background: #1a1a1a; color: white; padding: 50px 20px; text-align: center; margin-top: 50px; position: relative;">
-    <h2 style="font-family: 'Playfair Display', serif; letter-spacing: 8px; margin-bottom: 20px;">LUSSON</h2>
-    <p style="font-size: 0.8rem; letter-spacing: 2px; color: #bca07d; margin-bottom: 30px;">ELEGANCIA EN CADA DETALLE</p>
-    
-    <div style="display: flex; justify-content: center; gap: 30px; margin-bottom: 30px;">
-        <a href="#" style="color: white; text-decoration: none; font-size: 0.7rem; letter-spacing: 1px;">INSTAGRAM</a>
-        <a href="#" style="color: white; text-decoration: none; font-size: 0.7rem; letter-spacing: 1px;">TIKTOK</a>
-        <a href="#" style="color: white; text-decoration: none; font-size: 0.7rem; letter-spacing: 1px;">CATÁLOGO PDF</a>
-    </div>
-    
-    <div style="border-top: 1px solid #333; padding-top: 20px; font-size: 0.6rem; color: #888;">
-        <p>&copy; 2026 LUSSON - TODOS LOS DERECHOS RESERVADOS</p>
-    </div>
-
-    <div class="secreto-admin" onclick="contadorToques()" style="position: absolute; bottom: 10px; right: 10px; width: 20px; height: 20px; cursor: pointer;"></div>
-    </footer>
-    
-
-    <script>
-        let toques = 0;
-        let modoEdicion = false;
-
-        function contadorToques() {
-            toques++;
-            if (toques === 5) { toques = 0; accesoAdmin(); }
-            setTimeout(() => { toques = 0; }, 3000);
-        }
-
-        function accesoAdmin() {
-            var password = prompt("ADMINISTRACIÓN LUSSON\nIngrese clave:");
-            if (password === "lusson2026") {
-                modoEdicion = true;
-                document.getElementById('btn-guardar-cambios').style.display = 'block';
-                alert("¡Modo Jefa Activado!\n\n1. Toca una imagen para cambiarla.\n2. Al terminar, toca el botón dorado de abajo para guardar para siempre.");
-                activarEdicion();
-            }
-        }
-
-        function activarEdicion() {
-            document.querySelectorAll('img').forEach(img => {
-                img.style.outline = "3px dashed #bca07d";
-                img.onclick = function() {
-                    let nueva = prompt("Escribe el nombre de tu foto (ej: assets/mifoto.jpg):", img.getAttribute('src'));
-                    if (nombre) { img.src = nombre; }
-                };
-            });
-        }
-
-        async function guardarEnGithub() {
-            const token = prompt("Para guardar permanentemente, ingresa tu Token de GitHub:");
-            if (!token) return;
-
-            alert("Procesando cambios... Por favor espera.");
-            // Aquí iría la lógica de conexión con la API para sobrescribir el index.html
-            // Nota: Por seguridad, esto requiere un backend o un proceso de integración continua.
-            
-            alert("¡Cambios guardados con éxito! (Simulado por ahora)");
-            location.reload();
-        }
-    </script>
-</body>
-    <style>
-    .whatsapp-float {
-        position: fixed; width: 60px; height: 60px; bottom: 40px; left: 40px;
-        background-color: #25d366; color: #FFF; border-radius: 50px;
-        text-align: center; font-size: 30px; box-shadow: 2px 2px 10px rgba(0,0,0,0.3);
-        z-index: 1000; display: flex; align-items: center; justify-content: center;
-        text-decoration: none; transition: 0.3s;
-    }
-    .whatsapp-float:hover { background-color: #128c7e; transform: scale(1.1); }
-    .whatsapp-float img { width: 35px; height: 35px; }
-</style>
-
-<a href="https://wa.me/573000000000?text=Hola%20Lusson%2C%20quisiera%20m%C3%A1s%20informaci%C3%B3n" class="whatsapp-float" target="_blank">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
-</a>
-    
 </html>
