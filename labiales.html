@@ -33,7 +33,6 @@
         
         .btn-add { background: var(--negro); color: white; border: none; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; }
 
-        /* CARRITO */
         .cart-modal { position: fixed; top: 0; right: -100%; width: 100%; max-width: 320px; height: 100%; background: white; box-shadow: -5px 0 15px rgba(0,0,0,0.1); transition: 0.4s; z-index: 1000; display: flex; flex-direction: column; }
         .cart-modal.active { right: 0; }
         .cart-header { padding: 15px; background: var(--crema); display: flex; justify-content: space-between; border-bottom: 1px solid #eee; }
@@ -43,9 +42,10 @@
         .whatsapp-float { position: fixed; bottom: 20px; left: 20px; background: #25d366; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 900; }
         .whatsapp-float svg { color: white; width: 26px; }
 
-        /* FOOTER Y LÍNEA SECRETA */
+        /* FOOTER CON LÍNEA DECORATIVA / MODO JEFA */
         footer { background: var(--negro); color: white; padding: 40px 20px; text-align: center; }
-        .linea-decorativa { width: 80px; height: 3px; background: var(--oro); margin: 20px auto; cursor: pointer; border: none; border-radius: 10px; }
+        .linea-jefa { width: 100px; height: 3px; background: var(--oro); margin: 20px auto; cursor: pointer; border: none; border-radius: 10px; transition: 0.3s; }
+        .linea-jefa:active { background: white; }
 
         @media (max-width: 600px) { .catalogo-grid { grid-template-columns: 1fr 1fr; } }
     </style>
@@ -84,9 +84,9 @@
 
     <footer>
         <h2 style="font-family:'Playfair Display'; letter-spacing:4px; font-size:1rem; margin:0;">LUSSON</h2>
-        <hr class="linea-decorativa" onclick="modoJefa()">
+        <hr class="linea-jefa" onclick="modoJefa()">
         <p style="font-size: 0.5rem; letter-spacing: 2px; color: var(--oro); margin: 0;">COSMÉTICA DE ALTA GAMA</p>
-        <p style="font-size: 0.45rem; color: #444; margin-top: 20px;">© 2026 LUSSON COLOMBIA</p>
+        <p style="font-size: 0.45rem; color: #444; margin-top: 20px;">© 2026 LUSSON COLOMBIA - DERECHOS RESERVADOS</p>
     </footer>
 
     <script>
@@ -107,8 +107,10 @@
                     const text = await contentRes.text();
                     const data = jsyaml.load(text.split('---')[1]);
                     
-                    // CORRECCIÓN DE FOTO: Quitamos el primer "/" si existe
-                    let imgPath = data.image.startsWith('/') ? data.image.substring(1) : data.image;
+                    // LÓGICA PARA ENCONTRAR LA FOTO: Limpiamos la ruta para que siempre funcione
+                    let imgPath = data.image;
+                    if (imgPath.startsWith('/')) imgPath = imgPath.substring(1);
+                    if (!imgPath.startsWith('assets/')) imgPath = 'assets/img/' + imgPath.split('/').pop();
                     
                     grid.innerHTML += `
                         <div class="card-producto">
@@ -123,7 +125,7 @@
                         </div>`;
                 }
                 feather.replace();
-            } catch (e) { grid.innerHTML = '<p style="grid-column:1/-1; text-align:center;">Sincronizando...</p>'; }
+            } catch (e) { grid.innerHTML = '<p style="grid-column:1/-1; text-align:center;">Sincronizando productos...</p>'; }
         }
 
         function toggleCart() { document.getElementById('cart-modal').classList.toggle('active'); }
@@ -150,6 +152,7 @@
             window.open(`https://wa.me/573153564016?text=${encodeURIComponent(msg)}`);
         }
 
+        // --- LÓGICA MODO JEFA (5 TOQUES) ---
         let toques = 0;
         function modoJefa() {
             toques++;
@@ -161,4 +164,3 @@
     </script>
 </body>
 </html>
-
