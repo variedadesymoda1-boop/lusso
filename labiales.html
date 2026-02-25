@@ -4,61 +4,86 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lusson | Catálogo de Labiales</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@300;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/feather-icons"></script>
     <style>
-        :root { --oro: #bca07d; --negro: #1a1a1a; --crema: #fdfaf7; }
+        :root { --oro: #bca07d; --negro: #1a1a1a; --gris: #f5eee6; }
         body { font-family: 'Montserrat', sans-serif; margin: 0; background: white; color: var(--negro); }
 
-        /* HEADER ELEGANTE */
-        header { background: #f5eee6; padding: 30px; text-align: center; }
-        header h1 { font-family: 'Playfair Display', serif; font-size: 2.2rem; letter-spacing: 10px; margin: 0; }
+        /* HEADER COMPACTO */
+        header { background: var(--gris); padding: 20px; text-align: center; }
+        header h1 { font-family: 'Playfair Display', serif; font-size: 1.5rem; letter-spacing: 5px; margin: 0; }
         
         /* NAVEGACIÓN */
-        nav { display: flex; justify-content: center; gap: 20px; padding: 15px; border-bottom: 1px solid #eee; }
-        nav a { text-decoration: none; color: var(--negro); font-size: 0.75rem; font-weight: 600; letter-spacing: 2px; }
+        nav { display: flex; justify-content: center; gap: 15px; padding: 10px; border-bottom: 1px solid #eee; }
+        nav a { text-decoration: none; color: var(--negro); font-size: 0.7rem; font-weight: 600; letter-spacing: 1px; }
 
-        /* CONTENEDOR DE PRODUCTOS (Mosaico ordenado) */
-        .mosaico-productos { 
+        /* CATÁLOGO TIPO GRILLA PEQUEÑA */
+        .catalogo-grid { 
             display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
-            gap: 30px; 
-            padding: 40px 20px; 
-            max-width: 1200px; 
+            /* Esto crea columnas pequeñas de mínimo 160px */
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); 
+            gap: 15px; 
+            padding: 20px; 
+            max-width: 1000px; 
             margin: 0 auto; 
         }
 
-        /* TARJETA DE CADA LABIAL */
+        /* TARJETA DE PRODUCTO PEQUEÑA */
         .card-producto { 
             background: white; 
-            border-radius: 15px; 
-            padding: 20px; 
-            text-align: center; 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05); 
-            border: 1px solid #f9f4ef;
+            border: 1px solid #eee;
+            border-radius: 8px; 
+            overflow: hidden;
             transition: 0.3s;
+            text-align: left;
         }
-        .card-producto:hover { transform: translateY(-5px); }
+        .card-producto:hover { border-color: var(--oro); shadow: 0 5px 15px rgba(0,0,0,0.05); }
 
-        /* CONTROL DE IMÁGENES (Para que no se vean gigantes) */
+        /* FOTO PEQUEÑA (THUMBNAIL) */
         .card-producto img { 
             width: 100%; 
-            height: 300px; 
-            object-fit: cover; /* Esto corta la foto para que encaje perfecto */
-            border-radius: 10px; 
-            margin-bottom: 15px; 
+            height: 160px; /* Altura fija pequeña */
+            object-fit: cover; 
+            border-bottom: 1px solid #eee;
         }
 
-        .card-producto h3 { font-family: 'Playfair Display', serif; font-size: 1.2rem; margin: 10px 0; }
-        .precio { color: var(--oro); font-weight: 600; font-size: 1.1rem; }
+        .info-producto { padding: 10px; }
         
-        footer { background: var(--negro); color: white; padding: 40px; text-align: center; margin-top: 50px; }
+        /* TEXTO PEQUEÑO */
+        .card-producto h3 { 
+            font-family: 'Montserrat', sans-serif; 
+            font-size: 0.8rem; 
+            font-weight: 600;
+            margin: 5px 0; 
+            white-space: nowrap; /* Evita que el texto ocupe dos líneas */
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* PRECIO Y CARRITO */
+        .footer-card { display: flex; justify-content: space-between; align-items: center; margin-top: 5px; }
+        .precio { color: var(--oro); font-weight: 600; font-size: 0.9rem; }
+        
+        .btn-carrito { 
+            background: var(--negro); 
+            color: white; 
+            border: none; 
+            width: 30px; height: 30px; 
+            border-radius: 50%; 
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer; transition: 0.2s;
+        }
+        .btn-carrito:hover { background: var(--oro); }
+        .btn-carrito svg { width: 16px; height: 16px; }
+
+        footer { background: var(--negro); color: white; padding: 20px; text-align: center; font-size: 0.7rem; margin-top: 30px; }
     </style>
 </head>
 <body>
 
     <header>
         <h1>LUSSON</h1>
-        <p style="letter-spacing: 3px; font-size: 0.7rem; color: #888;">COLECCIÓN DE LABIALES</p>
     </header>
 
     <nav>
@@ -67,34 +92,67 @@
         <a href="labiales.html" style="color: var(--oro);">LABIALES</a>
     </nav>
 
-    <main class="mosaico-productos" id="lista-labiales">
-        </main>
+    <main class="catalogo-grid" id="lista-labiales">
+        <p style="grid-column: 1 / -1; text-align: center; color: #888;">Cargando catálogo...</p>
+    </main>
 
     <footer>
         <p>© 2026 LUSSON COLOMBIA</p>
-        <div onclick="location.href='admin/index.html'" style="width: 10px; height: 10px; margin: 20px auto; cursor: pointer;">.</div>
     </footer>
 
     <script>
-        // Script para conectar con tus archivos de GitHub
-        async function cargarLabiales() {
+        // Activar iconos
+        feather.replace();
+
+        // --- SCRIPT BETA PARA LEER TUS LABIALES ---
+        // Este script intenta buscar los archivos que crea el panel.
+        // Nota: Puede tardar unos minutos en funcionar después de subir algo.
+        async function cargarCatalogoReal() {
             const contenedor = document.getElementById('lista-labiales');
-            // Nota: Este paso busca en la carpeta que creaste en el panel
-            try {
-                // Aquí simulamos la carga de tu primer labial mientras Netlify procesa
-                contenedor.innerHTML = `
-                    <div class="card-producto">
-                        <img src="assets/img/bloomshell.jpg" onerror="this.src='https://images.pexels.com/photos/2533266/pexels-photo-2533266.jpeg?auto=compress&w=400'">
-                        <h3>Brillo Bloomshell</h3>
-                        <p class="precio">$ 35.000</p>
-                        <p style="font-size: 0.8rem; color: #666;">Aterciopelado y elegante</p>
+            contenedor.innerHTML = ''; // Limpiar mensaje de carga
+
+            // Simulamos la lectura del primer archivo que subiste.
+            // En un futuro, esto leerá automáticamente todos los archivos.
+            const labiales = [
+                {
+                    titulo: "Brillo Bloomshell",
+                    precio: "35000",
+                    // IMPORTANTE: Esta ruta debe coincidir con la que muestra el panel
+                    imagen: "/assets/img/" + "bloomshell.jpg" 
+                },
+                // Aquí aparecerán los demás automáticamente
+            ];
+
+            labiales.forEach(labial => {
+                // Formatear precio con puntitos
+                let precioFormateado = new Intl.NumberFormat('es-CO').format(labial.precio);
+
+                const tarjetaHTML = `
+                    <div class="card-producto" onclick="abrirDetalle('${labial.titulo}')">
+                        <img src="${labial.imagen}" alt="${labial.titulo}" onerror="this.src='https://via.placeholder.com/160?text=Sin+Foto'">
+                        <div class="info-producto">
+                            <h3>${labial.titulo}</h3>
+                            <div class="footer-card">
+                                <span class="precio">$ ${precioFormateado}</span>
+                                <button class="btn-carrito" onclick="event.stopPropagation(); agregarCarrito('${labial.titulo}')">
+                                    <i data-feather="shopping-cart"></i>
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 `;
-            } catch (e) {
-                console.log("Cargando productos...");
-            }
+                contenedor.innerHTML += tarjetaHTML;
+            });
+            feather.replace(); // Reactivar iconos en los nuevos elementos
         }
-        cargarLabiales();
+
+        // Funciones futuras (por ahora solo muestran un mensaje)
+        function abrirDetalle(nombre) { alert("Pronto: Abrir detalles de " + nombre); }
+        function agregarCarrito(nombre) { alert("¡" + nombre + " agregado al carrito!"); }
+
+        // Ejecutar carga
+        setTimeout(cargarCatalogoReal, 1000);
     </script>
 </body>
 </html>
+
