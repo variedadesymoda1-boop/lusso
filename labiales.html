@@ -3,49 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lusson | Catálogo Premium</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <title>Lusson | Catálogo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
     <style>
-        :root { --oro: #D4AF37; --nude: #fdfaf7; --negro: #1a1a1a; --blanco: #ffffff; }
-        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        body { font-family: 'Montserrat', sans-serif; background-color: var(--nude); color: var(--negro); }
+        :root { --oro: #D4AF37; --negro: #1a1a1a; --blanco: #ffffff; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Montserrat', sans-serif; background: #fdfaf7; color: var(--negro); }
 
         /* HEADER */
-        header { background: var(--blanco); padding: 1rem 5%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
-        .logo { font-family: 'Playfair Display', serif; font-size: 1.8rem; letter-spacing: 4px; color: var(--negro); text-decoration: none; font-weight: 700; }
-        .cart-icon { font-size: 1.5rem; cursor: pointer; position: relative; }
-        .cart-count { position: absolute; top: -10px; right: -10px; background: var(--oro); color: white; font-size: 0.7rem; padding: 2px 6px; border-radius: 50%; font-weight: bold; }
+        header { background: white; padding: 20px; text-align: center; border-bottom: 1px solid #eee; position: sticky; top: 0; z-index: 100; }
+        .logo { font-family: 'Playfair Display', serif; font-size: 2rem; letter-spacing: 5px; color: var(--negro); text-decoration: none; }
+        .cart-icon { position: absolute; right: 25px; top: 25px; cursor: pointer; font-size: 1.5rem; }
+        .badge { position: absolute; top: -8px; right: -10px; background: var(--oro); color: white; border-radius: 50%; padding: 2px 6px; font-size: 0.7rem; font-weight: bold; }
 
-        /* CARRITO (PANEL LATERAL) */
-        #cart-panel { position: fixed; top: 0; right: -100%; width: 350px; max-width: 100%; height: 100%; background: white; z-index: 2000; transition: 0.4s; padding: 25px; box-shadow: -5px 0 15px rgba(0,0,0,0.1); display: flex; flex-direction: column; }
+        /* CARRITO DESPLEGABLE */
+        #cart-panel { position: fixed; top: 0; right: -100%; width: 380px; max-width: 100%; height: 100%; background: white; z-index: 200; transition: 0.4s; padding: 30px; box-shadow: -10px 0 30px rgba(0,0,0,0.1); display: flex; flex-direction: column; }
         #cart-panel.active { right: 0; }
-        .cart-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid #eee; padding-bottom: 10px; }
-        .close-cart { font-size: 1.5rem; cursor: pointer; color: #888; }
+        .cart-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #fdfaf7; padding-bottom: 20px; margin-bottom: 20px; }
         .cart-items { flex-grow: 1; overflow-y: auto; }
-        .cart-item { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; padding: 10px; background: #f9f9f9; border-radius: 8px; }
-        .remove-btn { color: #ff4d4d; cursor: pointer; font-size: 1.1rem; border: none; background: none; }
+        .cart-item { display: flex; justify-content: space-between; align-items: center; background: #fafafa; padding: 15px; border-radius: 10px; margin-bottom: 10px; border: 1px solid #eee; }
+        .del-btn { color: #ff4d4d; cursor: pointer; font-weight: bold; border: none; background: none; font-size: 1.2rem; }
 
         /* CATÁLOGO */
-        .container { max-width: 1200px; margin: 30px auto; padding: 0 20px; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 25px; }
-        .card { background: white; border-radius: 12px; padding: 15px; text-align: center; border: 1px solid #eee; transition: 0.3s; }
-        .card:hover { transform: translateY(-5px); box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
-        .img-box { width: 100%; height: 220px; border-radius: 8px; overflow: hidden; margin-bottom: 15px; background: #fafafa; }
+        .container { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; }
+        .card { background: white; border-radius: 20px; padding: 25px; text-align: center; border: 1px solid #eee; transition: 0.3s; }
+        .card:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.05); }
+        .img-box { width: 100%; height: 280px; background: #f9f9f9; border-radius: 12px; margin-bottom: 20px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
         .img-box img { width: 100%; height: 100%; object-fit: cover; }
-        .card h3 { font-size: 1rem; margin-bottom: 8px; }
-        .price-container { display: flex; justify-content: center; align-items: center; gap: 10px; }
-        .price { color: var(--oro); font-weight: 700; font-size: 1.1rem; }
-        .add-btn { color: var(--negro); cursor: pointer; font-size: 1.2rem; transition: 0.2s; }
-        .add-btn:hover { color: var(--oro); }
+        .price-row { display: flex; justify-content: center; align-items: center; gap: 15px; margin-top: 15px; }
+        .price { color: var(--oro); font-weight: 700; font-size: 1.4rem; }
+        .add-btn { background: none; border: 1px solid var(--negro); padding: 8px 12px; border-radius: 50%; cursor: pointer; transition: 0.3s; }
+        .add-btn:hover { background: var(--negro); color: white; }
 
         /* WHATSAPP */
-        .wa-float { position: fixed; bottom: 25px; left: 25px; background: #25d366; color: white; width: 55px; height: 55px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 28px; z-index: 900; box-shadow: 0 4px 12px rgba(0,0,0,0.15); text-decoration: none; }
+        .wa-float { position: fixed; bottom: 30px; left: 30px; background: #25d366; color: white; width: 65px; height: 65px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 35px; text-decoration: none; z-index: 150; box-shadow: 0 6px 20px rgba(0,0,0,0.1); }
 
-        /* FOOTER Y TOQUE SECRETO */
-        footer { background: var(--negro); color: white; padding: 50px 20px; text-align: center; margin-top: 50px; }
-        #secret-trigger { width: 10px; height: 10px; background: transparent; margin: 0 auto 15px; cursor: pointer; display: block; }
+        footer { background: var(--negro); color: white; padding: 60px 20px; text-align: center; margin-top: 80px; }
+        #jefa-dot { width: 15px; height: 15px; background: #222; margin: 0 auto 15px; cursor: pointer; border-radius: 50%; }
     </style>
 </head>
 <body>
@@ -54,134 +50,113 @@
         <a href="#" class="logo">LUSSON</a>
         <div class="cart-icon" onclick="toggleCart()">
             <i class="fas fa-shopping-cart"></i>
-            <span class="cart-count" id="cart-badge">0</span>
+            <span class="badge" id="cart-count">0</span>
         </div>
     </header>
 
     <div id="cart-panel">
         <div class="cart-header">
-            <h2 style="font-family:'Playfair Display'">Tu Carrito</h2>
-            <span class="close-cart" onclick="toggleCart()">✕</span>
+            <h2 style="font-family:'Playfair Display'">Mi Carrito</h2>
+            <span style="cursor:pointer; font-size:2rem" onclick="toggleCart()">✕</span>
         </div>
         <div class="cart-items" id="cart-list"></div>
-        <div style="padding-top:20px; border-top:1px solid #eee">
-            <div style="display:flex; justify-content:space-between; font-weight:700; margin-bottom:20px">
-                <span>TOTAL:</span>
+        <div style="padding-top:20px; border-top:2px solid #fdfaf7">
+            <div style="display:flex; justify-content:space-between; font-weight:700; font-size:1.4rem; margin-bottom:20px">
+                <span>Total:</span>
                 <span>$<span id="total-price">0</span></span>
             </div>
-            <button onclick="enviarWhatsApp()" style="width:100%; background:#25d366; color:white; border:none; padding:12px; border-radius:8px; font-weight:600; cursor:pointer;">
-                PEDIR POR WHATSAPP
+            <button onclick="enviarWhatsApp()" style="width:100%; background:#25d366; color:white; border:none; padding:15px; border-radius:12px; font-weight:bold; cursor:pointer; font-size:1rem">
+                <i class="fab fa-whatsapp"></i> PEDIR POR WHATSAPP
             </button>
         </div>
     </div>
 
     <main class="container">
-        <div id="product-grid" class="grid"></div>
+        <div class="grid" id="product-grid"></div>
     </main>
 
-    <a href="https://wa.me/573000000000" class="wa-float" target="_blank">
-        <i class="fab fa-whatsapp"></i>
-    </a>
+    <a href="https://wa.me/573000000000" class="wa-float" target="_blank"><i class="fab fa-whatsapp"></i></a>
 
     <footer>
-        <div id="secret-trigger" onclick="checkAdmin()"></div>
+        <div id="jefa-dot" onclick="entrarModoJefa()"></div>
         <p>© 2026 Lusson Colombia. Todos los derechos reservados.</p>
     </footer>
 
     <script>
-        // 1. LOS 15 PRODUCTOS (SIN SUPABASE)
-        const productos = [
-            { id: 1, n: "Labial Mate Rojo", p: 45000, i: "https://images.unsplash.com/photo-1586776977607-310e9c725c37?w=400" },
-            { id: 2, n: "Nude Elegance", p: 42000, i: "https://images.unsplash.com/photo-1625006050679-c61edb4b1af9?w=400" },
-            { id: 3, n: "Rosa Velvet", p: 40000, i: "https://images.unsplash.com/photo-1591360236630-fdd4407b1d97?w=400" },
-            { id: 4, n: "Chocolate Dark", p: 48000, i: "https://images.unsplash.com/photo-1571646034647-52e6ea84b28c?w=400" },
-            { id: 5, n: "Vino Intenso", p: 45000, i: "https://images.unsplash.com/photo-1503236123135-08396a2400d7?w=400" },
-            { id: 6, n: "Coral Fresh", p: 38000, i: "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=400" },
-            { id: 7, n: "Mauve Silk", p: 42000, i: "https://images.unsplash.com/photo-1596704017254-9b121068fb31?w=400" },
-            { id: 8, n: "Berry Gloss", p: 44000, i: "https://images.unsplash.com/photo-1512496015851-a90fb38ba796?w=400" },
-            { id: 9, n: "Peach Cream", p: 39000, i: "https://images.unsplash.com/photo-1599733589046-10c005739ef0?w=400" },
-            { id: 10, n: "Ruby Luxury", p: 46000, i: "https://images.unsplash.com/photo-1586776977607-310e9c725c37?w=400" },
-            { id: 11, n: "Terracotta", p: 41000, i: "https://images.unsplash.com/photo-1625006050679-c61edb4b1af9?w=400" },
-            { id: 12, n: "Plum Night", p: 47000, i: "https://images.unsplash.com/photo-1571646034647-52e6ea84b28c?w=400" },
-            { id: 13, n: "Sandy Nude", p: 43000, i: "https://images.unsplash.com/photo-1591360236630-fdd4407b1d97?w=400" },
-            { id: 14, n: "Sweet Candy", p: 42000, i: "https://images.unsplash.com/photo-1503236123135-08396a2400d7?w=400" },
-            { id: 15, n: "Lilac Petal", p: 40000, i: "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=400" }
-        ];
+        // LISTA LOCAL DE 15 PRODUCTOS
+        const labiales = Array.from({length: 15}, (_, i) => ({
+            id: i + 1,
+            nombre: `Lusson Labial #${i + 1}`,
+            precio: 45000,
+            img: "https://images.unsplash.com/photo-1586776977607-310e9c725c37?w=400"
+        }));
 
-        let cart = [];
-        let clicks = 0;
+        let carrito = [];
+        let toques = 0;
 
-        // 2. RENDERIZAR
-        function render() {
+        function renderizar() {
             const grid = document.getElementById('product-grid');
-            productos.forEach(p => {
+            labiales.forEach(p => {
                 grid.innerHTML += `
                     <div class="card">
-                        <div class="img-box"><img src="${p.i}" alt="${p.n}"></div>
-                        <h3>${p.n}</h3>
-                        <div class="price-container">
-                            <span class="price">$${p.p.toLocaleString()}</span>
-                            <i class="fas fa-cart-plus add-btn" onclick="addToCart(${p.id})"></i>
+                        <div class="img-box"><img src="${p.img}" alt="${p.nombre}"></div>
+                        <h3 style="font-family:'Playfair Display'">${p.nombre}</h3>
+                        <div class="price-row">
+                            <span class="price">$${p.precio.toLocaleString()}</span>
+                            <button class="add-btn" onclick="agregar(${p.id})"><i class="fas fa-cart-plus"></i></button>
                         </div>
                     </div>`;
             });
         }
 
-        // 3. CARRITO
         function toggleCart() { document.getElementById('cart-panel').classList.toggle('active'); }
 
-        function addToCart(id) {
-            const prod = productos.find(x => x.id === id);
-            cart.push(prod);
-            updateUI();
+        function agregar(id) {
+            const p = labiales.find(x => x.id === id);
+            carrito.push(p);
+            actualizar();
             if(!document.getElementById('cart-panel').classList.contains('active')) toggleCart();
         }
 
-        function remove(idx) {
-            cart.splice(idx, 1);
-            updateUI();
+        function eliminar(idx) {
+            carrito.splice(idx, 1);
+            actualizar();
         }
 
-        function updateUI() {
-            const list = document.getElementById('cart-list');
+        function actualizar() {
+            const lista = document.getElementById('cart-list');
             let total = 0;
-            list.innerHTML = '';
-            cart.forEach((item, index) => {
-                total += item.p;
-                list.innerHTML += `<div class="cart-item">
-                    <span>${item.n} ($${item.p.toLocaleString()})</span>
-                    <i class="fas fa-trash remove-btn" onclick="remove(${index})"></i>
-                </div>`;
+            lista.innerHTML = '';
+            carrito.forEach((p, i) => {
+                total += p.precio;
+                lista.innerHTML += `
+                    <div class="cart-item">
+                        <div style="text-align:left"><strong>${p.nombre}</strong><br><small>$${p.precio.toLocaleString()}</small></div>
+                        <button class="del-btn" onclick="eliminar(${i})">✕</button>
+                    </div>`;
             });
             document.getElementById('total-price').innerText = total.toLocaleString();
-            document.getElementById('cart-badge').innerText = cart.length;
+            document.getElementById('cart-count').innerText = carrito.length;
         }
 
         function enviarWhatsApp() {
-            if(cart.length === 0) return alert("Carrito vacío");
-            let msg = "¡Hola! Mi pedido Lusson:\n";
-            cart.forEach(i => msg += `- ${i.n}\n`);
+            if(carrito.length === 0) return alert("Tu carrito está vacío.");
+            let msg = "¡Hola Lusson! 🌟 Pedido:\n";
+            carrito.forEach(p => msg += `- ${p.nombre}\n`);
             window.open(`https://wa.me/573000000000?text=${encodeURIComponent(msg)}`);
         }
 
-        // 4. MODO JEFA (5 TOQUES)
-        function checkAdmin() {
-            clicks++;
-            if(clicks === 5) {
-                clicks = 0;
-                let u = prompt("USUARIO:");
-                if(u === "lusson2026") {
-                    let p = prompt("CONTRASEÑA:");
-                    if(p === "lusson2026") {
-                        // TE ENVÍA DIRECTO AL EDITOR DE TU ARCHIVO EN GITHUB
-                        window.location.href = "https://github.com/variedadesymoda1-boop/lusso/edit/main/labiales.html";
-                    } else { alert("Error"); }
-                }
+        // MODO JEFA: ENVÍA AL PANEL ADMINISTRATIVO
+        function entrarModoJefa() {
+            toques++;
+            if (toques === 5) {
+                // Te redirige a la carpeta admin que creamos
+                window.location.href = "admin/index.html"; 
             }
-            setTimeout(() => { clicks = 0; }, 4000);
+            setTimeout(() => { toques = 0; }, 3000);
         }
 
-        window.onload = render;
+        window.onload = renderizar;
     </script>
 </body>
 </html>
