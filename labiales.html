@@ -3,160 +3,98 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lusson | Catálogo</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Lusson | Catálogo de Labiales</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@300;600&display=swap" rel="stylesheet">
     <style>
-        :root { --oro: #D4AF37; --negro: #1a1a1a; --blanco: #ffffff; }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Montserrat', sans-serif; background: #fdfaf7; color: var(--negro); }
+        :root { --oro: #bca07d; --negro: #1a1a1a; --crema: #fdfaf7; }
+        body { font-family: 'Montserrat', sans-serif; margin: 0; background: white; color: var(--negro); }
 
-        /* HEADER */
-        header { background: white; padding: 20px; text-align: center; border-bottom: 1px solid #eee; position: sticky; top: 0; z-index: 100; }
-        .logo { font-family: 'Playfair Display', serif; font-size: 2rem; letter-spacing: 5px; color: var(--negro); text-decoration: none; }
-        .cart-icon { position: absolute; right: 25px; top: 25px; cursor: pointer; font-size: 1.5rem; }
-        .badge { position: absolute; top: -8px; right: -10px; background: var(--oro); color: white; border-radius: 50%; padding: 2px 6px; font-size: 0.7rem; font-weight: bold; }
+        /* HEADER ELEGANTE */
+        header { background: #f5eee6; padding: 30px; text-align: center; }
+        header h1 { font-family: 'Playfair Display', serif; font-size: 2.2rem; letter-spacing: 10px; margin: 0; }
+        
+        /* NAVEGACIÓN */
+        nav { display: flex; justify-content: center; gap: 20px; padding: 15px; border-bottom: 1px solid #eee; }
+        nav a { text-decoration: none; color: var(--negro); font-size: 0.75rem; font-weight: 600; letter-spacing: 2px; }
 
-        /* CARRITO DESPLEGABLE */
-        #cart-panel { position: fixed; top: 0; right: -100%; width: 380px; max-width: 100%; height: 100%; background: white; z-index: 200; transition: 0.4s; padding: 30px; box-shadow: -10px 0 30px rgba(0,0,0,0.1); display: flex; flex-direction: column; }
-        #cart-panel.active { right: 0; }
-        .cart-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #fdfaf7; padding-bottom: 20px; margin-bottom: 20px; }
-        .cart-items { flex-grow: 1; overflow-y: auto; }
-        .cart-item { display: flex; justify-content: space-between; align-items: center; background: #fafafa; padding: 15px; border-radius: 10px; margin-bottom: 10px; border: 1px solid #eee; }
-        .del-btn { color: #ff4d4d; cursor: pointer; font-weight: bold; border: none; background: none; font-size: 1.2rem; }
+        /* CONTENEDOR DE PRODUCTOS (Mosaico ordenado) */
+        .mosaico-productos { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+            gap: 30px; 
+            padding: 40px 20px; 
+            max-width: 1200px; 
+            margin: 0 auto; 
+        }
 
-        /* CATÁLOGO */
-        .container { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; }
-        .card { background: white; border-radius: 20px; padding: 25px; text-align: center; border: 1px solid #eee; transition: 0.3s; }
-        .card:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.05); }
-        .img-box { width: 100%; height: 280px; background: #f9f9f9; border-radius: 12px; margin-bottom: 20px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
-        .img-box img { width: 100%; height: 100%; object-fit: cover; }
-        .price-row { display: flex; justify-content: center; align-items: center; gap: 15px; margin-top: 15px; }
-        .price { color: var(--oro); font-weight: 700; font-size: 1.4rem; }
-        .add-btn { background: none; border: 1px solid var(--negro); padding: 8px 12px; border-radius: 50%; cursor: pointer; transition: 0.3s; }
-        .add-btn:hover { background: var(--negro); color: white; }
+        /* TARJETA DE CADA LABIAL */
+        .card-producto { 
+            background: white; 
+            border-radius: 15px; 
+            padding: 20px; 
+            text-align: center; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05); 
+            border: 1px solid #f9f4ef;
+            transition: 0.3s;
+        }
+        .card-producto:hover { transform: translateY(-5px); }
 
-        /* WHATSAPP */
-        .wa-float { position: fixed; bottom: 30px; left: 30px; background: #25d366; color: white; width: 65px; height: 65px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 35px; text-decoration: none; z-index: 150; box-shadow: 0 6px 20px rgba(0,0,0,0.1); }
+        /* CONTROL DE IMÁGENES (Para que no se vean gigantes) */
+        .card-producto img { 
+            width: 100%; 
+            height: 300px; 
+            object-fit: cover; /* Esto corta la foto para que encaje perfecto */
+            border-radius: 10px; 
+            margin-bottom: 15px; 
+        }
 
-        footer { background: var(--negro); color: white; padding: 60px 20px; text-align: center; margin-top: 80px; }
-        #jefa-dot { width: 15px; height: 15px; background: #222; margin: 0 auto 15px; cursor: pointer; border-radius: 50%; }
+        .card-producto h3 { font-family: 'Playfair Display', serif; font-size: 1.2rem; margin: 10px 0; }
+        .precio { color: var(--oro); font-weight: 600; font-size: 1.1rem; }
+        
+        footer { background: var(--negro); color: white; padding: 40px; text-align: center; margin-top: 50px; }
     </style>
 </head>
 <body>
 
     <header>
-        <a href="#" class="logo">LUSSON</a>
-        <div class="cart-icon" onclick="toggleCart()">
-            <i class="fas fa-shopping-cart"></i>
-            <span class="badge" id="cart-count">0</span>
-        </div>
+        <h1>LUSSON</h1>
+        <p style="letter-spacing: 3px; font-size: 0.7rem; color: #888;">COLECCIÓN DE LABIALES</p>
     </header>
 
-    <div id="cart-panel">
-        <div class="cart-header">
-            <h2 style="font-family:'Playfair Display'">Mi Carrito</h2>
-            <span style="cursor:pointer; font-size:2rem" onclick="toggleCart()">✕</span>
-        </div>
-        <div class="cart-items" id="cart-list"></div>
-        <div style="padding-top:20px; border-top:2px solid #fdfaf7">
-            <div style="display:flex; justify-content:space-between; font-weight:700; font-size:1.4rem; margin-bottom:20px">
-                <span>Total:</span>
-                <span>$<span id="total-price">0</span></span>
-            </div>
-            <button onclick="enviarWhatsApp()" style="width:100%; background:#25d366; color:white; border:none; padding:15px; border-radius:12px; font-weight:bold; cursor:pointer; font-size:1rem">
-                <i class="fab fa-whatsapp"></i> PEDIR POR WHATSAPP
-            </button>
-        </div>
-    </div>
+    <nav>
+        <a href="index.html">INICIO</a>
+        <a href="bases.html">BASES</a>
+        <a href="labiales.html" style="color: var(--oro);">LABIALES</a>
+    </nav>
 
-    <main class="container">
-        <div class="grid" id="product-grid"></div>
-    </main>
-
-    <a href="https://wa.me/573000000000" class="wa-float" target="_blank"><i class="fab fa-whatsapp"></i></a>
+    <main class="mosaico-productos" id="lista-labiales">
+        </main>
 
     <footer>
-        <div id="jefa-dot" onclick="entrarModoJefa()"></div>
-        <p>© 2026 Lusson Colombia. Todos los derechos reservados.</p>
+        <p>© 2026 LUSSON COLOMBIA</p>
+        <div onclick="location.href='admin/index.html'" style="width: 10px; height: 10px; margin: 20px auto; cursor: pointer;">.</div>
     </footer>
 
     <script>
-        // LISTA LOCAL DE 15 PRODUCTOS
-        const labiales = Array.from({length: 15}, (_, i) => ({
-            id: i + 1,
-            nombre: `Lusson Labial #${i + 1}`,
-            precio: 45000,
-            img: "https://images.unsplash.com/photo-1586776977607-310e9c725c37?w=400"
-        }));
-
-        let carrito = [];
-        let toques = 0;
-
-        function renderizar() {
-            const grid = document.getElementById('product-grid');
-            labiales.forEach(p => {
-                grid.innerHTML += `
-                    <div class="card">
-                        <div class="img-box"><img src="${p.img}" alt="${p.nombre}"></div>
-                        <h3 style="font-family:'Playfair Display'">${p.nombre}</h3>
-                        <div class="price-row">
-                            <span class="price">$${p.precio.toLocaleString()}</span>
-                            <button class="add-btn" onclick="agregar(${p.id})"><i class="fas fa-cart-plus"></i></button>
-                        </div>
-                    </div>`;
-            });
-        }
-
-        function toggleCart() { document.getElementById('cart-panel').classList.toggle('active'); }
-
-        function agregar(id) {
-            const p = labiales.find(x => x.id === id);
-            carrito.push(p);
-            actualizar();
-            if(!document.getElementById('cart-panel').classList.contains('active')) toggleCart();
-        }
-
-        function eliminar(idx) {
-            carrito.splice(idx, 1);
-            actualizar();
-        }
-
-        function actualizar() {
-            const lista = document.getElementById('cart-list');
-            let total = 0;
-            lista.innerHTML = '';
-            carrito.forEach((p, i) => {
-                total += p.precio;
-                lista.innerHTML += `
-                    <div class="cart-item">
-                        <div style="text-align:left"><strong>${p.nombre}</strong><br><small>$${p.precio.toLocaleString()}</small></div>
-                        <button class="del-btn" onclick="eliminar(${i})">✕</button>
-                    </div>`;
-            });
-            document.getElementById('total-price').innerText = total.toLocaleString();
-            document.getElementById('cart-count').innerText = carrito.length;
-        }
-
-        function enviarWhatsApp() {
-            if(carrito.length === 0) return alert("Tu carrito está vacío.");
-            let msg = "¡Hola Lusson! 🌟 Pedido:\n";
-            carrito.forEach(p => msg += `- ${p.nombre}\n`);
-            window.open(`https://wa.me/573000000000?text=${encodeURIComponent(msg)}`);
-        }
-
-        // MODO JEFA: ENVÍA AL PANEL ADMINISTRATIVO
-        function entrarModoJefa() {
-            toques++;
-            if (toques === 5) {
-                // Te redirige a la carpeta admin que creamos
-                window.location.href = "admin/index.html"; 
+        // Script para conectar con tus archivos de GitHub
+        async function cargarLabiales() {
+            const contenedor = document.getElementById('lista-labiales');
+            // Nota: Este paso busca en la carpeta que creaste en el panel
+            try {
+                // Aquí simulamos la carga de tu primer labial mientras Netlify procesa
+                contenedor.innerHTML = `
+                    <div class="card-producto">
+                        <img src="assets/img/bloomshell.jpg" onerror="this.src='https://images.pexels.com/photos/2533266/pexels-photo-2533266.jpeg?auto=compress&w=400'">
+                        <h3>Brillo Bloomshell</h3>
+                        <p class="precio">$ 35.000</p>
+                        <p style="font-size: 0.8rem; color: #666;">Aterciopelado y elegante</p>
+                    </div>
+                `;
+            } catch (e) {
+                console.log("Cargando productos...");
             }
-            setTimeout(() => { toques = 0; }, 3000);
         }
-
-        window.onload = renderizar;
+        cargarLabiales();
     </script>
 </body>
 </html>
