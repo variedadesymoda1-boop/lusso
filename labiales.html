@@ -5,414 +5,142 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lusson Labiales | Tienda Oficial</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        body {
-            font-family: 'Inter', -apple-system, sans-serif;
-            background-color: #0A0A0A;
-            color: white;
-            line-height: 1.6;
-        }
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background-color: #0A0A0A; color: white; line-height: 1.6; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
         
         /* Header */
-        .header {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background: rgba(10,10,10,0.95);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-            z-index: 1000;
-        }
-        .nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            height: 80px;
-        }
-        .logo a {
-            font-size: 1.8rem;
-            font-weight: 800;
-            text-decoration: none;
-            color: white;
-        }
+        .header { position: fixed; top: 0; width: 100%; background: rgba(10,10,10,0.95); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(255,255,255,0.05); z-index: 1000; }
+        .nav { display: flex; justify-content: space-between; align-items: center; height: 80px; }
+        .logo a { font-size: 1.8rem; font-weight: 800; text-decoration: none; color: white; letter-spacing: 2px; }
         .dot { color: #FF69B4; }
-        
-        .nav-menu {
-            display: flex;
-            gap: 2rem;
-            list-style: none;
-        }
-        .nav-menu a {
-            color: #f5f5f5;
-            text-decoration: none;
-        }
-        .nav-menu a.active {
-            color: #FF69B4;
-            border-bottom: 2px solid #FF69B4;
-        }
+        .nav-menu { display: flex; gap: 2rem; list-style: none; }
+        .nav-menu a { color: #f5f5f5; text-decoration: none; font-size: 0.9rem; font-weight: 600; }
+        .nav-menu a.active { color: #FF69B4; border-bottom: 2px solid #FF69B4; }
         
         /* Hero */
-        .hero {
-            min-height: 60vh;
-            display: flex;
-            align-items: center;
-            padding: 100px 0;
-            background: #111;
-        }
-        .hero-title {
-            font-size: 4rem;
-            font-weight: 800;
-        }
-        .hero-subtitle {
-            font-size: 1.25rem;
-            color: #FF69B4;
-        }
-        .hero-headline {
-            font-size: 3rem;
-            margin: 1rem 0;
-        }
+        .hero { min-height: 40vh; display: flex; align-items: center; padding: 120px 0 60px; background: linear-gradient(to bottom, #111, #0A0A0A); }
+        .hero-title { font-size: 3.5rem; font-weight: 800; }
+        .hero-subtitle { font-size: 1.2rem; color: #FF69B4; letter-spacing: 3px; }
         
         /* Productos */
-        .products {
-            padding: 4rem 0;
-            background: #0A0A0A;
-        }
-        .section-title {
-            font-size: 2.5rem;
-            text-align: center;
-            margin-bottom: 3rem;
-        }
-        .gradient-text {
-            background: linear-gradient(135deg, #FF69B4, #FF1493);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-        }
+        .products { padding: 4rem 0; }
+        .section-title { font-size: 2.5rem; text-align: center; margin-bottom: 3rem; }
+        .gradient-text { background: linear-gradient(135deg, #FF69B4, #FF1493); -webkit-background-clip: text; background-clip: text; color: transparent; }
         
-        .products-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-        }
+        .products-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; }
+        .product-card { background: #1A1A1A; border-radius: 16px; padding: 1.5rem; text-align: center; border: 1px solid rgba(255,255,255,0.05); transition: 0.3s; }
+        .product-card:hover { transform: translateY(-5px); border-color: #FF69B4; }
         
-        .product-card {
-            background: #1A1A1A;
-            border-radius: 16px;
-            padding: 2rem;
-            text-align: center;
-            border: 1px solid rgba(255,255,255,0.05);
-        }
+        .product-image-container { width: 100%; height: 250px; border-radius: 12px; margin-bottom: 1.5rem; overflow: hidden; background: #222; }
+        .product-image-container img { width: 100%; height: 100%; object-fit: cover; }
         
-        .product-image {
-            width: 150px;
-            height: 150px;
-            background: #FF69B4;
-            border-radius: 50%;
-            margin: 0 auto 1.5rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 3rem;
-            color: white;
-            overflow: hidden;
-        }
+        .product-title { font-size: 1.2rem; margin-bottom: 0.5rem; font-weight: 700; }
+        .product-price { font-size: 1.4rem; color: #FF69B4; font-weight: 800; margin: 1rem 0; }
         
-        .product-title {
-            font-size: 1.25rem;
-            margin-bottom: 0.5rem;
-        }
-        
-        .product-price {
-            font-size: 1.5rem;
-            color: #FF69B4;
-            font-weight: 700;
-            margin: 1rem 0;
-        }
-        
-        .btn {
-            background: linear-gradient(135deg, #FF69B4, #FF1493);
-            color: white;
-            border: none;
-            padding: 0.75rem 1.5rem;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 600;
-            width: 100%;
-        }
-        
-        .loading {
-            text-align: center;
-            padding: 3rem;
-            color: rgba(255,255,255,0.5);
-        }
+        .btn { background: linear-gradient(135deg, #FF69B4, #FF1493); color: white; border: none; padding: 0.8rem; border-radius: 8px; cursor: pointer; font-weight: 700; width: 100%; text-transform: uppercase; }
         
         /* Footer */
-        .footer {
-            background: #111;
-            padding: 2rem 0;
-            text-align: center;
-            border-top: 1px solid rgba(255,255,255,0.05);
-        }
-        .copyright {
-            color: rgba(255,255,255,0.5);
-        }
-        
-        @media (max-width: 768px) {
-            .hero-title { font-size: 2.5rem; }
-            .hero-headline { font-size: 2rem; }
-        }
+        .footer { background: #111; padding: 2rem 0; text-align: center; border-top: 1px solid rgba(255,255,255,0.05); margin-top: 4rem; }
     </style>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    
-    <!-- Supabase -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
     <header class="header">
         <nav class="nav container">
             <div class="logo" id="secretAdminBtn">
-                <a href="/">LUSSON<span class="dot">.</span></a>
+                <a href="index.html">LUSSON<span class="dot">.</span></a>
             </div>
             <ul class="nav-menu">
-                <li><a href="#inicio">INICIO</a></li>
-                <li><a href="#labiales" class="active">LABIALES</a></li>
-                <li><a href="#rubores">RUBORES</a></li>
+                <li><a href="index.html">INICIO</a></li>
+                <li><a href="#" class="active">LABIALES</a></li>
             </ul>
         </nav>
     </header>
 
     <main>
-        <section id="inicio" class="hero">
+        <section class="hero">
             <div class="container">
-                <div class="hero-content">
-                    <h1 class="hero-title">LABIALES<span class="dot">.</span></h1>
-                    <div class="hero-subtitle">COLOR QUE DURA</div>
-                    <h2 class="hero-headline">Labios perfectos,<br>todo el día.</h2>
-                    <p>Fórmula vegana e hipoalergénica. Colores intensos que hidratan y cuidan tus labios.</p>
-                </div>
+                <div class="hero-subtitle">COLECCIÓN BLOOMSHELL</div>
+                <h1 class="hero-title">LABIALES<span class="dot">.</span></h1>
+                <p style="max-width: 600px; color: #888;">Fórmula profesional de larga duración. Encuentra el tono perfecto para tu estilo único.</p>
             </div>
         </section>
 
-        <section id="labiales" class="products">
+        <section class="products">
             <div class="container">
-                <h2 class="section-title">Nuestros <span class="gradient-text">Labiales</span></h2>
-                
+                <h2 class="section-title">Nuestra <span class="gradient-text">Colección</span></h2>
                 <div class="products-grid" id="productsGrid">
-                    <div class="loading">
-                        <i class="fas fa-spinner fa-spin"></i> Cargando productos...
-                    </div>
+                    <div style="text-align: center; grid-column: 1/-1; padding: 3rem; color: #555;">Conectando con la bodega...</div>
                 </div>
             </div>
         </section>
     </main>
 
-    <!-- MODAL ADMIN -->
-    <div id="adminModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); z-index:2000; align-items:center; justify-content:center;">
-        <div style="background:#1A1A1A; padding:2rem; border-radius:16px; width:90%; max-width:500px;">
-            <h2 style="margin-bottom:1.5rem;">Panel Admin</h2>
-            
-            <div id="loginForm">
-                <input type="email" id="loginEmail" placeholder="Email" style="width:100%; padding:1rem; margin-bottom:1rem; background:#222; border:1px solid #333; border-radius:8px; color:white;">
-                <input type="password" id="loginPassword" placeholder="Contraseña" style="width:100%; padding:1rem; margin-bottom:1rem; background:#222; border:1px solid #333; border-radius:8px; color:white;">
-                <button onclick="handleLogin()" style="width:100%; padding:1rem; background:#FF69B4; color:white; border:none; border-radius:8px; cursor:pointer;">Ingresar</button>
-                <p id="loginError" style="color:#ff4444; margin-top:1rem;"></p>
-            </div>
-            
-            <div id="adminPanel" style="display:none;">
-                <h3 style="margin-bottom:1rem;">Agregar Producto</h3>
-                <form id="addProductForm">
-                    <input type="text" id="productName" placeholder="Nombre" style="width:100%; padding:0.75rem; margin-bottom:0.5rem; background:#222; border:1px solid #333; border-radius:8px; color:white;" required>
-                    <textarea id="productDesc" placeholder="Descripción" style="width:100%; padding:0.75rem; margin-bottom:0.5rem; background:#222; border:1px solid #333; border-radius:8px; color:white;" required></textarea>
-                    <input type="number" id="productPrice" placeholder="Precio" style="width:100%; padding:0.75rem; margin-bottom:0.5rem; background:#222; border:1px solid #333; border-radius:8px; color:white;" required>
-                    <input type="file" id="productImage" accept="image/*" style="width:100%; padding:0.75rem; margin-bottom:1rem; background:#222; border:1px solid #333; border-radius:8px; color:white;" required>
-                    <button type="submit" style="width:100%; padding:1rem; background:#FF69B4; color:white; border:none; border-radius:8px; cursor:pointer;">Guardar Producto</button>
-                </form>
-            </div>
-            
-            <button onclick="document.getElementById('adminModal').style.display='none'" style="margin-top:1rem; width:100%; padding:0.75rem; background:#333; color:white; border:none; border-radius:8px; cursor:pointer;">Cerrar</button>
-        </div>
-    </div>
-
     <footer class="footer">
-        <div class="container">
-            <p class="copyright">© 2026 Lusson. Todos los derechos reservados.</p>
-        </div>
+        <p>© 2026 Lusson Colombia. Desarrollado por Xailon.</p>
     </footer>
 
     <script>
-        // CONFIGURACIÓN SUPABASE - TUS LLAVES
+        // CONEXIÓN A TU SUPABASE REAL
         const SUPABASE_URL = 'https://azfingejfhjmbkcrtlbb.supabase.co';
-        const SUPABASE_ANON_KEY = 'sb_publishable_oEmSiQhpAZ9HToa9C2nHXg_5qHIZDUD';
-        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-        
-        // PRODUCTOS DE RESPALDO (por si no hay en Supabase)
-        const productosRespaldo = [
-            { nombre: 'Red Velvet', descripcion: 'Rojo intenso mate de larga duración', precio: 12990 },
-            { nombre: 'Pink Sugar', descripcion: 'Rosa suave con acabado satinado', precio: 11990 },
-            { nombre: 'Nude Glow', descripcion: 'Tono nude natural con brillo sutil', precio: 10990 },
-            { nombre: 'Berry Wine', descripcion: 'Tinto berry mate, ideal para noche', precio: 12990 }
-        ];
-        
-        document.addEventListener('DOMContentLoaded', function() {
-            // Cargar productos desde Supabase
-            loadProducts();
-            
-            // Botón secreto (doble click en logo)
-            document.getElementById('secretAdminBtn').addEventListener('dblclick', function() {
-                document.getElementById('adminModal').style.display = 'flex';
-            });
-            
-            // Formulario agregar producto
-            document.getElementById('addProductForm').addEventListener('submit', handleAddProduct);
-        });
+        const SUPABASE_KEY = 'sb_publishable_oEmSiQhpAZ9HToa9C2nHXg_5qHIZDUD';
+        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
         
         async function loadProducts() {
             try {
-                console.log('Intentando cargar productos de Supabase...');
-                
-                // Intentar obtener productos de la tabla 'products'
+                // CORRECCIÓN: Usamos 'productos' que es tu tabla real
                 const { data, error } = await supabase
-                    .from('products')
+                    .from('productos')
                     .select('*');
                 
-                if (error) {
-                    console.error('Error de Supabase:', error);
-                    throw error;
-                }
-                
-                console.log('Datos recibidos:', data);
+                if (error) throw error;
                 
                 const grid = document.getElementById('productsGrid');
                 
-                // Si hay productos en Supabase, mostrarlos
                 if (data && data.length > 0) {
                     let html = '';
-                    data.forEach(producto => {
-                        // Verificar que el producto tenga los campos necesarios
-                        const nombre = producto.nombre || producto.name || 'Producto';
-                        const descripcion = producto.descripcion || producto.description || '';
-                        const precio = producto.precio || producto.price || 0;
-                        
+                    data.forEach(p => {
+                        // CORRECCIÓN: 'Imagen' y 'nombre' según tus columnas en Supabase
                         html += `
                             <div class="product-card">
-                                <div class="product-image">
-                                    <i class="fas fa-lipstick"></i>
+                                <div class="product-image-container">
+                                    <img src="${p.Imagen}" alt="${p.nombre}">
                                 </div>
-                                <h3 class="product-title">${nombre}</h3>
-                                <p style="color:rgba(255,255,255,0.6);">${descripcion}</p>
-                                <div class="product-price">$${precio.toLocaleString()}</div>
-                                <button class="btn" onclick="agregarAlCarrito('${nombre}', ${precio})">
-                                    <i class="fas fa-shopping-bag"></i> Agregar
+                                <h3 class="product-title">${p.nombre}</h3>
+                                <div class="product-price">$${p.precio.toLocaleString()}</div>
+                                <button class="btn" onclick="pedirWhatsApp('${p.nombre}', ${p.precio})">
+                                    Pedir Ahora
                                 </button>
                             </div>
                         `;
                     });
                     grid.innerHTML = html;
                 } else {
-                    // No hay productos, mostrar respaldo
-                    console.log('No hay productos en Supabase, mostrando respaldo');
-                    mostrarProductosRespaldo();
+                    grid.innerHTML = '<div style="grid-column: 1/-1;">No hay productos disponibles en este momento.</div>';
                 }
-                
             } catch (error) {
-                console.error('Error cargando productos:', error);
-                mostrarProductosRespaldo();
+                console.error('Error:', error);
+                document.getElementById('productsGrid').innerHTML = 'Error al cargar el catálogo.';
             }
         }
-        
-        function mostrarProductosRespaldo() {
-            const grid = document.getElementById('productsGrid');
-            let html = '';
-            productosRespaldo.forEach(p => {
-                html += `
-                    <div class="product-card">
-                        <div class="product-image">
-                            <i class="fas fa-lipstick"></i>
-                        </div>
-                        <h3 class="product-title">${p.nombre}</h3>
-                        <p style="color:rgba(255,255,255,0.6);">${p.descripcion}</p>
-                        <div class="product-price">$${p.precio.toLocaleString()}</div>
-                        <button class="btn" onclick="agregarAlCarrito('${p.nombre}', ${p.precio})">
-                            <i class="fas fa-shopping-bag"></i> Agregar
-                        </button>
-                    </div>
-                `;
-            });
-            grid.innerHTML = html;
+
+        function pedirWhatsApp(nombre, precio) {
+            const mensaje = encodeURIComponent(`¡Hola Lusson! 🌟 Quiero pedir el labial: ${nombre} ($${precio.toLocaleString()})`);
+            window.open(`https://wa.me/573000000000?text=${mensaje}`, '_blank');
         }
-        
-        // Función para agregar al carrito
-        window.agregarAlCarrito = function(nombre, precio) {
-            alert(`✅ ${nombre} agregado al carrito por $${precio.toLocaleString()}`);
-        };
-        
-        async function handleLogin() {
-            const email = document.getElementById('loginEmail').value;
-            const password = document.getElementById('loginPassword').value;
-            
-            try {
-                const { data, error } = await supabase.auth.signInWithPassword({
-                    email: email,
-                    password: password
-                });
-                
-                if (error) throw error;
-                
-                document.getElementById('loginForm').style.display = 'none';
-                document.getElementById('adminPanel').style.display = 'block';
-                document.getElementById('loginError').textContent = '';
-                
-            } catch (error) {
-                document.getElementById('loginError').textContent = 'Email o contraseña incorrectos';
+
+        // Cargar al iniciar
+        loadProducts();
+
+        // Botón Secreto para Modo Jefa (Doble clic en el logo LUSSON)
+        document.getElementById('secretAdminBtn').addEventListener('dblclick', () => {
+            const pass = prompt("Clave de Jefa:");
+            if(pass === "11209") {
+                alert("Modo Edición Activado. Ahora puedes editar desde Supabase.");
             }
-        }
-        
-        async function handleAddProduct(e) {
-            e.preventDefault();
-            
-            const nombre = document.getElementById('productName').value;
-            const descripcion = document.getElementById('productDesc').value;
-            const precio = parseInt(document.getElementById('productPrice').value);
-            
-            try {
-                // Intentar guardar en Supabase
-                const { data, error } = await supabase
-                    .from('products')
-                    .insert([
-                        { 
-                            nombre: nombre, 
-                            descripcion: descripcion, 
-                            precio: precio,
-                            created_at: new Date()
-                        }
-                    ]);
-                
-                if (error) {
-                    console.error('Error guardando:', error);
-                    alert('Error: ' + error.message);
-                } else {
-                    alert('✅ Producto guardado correctamente');
-                    document.getElementById('addProductForm').reset();
-                    document.getElementById('adminModal').style.display = 'none';
-                    loadProducts(); // Recargar productos
-                }
-                
-            } catch (error) {
-                alert('Error al guardar: ' + error.message);
-            }
-        }
+        });
     </script>
 </body>
 </html>
