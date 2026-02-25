@@ -14,9 +14,9 @@
         body { font-family: 'Montserrat', sans-serif; background-color: var(--nude); color: var(--negro); }
 
         header { background: var(--blanco); padding: 1.5rem; text-align: center; border-bottom: 1px solid #eee; position: sticky; top: 0; z-index: 100; }
-        .logo { font-family: 'Playfair Display', serif; font-size: 2.2rem; letter-spacing: 6px; color: var(--negro); text-decoration: none; display: block; }
-        .sub-logo { font-size: 0.7rem; letter-spacing: 4px; color: var(--oro); font-weight: 600; margin-top: 5px; }
+        .logo { font-family: 'Playfair Display', serif; font-size: 2.2rem; letter-spacing: 6px; color: var(--negro); text-decoration: none; }
         
+        /* CARRITO */
         .cart-trigger { position: fixed; top: 25px; right: 30px; font-size: 1.6rem; cursor: pointer; z-index: 101; }
         .badge { position: absolute; top: -8px; right: -10px; background: var(--oro); color: white; padding: 2px 7px; border-radius: 50%; font-size: 0.75rem; font-weight: bold; }
 
@@ -24,6 +24,7 @@
         #cart-panel.active { right: 0; }
         .cart-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; border-bottom: 2px solid var(--nude); padding-bottom: 20px; }
 
+        /* PRODUCTOS */
         .container { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 40px; }
         .card { background: white; border-radius: 20px; padding: 25px; text-align: center; border: 1px solid #eee; transition: 0.3s; }
@@ -34,13 +35,13 @@
 
         .wa-float { position: fixed; bottom: 30px; left: 30px; background: #25d366; color: white; width: 65px; height: 65px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 35px; z-index: 90; text-decoration: none; }
 
-        footer { background: var(--negro); color: white; padding: 60px 20px; text-align: center; margin-top: 80px; position: relative; }
+        footer { background: var(--negro); color: white; padding: 60px 20px; text-align: center; margin-top: 80px; }
         
-        /* BOTÓN SECRETO: PEQUEÑO E INVISIBLE */
-        #botoncito { 
-            width: 12px; 
-            height: 12px; 
-            background: #1a1a1a; /* Igual al fondo para que no se vea */
+        /* 2. EL CÍRCULO DORADO SECRETO */
+        #secret-circle { 
+            width: 15px; 
+            height: 15px; 
+            background: #D4AF37; 
             border-radius: 50%; 
             margin: 0 auto 15px auto; 
             cursor: pointer;
@@ -52,7 +53,6 @@
 
     <header>
         <a href="#" class="logo">LUSSON</a>
-        <p class="sub-logo">COLOMBIA</p>
         <div class="cart-trigger" onclick="toggleCart()">
             <i class="fas fa-shopping-cart"></i>
             <span class="badge" id="cart-count">0</span>
@@ -77,7 +77,7 @@
     <main class="container">
         <div id="catalog-grid" class="grid">
             <div style="grid-column: 1/-1; text-align:center; padding:100px;">
-                <p id="status-msg">Sincronizando catálogo...</p>
+                <p id="status-msg">Cargando colección Lusson...</p>
             </div>
         </div>
     </main>
@@ -87,7 +87,7 @@
     </a>
 
     <footer>
-        <div id="botoncito" onclick="entrarModoJefa()"></div>
+        <div id="secret-circle" onclick="checkJefa()"></div>
         <div style="font-size: 0.8rem; color: #444;">
             lusson 2026<br>
             © 2026 Lusson Colombia. Todos los derechos reservados.
@@ -95,68 +95,56 @@
     </footer>
 
     <script>
-        // --- SECCIÓN DE ACCESO (PRIORIDAD) ---
-        let toques = 0;
-        let reloj;
-
-        function entrarModoJefa() {
-            toques++;
-            clearTimeout(reloj);
-            console.log("Toques: " + toques);
-
-            if (toques === 5) {
-                toques = 0;
-                // Pequeña pausa para asegurar que el navegador abra los cuadros
-                setTimeout(() => {
-                    let user = prompt("USUARIO:");
-                    if (user === "lusson2026") {
-                        let pass = prompt("CONTRASEÑA:");
-                        if (pass === "lusson2026") {
-                            alert("Acceso concedido.");
-                            window.location.href = "https://supabase.com/dashboard/project/azfingejfhjmbkcrtlbb/editor/18556";
-                        } else {
-                            alert("Contraseña incorrecta.");
-                        }
-                    } else if (user !== null) {
-                        alert("Usuario incorrecto.");
-                    }
-                }, 150);
-            }
-            reloj = setTimeout(() => { toques = 0; }, 3000);
-        }
-
-        // --- SECCIÓN SUPABASE ---
+        // 3. DATOS DE CONEXIÓN
         const supabaseUrl = 'https://azfingejfhjmbkcrtlbb.supabase.co';
         const supabaseKey = 'sb_publishable_oEmSiQhpAZ9HToa9C2nHXg_5qHIZDUD';
         const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
 
+        let clicks = 0;
         let cart = [];
 
-        async function cargarProductos() {
+        // 4. MODO JEFA SIMPLE
+        function checkJefa() {
+            clicks++;
+            if (clicks === 5) {
+                clicks = 0;
+                let user = prompt("USUARIO:");
+                if (user === "lusson2026") {
+                    let pass = prompt("CONTRASEÑA:");
+                    if (pass === "lusson2026") {
+                        alert("Acceso correcto.");
+                        window.location.href = "https://supabase.com/dashboard/project/azfingejfhjmbkcrtlbb/editor/18556";
+                    } else {
+                        alert("Contraseña incorrecta.");
+                    }
+                } else if (user !== null) {
+                    alert("Usuario no válido.");
+                }
+            }
+        }
+
+        // 5. CARGAR PRODUCTOS
+        async function loadCatalog() {
             try {
                 const { data, error } = await supabase.from('productos').select('*');
                 if (error) throw error;
                 const grid = document.getElementById('catalog-grid');
                 grid.innerHTML = '';
-                if (!data || data.length === 0) {
-                    document.getElementById('status-msg').innerText = "Catálogo vacío.";
-                    return;
-                }
                 data.forEach(p => {
                     grid.innerHTML += `
                         <div class="card">
                             <div class="img-box"><img src="${p.Imagen}" alt="${p.nombre}"></div>
                             <h3>${p.nombre}</h3>
                             <p class="price">$${p.precio.toLocaleString()}</p>
-                            <button class="btn-add" onclick="addToCart('${p.nombre}', ${p.precio})">AÑADIR AL CARRITO</button>
+                            <button class="btn-add" onclick="addToCart('${p.nombre}', ${p.precio})">Añadir al Carrito</button>
                         </div>`;
                 });
             } catch (e) {
-                document.getElementById('status-msg').innerText = "Error de conexión con la base de datos.";
+                document.getElementById('status-msg').innerText = "Error al conectar con la colección.";
             }
         }
 
-        // --- SECCIÓN CARRITO ---
+        // 6. CARRITO
         function toggleCart() { document.getElementById('cart-panel').classList.toggle('active'); }
         function addToCart(n, p) {
             cart.push({ nombre: n, precio: p });
@@ -167,23 +155,23 @@
             const list = document.getElementById('cart-list');
             let total = 0;
             list.innerHTML = '';
-            cart.forEach((item, index) => {
-                total += item.precio;
-                list.innerHTML += `<div style="display:flex; justify-content:space-between; padding:10px; background:#f9f9f9; border-radius:8px; margin-bottom:10px;">
-                    <span>${item.nombre}</span>
-                    <button onclick="cart.splice(${index},1); updateUI()" style="border:none; color:red; cursor:pointer; background:none;">✕</button>
+            cart.forEach((i, idx) => {
+                total += i.precio;
+                list.innerHTML += `<div style="display:flex; justify-content:space-between; margin-bottom:10px; padding:10px; background:#f9f9f9; border-radius:8px;">
+                    <span>${i.nombre}</span>
+                    <button onclick="cart.splice(${idx},1); updateUI()" style="border:none; color:red; background:none; cursor:pointer;">✕</button>
                 </div>`;
             });
             document.getElementById('total-price').innerText = total.toLocaleString();
             document.getElementById('cart-count').innerText = cart.length;
         }
         function sendWhatsApp() {
-            let msg = "¡Hola Lusson! 🌟 Pedido:\n";
-            cart.forEach(i => msg += `- ${i.nombre}\n`);
-            window.open(`https://wa.me/573000000000?text=${encodeURIComponent(msg)}`);
+            let pedido = "¡Hola! Deseo pedir:\n";
+            cart.forEach(i => pedido += `- ${i.nombre}\n`);
+            window.open(`https://wa.me/573000000000?text=${encodeURIComponent(pedido)}`);
         }
 
-        window.onload = cargarProductos;
+        window.onload = loadCatalog;
     </script>
 </body>
 </html>
