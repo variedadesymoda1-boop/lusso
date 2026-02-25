@@ -15,7 +15,7 @@
 
         /* HEADER */
         header { background: var(--blanco); padding: 1.5rem; text-align: center; border-bottom: 1px solid #eee; position: sticky; top: 0; z-index: 100; }
-        .logo { font-family: 'Playfair Display', serif; font-size: 2.2rem; letter-spacing: 6px; color: var(--negro); text-decoration: none; }
+        .logo { font-family: 'Playfair Display', serif; font-size: 2.2rem; letter-spacing: 6px; color: var(--negro); text-decoration: none; display: block; }
         .sub-logo { font-size: 0.7rem; letter-spacing: 4px; color: var(--oro); font-weight: 600; margin-top: 5px; }
         
         /* CARRITO */
@@ -35,23 +35,26 @@
         .price { color: var(--oro); font-weight: 700; font-size: 1.5rem; margin: 15px 0; }
         .btn-add { background: var(--negro); color: white; border: none; padding: 15px; width: 100%; border-radius: 10px; cursor: pointer; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; }
 
-        /* BOTÓN WHATSAPP */
-        .wa-float { position: fixed; bottom: 30px; left: 30px; background: #25d366; color: white; width: 65px; height: 65px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 35px; z-index: 90; text-decoration: none; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        /* WHATSAPP */
+        .wa-float { position: fixed; bottom: 30px; left: 30px; background: #25d366; color: white; width: 65px; height: 65px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 35px; z-index: 90; text-decoration: none; }
 
-        /* FOOTER Y CÍRCULO SEGURO */
+        /* FOOTER CON CÍRCULO SEGURO */
         footer { background: var(--negro); color: white; padding: 60px 20px; text-align: center; margin-top: 80px; }
         
-        #jefa-circle { 
-            width: 45px; 
-            height: 45px; 
-            background: #333; 
+        /* Círculo más grande para que sea fácil de tocar en móvil */
+        #jefa-portal { 
+            width: 50px; 
+            height: 50px; 
+            background: #222; 
+            border: 2px solid #333;
             border-radius: 50%; 
-            margin: 0 auto 15px auto; 
+            margin: 0 auto 20px auto; 
             cursor: pointer;
-            border: 2px solid #444;
-            display: block;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
-        #jefa-circle:active { background: var(--oro); }
+        #jefa-portal:active { background: var(--oro); }
     </style>
 </head>
 <body>
@@ -83,7 +86,7 @@
     <main class="container">
         <div id="catalog-grid" class="grid">
             <div style="grid-column: 1/-1; text-align:center; padding:100px;">
-                <p id="status-msg">Iniciando catálogo...</p>
+                <p id="status-msg">Sincronizando catálogo de lujo...</p>
             </div>
         </div>
     </main>
@@ -93,40 +96,48 @@
     </a>
 
     <footer>
-        <div id="jefa-circle"></div>
-        <div style="font-size: 0.8rem; color: #666;">
+        <div id="jefa-portal"></div>
+        <div style="font-size: 0.85rem; color: #555; letter-spacing: 1px;">
             lusson 2026<br>
             © 2026 Lusson Colombia. Todos los derechos reservados.
         </div>
     </footer>
 
     <script>
-        // --- 1. LÓGICA INDEPENDIENTE PARA LOS 5 TOQUES (MODO JEFA) ---
-        // Esto funciona aunque Supabase falle
-        let clicks = 0;
+        // --- 1. MODO JEFA INDEPENDIENTE (PRIORIDAD ALTA) ---
+        let count = 0;
         let timer;
-        const circle = document.getElementById('jefa-circle');
+        const portal = document.getElementById('jefa-portal');
 
-        circle.addEventListener('click', () => {
-            clicks++;
+        // Usamos 'onclick' directo que es más compatible con navegadores viejos y móviles
+        portal.onclick = function() {
+            count++;
+            console.log("Toque: " + count);
+            
             clearTimeout(timer);
-            console.log("Toque: " + clicks); // Esto te permite ver en consola si funciona
+            timer = setTimeout(() => { count = 0; }, 3000); // Tienes 3 segundos para los 5 toques
 
-            if (clicks === 5) {
-                const user = prompt("Usuario:");
-                const pass = prompt("Contraseña:");
-                
-                if (user === "lusson2026" && pass === "lusson2026") {
-                    window.location.href = "https://supabase.com/dashboard/project/azfingejfhjmbkcrtlbb/editor/18556";
-                } else {
-                    alert("Acceso denegado");
-                }
-                clicks = 0;
+            if (count === 5) {
+                count = 0;
+                // Pequeño retraso para que el navegador no bloquee el prompt
+                setTimeout(() => {
+                    const u = prompt("USUARIO:");
+                    if (u === "lusson2026") {
+                        const p = prompt("CONTRASEÑA:");
+                        if (p === "lusson2026") {
+                            alert("Acceso correcto. Entrando al Modo Editor...");
+                            window.location.href = "https://supabase.com/dashboard/project/azfingejfhjmbkcrtlbb/editor/18556";
+                        } else {
+                            alert("Contraseña incorrecta.");
+                        }
+                    } else if (u !== null) {
+                        alert("Usuario no válido.");
+                    }
+                }, 100);
             }
-            timer = setTimeout(() => { clicks = 0; }, 4000); // 4 segundos para tocar 5 veces
-        });
+        };
 
-        // --- 2. CONEXIÓN CON SUPABASE ---
+        // --- 2. CONEXIÓN SUPABASE ---
         const supabaseUrl = 'https://azfingejfhjmbkcrtlbb.supabase.co';
         const supabaseKey = 'sb_publishable_oEmSiQhpAZ9HToa9C2nHXg_5qHIZDUD';
         const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
@@ -134,6 +145,7 @@
         let cart = [];
 
         async function loadCatalog() {
+            const status = document.getElementById('status-msg');
             try {
                 const { data, error } = await supabase.from('productos').select('*');
                 if (error) throw error;
@@ -151,43 +163,38 @@
                         </div>`;
                 });
             } catch (e) {
-                document.getElementById('status-msg').innerText = "Error cargando productos. Verifica tus políticas en Supabase.";
+                status.innerText = "Error: " + e.message;
             }
         }
 
-        // --- 3. FUNCIONES DEL CARRITO ---
+        // --- 3. FUNCIONES CARRITO ---
         function toggleCart() { document.getElementById('cart-panel').classList.toggle('active'); }
-        
-        function addToCart(nombre, precio) {
-            cart.push({ nombre, precio });
-            updateCart();
+        function addToCart(n, p) {
+            cart.push({ nombre: n, precio: p });
+            updateUI();
             if(!document.getElementById('cart-panel').classList.contains('active')) toggleCart();
         }
-
-        function updateCart() {
+        function updateUI() {
             const list = document.getElementById('cart-list');
             let total = 0;
             list.innerHTML = '';
             cart.forEach((i, idx) => {
                 total += i.precio;
-                list.innerHTML += `
-                    <div style="display:flex; justify-content:space-between; margin-bottom:10px; padding:10px; background:#f9f9f9; border-radius:8px;">
-                        <span>${i.nombre}</span>
-                        <button onclick="cart.splice(${idx},1); updateCart()" style="border:none; color:red; cursor:pointer; background:none; font-weight:bold;">✕</button>
-                    </div>`;
+                list.innerHTML += `<div style="display:flex; justify-content:space-between; padding:10px; background:#f9f9f9; border-radius:8px; margin-bottom:10px;">
+                    <span>${i.nombre}</span>
+                    <button onclick="cart.splice(${idx},1); updateUI()" style="border:none; color:red; cursor:pointer; background:none;">✕</button>
+                </div>`;
             });
             document.getElementById('total-price').innerText = total.toLocaleString();
             document.getElementById('cart-count').innerText = cart.length;
         }
-
         function sendWhatsApp() {
-            let msg = "Pedido Lusson:\n";
-            cart.forEach(i => msg += `- ${i.nombre}\n`);
-            window.open(`https://wa.me/573000000000?text=${encodeURIComponent(msg)}`);
+            let pedido = "¡Hola Lusson! 🌟 Pedido:\n";
+            cart.forEach(i => pedido += `- ${i.nombre}\n`);
+            window.open(`https://wa.me/573000000000?text=${encodeURIComponent(pedido)}`);
         }
 
         window.onload = loadCatalog;
     </script>
 </body>
 </html>
-
