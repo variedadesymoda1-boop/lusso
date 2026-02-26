@@ -3,39 +3,326 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lusson - Rubores</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Lusson - Rubores de Lujo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/feather-icons"></script>
+    
+    <style>
+        :root {
+            --oro: #bca07d;
+            --negro: #1a1a1a;
+            --crema: #fdfaf7;
+            --rosa-soft: #fff5f7;
+            --blanco: #ffffff;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            background-color: var(--blanco);
+            color: var(--negro);
+            overflow-x: hidden;
+        }
+
+        /* Cabecera Lujosa */
+        header {
+            background-color: var(--crema);
+            padding: 40px 20px;
+            text-align: center;
+            border-bottom: 1px solid var(--rosa-soft);
+            position: relative;
+        }
+
+        header h1 {
+            font-family: 'Playfair Display', serif;
+            letter-spacing: 6px;
+            font-size: 2.8rem;
+            margin: 0;
+            text-transform: uppercase;
+        }
+
+        .tagline {
+            font-size: 0.9rem;
+            letter-spacing: 3px;
+            color: var(--oro);
+            margin-top: 10px;
+        }
+
+        /* Icono Carrito Flotante */
+        .cart-trigger {
+            position: absolute;
+            right: 25px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: white;
+            padding: 8px 15px;
+            border-radius: 30px;
+            border: 1px solid var(--oro);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+
+        /* Cuadrícula de Productos Adaptable */
+        .contenedor-productos {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); /* 2 columnas en celular */
+            gap: 20px;
+            padding: 40px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        @media (min-width: 1024px) {
+            .contenedor-productos {
+                grid-template-columns: repeat(4, 1fr); /* 4 en PC */
+            }
+        }
+
+        /* Tarjeta de Producto */
+        .card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--rosa-soft);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.02);
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover { transform: translateY(-5px); }
+
+        .card-img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            background-color: var(--crema);
+        }
+
+        .card-info { padding: 15px; text-align: center; }
+
+        .card-title {
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin: 0 0 10px 0;
+            text-transform: uppercase;
+        }
+
+        .card-price {
+            color: var(--oro);
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .btn-add {
+            background: var(--negro);
+            color: white;
+            border: none;
+            width: 100%;
+            padding: 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            transition: 0.3s;
+        }
+
+        /* Carrito Lateral (Side-Cart) */
+        .sidebar-cart {
+            position: fixed;
+            right: -100%;
+            top: 0;
+            width: 320px;
+            height: 100%;
+            background: white;
+            z-index: 9999;
+            box-shadow: -10px 0 30px rgba(0,0,0,0.1);
+            transition: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sidebar-cart.active { right: 0; }
+
+        .cart-header {
+            padding: 25px;
+            background: var(--crema);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .cart-body { flex: 1; overflow-y: auto; padding: 20px; }
+
+        .cart-footer {
+            padding: 25px;
+            border-top: 1px solid #eee;
+            background: #fdfdfd;
+        }
+
+        .btn-whatsapp {
+            background: #25d366;
+            color: white;
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        /* Punto Admin Secreto */
+        .secret-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--crema);
+            margin: 50px auto;
+            border-radius: 50%;
+            cursor: pointer;
+            opacity: 0.5;
+        }
+    </style>
 </head>
 <body>
 
     <header>
         <h1>LUSSON</h1>
-        <p>Elegancia en cada detalle</p>
-        <button onclick="abrirCarrito()" style="background:none; border:1px solid var(--oro); padding:5px 15px; cursor:pointer;">🛒 CARRITO (<span id="count">0</span>)</button>
+        <p class="tagline">Elegancia en cada detalle</p>
+        
+        <div class="cart-trigger" onclick="toggleCart()">
+            <i data-feather="shopping-bag"></i>
+            <span id="cart-count">0</span>
+        </div>
     </header>
 
-    <main id="lista" class="grid-productos">
-        </main>
+    <main class="contenedor-productos" id="grid-productos">
+        <p style="grid-column: 1/-1; text-align: center; color: #888;">Cargando colección...</p>
+    </main>
 
-    <div id="modal" class="modal-carrito">
-        <div class="carrito-header">
-            <h3>MI CARRITO</h3>
-            <button onclick="abrirCarrito()" style="border:none; background:none; font-size:25px; cursor:pointer;">&times;</button>
+    <div class="sidebar-cart" id="cart-panel">
+        <div class="cart-header">
+            <h3 style="margin:0; font-family:'Playfair Display'">MI PEDIDO</h3>
+            <i data-feather="x" onclick="toggleCart()" style="cursor:pointer"></i>
         </div>
-        <div id="items" style="flex:1; overflow-y:auto; padding:20px;"></div>
-        <div style="padding:20px; border-top:1px solid #eee;">
-            <h4>Total: <span id="total">$0</span></h4>
-            <button onclick="pedir()" style="width:100%; padding:15px; background:black; color:white; border:none; cursor:pointer; font-weight:600;">COMPRAR POR WHATSAPP</button>
+        <div class="cart-body" id="cart-content">
+            </div>
+        <div class="cart-footer">
+            <div style="display:flex; justify-content:space-between; margin-bottom:20px; font-weight:700;">
+                <span>TOTAL:</span>
+                <span id="cart-total">$0</span>
+            </div>
+            <a href="#" onclick="enviarPedido()" class="btn-whatsapp">
+                COMPRAR POR WHATSAPP
+            </a>
         </div>
     </div>
 
-    <a href="https://wa.me/TUNUMERO" class="wa-float" target="_blank">WP</a>
-
     <footer>
-        <div class="secret-dot" onclick="modoJefa()"></div>
-        <p align="center">© 2026 LUSSON COLOMBIA</p>
+        <div class="secret-dot" onclick="checkAdmin()"></div>
+        <p style="text-align: center; font-size: 0.7rem; color: #aaa; margin-bottom: 40px;">© 2026 LUSSON COLOMBIA</p>
     </footer>
 
-    <script src="script.js"></script>
+    <script>
+        feather.replace();
+
+        let carrito = [];
+        let clicsAdmin = 0;
+
+        // Función para abrir/cerrar carrito
+        function toggleCart() {
+            document.getElementById('cart-panel').classList.toggle('active');
+        }
+
+        // Simulación de carga de productos (Esto se conectará con tu base de datos)
+        const productosEjemplo = [
+            { id: 1, nombre: "Rubor Creamy Rose", precio: 45000, img: "https://images.unsplash.com/photo-1596704017254-9b121068fb31?q=80&w=500" },
+            { id: 2, nombre: "Rubor Gold Peach", precio: 48000, img: "https://images.unsplash.com/photo-1522338242992-e1a54906a8da?q=80&w=500" },
+            { id: 3, nombre: "Rubor Sunset Glow", precio: 42000, img: "https://images.unsplash.com/photo-1512496015851-a90fb38ba796?q=80&w=500" },
+            { id: 4, nombre: "Rubor Pink Velvet", precio: 45000, img: "https://images.unsplash.com/photo-1590156221122-c4435b3f520b?q=80&w=500" }
+        ];
+
+        function mostrarProductos() {
+            const grid = document.getElementById('grid-productos');
+            grid.innerHTML = '';
+            productosEjemplo.forEach(p => {
+                grid.innerHTML += `
+                    <div class="card">
+                        <img src="${p.img}" class="card-img" alt="${p.nombre}">
+                        <div class="card-info">
+                            <h3 class="card-title">${p.nombre}</h3>
+                            <span class="card-price">$${p.precio.toLocaleString()}</span>
+                            <button class="btn-add" onclick="agregarAlCarrito('${p.nombre}', ${p.precio})">AGREGAR AL CARRITO</button>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        function agregarAlCarrito(nombre, precio) {
+            carrito.push({ nombre, precio });
+            actualizarInterfaz();
+            if(!document.getElementById('cart-panel').classList.contains('active')) toggleCart();
+        }
+
+        function actualizarInterfaz() {
+            const contenido = document.getElementById('cart-content');
+            const totalElemento = document.getElementById('cart-total');
+            const contadorElemento = document.getElementById('cart-count');
+            
+            contenido.innerHTML = '';
+            let total = 0;
+
+            carrito.forEach((item, index) => {
+                total += item.precio;
+                contenido.innerHTML += `
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px; border-bottom:1px solid #f9f9f9; padding-bottom:10px;">
+                        <div>
+                            <div style="font-size:0.8rem; font-weight:600;">${item.nombre}</div>
+                            <div style="color:var(--oro); font-size:0.9rem;">$${item.precio.toLocaleString()}</div>
+                        </div>
+                        <i data-feather="trash-2" onclick="quitarItem(${index})" style="width:16px; color:#ff4d4d; cursor:pointer;"></i>
+                    </div>
+                `;
+            });
+
+            totalElemento.innerText = '$' + total.toLocaleString();
+            contadorElemento.innerText = carrito.length;
+            feather.replace();
+        }
+
+        function quitarItem(index) {
+            carrito.splice(index, 1);
+            actualizarInterfaz();
+        }
+
+        function enviarPedido() {
+            if(carrito.length === 0) return alert("El carrito está vacío");
+            let mensaje = "Hola Lusson! ✨ Quisiera hacer un pedido:\n\n";
+            carrito.forEach(i => mensaje += `- ${i.nombre} ($${i.precio.toLocaleString()})\n`);
+            mensaje += `\nTotal: ${document.getElementById('cart-total').innerText}`;
+            const url = `https://wa.me/573000000000?text=${encodeURIComponent(mensaje)}`;
+            window.open(url, '_blank');
+        }
+
+        // 5 Clics para Admin
+        function checkAdmin() {
+            clicsAdmin++;
+            if(clicsAdmin === 5) {
+                window.location.href = "admin/index.html";
+            }
+            setTimeout(() => { clicsAdmin = 0; }, 3000);
+        }
+
+        window.onload = mostrarProductos;
+    </script>
 </body>
-</html>
+    </html>
+    
