@@ -3,102 +3,64 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lusson - Rubores de Lujo</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
-    <script src="https://unpkg.com/feather-icons"></script>
-    
-    <style>
-        /* ESTO ES EL DISEÑO (CSS) - DEBE ESTAR EN INGLÉS */
-        :root {
-            --oro: #bca07d;
-            --negro: #1a1a1a;
-            --crema: #fdfaf7;
-            --blanco: #ffffff;
-        }
-
-        body {
-            font-family: 'Montserrat', sans-serif;
-            margin: 0;
-            background-color: var(--blanco);
-        }
-
-        header {
-            background-color: var(--crema);
-            padding: 40px 20px;
-            text-align: center;
-            border-bottom: 1px solid #eee;
-        }
-
-        header h1 {
-            font-family: 'Playfair Display', serif;
-            letter-spacing: 5px;
-            margin: 0;
-            text-transform: uppercase;
-        }
-
-        /* Cuadrícula Adaptable para Celular y PC */
-        .grid-productos {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr); /* 2 columnas en celular */
-            gap: 15px;
-            padding: 20px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        @media (min-width: 1024px) {
-            .grid-productos {
-                grid-template-columns: repeat(4, 1fr); /* 4 columnas en PC */
-            }
-        }
-
-        .card {
-            background: white;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
-            border: 1px solid #f2f2f2;
-            text-align: center;
-        }
-
-        .card img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-        }
-
-        /* Punto Secreto Administradora */
-        .secret-dot {
-            width: 10px;
-            height: 10px;
-            background: var(--crema);
-            margin: 40px auto;
-            border-radius: 50%;
-            cursor: pointer;
-        }
-    </style>
+    <title>LUSSON - Rubores</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
 
-    <header>
-        <h1>LUSSON</h1>
-        <p>Elegancia en cada detalle</p>
+    <nav class="navbar">
+        <div class="nav-top">
+            <a href="index.html" class="logo">LUSSON</a>
+            <div class="cart-icon" onclick="toggleCart()">
+                <i class="fa-solid fa-bag-shopping"></i>
+                <span id="cart-count">0</span>
+            </div>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="labiales.html">Labiales</a></li>
+            <li><a href="rubores.html" class="active">Rubores</a></li>
+            <li><a href="skincare.html">Skincare</a></li>
+            <li><a href="polvos.html">Polvos</a></li>
+        </ul>
+    </nav>
+
+    <header class="header">
+        <h1>Elegancia en cada detalle</h1>
     </header>
 
-    <main class="grid-productos" id="grid-productos">
-        <p style="grid-column: 1/-1; text-align:center;">Cargando colección...</p>
+    <main id="grid-productos" class="grid-productos">
+        <p class="loading">Cargando colección...</p>
     </main>
 
-    <footer>
-        <div class="secret-dot" onclick="modoJefa()"></div>
-        <p style="text-align:center; font-size:12px;">© 2026 LUSSON COLOMBIA</p>
+    <div id="cart-panel" class="cart-panel">
+        <div class="cart-header">
+            <h2>Tu Carrito</h2>
+            <i class="fa-solid fa-xmark" onclick="toggleCart()"></i>
+        </div>
+        <div id="cart-items" class="cart-items">
+            </div>
+        <div class="cart-footer">
+            <h3>Total: $<span id="cart-total">0</span></h3>
+            <button class="btn-checkout" onclick="enviarWhatsApp()">Finalizar Pedido</button>
+        </div>
+    </div>
+
+    <a href="https://wa.me/TUNUMERO" class="whatsapp-btn" target="_blank">
+        <i class="fa-brands fa-whatsapp"></i>
+    </a>
+
+    <footer class="footer">
+        <p>© 2026 LUSSON COLOMBIA</p>
+        <div class="secret-dot" onclick="location.href='admin.html'">.</div>
     </footer>
 
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
 
     <script>
-        // PEGA AQUÍ EL firebaseConfig QUE COPIASTE EN FIREBASE
+        // 1. CONFIGURACIÓN DE FIREBASE (PEGA TUS LLAVES AQUÍ)
         const firebaseConfig = {
   apiKey: "AIzaSyCMCFn8zuekM5rIh6Uq02zu_ypblsJonuo",
   authDomain: "lusson-web.firebaseapp.com",
@@ -110,33 +72,73 @@
         firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
 
-        // Función para cargar los rubores automáticamente
-        db.collection("lusso").onSnapshot((snapshot) => {
-            const grid = document.getElementById('grid-productos');
-            grid.innerHTML = '';
-            snapshot.forEach((doc) => {
-                const p = doc.data();
-                grid.innerHTML += `
-                    <div class="card">
-                        <img src="${p.img || 'https://via.placeholder.com/200'}">
-                        <div style="padding:15px;">
-                            <h3 style="font-size:0.9rem;">${p.nombre}</h3>
-                            <p style="color:var(--oro); font-weight:700;">$${p.precio}</p>
-                            <button style="background:black; color:white; border:none; padding:8px; width:100%; cursor:pointer;">AGREGAR</button>
-                        </div>
-                    </div>`;
-            });
-        });
+        // 2. LÓGICA DEL CARRITO
+        let carrito = [];
+        const grid = document.getElementById('grid-productos');
 
-        // Función de los 5 clics para el Admin
-        let clicks = 0;
-        function modoJefa() {
-            clicks++;
-            if(clicks === 5) {
-                window.location.href = "admin.html";
-            }
-            setTimeout(() => { clicks = 0; }, 3000);
+        function cargarProductos() {
+            db.collection("lusso").onSnapshot((snapshot) => {
+                grid.innerHTML = '';
+                snapshot.forEach((doc) => {
+                    const p = doc.data();
+                    grid.innerHTML += `
+                        <div class="producto-card">
+                            <img src="${p.img}" alt="${p.nombre}">
+                            <h3>${p.nombre}</h3>
+                            <p>$${p.precio}</p>
+                            <button onclick="agregarAlCarrito('${p.nombre}', ${p.precio}, '${p.img}')">
+                                AGREGAR <i class="fa-solid fa-cart-plus"></i>
+                            </button>
+                        </div>
+                    `;
+                });
+            });
         }
+
+        function agregarAlCarrito(nombre, precio, img) {
+            carrito.push({nombre, precio, img});
+            actualizarCarrito();
+            if(window.innerWidth > 768) toggleCart(true); 
+        }
+
+        function eliminarDelCarrito(index) {
+            carrito.splice(index, 1);
+            actualizarCarrito();
+        }
+
+        function actualizarCarrito() {
+            const itemsContainer = document.getElementById('cart-items');
+            const totalContainer = document.getElementById('cart-total');
+            const countContainer = document.getElementById('cart-count');
+            
+            itemsContainer.innerHTML = '';
+            let total = 0;
+
+            carrito.forEach((prod, index) => {
+                total += prod.precio;
+                itemsContainer.innerHTML += `
+                    <div class="cart-item">
+                        <img src="${prod.img}" width="50">
+                        <div>
+                            <h4>${prod.nombre}</h4>
+                            <p>$${prod.precio}</p>
+                        </div>
+                        <i class="fa-solid fa-trash" onclick="eliminarDelCarrito(${index})"></i>
+                    </div>
+                `;
+            });
+
+            totalContainer.innerText = total;
+            countContainer.innerText = carrito.length;
+        }
+
+        function toggleCart(forceOpen = false) {
+            const panel = document.getElementById('cart-panel');
+            if(forceOpen) panel.classList.add('open');
+            else panel.classList.toggle('open');
+        }
+
+        cargarProductos();
     </script>
 </body>
 </html>
