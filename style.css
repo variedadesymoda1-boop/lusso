@@ -1,193 +1,64 @@
-.admin-modal {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.8);
-    z-index: 2000;
-    align-items: center;
-    justify-content: center;
+/* Colores de Lusson */
+:root {
+    --oro: #bca07d;
+    --negro: #1a1a1a;
+    --crema: #fdfaf7;
+    --blanco: #ffffff;
 }
 
-.admin-modal-content {
-    background: var(--color-gray);
-    width: 90%;
-    max-width: 600px;
-    max-height: 80vh;
-    overflow-y: auto;
-    border-radius: var(--border-radius);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+body {
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    background: var(--blanco);
+    color: var(--negro);
 }
 
-.admin-modal-header {
-    padding: var(--spacing-md);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    position: sticky;
-    top: 0;
-    background: var(--color-gray);
-}
-
-.close-admin {
-    background: none;
-    border: none;
-    color: white;
-    font-size: 1.5rem;
-    cursor: pointer;
-}
-
-.login-form, .admin-panel {
-    padding: var(--spacing-md);
-}
-
-.error-message {
-    color: #ff4444;
-    margin-top: var(--spacing-sm);
+/* Header Elegante */
+header {
+    background: var(--crema);
+    padding: 20px;
     text-align: center;
+    border-bottom: 1px solid #eee;
 }
 
-.admin-tabs {
-    display: flex;
-    gap: var(--spacing-sm);
-    margin-bottom: var(--spacing-md);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    padding-bottom: var(--spacing-sm);
+header h1 {
+    font-family: 'Playfair Display', serif;
+    letter-spacing: 5px;
+    margin: 0;
 }
 
-.tab-btn {
-    background: none;
-    border: none;
-    color: rgba(255, 255, 255, 0.6);
-    padding: var(--spacing-sm) var(--spacing-md);
-    cursor: pointer;
-    transition: all 0.3s;
-    font-size: 1rem;
+/* Grid Adaptable (Celular: 1 o 2, PC: 4) */
+.grid-productos {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 15px;
+    padding: 20px;
 }
 
-.tab-btn.active {
-    color: var(--color-accent);
-    border-bottom: 2px solid var(--color-accent);
-}
-
-.tab-content {
-    display: none;
-}
-
-.tab-content.active {
-    display: block;
-}
-
-.image-preview {
-    margin-top: var(--spacing-sm);
-    text-align: center;
-}
-
-.preview-img {
-    max-width: 200px;
-    max-height: 200px;
-    border-radius: var(--border-radius-sm);
-}
-
-.admin-products-list {
-    max-height: 400px;
-    overflow-y: auto;
-}
-
-.admin-product-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: var(--spacing-sm);
-    background: var(--color-light-gray);
-    border-radius: var(--border-radius-sm);
-    margin-bottom: var(--spacing-xs);
-}
-
-.admin-product-info {
+/* Tarjeta de Producto */
+.card {
+    background: white;
+    border: 1px solid #f2f2f2;
+    border-radius: 10px;
+    overflow: hidden;
     display: flex;
     flex-direction: column;
 }
 
-.admin-product-info strong {
-    color: white;
-}
-
-.admin-product-info span {
-    color: rgba(255, 255, 255, 0.6);
-    font-size: 0.9rem;
-}
-
-.admin-product-actions {
-    display: flex;
-    gap: var(--spacing-xs);
-}
-
-.toast-container {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    z-index: 3000;
-}
-
-.toast {
-    padding: 1rem 1.5rem;
-    border-radius: var(--border-radius-sm);
-    margin-top: 0.5rem;
-    color: white;
-    animation: slideIn 0.3s;
-}
-
-.toast-success {
-    background: #28a745;
-}
-
-.toast-error {
-    background: #dc3545;
-}
-
-.toast-info {
-    background: var(--color-accent);
-}
-
-@keyframes slideIn {
-    from {
-        transform: translateX(100%);
-        opacity: 0;
-    }
-    to {
-        transform: translateX(0);
-        opacity: 1;
-    }
-}
-
-
-.product-img {
+.card img {
     width: 100%;
-    height: 100%;
+    height: 180px;
     object-fit: cover;
-    border-radius: 50%;
 }
 
-.product-image {
-    overflow: hidden;
+.info { padding: 10px; }
+
+/* Responsive para PC */
+@media (min-width: 1024px) {
+    .grid-productos {
+        grid-template-columns: repeat(4, 1fr);
+        max-width: 1200px;
+        margin: 0 auto;
+    }
 }
 
-.loading, .no-products, .error {
-    text-align: center;
-    padding: var(--spacing-xl);
-    color: rgba(255, 255, 255, 0.6);
-    grid-column: 1 / -1;
-}
-
-.error {
-    color: #ff4444;
-}
-
-.nav-menu a.active {
-    color: var(--color-accent);
-    border-bottom: 2px solid var(--color-accent);
-}
