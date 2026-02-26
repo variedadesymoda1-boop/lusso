@@ -1,4 +1,4 @@
-/* COLORES DE LUJO LUSSON */
+/* DISEÑO DE LUJO ADAPTABLE LUSSON */
 :root {
     --oro: #d4af37;
     --crema: #fdfaf5;
@@ -10,15 +10,14 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Playfair Display', serif; /* Letra elegante */
+    font-family: 'Playfair Display', serif;
 }
 
 body {
     background-color: var(--crema);
-    color: var(--negro);
 }
 
-/* MENÚ ADAPTABLE */
+/* NAVEGACIÓN Y MENÚ */
 .navbar {
     background: var(--blanco);
     padding: 15px 5%;
@@ -35,9 +34,9 @@ body {
 }
 
 .logo {
-    font-size: 28px;
+    font-size: 24px;
     font-weight: bold;
-    letter-spacing: 4px;
+    letter-spacing: 3px;
     text-decoration: none;
     color: var(--negro);
 }
@@ -47,36 +46,69 @@ body {
     justify-content: center;
     list-style: none;
     margin-top: 15px;
-    gap: 20px;
-    flex-wrap: wrap; /* Para que no se amontonen en tablets */
+    gap: 15px;
+    flex-wrap: wrap; /* Se adapta a celulares */
 }
 
 .nav-links a {
     text-decoration: none;
     color: var(--negro);
-    font-size: 14px;
+    font-size: 12px;
     text-transform: uppercase;
-    transition: 0.3s;
 }
 
-.nav-links a.active, .nav-links a:hover {
-    color: var(--oro);
-    border-bottom: 1px solid var(--oro);
+/* CARRITO FLOTANTE */
+.cart-icon {
+    position: relative;
+    cursor: pointer;
+    font-size: 20px;
 }
 
-/* CUADRÍCULA DE PRODUCTOS RESPONSIVA */
+#cart-count {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    background: var(--oro);
+    color: white;
+    font-size: 10px;
+    padding: 2px 6px;
+    border-radius: 50%;
+}
+
+/* PANEL DEL CARRITO (ARREGLA LA IMAGEN 1000059157.jpg) */
+.cart-panel {
+    position: fixed;
+    right: -100%;
+    top: 0;
+    width: 100%;
+    max-width: 400px;
+    height: 100%;
+    background: var(--blanco);
+    z-index: 2000;
+    transition: 0.4s;
+    padding: 20px;
+    box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+}
+
+.cart-panel.open {
+    right: 0;
+}
+
+/* CUADRÍCULA ADAPTABLE A CUALQUIER PANTALLA */
 .grid-productos {
     display: grid;
-    padding: 20px 5%;
+    padding: 20px;
     gap: 20px;
-    /* ESTO ES LO QUE ADAPTA EL TAMAÑO SOLO */
+    /* 1 columna en celular, 3 en tablet, 4 en PC */
     grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
 }
 
 @media (min-width: 768px) {
     .grid-productos {
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 30px;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        padding: 40px 10%;
     }
 }
 
@@ -84,105 +116,40 @@ body {
     background: var(--blanco);
     padding: 15px;
     text-align: center;
-    border-radius: 10px;
-    transition: transform 0.3s;
-}
-
-.producto-card:hover {
-    transform: translateY(-5px);
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
 }
 
 .producto-card img {
     width: 100%;
     aspect-ratio: 1/1;
     object-fit: cover;
-    border-radius: 5px;
-}
-
-.producto-card h3 {
-    font-size: 16px;
-    margin: 10px 0;
-}
-
-.producto-card p {
-    color: var(--oro);
-    font-weight: bold;
     margin-bottom: 10px;
 }
 
-.producto-card button {
+.btn-agregar {
     background: var(--negro);
-    color: var(--blanco);
+    color: white;
     border: none;
-    padding: 10px 15px;
+    padding: 10px;
     width: 100%;
     cursor: pointer;
-    font-size: 12px;
+    margin-top: 10px;
 }
 
-/* CARRITO LATERAL */
-.cart-panel {
-    position: fixed;
-    right: -100%; /* Escondido */
-    top: 0;
-    width: 100%; /* En celular ocupa todo */
-    height: 100%;
-    background: var(--blanco);
-    z-index: 2000;
-    transition: 0.5s;
-    padding: 20px;
-    box-shadow: -5px 0 15px rgba(0,0,0,0.1);
-}
-
-@media (min-width: 768px) {
-    .cart-panel {
-        width: 400px; /* En PC es más delgado */
-    }
-}
-
-.cart-panel.open {
-    right: 0;
-}
-
-.cart-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid #eee;
-    padding-bottom: 15px;
-}
-
-.cart-item {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    margin-top: 20px;
-}
-
-.cart-item img {
-    border-radius: 5px;
-}
-
-.cart-item i {
-    color: #ff4d4d;
-    cursor: pointer;
-}
-
-/* WHATSAPP FLOTANTE */
+/* BOTÓN WHATSAPP */
 .whatsapp-btn {
     position: fixed;
     bottom: 20px;
     right: 20px;
     background: #25d366;
     color: white;
-    width: 60px;
-    height: 60px;
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 30px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-    z-index: 1500;
     text-decoration: none;
+    z-index: 1500;
 }
