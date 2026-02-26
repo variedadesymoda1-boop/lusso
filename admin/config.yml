@@ -1,19 +1,1 @@
-backend:
-  name: git-gateway
-  branch: main
 
-media_folder: "assets/img"
-public_folder: "/assets/img"
-
-collections:
-  - name: "labiales"
-    label: "Mis Labiales"
-    folder: "_labiales"
-    create: true
-    slug: "{{slug}}"
-    fields:
-      - {label: "Nombre del Labial", name: "title", widget: "string"}
-      - {label: "Precio", name: "precio", widget: "string"}
-      - {label: "Imagen del Producto", name: "image", widget: "image"}
-      - {label: "Descripción Corta", name: "body", widget: "markdown"}
-      
