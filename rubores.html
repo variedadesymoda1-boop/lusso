@@ -39,7 +39,8 @@
     </nav>
 
     <div id="grid-productos" class="grid-productos">
-        </div>
+        <p style="grid-column: 1/-1; text-align: center; padding: 50px;">Cargando colección de lujo...</p>
+    </div>
 
     <div class="cart-panel" id="cartPanel">
         <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; padding-bottom: 15px;">
@@ -52,23 +53,21 @@
                 <span>TOTAL</span>
                 <span>$<span id="total-price">0</span></span>
             </div>
-            <button onclick="enviarPedido()" style="width: 100%; background: #25d366; color: white; border: none; padding: 15px; font-weight: 700; cursor: pointer;">PEDIR POR WHATSAPP</button>
+            <button onclick="enviarPedido()" style="width: 100%; background: #25d366; color: white; border: none; padding: 15px; font-weight: 700; cursor: pointer; border-radius: 5px;">PEDIR POR WHATSAPP</button>
         </div>
     </div>
 
-    <a href="https://wa.me/57TUNUMERO" class="wa-float" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
+    <a href="https://wa.me/573000000000" class="wa-float" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
 
     <footer class="footer">
-    <p>© 2026 LUSSON COLOMBIA - Alta Cosmética</p>
-    <span id="punto-secreto" style="display: inline-block; width: 30px; height: 30px; cursor: default; color: rgba(0,0,0,0.05); text-align: center;">.</span>
+        <p>© 2026 LUSSON COLOMBIA - Alta Cosmética<span id="punto-secreto" style="display: inline-block; width: 40px; height: 20px; color: rgba(0,0,0,0.01); cursor: default; margin-left: 5px;">.</span></p>
     </footer>
-    
 
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
 
     <script>
-        // PEGA TUS LLAVES AQUÍ
+        // 1. CONFIGURACIÓN DE FIREBASE
         const firebaseConfig = {
             apiKey: "AIzaSyCMCFn8zuekM5rIh6Uq02zu_ypblsJonuo",
             authDomain: "lusson-web.firebaseapp.com",
@@ -82,6 +81,7 @@
 
         let carrito = [];
 
+        // 2. FUNCIONES DE INTERFAZ
         function toggleMenu(show) {
             document.getElementById('menuOverlay').classList.toggle('active', show);
         }
@@ -90,6 +90,7 @@
             document.getElementById('cartPanel').classList.toggle('active', show);
         }
 
+        // 3. CARGAR PRODUCTOS DESDE FIREBASE (COLECCIÓN LUSSO)
         db.collection("lusso").onSnapshot((snapshot) => {
             const grid = document.getElementById('grid-productos');
             grid.innerHTML = '';
@@ -106,9 +107,11 @@
             });
         });
 
+        // 4. LÓGICA DEL CARRITO
         function agregarAlCarrito(nombre, precio) {
             carrito.push({nombre, precio});
             actualizarCarrito();
+            toggleCart(true);
         }
 
         function actualizarCarrito() {
@@ -119,12 +122,13 @@
             let total = 0;
             carrito.forEach((item, index) => {
                 total += item.precio;
-                container.innerHTML += `<div style="display:flex; justify-content:space-between; margin-bottom:10px; font-size:13px;">
-                    <span>${item.nombre}</span>
-                    <span>$${item.precio} <i class="fa-solid fa-trash" onclick="eliminar(${index})" style="color:#ff4d4d; margin-left:10px; cursor:pointer;"></i></span>
-                </div>`;
+                container.innerHTML += `
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px; font-size:13px; border-bottom:1px solid #f9f9f9; padding-bottom:5px;">
+                        <span>${item.nombre}</span>
+                        <span>$${item.precio} <i class="fa-solid fa-trash" onclick="eliminar(${index})" style="color:#ff4d4d; margin-left:10px; cursor:pointer;"></i></span>
+                    </div>`;
             });
-            totalE.innerText = total;
+            totalE.innerText = total.toLocaleString();
             countE.innerText = carrito.length;
         }
 
@@ -134,28 +138,32 @@
         }
 
         function enviarPedido() {
-            let texto = "Hola LUSSON, quiero pedir: \n";
+            if(carrito.length === 0) return alert("El carrito está vacío");
+            let texto = "Hola LUSSON, mi pedido es: \n";
             carrito.forEach(i => texto += `- ${i.nombre}: $${i.precio} \n`);
-            window.open(`https://wa.me/57TUNUMERO?text=${encodeURIComponent(texto)}`);
-        }
-                // ... aquí termina tu función enviarPedido() ...
+            window.open(`https://wa.me/573000000000?text=${encodeURIComponent(texto)}`);
         }
 
-        // --- AQUÍ PEGAS EL CÓDIGO NUEVO ---
+        // 5. TRUCO DE LOS 5 TOQUES (CON ÁREA DE CONTACTO MEJORADA)
         let toques = 0;
+        let timer;
         const punto = document.getElementById('punto-secreto');
 
         punto.addEventListener('click', function() {
             toques++;
+            clearTimeout(timer);
             if (toques === 5) {
                 window.location.href = "admin/index.html";
-                toques = 0; 
+                toques = 0;
             }
+            timer = setTimeout(() => { toques = 0; }, 3000);
         });
 
-        // Reinicia el contador si no tocas en 3 segundos
-        setInterval(() => { toques = 0; }, 3000);
-        
+        // CERRAR AL TOCAR FUERA
+        document.addEventListener('click', function(e) {
+            if (e.target.id === 'menuOverlay') toggleMenu(false);
+            if (e.target.id === 'cartPanel') toggleCart(false);
+        });
     </script>
 </body>
 </html>
