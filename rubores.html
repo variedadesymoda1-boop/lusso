@@ -138,6 +138,24 @@
             carrito.forEach(i => texto += `- ${i.nombre}: $${i.precio} \n`);
             window.open(`https://wa.me/57TUNUMERO?text=${encodeURIComponent(texto)}`);
         }
+                // ... aquí termina tu función enviarPedido() ...
+        }
+
+        // --- AQUÍ PEGAS EL CÓDIGO NUEVO ---
+        let toques = 0;
+        const punto = document.getElementById('punto-secreto');
+
+        punto.addEventListener('click', function() {
+            toques++;
+            if (toques === 5) {
+                window.location.href = "admin/index.html";
+                toques = 0; 
+            }
+        });
+
+        // Reinicia el contador si no tocas en 3 segundos
+        setInterval(() => { toques = 0; }, 3000);
+        
     </script>
 </body>
 </html>
