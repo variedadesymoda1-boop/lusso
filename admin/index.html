@@ -3,53 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LUSSON - Panel de Control Seguro</title>
+    <title>LUSSON - Panel Seguro</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
     <style>
-        body { background: #fdfaf5; font-family: 'Inter', sans-serif; display: flex; align-items: center; justify-content: center; min-height: 100vh; margin: 0; }
-        .box { background: white; padding: 40px; border-radius: 12px; box-shadow: 0 15px 35px rgba(0,0,0,0.1); width: 100%; max-width: 450px; }
+        body { background: #fdfaf5; font-family: 'Inter', sans-serif; display: flex; align-items: center; justify-content: center; min-height: 100vh; margin: 0; flex-direction: column; }
+        .box { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); width: 90%; max-width: 400px; }
         .hidden { display: none; }
         input, select { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 6px; box-sizing: border-box; }
-        button { width: 100%; padding: 14px; background: #1a1a1a; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: 600; margin-top: 15px; transition: 0.3s; }
-        button:hover { background: #c5a059; }
-        .product-item { border-bottom: 1px solid #eee; padding: 10px 0; display: flex; justify-content: space-between; align-items: center; }
-        .btn-logout { background: #757575; width: auto; padding: 5px 15px; margin: 0; }
+        button { width: 100%; padding: 14px; background: #1a1a1a; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: 600; margin-top: 10px; }
+        .btn-logout { background: #757575; width: auto; padding: 5px 15px; margin-bottom: 20px; }
     </style>
 </head>
 <body>
 
     <div id="login-section" class="box">
         <h2 style="text-align:center; font-family:'Playfair Display';">Acceso Privado</h2>
-        <p style="text-align:center; color: #757575; font-size: 14px;">Solo personal autorizado de LUSSON</p>
         <input type="email" id="email" placeholder="Correo electrónico">
         <input type="password" id="password" placeholder="Contraseña">
-        <button onclick="login()">ENTRAR AL PANEL</button>
+        <button onclick="login()">ENTRAR CON MI LLAVE</button>
     </div>
 
     <div id="admin-section" class="box hidden">
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 20px;">
-            <h2 style="font-family:'Playfair Display'; margin:0;">Gestión</h2>
-            <button class="btn-logout" onclick="logout()">Salir</button>
+        <div style="display:flex; justify-content:space-between;">
+            <button class="btn-logout" onclick="logout()">Cerrar Sesión</button>
+            <a href="../rubores.html" style="font-size: 12px; color: #c5a059; text-decoration: none;">VER TIENDA</a>
         </div>
+        <h2 style="font-family:'Playfair Display'; margin-bottom: 20px;">Gestionar Productos</h2>
         
-        <label style="font-size:12px; font-weight:600;">NUEVO PRODUCTO</label>
-        <input type="text" id="nombre" placeholder="Nombre (Ej: Labial Matte)">
-        <input type="number" id="precio" placeholder="Precio (Ej: 25000)">
-        <input type="text" id="img" placeholder="URL de la imagen (Postimg)">
+        <input type="text" id="nombre" placeholder="Nombre del Producto">
+        <input type="number" id="precio" placeholder="Precio">
+        <input type="text" id="img" placeholder="URL Imagen (Postimg)">
         
-        <label style="font-size:12px; font-weight:600;">COLECCIÓN</label>
         <select id="coleccion">
             <option value="lusso">Rubores</option>
             <option value="labiales">Labiales</option>
-            <option value="skincare">Skincare</option>
         </select>
         
-        <button onclick="guardarCambios()" style="background:#c5a059;">GUARDAR EN FIREBASE</button>
-
-        <div style="margin-top: 30px;">
-            <h4 style="border-bottom: 1px solid #eee; padding-bottom: 5px;">Inventario Actual:</h4>
-            <div id="lista-inventario"></div>
-        </div>
+        <button onclick="guardarProducto()" style="background:#c5a059;">GUARDAR CAMBIOS EN FIREBASE</button>
     </div>
 
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
@@ -57,7 +47,6 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
 
     <script>
-        // CONFIGURACIÓN (Usa tus llaves de la imagen 1000059142)
         const firebaseConfig = {
             apiKey: "AIzaSyCMCFn8zuekM5rIh6Uq02zu_ypblsJonuo",
             authDomain: "lusson-web.firebaseapp.com",
@@ -70,60 +59,36 @@
         const auth = firebase.auth();
         const db = firebase.firestore();
 
-        // FUNCIÓN PARA ENTRAR
+        // Lógica de seguridad
         function login() {
             const email = document.getElementById('email').value;
             const pass = document.getElementById('password').value;
             auth.signInWithEmailAndPassword(email, pass)
-                .catch(error => alert("Acceso fallido: Verifica tus datos."));
+                .catch(error => alert("Clave o correo incorrectos"));
         }
 
-        // CONTROL DE SESIÓN
         auth.onAuthStateChanged(user => {
             if (user) {
                 document.getElementById('login-section').classList.add('hidden');
                 document.getElementById('admin-section').classList.remove('hidden');
-                actualizarLista();
             } else {
                 document.getElementById('login-section').classList.remove('hidden');
                 document.getElementById('admin-section').classList.add('hidden');
             }
         });
 
-        // GUARDAR CAMBIOS Y VOLVER A LA TIENDA
-        function guardarCambios() {
+        function guardarProducto() {
             const nombre = document.getElementById('nombre').value;
             const precio = Number(document.getElementById('precio').value);
             const img = document.getElementById('img').value;
             const col = document.getElementById('coleccion').value;
 
-            if(!nombre || !precio || !img) return alert("Llena todos los campos.");
+            if(!nombre || !precio || !img) return alert("Llena todos los campos");
 
             db.collection(col).add({ nombre, precio, img }).then(() => {
-                alert("Cambios guardados con éxito.");
-                window.location.href = "../rubores.html"; // Vuelve a ver los cambios
+                alert("¡Producto guardado! Los cambios ya están en tu tienda.");
+                window.location.href = "../rubores.html";
             });
-        }
-
-        // LISTAR Y ELIMINAR
-        function actualizarLista() {
-            db.collection("lusso").onSnapshot(snap => {
-                const div = document.getElementById('lista-inventario');
-                div.innerHTML = '';
-                snap.forEach(doc => {
-                    div.innerHTML += `
-                        <div class="product-item">
-                            <span style="font-size:14px;">${doc.data().nombre}</span>
-                            <button onclick="eliminar('${doc.id}')" style="width:auto; padding:3px 8px; background:#ff4d4d; font-size:11px;">Borrar</button>
-                        </div>`;
-                });
-            });
-        }
-
-        function eliminar(id) {
-            if(confirm("¿Eliminar este producto permanentemente?")) {
-                db.collection("lusso").doc(id).delete();
-            }
         }
 
         function logout() { auth.signOut(); }
