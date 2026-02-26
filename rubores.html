@@ -1,108 +1,41 @@
-/* DISEÑO DE LUJO - LUSSON */
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@300;400;600&display=swap');
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lusson - Rubores</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
 
-:root {
-    --oro: #bca07d;
-    --negro: #1a1a1a;
-    --crema: #fdfaf7;
-    --blanco: #ffffff;
-}
+    <header>
+        <h1>LUSSON</h1>
+        <p>Elegancia en cada detalle</p>
+        <button onclick="abrirCarrito()" style="background:none; border:1px solid var(--oro); padding:5px 15px; cursor:pointer;">🛒 CARRITO (<span id="count">0</span>)</button>
+    </header>
 
-body {
-    font-family: 'Montserrat', sans-serif;
-    margin: 0;
-    background-color: var(--blanco);
-    color: var(--negro);
-}
+    <main id="lista" class="grid-productos">
+        </main>
 
-header {
-    background-color: var(--crema);
-    padding: 40px 20px;
-    text-align: center;
-    border-bottom: 1px solid #eee;
-}
+    <div id="modal" class="modal-carrito">
+        <div class="carrito-header">
+            <h3>MI CARRITO</h3>
+            <button onclick="abrirCarrito()" style="border:none; background:none; font-size:25px; cursor:pointer;">&times;</button>
+        </div>
+        <div id="items" style="flex:1; overflow-y:auto; padding:20px;"></div>
+        <div style="padding:20px; border-top:1px solid #eee;">
+            <h4>Total: <span id="total">$0</span></h4>
+            <button onclick="pedir()" style="width:100%; padding:15px; background:black; color:white; border:none; cursor:pointer; font-weight:600;">COMPRAR POR WHATSAPP</button>
+        </div>
+    </div>
 
-header h1 {
-    font-family: 'Playfair Display', serif;
-    letter-spacing: 5px;
-    font-size: 2.5rem;
-    margin: 0;
-}
+    <a href="https://wa.me/TUNUMERO" class="wa-float" target="_blank">WP</a>
 
-/* El Grid que arregla los productos */
-.grid-productos {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-    gap: 20px;
-    padding: 40px 20px;
-    max-width: 1200px;
-    margin: 0 auto;
-}
+    <footer>
+        <div class="secret-dot" onclick="modoJefa()"></div>
+        <p align="center">© 2026 LUSSON COLOMBIA</p>
+    </footer>
 
-/* Tarjetas de Producto Elegantes */
-.card {
-    background: white;
-    border-radius: 15px;
-    overflow: hidden;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.03);
-    border: 1px solid #f9f9f9;
-    transition: 0.3s;
-}
-
-.card:hover { transform: translateY(-5px); }
-
-.card img { width: 100%; height: 200px; object-fit: cover; }
-
-.info { padding: 15px; text-align: center; }
-
-/* CARRITO LATERAL (SIDE-CART) */
-.modal-carrito {
-    position: fixed;
-    right: -100%; /* Escondido */
-    top: 0;
-    width: 100%;
-    max-width: 350px;
-    height: 100%;
-    background: white;
-    box-shadow: -10px 0 30px rgba(0,0,0,0.1);
-    transition: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-    z-index: 9999;
-    display: flex;
-    flex-direction: column;
-}
-
-.modal-carrito.active { right: 0; } /* Se muestra */
-
-.carrito-header {
-    padding: 20px;
-    background: var(--crema);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-/* BOTÓN WHATSAPP FLOTANTE */
-.wa-float {
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    background: #25d366;
-    color: white;
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-    z-index: 100;
-}
-
-.secret-dot {
-    width: 10px; height: 10px;
-    background: var(--crema);
-    margin: 40px auto;
-    border-radius: 50%;
-    cursor: pointer;
-}
-
+    <script src="script.js"></script>
+</body>
+</html>
