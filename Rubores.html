@@ -1,1 +1,32 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lusson - Rubores</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>LUSSON</h1>
+        <p>Elegancia en cada detalle</p>
+    </header>
 
+    <div id="admin-login">
+        <input type="email" id="email" placeholder="Correo">
+        <input type="password" id="password" placeholder="Contraseña">
+        <button onclick="login()">Entrar como Admin</button>
+    </div>
+
+    <main id="productos-container" class="grid-productos">
+        </main>
+
+    <section id="form-admin" style="display:none;">
+        <h3>Administrar Producto</h3>
+        <input type="text" id="nombre" placeholder="Nombre del Rubor">
+        <input type="number" id="precio" placeholder="Precio">
+        <input type="text" id="img-url" placeholder="URL de la imagen">
+        <button onclick="guardarProducto()">Guardar Cambios</button>
+    </section>
+</body>
+</html>
