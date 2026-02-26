@@ -1,32 +1,34 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lusson - Rubores</title>
-    <link rel="stylesheet" href="style.css">
-</head>
 <body>
     <header>
         <h1>LUSSON</h1>
         <p>Elegancia en cada detalle</p>
     </header>
 
-    <div id="admin-login">
-        <input type="email" id="email" placeholder="Correo">
-        <input type="password" id="password" placeholder="Contraseña">
-        <button onclick="login()">Entrar como Admin</button>
-    </div>
-
     <main id="productos-container" class="grid-productos">
         </main>
 
-    <section id="form-admin" style="display:none;">
-        <h3>Administrar Producto</h3>
-        <input type="text" id="nombre" placeholder="Nombre del Rubor">
-        <input type="number" id="precio" placeholder="Precio">
-        <input type="text" id="img-url" placeholder="URL de la imagen">
-        <button onclick="guardarProducto()">Guardar Cambios</button>
-    </section>
+    <div id="modal-carrito" class="modal-carrito">
+        <div class="carrito-header">
+            <h3>TU CARRITO</h3>
+            <button onclick="toggleCarrito()" style="border:none; background:none; font-size:20px;">&times;</button>
+        </div>
+        <div id="items-carrito" style="flex:1; overflow-y:auto; padding:20px;"></div>
+        <div style="padding:20px; border-top:1px solid #eee;">
+            <h4>Total: <span id="total-precio">$0</span></h4>
+            <button onclick="enviarWhatsApp()" style="width:100%; padding:15px; background:var(--negro); color:white; border:none; cursor:pointer;">COMPRAR POR WHATSAPP</button>
+        </div>
+    </div>
+
+    <a href="https://wa.me/TUNUMERO" class="wa-float" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <footer>
+        <div class="admin-dot" onclick="clickAdmin()"></div>
+        <p>&copy; 2026 LUSSON COLOMBIA</p>
+    </footer>
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    <script src="script.js"></script>
 </body>
-</html>
