@@ -1,130 +1,94 @@
-/* FUENTES Y VARIABLES */
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@300;400;600&display=swap');
+/* DISEÑO PROFESIONAL LUSSON */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@300;400&display=swap');
 
 :root {
     --oro: #bca07d;
     --negro: #1a1a1a;
     --crema: #fdfaf7;
-    --blanco: #ffffff;
-    --rosa-suave: #fff0f3;
+    --rosa-floral: #fff0f3;
 }
 
 body {
     font-family: 'Montserrat', sans-serif;
     margin: 0;
-    background: var(--blanco);
+    background-color: white;
     color: var(--negro);
-    overflow-x: hidden;
 }
 
-/* HEADER */
+/* Header de Alta Gama */
 header {
-    background: var(--blanco);
-    padding: 30px 20px;
+    background: var(--crema);
+    padding: 40px 20px;
     text-align: center;
-    border-bottom: 1px solid var(--rosa-suave);
+    border-bottom: 1px solid var(--rosa-floral);
 }
 
 header h1 {
     font-family: 'Playfair Display', serif;
-    letter-spacing: 6px;
+    letter-spacing: 5px;
+    text-transform: uppercase;
     margin: 0;
-    font-size: 2.5rem;
 }
 
-/* GRID DE PRODUCTOS RESPONSIVO */
+/* El Grid que acomoda los productos (Adaptable a celular) */
 .grid-productos {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
     gap: 20px;
-    padding: 20px;
+    padding: 30px 15px;
     max-width: 1200px;
     margin: 0 auto;
 }
 
-@media (min-width: 1024px) {
-    .grid-productos { grid-template-columns: repeat(4, 1fr); }
-}
-
-/* TARJETA DE PRODUCTO */
+/* Tarjetas de Maquillaje */
 .card {
     background: white;
-    border-radius: 15px;
+    border: 1px solid var(--rosa-floral);
+    border-radius: 12px;
     overflow: hidden;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.03);
-    transition: 0.3s;
-    border: 1px solid var(--rosa-suave);
+    text-align: center;
+    padding-bottom: 15px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.02);
 }
-
-.card:hover { transform: translateY(-5px); }
 
 .card img {
     width: 100%;
-    height: 200px;
+    height: 180px;
     object-fit: cover;
 }
 
-.info { padding: 15px; text-align: center; }
-
-.precio {
-    color: var(--oro);
-    font-weight: 600;
-    display: block;
-    margin: 10px 0;
-}
-
-/* CARRITO LATERAL */
+/* Carrito Lateral Elegante (Oculto al inicio) */
 .modal-carrito {
     position: fixed;
-    right: -100%;
+    right: -100%; /* Escondido a la derecha */
     top: 0;
-    width: 100%;
-    max-width: 400px;
+    width: 300px;
     height: 100%;
     background: white;
-    box-shadow: -5px 0 20px rgba(0,0,0,0.1);
-    transition: 0.4s;
+    box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+    transition: 0.5s;
     z-index: 1000;
-    display: flex;
-    flex-direction: column;
-}
-
-.modal-carrito.active { right: 0; }
-
-.carrito-header {
     padding: 20px;
-    background: var(--crema);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
 }
 
-/* ICONO WHATSAPP FLOTANTE */
+.modal-carrito.active {
+    right: 0; /* Se muestra al activarse */
+}
+
+/* Icono WhatsApp Flotante */
 .wa-float {
     position: fixed;
-    bottom: 25px;
-    right: 25px;
+    bottom: 20px;
+    right: 20px;
     background: #25d366;
     color: white;
-    width: 60px;
-    height: 60px;
+    width: 55px;
+    height: 55px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 30px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-    z-index: 99;
     text-decoration: none;
-}
-
-/* PUNTO OCULTO PARA ADMIN */
-.admin-dot {
-    width: 10px;
-    height: 10px;
-    background: var(--crema);
-    border-radius: 50%;
-    margin: 20px auto;
-    cursor: pointer;
-    opacity: 0.3;
+    font-size: 25px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
 }
