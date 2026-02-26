@@ -100,19 +100,18 @@
     <script>
         // PEGA AQUÍ EL firebaseConfig QUE COPIASTE EN FIREBASE
         const firebaseConfig = {
-            apiKey: "TU_API_KEY",
-            authDomain: "lusson-web.firebaseapp.com",
-            projectId: "lusson-web",
-            storageBucket: "lusson-web.appspot.com",
-            messagingSenderId: "12345",
-            appId: "1:12345:web:6789"
-        };
-        
+  apiKey: "AIzaSyCMCFn8zuekM5rIh6Uq02zu_ypblsJonuo",
+  authDomain: "lusson-web.firebaseapp.com",
+  projectId: "lusson-web",
+  storageBucket: "lusson-web.firebasestorage.app",
+  messagingSenderId: "445073966036",
+  appId: "1:445073966036:web:f6c56d465f68ace86a4c41"
+};
         firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
 
         // Función para cargar los rubores automáticamente
-        db.collection("rubores").onSnapshot((snapshot) => {
+        db.collection("lusso").onSnapshot((snapshot) => {
             const grid = document.getElementById('grid-productos');
             grid.innerHTML = '';
             snapshot.forEach((doc) => {
