@@ -1,68 +1,107 @@
-let cart = [];
-let clickCount = 0;
+/* DISEÑO DE LUJO - LUSSON */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@300;400;600&display=swap');
 
-// 1. EL PUNTO SECRETO (Admin)
-function modoJefa() {
-    clickCount++;
-    if (clickCount === 5) {
-        let pass = prompt("Acceso exclusivo. Digita tu clave:");
-        if (pass === "1234") { // Cambia esto por tu clave real
-            window.location.href = "admin.html";
-        }
-        clickCount = 0;
-    }
-    setTimeout(() => { clickCount = 0; }, 3000);
+:root {
+    --oro: #bca07d;
+    --negro: #1a1a1a;
+    --crema: #fdfaf7;
+    --blanco: #ffffff;
 }
 
-// 2. ABRIR/CERRAR CARRITO
-function toggleCart() {
-    document.getElementById('modal-cart').classList.toggle('active');
+body {
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    background-color: var(--blanco);
+    color: var(--negro);
 }
 
-// 3. LOGICA DE COMPRA
-function agregar(nombre, precio) {
-    cart.push({nombre, precio});
-    actualizarCarrito();
-    // Abrir carrito automáticamente al agregar
-    document.getElementById('modal-cart').classList.add('active');
+header {
+    background-color: var(--crema);
+    padding: 40px 20px;
+    text-align: center;
+    border-bottom: 1px solid #eee;
 }
 
-function actualizarCarrito() {
-    const lista = document.getElementById('cart-items');
-    const totalLabel = document.getElementById('cart-total');
-    const countLabel = document.getElementById('cart-count');
-    
-    lista.innerHTML = '';
-    let total = 0;
-
-    cart.forEach((item, index) => {
-        total += item.precio;
-        lista.innerHTML += `
-            <div style="display:flex; justify-content:space-between; padding:10px; border-bottom:1px solid #eee;">
-                <span>${item.nombre}</span>
-                <span>$${item.precio} <button onclick="eliminar(${index})" style="color:red; border:none; background:none; cursor:pointer;">&times;</button></span>
-            </div>
-        `;
-    });
-
-    totalLabel.innerText = '$' + total;
-    countLabel.innerText = cart.length;
-    feather.replace();
+header h1 {
+    font-family: 'Playfair Display', serif;
+    letter-spacing: 5px;
+    font-size: 2.5rem;
+    margin: 0;
 }
 
-function eliminar(index) {
-    cart.splice(index, 1);
-    actualizarCarrito();
+/* El Grid que arregla los productos */
+.grid-productos {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 20px;
+    padding: 40px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
-function comprarWhatsApp() {
-    if (cart.length === 0) return alert("El carrito está vacío");
-    let msg = "¡Hola Lusson! ✨ Quisiera pedir:\n";
-    cart.forEach(i => msg += `- ${i.nombre} ($${i.precio})\n`);
-    msg += `Total: ${document.getElementById('cart-total').innerText}`;
-    window.open(`https://wa.me/TUNUMERO?text=${encodeURIComponent(msg)}`);
+/* Tarjetas de Producto Elegantes */
+.card {
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+    border: 1px solid #f9f9f9;
+    transition: 0.3s;
 }
 
-// Reemplazar iconos al cargar
-feather.replace();
-    
+.card:hover { transform: translateY(-5px); }
+
+.card img { width: 100%; height: 200px; object-fit: cover; }
+
+.info { padding: 15px; text-align: center; }
+
+/* CARRITO LATERAL (SIDE-CART) */
+.modal-carrito {
+    position: fixed;
+    right: -100%; /* Escondido */
+    top: 0;
+    width: 100%;
+    max-width: 350px;
+    height: 100%;
+    background: white;
+    box-shadow: -10px 0 30px rgba(0,0,0,0.1);
+    transition: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+}
+
+.modal-carrito.active { right: 0; } /* Se muestra */
+
+.carrito-header {
+    padding: 20px;
+    background: var(--crema);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* BOTÓN WHATSAPP FLOTANTE */
+.wa-float {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background: #25d366;
+    color: white;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    z-index: 100;
+}
+
+.secret-dot {
+    width: 10px; height: 10px;
+    background: var(--crema);
+    margin: 40px auto;
+    border-radius: 50%;
+    cursor: pointer;
+}
