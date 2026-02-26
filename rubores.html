@@ -3,73 +3,72 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LUSSON - Rubores</title>
+    <title>LUSSON - Alta Cosmética</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <nav class="navbar">
-        <div class="nav-left">
-            <i class="fa-solid fa-bars menu-icon" onclick="toggleMenu(true)"></i>
-            <a href="index.html" class="logo">LUSSON</a>
+    <div class="menu-overlay" id="menuOverlay" onclick="toggleMenu(false)">
+        <div class="side-menu" onclick="event.stopPropagation()">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <span style="letter-spacing: 2px; font-weight: 700;">MENÚ</span>
+                <i class="fa-solid fa-xmark" onclick="toggleMenu(false)" style="cursor: pointer;"></i>
+            </div>
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="rubores.html">Rubores</a></li>
+                <li><a href="labiales.html">Labiales</a></li>
+                <li><a href="polvos.html">Polvos</a></li>
+                <li><a href="bases.html">Bases y Correctores</a></li>
+                <li><a href="skincare.html">Skincare</a></li>
+            </ul>
         </div>
-        <div class="cart-icon" onclick="toggleCart(true)">
-            <i class="fa-solid fa-bag-shopping"></i>
-            <span id="cart-count">0</span>
+    </div>
+
+    <nav class="navbar">
+        <i class="fa-solid fa-bars" onclick="toggleMenu(true)" style="cursor: pointer; font-size: 20px;"></i>
+        <a href="index.html" class="logo">LUSSON</a>
+        <div class="nav-icons">
+            <div style="position: relative; cursor: pointer;" onclick="toggleCart(true)">
+                <i class="fa-solid fa-bag-shopping"></i>
+                <span id="cart-count" style="position: absolute; top: -8px; right: -8px; background: #c5a059; color: white; font-size: 9px; padding: 2px 5px; border-radius: 50%;">0</span>
+            </div>
         </div>
     </nav>
 
-    <div id="nav-menu" class="nav-menu">
-        <div class="menu-header">
-            <h2>Menú</h2>
-            <i class="fa-solid fa-xmark" style="cursor: pointer;" onclick="toggleMenu(false)"></i>
+    <div id="grid-productos" class="grid-productos">
         </div>
-        <ul class="menu-links">
-            <li><a href="index.html">Inicio</a></li>
-            <li><a href="rubores.html" class="active">Rubores</a></li>
-            <li><a href="labiales.html">Labiales</a></li>
-            <li><a href="polvos.html">Polvos</a></li>
-            <li><a href="bases.html">Bases y Correctores</a></li>
-        </ul>
-    </div>
 
-    <main id="grid-productos" class="grid-productos">
-        <p style="grid-column: 1/-1; text-align: center; padding: 20px;">Cargando colección...</p>
-    </main>
-
-    <div id="cart-panel" class="cart-panel">
-        <div class="cart-header">
-            <h2>Mi Bolsa</h2>
-            <i class="fa-solid fa-xmark" style="cursor: pointer;" onclick="toggleCart(false)"></i>
+    <div class="cart-panel" id="cartPanel">
+        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; padding-bottom: 15px;">
+            <h2 style="font-size: 16px; letter-spacing: 2px;">MI BOLSA</h2>
+            <i class="fa-solid fa-xmark" onclick="toggleCart(false)" style="cursor: pointer;"></i>
         </div>
-        <div id="cart-items" class="cart-items">
+        <div id="cart-items" style="margin-top: 20px; flex-grow: 1; overflow-y: auto;"></div>
+        <div style="border-top: 1px solid #eee; padding-top: 15px; margin-top: 20px;">
+            <div style="display: flex; justify-content: space-between; font-weight: 700; margin-bottom: 20px;">
+                <span>TOTAL</span>
+                <span>$<span id="total-price">0</span></span>
             </div>
-        <div class="cart-footer">
-            <div style="display: flex; justify-content: space-between; margin-bottom: 15px; font-weight: bold;">
-                <span>Total:</span>
-                <span>$<span id="cart-total-price">0</span></span>
-            </div>
-            <button class="btn-checkout" onclick="finalizarPedido()">Finalizar por WhatsApp <i class="fa-brands fa-whatsapp"></i></button>
+            <button onclick="enviarPedido()" style="width: 100%; background: #25d366; color: white; border: none; padding: 15px; font-weight: 700; cursor: pointer;">PEDIR POR WHATSAPP</button>
         </div>
     </div>
 
-    <a href="https://wa.me/TUNUMERO_WHATSAPP" class="whatsapp-btn" target="_blank" title="Escríbenos">
-        <i class="fa-brands fa-whatsapp"></i>
-    </a>
+    <a href="https://wa.me/57TUNUMERO" class="wa-float" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
 
     <footer class="footer">
-        <p>© 2026 LUSSON COLOMBIA - Alta Cosmética</p>
+        <p>© 2026 LUSSON COLOMBIA - ALTA COSMÉTICA</p>
     </footer>
 
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
 
     <script>
-        // 1. CONFIGURACIÓN DE FIREBASE (PEGA TUS LLAVES AQUÍ)
+        // PEGA TUS LLAVES AQUÍ
         const firebaseConfig = {
-            apiKey: "PEGA_AQUÍ_TU_API_KEY_DE_LA_IMAGEN_1000059140.JPG",
+            apiKey: "AIzaSyCMCFn8zuekM5rIh6Uq02zu_ypblsJonuo",
             authDomain: "lusson-web.firebaseapp.com",
             projectId: "lusson-web",
             storageBucket: "lusson-web.firebasestorage.app",
@@ -79,136 +78,64 @@
         firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
 
-        // 2. LÓGICA DE LA PÁGINA Y EL CARRITO
         let carrito = [];
-        const grid = document.getElementById('grid-productos');
 
-        // Función para cargar productos desde Firebase (colección 'lusso')
-        function cargarProductos() {
-            db.collection("lusso").onSnapshot((snapshot) => {
-                grid.innerHTML = ''; // Limpiar cuadrícula
-                snapshot.forEach((doc) => {
-                    const p = doc.data();
-                    // Crear tarjeta de producto ordenada
-                    grid.innerHTML += `
-                        <div class="producto-card">
-                            <img src="${p.img}" alt="${p.nombre}">
-                            <div>
-                                <h3 style="font-size: 14px;">${p.nombre}</h3>
-                                <p style="color: #d4af37; font-weight: bold;">$${p.precio}</p>
-                            </div>
-                            <button class="btn-agregar" onclick="agregarAlCarrito('${p.nombre}', ${p.precio}, '${p.img}')">
-                                AGREGAR <i class="fa-solid fa-cart-plus"></i>
-                            </button>
-                        </div>
-                    `;
-                });
-            });
+        function toggleMenu(show) {
+            document.getElementById('menuOverlay').classList.toggle('active', show);
         }
 
-        // Función para agregar productos a la bolsa
-        function agregarAlCarrito(nombre, precio, img) {
-            carrito.push({nombre, precio, img});
-            actualizarCarrito();
+        function toggleCart(show) {
+            document.getElementById('cartPanel').classList.toggle('active', show);
         }
 
-        // Función para eliminar productos de la bolsa
-        function eliminarDelCarrito(index) {
-            carrito.splice(index, 1);
-            actualizarCarrito();
-        }
-
-        // Función para actualizar visualmente el carrito
-        function actualizarCarrito() {
-            const itemsContainer = document.getElementById('cart-items');
-            const totalContainer = document.getElementById('cart-total-price');
-            const countContainer = document.getElementById('cart-count');
-            
-            itemsContainer.innerHTML = '';
-            let total = 0;
-
-            carrito.forEach((prod, index) => {
-                total += prod.precio;
-                // Crear ítem de carrito con miniatura
-                itemsContainer.innerHTML += `
-                    <div class="cart-item">
-                        <img src="${prod.img}" alt="${prod.nombre}" style="width: 50px; height: 50px; object-fit: cover; border-radius: 4px;">
-                        <div style="flex: 1;">
-                            <h4 style="font-size: 14px; font-weight: normal;">${prod.nombre}</h4>
-                            <p style="color: #d4af37; font-weight: bold; font-size: 13px;">$${prod.precio}</p>
-                        </div>
-                        <i class="fa-solid fa-trash btn-eliminar" style="color: #ff4d4d; cursor: pointer;" onclick="eliminarDelCarrito(${index})"></i>
+        db.collection("lusso").onSnapshot((snapshot) => {
+            const grid = document.getElementById('grid-productos');
+            grid.innerHTML = '';
+            snapshot.forEach((doc) => {
+                const p = doc.data();
+                grid.innerHTML += `
+                    <div class="card">
+                        <img src="${p.img}" alt="${p.nombre}">
+                        <h3>${p.nombre}</h3>
+                        <p>$${p.precio}</p>
+                        <button class="btn-add" onclick="agregarAlCarrito('${p.nombre}', ${p.precio})">AGREGAR</button>
                     </div>
                 `;
             });
-
-            totalContainer.innerText = total.toLocaleString('es-CO'); // Formato de precio colombiano
-            countContainer.innerText = carrito.length;
-        }
-
-        // Función para abrir/cerrar el panel del menú deslizable
-        function toggleMenu(abrir) {
-            const panel = document.getElementById('nav-menu');
-            if(abrir) panel.classList.add('open');
-            else panel.classList.remove('open');
-        }
-
-        // Función para abrir/cerrar el panel del carrito (Efecto deslizable)
-        function toggleCart(abrir) {
-            const panel = document.getElementById('cart-panel');
-            if(abrir) panel.classList.add('open');
-            else panel.classList.remove('open');
-        }
-
-        // Función para enviar el pedido por WhatsApp
-        function finalizarPedido() {
-            if (carrito.length === 0) {
-                alert("Tu bolsa está vacía.");
-                return;
-            }
-            
-            let mensaje = "Hola LUSSON! Me gustaría hacer un pedido:\n\n";
-            let total = 0;
-            
-            carrito.forEach((prod, index) => {
-                mensaje += `${index + 1}. ${prod.nombre} - $${prod.precio.toLocaleString('es-CO')}\n`;
-                total += prod.precio;
-            });
-            
-            mensaje += `\n*Total:* $${total.toLocaleString('es-CO')}\n`;
-            mensaje += "\n¿Cuál es el siguiente paso?";
-            
-            const numeroWhatsApp = "57TUNUMERO_AQUI"; 
-            const url = `https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(mensaje)}`;
-            window.open(url, '_blank');
-        }
-
-        // --- CERRAR AL TOCAR FUERA ---
-        // Escuchamos los clics en todo el documento
-        document.addEventListener('click', function(event) {
-            const navMenu = document.getElementById('nav-menu');
-            const cartPanel = document.getElementById('cart-panel');
-            const menuIcon = document.querySelector('.menu-icon');
-            const cartIcon = document.querySelector('.cart-icon');
-
-            // Si el menú está abierto y tocamos fuera de él y de su icono, lo cerramos
-            if (navMenu.classList.contains('open') && 
-                !navMenu.contains(event.target) && 
-                !menuIcon.contains(event.target)) {
-                toggleMenu(false);
-            }
-
-            // Si el carrito está abierto y tocamos fuera de él y de su icono, lo cerramos
-            if (cartPanel.classList.contains('open') && 
-                !cartPanel.contains(event.target) && 
-                !cartIcon.contains(event.target)) {
-                toggleCart(false);
-            }
         });
 
-        // Iniciar la carga de productos
-        cargarProductos();
+        function agregarAlCarrito(nombre, precio) {
+            carrito.push({nombre, precio});
+            actualizarCarrito();
+        }
+
+        function actualizarCarrito() {
+            const container = document.getElementById('cart-items');
+            const totalE = document.getElementById('total-price');
+            const countE = document.getElementById('cart-count');
+            container.innerHTML = '';
+            let total = 0;
+            carrito.forEach((item, index) => {
+                total += item.precio;
+                container.innerHTML += `<div style="display:flex; justify-content:space-between; margin-bottom:10px; font-size:13px;">
+                    <span>${item.nombre}</span>
+                    <span>$${item.precio} <i class="fa-solid fa-trash" onclick="eliminar(${index})" style="color:#ff4d4d; margin-left:10px; cursor:pointer;"></i></span>
+                </div>`;
+            });
+            totalE.innerText = total;
+            countE.innerText = carrito.length;
+        }
+
+        function eliminar(idx) {
+            carrito.splice(idx, 1);
+            actualizarCarrito();
+        }
+
+        function enviarPedido() {
+            let texto = "Hola LUSSON, quiero pedir: \n";
+            carrito.forEach(i => texto += `- ${i.nombre}: $${i.precio} \n`);
+            window.open(`https://wa.me/57TUNUMERO?text=${encodeURIComponent(texto)}`);
+        }
     </script>
 </body>
 </html>
-
