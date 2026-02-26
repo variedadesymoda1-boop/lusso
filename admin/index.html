@@ -1,13 +1,113 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Lusson | Panel de Control</title>
-  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LUSSON - Panel Administrativo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .admin-container { padding: 40px 5%; max-width: 600px; margin: auto; flex: 1 0 auto; }
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; margin-bottom: 5px; font-size: 14px; color: var(--oro); }
+        .form-group input, .form-group select { width: 100%; padding: 12px; border: 1px solid #ddd; background: #fff; }
+        .btn-save { background: var(--negro); color: white; border: none; padding: 15px; width: 100%; cursor: pointer; font-weight: bold; }
+        .product-list-admin { margin-top: 40px; border-top: 1px solid #eee; padding-top: 20px; }
+        .item-admin { display: flex; justify-content: space-between; align-items: center; background: white; padding: 10px; margin-bottom: 10px; border-radius: 4px; }
+    </style>
 </head>
 <body>
-  <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+    <nav class="navbar">
+        <a href="index.html" class="logo">LUSSON ADMIN</a>
+        <a href="rubores.html" style="text-decoration:none; color:var(--oro); font-size:12px;">VER TIENDA</a>
+    </nav>
+
+    <div class="admin-container">
+        <h2 style="text-align: center; margin-bottom: 30px; letter-spacing: 2px;">GESTIONAR PRODUCTOS</h2>
+        
+        <div class="form-group">
+            <label>Nombre del Producto</label>
+            <input type="text" id="p-nombre" placeholder="Ej: Rubor Silk Rose">
+        </div>
+        <div class="form-group">
+            <label>Precio (Solo números)</label>
+            <input type="number" id="p-precio" placeholder="Ej: 25000">
+        </div>
+        <div class="form-group">
+            <label>URL de la Imagen (Link de Postimg)</label>
+            <input type="text" id="p-img" placeholder="https://i.postimg.cc/...">
+        </div>
+        <div class="form-group">
+            <label>Colección</label>
+            <select id="p-coleccion">
+                <option value="lusso">Rubores</option>
+                <option value="labiales">Labiales</option>
+                <option value="polvos">Polvos</option>
+                <option value="bases">Bases y Correctores</option>
+                <option value="skincare">Skincare</option>
+            </select>
+        </div>
+        <button class="btn-save" onclick="guardarProducto()">GUARDAR PRODUCTO</button>
+
+        <div class="product-list-admin" id="lista-admin">
+            </div>
+    </div>
+
+    <footer class="footer">
+        <p>© 2026 LUSSON COLOMBIA - PANEL PRIVADO</p>
+    </footer>
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyCMCFn8zuekM5rIh6Uq02zu_ypblsJonuo",
+            authDomain: "lusson-web.firebaseapp.com",
+            projectId: "lusson-web",
+            storageBucket: "lusson-web.firebasestorage.app",
+            messagingSenderId: "445073966036",
+            appId: "1:445073966036:web:f6c56d465f68ace86a4c41"
+        };
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+
+        function guardarProducto() {
+            const nombre = document.getElementById('p-nombre').value;
+            const precio = Number(document.getElementById('p-precio').value);
+            const img = document.getElementById('p-img').value;
+            const coleccion = document.getElementById('p-coleccion').value;
+
+            if(nombre && precio && img) {
+                db.collection(coleccion).add({ nombre, precio, img })
+                .then(() => {
+                    alert("¡Producto agregado con éxito!");
+                    location.reload();
+                });
+            } else {
+                alert("Por favor llena todos los campos");
+            }
+        }
+
+        // Cargar lista para borrar
+        db.collection("lusso").onSnapshot((snapshot) => {
+            const lista = document.getElementById('lista-admin');
+            lista.innerHTML = '<h3>Rubores Actuales:</h3>';
+            snapshot.forEach((doc) => {
+                const p = doc.data();
+                lista.innerHTML += `
+                    <div class="item-admin">
+                        <span>${p.nombre}</span>
+                        <button onclick="borrar('${doc.id}')" style="color:red; border:none; background:none; cursor:pointer;">Borrar</button>
+                    </div>
+                `;
+            });
+        });
+
+        function borrar(id) {
+            if(confirm("¿Segura que quieres borrar este producto?")) {
+                db.collection("lusso").doc(id).delete();
+            }
+        }
+    </script>
 </body>
 </html>
-
