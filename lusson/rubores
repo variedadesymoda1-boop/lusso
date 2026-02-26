@@ -1,1 +1,143 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lusson - Rubores de Lujo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/feather-icons"></script>
+    
+    <style>
+        /* ESTO ES EL DISEÑO (CSS) - DEBE ESTAR EN INGLÉS */
+        :root {
+            --oro: #bca07d;
+            --negro: #1a1a1a;
+            --crema: #fdfaf7;
+            --blanco: #ffffff;
+        }
 
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            background-color: var(--blanco);
+        }
+
+        header {
+            background-color: var(--crema);
+            padding: 40px 20px;
+            text-align: center;
+            border-bottom: 1px solid #eee;
+        }
+
+        header h1 {
+            font-family: 'Playfair Display', serif;
+            letter-spacing: 5px;
+            margin: 0;
+            text-transform: uppercase;
+        }
+
+        /* Cuadrícula Adaptable para Celular y PC */
+        .grid-productos {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); /* 2 columnas en celular */
+            gap: 15px;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        @media (min-width: 1024px) {
+            .grid-productos {
+                grid-template-columns: repeat(4, 1fr); /* 4 columnas en PC */
+            }
+        }
+
+        .card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+            border: 1px solid #f2f2f2;
+            text-align: center;
+        }
+
+        .card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        /* Punto Secreto Administradora */
+        .secret-dot {
+            width: 10px;
+            height: 10px;
+            background: var(--crema);
+            margin: 40px auto;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>LUSSON</h1>
+        <p>Elegancia en cada detalle</p>
+    </header>
+
+    <main class="grid-productos" id="grid-productos">
+        <p style="grid-column: 1/-1; text-align:center;">Cargando colección...</p>
+    </main>
+
+    <footer>
+        <div class="secret-dot" onclick="modoJefa()"></div>
+        <p style="text-align:center; font-size:12px;">© 2026 LUSSON COLOMBIA</p>
+    </footer>
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+
+    <script>
+        // PEGA AQUÍ EL firebaseConfig QUE COPIASTE EN FIREBASE
+        const firebaseConfig = {
+            apiKey: "TU_API_KEY",
+            authDomain: "lusson-web.firebaseapp.com",
+            projectId: "lusson-web",
+            storageBucket: "lusson-web.appspot.com",
+            messagingSenderId: "12345",
+            appId: "1:12345:web:6789"
+        };
+        
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+
+        // Función para cargar los rubores automáticamente
+        db.collection("rubores").onSnapshot((snapshot) => {
+            const grid = document.getElementById('grid-productos');
+            grid.innerHTML = '';
+            snapshot.forEach((doc) => {
+                const p = doc.data();
+                grid.innerHTML += `
+                    <div class="card">
+                        <img src="${p.img || 'https://via.placeholder.com/200'}">
+                        <div style="padding:15px;">
+                            <h3 style="font-size:0.9rem;">${p.nombre}</h3>
+                            <p style="color:var(--oro); font-weight:700;">$${p.precio}</p>
+                            <button style="background:black; color:white; border:none; padding:8px; width:100%; cursor:pointer;">AGREGAR</button>
+                        </div>
+                    </div>`;
+            });
+        });
+
+        // Función de los 5 clics para el Admin
+        let clicks = 0;
+        function modoJefa() {
+            clicks++;
+            if(clicks === 5) {
+                window.location.href = "admin.html";
+            }
+            setTimeout(() => { clicks = 0; }, 3000);
+        }
+    </script>
+</body>
+</html>
