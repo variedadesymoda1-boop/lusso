@@ -11,21 +11,29 @@
 <body>
 
     <nav class="navbar">
-        <div class="nav-top">
+        <div class="nav-left">
+            <i class="fa-solid fa-bars menu-icon" onclick="toggleMenu(true)"></i>
             <a href="index.html" class="logo">LUSSON</a>
-            <div class="cart-icon" onclick="toggleCart(true)">
-                <i class="fa-solid fa-bag-shopping"></i>
-                <span id="cart-count">0</span>
-            </div>
         </div>
-        <ul class="nav-links">
-            <li><a href="index.html">Inicio</a></li>
-            <li><a href="labiales.html">Labiales</a></li>
-            <li><a href="rubores.html" class="active">Rubores</a></li>
-            <li><a href="skincare.html">Skincare</a></li>
-            <li><a href="polvos.html">Polvos</a></li>
-        </ul>
+        <div class="cart-icon" onclick="toggleCart(true)">
+            <i class="fa-solid fa-bag-shopping"></i>
+            <span id="cart-count">0</span>
+        </div>
     </nav>
+
+    <div id="nav-menu" class="nav-menu">
+        <div class="menu-header">
+            <h2>Menú</h2>
+            <i class="fa-solid fa-xmark" style="cursor: pointer;" onclick="toggleMenu(false)"></i>
+        </div>
+        <ul class="menu-links">
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="rubores.html" class="active">Rubores</a></li>
+            <li><a href="labiales.html">Labiales</a></li>
+            <li><a href="polvos.html">Polvos</a></li>
+            <li><a href="bases.html">Bases y Correctores</a></li>
+        </ul>
+    </div>
 
     <main id="grid-productos" class="grid-productos">
         <p style="grid-column: 1/-1; text-align: center; padding: 20px;">Cargando colección...</p>
@@ -34,12 +42,12 @@
     <div id="cart-panel" class="cart-panel">
         <div class="cart-header">
             <h2>Mi Bolsa</h2>
-            <i class="fa-solid fa-xmark close-cart" onclick="toggleCart(false)"></i>
+            <i class="fa-solid fa-xmark" style="cursor: pointer;" onclick="toggleCart(false)"></i>
         </div>
         <div id="cart-items" class="cart-items">
             </div>
         <div class="cart-footer">
-            <div class="cart-total">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 15px; font-weight: bold;">
                 <span>Total:</span>
                 <span>$<span id="cart-total-price">0</span></span>
             </div>
@@ -79,12 +87,6 @@
         function cargarProductos() {
             db.collection("lusso").onSnapshot((snapshot) => {
                 grid.innerHTML = ''; // Limpiar cuadrícula
-                
-                if (snapshot.empty) {
-                    grid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; padding: 20px;">No hay productos en esta colección.</p>';
-                    return;
-                }
-
                 snapshot.forEach((doc) => {
                     const p = doc.data();
                     // Crear tarjeta de producto ordenada
@@ -92,8 +94,8 @@
                         <div class="producto-card">
                             <img src="${p.img}" alt="${p.nombre}">
                             <div>
-                                <h3>${p.nombre}</h3>
-                                <p>$${p.precio}</p>
+                                <h3 style="font-size: 14px;">${p.nombre}</h3>
+                                <p style="color: #d4af37; font-weight: bold;">$${p.precio}</p>
                             </div>
                             <button class="btn-agregar" onclick="agregarAlCarrito('${p.nombre}', ${p.precio}, '${p.img}')">
                                 AGREGAR <i class="fa-solid fa-cart-plus"></i>
@@ -108,7 +110,6 @@
         function agregarAlCarrito(nombre, precio, img) {
             carrito.push({nombre, precio, img});
             actualizarCarrito();
-            if(window.innerWidth > 992) toggleCart(true); // Abre el carrito solo en PC al agregar
         }
 
         // Función para eliminar productos de la bolsa
@@ -131,18 +132,25 @@
                 // Crear ítem de carrito con miniatura
                 itemsContainer.innerHTML += `
                     <div class="cart-item">
-                        <img src="${prod.img}" alt="${prod.nombre}">
-                        <div class="cart-item-info">
-                            <h4>${prod.nombre}</h4>
-                            <p>$${prod.precio}</p>
+                        <img src="${prod.img}" alt="${prod.nombre}" style="width: 50px; height: 50px; object-fit: cover; border-radius: 4px;">
+                        <div style="flex: 1;">
+                            <h4 style="font-size: 14px; font-weight: normal;">${prod.nombre}</h4>
+                            <p style="color: #d4af37; font-weight: bold; font-size: 13px;">$${prod.precio}</p>
                         </div>
-                        <i class="fa-solid fa-trash btn-eliminar" onclick="eliminarDelCarrito(${index})" title="Eliminar"></i>
+                        <i class="fa-solid fa-trash btn-eliminar" style="color: #ff4d4d; cursor: pointer;" onclick="eliminarDelCarrito(${index})"></i>
                     </div>
                 `;
             });
 
             totalContainer.innerText = total.toLocaleString('es-CO'); // Formato de precio colombiano
             countContainer.innerText = carrito.length;
+        }
+
+        // Función para abrir/cerrar el panel del menú deslizable
+        function toggleMenu(abrir) {
+            const panel = document.getElementById('nav-menu');
+            if(abrir) panel.classList.add('open');
+            else panel.classList.remove('open');
         }
 
         // Función para abrir/cerrar el panel del carrito (Efecto deslizable)
@@ -170,11 +178,33 @@
             mensaje += `\n*Total:* $${total.toLocaleString('es-CO')}\n`;
             mensaje += "\n¿Cuál es el siguiente paso?";
             
-            // Reemplaza TUNUMERO_WHATSAPP por tu número real con código de país (ej: 573001234567)
             const numeroWhatsApp = "57TUNUMERO_AQUI"; 
             const url = `https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(mensaje)}`;
             window.open(url, '_blank');
         }
+
+        // --- CERRAR AL TOCAR FUERA ---
+        // Escuchamos los clics en todo el documento
+        document.addEventListener('click', function(event) {
+            const navMenu = document.getElementById('nav-menu');
+            const cartPanel = document.getElementById('cart-panel');
+            const menuIcon = document.querySelector('.menu-icon');
+            const cartIcon = document.querySelector('.cart-icon');
+
+            // Si el menú está abierto y tocamos fuera de él y de su icono, lo cerramos
+            if (navMenu.classList.contains('open') && 
+                !navMenu.contains(event.target) && 
+                !menuIcon.contains(event.target)) {
+                toggleMenu(false);
+            }
+
+            // Si el carrito está abierto y tocamos fuera de él y de su icono, lo cerramos
+            if (cartPanel.classList.contains('open') && 
+                !cartPanel.contains(event.target) && 
+                !cartIcon.contains(event.target)) {
+                toggleCart(false);
+            }
+        });
 
         // Iniciar la carga de productos
         cargarProductos();
