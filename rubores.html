@@ -8,27 +8,14 @@
         </main>
 
     <div id="modal-carrito" class="modal-carrito">
-        <div class="carrito-header">
-            <h3>TU CARRITO</h3>
-            <button onclick="toggleCarrito()" style="border:none; background:none; font-size:20px;">&times;</button>
-        </div>
-        <div id="items-carrito" style="flex:1; overflow-y:auto; padding:20px;"></div>
-        <div style="padding:20px; border-top:1px solid #eee;">
-            <h4>Total: <span id="total-precio">$0</span></h4>
-            <button onclick="enviarWhatsApp()" style="width:100%; padding:15px; background:var(--negro); color:white; border:none; cursor:pointer;">COMPRAR POR WHATSAPP</button>
-        </div>
+        <h3>Tu Carrito</h3>
+        <hr>
+        <div id="items-carrito"></div>
+        <p><strong>Total:</strong> <span id="total-precio">$0</span></p>
+        <button onclick="enviarWhatsApp()">Comprar por WhatsApp</button>
     </div>
 
-    <a href="https://wa.me/TUNUMERO" class="wa-float" target="_blank">
-        <i class="fab fa-whatsapp"></i>
-    </a>
+    <div style="width:20px; height:20px; margin: 50px auto; cursor:pointer;" onclick="modoJefa()"></div>
 
-    <footer>
-        <div class="admin-dot" onclick="clickAdmin()"></div>
-        <p>&copy; 2026 LUSSON COLOMBIA</p>
-    </footer>
-
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
     <script src="script.js"></script>
 </body>
