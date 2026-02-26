@@ -4,15 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LUSSON - Rubores</title>
-    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
     <nav class="navbar">
         <div class="nav-top">
             <a href="index.html" class="logo">LUSSON</a>
-            <div class="cart-icon" onclick="toggleCart()">
+            <div class="cart-icon" onclick="toggleCart(true)">
                 <i class="fa-solid fa-bag-shopping"></i>
                 <span id="cart-count">0</span>
             </div>
@@ -26,34 +27,32 @@
         </ul>
     </nav>
 
-    <header class="header">
-        <h1>Elegancia en cada detalle</h1>
-    </header>
-
     <main id="grid-productos" class="grid-productos">
-        <p class="loading">Cargando colección...</p>
+        <p style="grid-column: 1/-1; text-align: center; padding: 20px;">Cargando colección...</p>
     </main>
 
     <div id="cart-panel" class="cart-panel">
         <div class="cart-header">
-            <h2>Tu Carrito</h2>
-            <i class="fa-solid fa-xmark" onclick="toggleCart()"></i>
+            <h2>Mi Bolsa</h2>
+            <i class="fa-solid fa-xmark close-cart" onclick="toggleCart(false)"></i>
         </div>
         <div id="cart-items" class="cart-items">
             </div>
         <div class="cart-footer">
-            <h3>Total: $<span id="cart-total">0</span></h3>
-            <button class="btn-checkout" onclick="enviarWhatsApp()">Finalizar Pedido</button>
+            <div class="cart-total">
+                <span>Total:</span>
+                <span>$<span id="cart-total-price">0</span></span>
+            </div>
+            <button class="btn-checkout" onclick="finalizarPedido()">Finalizar por WhatsApp <i class="fa-brands fa-whatsapp"></i></button>
         </div>
     </div>
 
-    <a href="https://wa.me/TUNUMERO" class="whatsapp-btn" target="_blank">
+    <a href="https://wa.me/TUNUMERO_WHATSAPP" class="whatsapp-btn" target="_blank" title="Escríbenos">
         <i class="fa-brands fa-whatsapp"></i>
     </a>
 
     <footer class="footer">
-        <p>© 2026 LUSSON COLOMBIA</p>
-        <div class="secret-dot" onclick="location.href='admin.html'">.</div>
+        <p>© 2026 LUSSON COLOMBIA - Alta Cosmética</p>
     </footer>
 
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
@@ -62,31 +61,41 @@
     <script>
         // 1. CONFIGURACIÓN DE FIREBASE (PEGA TUS LLAVES AQUÍ)
         const firebaseConfig = {
-  apiKey: "AIzaSyCMCFn8zuekM5rIh6Uq02zu_ypblsJonuo",
-  authDomain: "lusson-web.firebaseapp.com",
-  projectId: "lusson-web",
-  storageBucket: "lusson-web.firebasestorage.app",
-  messagingSenderId: "445073966036",
-  appId: "1:445073966036:web:f6c56d465f68ace86a4c41"
-};
+            apiKey: "PEGA_AQUÍ_TU_API_KEY_DE_LA_IMAGEN_1000059140.JPG",
+            authDomain: "lusson-web.firebaseapp.com",
+            projectId: "lusson-web",
+            storageBucket: "lusson-web.firebasestorage.app",
+            messagingSenderId: "445073966036",
+            appId: "1:445073966036:web:f6c56d465f68ace86a4c41"
+        };
         firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
 
-        // 2. LÓGICA DEL CARRITO
+        // 2. LÓGICA DE LA PÁGINA Y EL CARRITO
         let carrito = [];
         const grid = document.getElementById('grid-productos');
 
+        // Función para cargar productos desde Firebase (colección 'lusso')
         function cargarProductos() {
             db.collection("lusso").onSnapshot((snapshot) => {
-                grid.innerHTML = '';
+                grid.innerHTML = ''; // Limpiar cuadrícula
+                
+                if (snapshot.empty) {
+                    grid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; padding: 20px;">No hay productos en esta colección.</p>';
+                    return;
+                }
+
                 snapshot.forEach((doc) => {
                     const p = doc.data();
+                    // Crear tarjeta de producto ordenada
                     grid.innerHTML += `
                         <div class="producto-card">
                             <img src="${p.img}" alt="${p.nombre}">
-                            <h3>${p.nombre}</h3>
-                            <p>$${p.precio}</p>
-                            <button onclick="agregarAlCarrito('${p.nombre}', ${p.precio}, '${p.img}')">
+                            <div>
+                                <h3>${p.nombre}</h3>
+                                <p>$${p.precio}</p>
+                            </div>
+                            <button class="btn-agregar" onclick="agregarAlCarrito('${p.nombre}', ${p.precio}, '${p.img}')">
                                 AGREGAR <i class="fa-solid fa-cart-plus"></i>
                             </button>
                         </div>
@@ -95,20 +104,23 @@
             });
         }
 
+        // Función para agregar productos a la bolsa
         function agregarAlCarrito(nombre, precio, img) {
             carrito.push({nombre, precio, img});
             actualizarCarrito();
-            if(window.innerWidth > 768) toggleCart(true); 
+            if(window.innerWidth > 992) toggleCart(true); // Abre el carrito solo en PC al agregar
         }
 
+        // Función para eliminar productos de la bolsa
         function eliminarDelCarrito(index) {
             carrito.splice(index, 1);
             actualizarCarrito();
         }
 
+        // Función para actualizar visualmente el carrito
         function actualizarCarrito() {
             const itemsContainer = document.getElementById('cart-items');
-            const totalContainer = document.getElementById('cart-total');
+            const totalContainer = document.getElementById('cart-total-price');
             const countContainer = document.getElementById('cart-count');
             
             itemsContainer.innerHTML = '';
@@ -116,29 +128,57 @@
 
             carrito.forEach((prod, index) => {
                 total += prod.precio;
+                // Crear ítem de carrito con miniatura
                 itemsContainer.innerHTML += `
                     <div class="cart-item">
-                        <img src="${prod.img}" width="50">
-                        <div>
+                        <img src="${prod.img}" alt="${prod.nombre}">
+                        <div class="cart-item-info">
                             <h4>${prod.nombre}</h4>
                             <p>$${prod.precio}</p>
                         </div>
-                        <i class="fa-solid fa-trash" onclick="eliminarDelCarrito(${index})"></i>
+                        <i class="fa-solid fa-trash btn-eliminar" onclick="eliminarDelCarrito(${index})" title="Eliminar"></i>
                     </div>
                 `;
             });
 
-            totalContainer.innerText = total;
+            totalContainer.innerText = total.toLocaleString('es-CO'); // Formato de precio colombiano
             countContainer.innerText = carrito.length;
         }
 
-        function toggleCart(forceOpen = false) {
+        // Función para abrir/cerrar el panel del carrito (Efecto deslizable)
+        function toggleCart(abrir) {
             const panel = document.getElementById('cart-panel');
-            if(forceOpen) panel.classList.add('open');
-            else panel.classList.toggle('open');
+            if(abrir) panel.classList.add('open');
+            else panel.classList.remove('open');
         }
 
+        // Función para enviar el pedido por WhatsApp
+        function finalizarPedido() {
+            if (carrito.length === 0) {
+                alert("Tu bolsa está vacía.");
+                return;
+            }
+            
+            let mensaje = "Hola LUSSON! Me gustaría hacer un pedido:\n\n";
+            let total = 0;
+            
+            carrito.forEach((prod, index) => {
+                mensaje += `${index + 1}. ${prod.nombre} - $${prod.precio.toLocaleString('es-CO')}\n`;
+                total += prod.precio;
+            });
+            
+            mensaje += `\n*Total:* $${total.toLocaleString('es-CO')}\n`;
+            mensaje += "\n¿Cuál es el siguiente paso?";
+            
+            // Reemplaza TUNUMERO_WHATSAPP por tu número real con código de país (ej: 573001234567)
+            const numeroWhatsApp = "57TUNUMERO_AQUI"; 
+            const url = `https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(mensaje)}`;
+            window.open(url, '_blank');
+        }
+
+        // Iniciar la carga de productos
         cargarProductos();
     </script>
 </body>
 </html>
+
