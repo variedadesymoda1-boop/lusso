@@ -33,12 +33,25 @@ body {
     top: 0;
     z-index: 1000;
     box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-}
-
-.nav-top {
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+.nav-left {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.menu-icon {
+    font-size: 24px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.menu-icon:hover {
+    color: var(--oro);
 }
 
 .logo {
@@ -73,44 +86,61 @@ body {
     font-weight: bold;
 }
 
-/* MENÚ DE ENLACES (RESPONSIVO) */
-.nav-links {
+/* 3. MENÚ DE NAVEGACIÓN DESLIZABLE (RESPONSIVO) */
+.nav-menu {
+    position: fixed;
+    left: -100%; /* Escondido por defecto */
+    top: 0;
+    width: 250px;
+    height: 100%;
+    background: var(--blanco);
+    z-index: 1500;
+    transition: 0.5s ease-in-out;
+    padding: 20px;
+    box-shadow: 5px 0 15px rgba(0,0,0,0.1);
     display: flex;
-    justify-content: center;
-    list-style: none;
-    margin-top: 10px;
-    gap: 15px;
-    flex-wrap: wrap; /* Se adapta a pantallas pequeñas */
+    flex-direction: column;
 }
 
-.nav-links a {
+.nav-menu.open {
+    left: 0; /* Se desliza hacia adentro */
+}
+
+.menu-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--gris-suave);
+    padding-bottom: 15px;
+    margin-bottom: 15px;
+}
+
+.menu-links {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.menu-links a {
     text-decoration: none;
     color: var(--negro-texto);
-    font-size: 12px;
+    font-size: 14px;
     text-transform: uppercase;
     transition: 0.3s;
 }
 
-.nav-links a.active, .nav-links a:hover {
+.menu-links a:hover, .menu-links a.active {
     color: var(--oro);
-    border-bottom: 1px solid var(--oro);
 }
 
-/* 3. CATÁLOGO DE PRODUCTOS (ARREGLA LA FOTO GRANDE) */
+/* 4. CATÁLOGO DE PRODUCTOS (ARREGLA LA FOTO GRANDE) */
 .grid-productos {
     display: grid;
     padding: 20px 5%;
     gap: 15px;
     /* 2 columnas por defecto (celular) */
     grid-template-columns: repeat(2, 1fr);
-}
-
-/* Adaptación para pantallas medianas (Tablets) */
-@media (min-width: 600px) {
-    .grid-productos {
-        grid-template-columns: repeat(3, 1fr);
-        gap: 20px;
-    }
 }
 
 /* Adaptación para pantallas grandes (PC) */
@@ -176,7 +206,7 @@ body {
     background: var(--oro);
 }
 
-/* 4. CARRITO DE COMPRAS (PANEL LATERAL DESLIZABLE) */
+/* 5. CARRITO DE COMPRAS (PANEL LATERAL DESLIZABLE) */
 .cart-panel {
     position: fixed;
     right: -100%; /* Escondido por defecto */
@@ -206,20 +236,6 @@ body {
     margin-bottom: 15px;
 }
 
-.cart-header h2 {
-    font-size: 18px;
-}
-
-.close-cart {
-    cursor: pointer;
-    font-size: 20px;
-    color: var(--negro-texto);
-}
-
-.close-cart:hover {
-    color: var(--rojo-eliminar);
-}
-
 /* LISTA DE PRODUCTOS EN EL CARRITO */
 .cart-items {
     flex: 1;
@@ -243,50 +259,15 @@ body {
     border-radius: 4px;
 }
 
-.cart-item-info {
-    flex: 1;
-}
-
-.cart-item-info h4 {
-    font-size: 14px;
-    font-weight: normal;
-}
-
-.cart-item-info p {
-    color: var(--oro);
-    font-weight: bold;
-    font-size: 13px;
-}
-
 .btn-eliminar {
     background: none;
     border: none;
     color: var(--rojo-eliminar);
     cursor: pointer;
     font-size: 16px;
-    transition: 0.3s;
-}
-
-.btn-eliminar:hover {
-    color: #cc0000;
 }
 
 /* PIE DEL CARRITO */
-.cart-footer {
-    border-top: 1px solid var(--gris-suave);
-    padding-top: 15px;
-    margin-top: auto;
-}
-
-.cart-total {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 16px;
-    margin-bottom: 15px;
-    font-weight: bold;
-}
-
 .btn-checkout {
     background: #25d366; /* Color WhatsApp */
     color: white;
@@ -297,35 +278,28 @@ body {
     border-radius: 4px;
     font-size: 14px;
     font-weight: bold;
-    text-transform: uppercase;
 }
 
-/* 5. WHATSAPP FLOTANTE (ARREGLA QUE FALTA) */
+/* 6. WHATSAPP FLOTANTE (ARREGLA QUE FALTA) */
 .whatsapp-btn {
     position: fixed;
     bottom: 20px;
     right: 20px;
     background: #25d366;
     color: white;
-    width: 60px;
-    height: 60px;
+    width: 70px; /* Más grande */
+    height: 70px; /* Más grande */
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 30px;
+    font-size: 35px; /* Icono más grande */
     box-shadow: 0 4px 10px rgba(0,0,0,0.3);
     z-index: 1500;
     text-decoration: none;
-    transition: 0.3s, transform 0.2s;
 }
 
-.whatsapp-btn:hover {
-    background: #1eb857;
-    transform: scale(1.05);
-}
-
-/* 6. PIE DE PÁGINA (FOOTER) */
+/* 7. PIE DE PÁGINA (FOOTER) */
 .footer {
     background: var(--blanco);
     color: var(--negro-texto);
@@ -334,4 +308,5 @@ body {
     margin-top: 40px;
     border-top: 1px solid var(--gris-suave);
     font-size: 12px;
-}
+   }
+                                 
