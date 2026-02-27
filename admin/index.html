@@ -18,6 +18,7 @@
         .item-list { display: flex; align-items: center; justify-content: space-between; padding: 10px; border-bottom: 1px solid var(--pink-cute); }
         .item-list img { width: 50px; height: 50px; object-fit: cover; border-radius: 4px; }
         .grid-imgs { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .btn-edit { background: #e3f2fd; color: #1976d2; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; margin-right: 5px; }
     </style>
 </head>
 <body>
@@ -42,42 +43,44 @@
                 <option value="combos">Cambiar Imagen de Combos</option>
                 <option value="promos">Cambiar Imagen de Promociones</option>
             </select>
-            <input type="text" id="url-inicio" placeholder="Pega el 'Enlace directo' de Postimg">
+            <input type="text" id="url-inicio" placeholder="URL de la Imagen (Postimg)">
             <button class="btn-pink" onclick="actualizarInicio()">ACTUALIZAR INICIO</button>
         </div>
 
         <div class="section-card">
-            <h3>💄 Nuevo Producto Detallado</h3>
-            <button class="btn-pink" onclick="document.getElementById('form-prod').classList.toggle('hidden')">+ AGREGAR PRODUCTO</button>
+            <h3 id="form-titulo">💄 Agregar Nuevo Producto</h3>
+            <button class="btn-pink" id="btn-toggle-form" onclick="toggleForm()">+ MOSTRAR FORMULARIO</button>
             
             <div id="form-prod" class="hidden">
-                <input type="text" id="p-nombre" placeholder="Nombre del Producto">
+                <input type="hidden" id="edit-id"> <input type="text" id="p-nombre" placeholder="Nombre del Producto">
+                
                 <div class="grid-imgs">
                     <input type="number" id="p-precio" placeholder="Precio">
-                    <input type="number" id="p-stock" placeholder="Cantidad en Stock (Inventario)">
+                    <input type="number" id="p-stock" placeholder="Cantidad en Stock">
                 </div>
                 
-                <p style="font-size: 0.8rem; margin: 10px 0 0; font-weight: bold;">Galería de Imágenes (Pega los links de Postimg):</p>
-                <input type="text" id="p-img1" placeholder="URL Imagen Principal (Obligatoria)">
+                <p style="font-size: 0.8rem; margin: 10px 0 5px; font-weight: bold;">Galería (5 fotos):</p>
+                <input type="text" id="p-img1" placeholder="Foto 1 (Principal)">
                 <div class="grid-imgs">
-                    <input type="text" id="p-img2" placeholder="URL Imagen 2">
-                    <input type="text" id="p-img3" placeholder="URL Imagen 3">
-                    <input type="text" id="p-img4" placeholder="URL Imagen 4">
-                    <input type="text" id="p-img5" placeholder="URL Imagen 5">
+                    <input type="text" id="p-img2" placeholder="Foto 2">
+                    <input type="text" id="p-img3" placeholder="Foto 3">
+                    <input type="text" id="p-img4" placeholder="Foto 4">
+                    <input type="text" id="p-img5" placeholder="Foto 5">
                 </div>
 
-                <input type="text" id="p-tonos" placeholder="Tonos disponibles (ej: Rojo, Rosa, Nude)">
-                <textarea id="p-desc" placeholder="Descripción para el cliente" style="height:80px;"></textarea>
-                <textarea id="p-specs" placeholder="Especificaciones Técnicas (puntos)" style="height:80px;"></textarea>
+                <input type="text" id="p-tonos" placeholder="Tonos (Rojo, Rosa, Nude...)">
+                <textarea id="p-desc" placeholder="Descripción completa" style="height:80px;"></textarea>
+                <textarea id="p-specs" placeholder="Especificaciones (puntos)" style="height:80px;"></textarea>
                 
                 <select id="p-col">
                     <option value="labiales">Labiales</option>
-                    <option value="rubores">Rubores (lusso)</option>
+                    <option value="lusso">Rubores (lusso)</option>
                     <option value="bases">Bases y Correctores</option>
                     <option value="polvos">Polvos</option>
                     <option value="skincare">Skincare</option>
                 </select>
-                <button onclick="guardarProducto()" style="background:var(--pink-accent);">GUARDAR EN FIREBASE</button>
+                <button id="btn-final" onclick="guardarProducto()" style="background:var(--pink-accent); color:black;">GUARDAR EN FIREBASE</button>
+                <button onclick="cancelarEdicion()" style="background:#eee; color:#333; margin-top:5px;">CANCELAR</button>
             </div>
         </div>
 
@@ -89,7 +92,6 @@
                 <option value="bases">Bases</option>
                 <option value="polvos">Polvos</option>
                 <option value="skincare">Skincare</option>
-                <option value="banners">Carrusel Inicio</option>
             </select>
             <div id="lista-items"></div>
         </div>
@@ -100,21 +102,14 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
 
     <script>
-        const firebaseConfig = {
-            apiKey: "AIzaSyCMCFn8zuekM5rIh6Uq02zu_ypblsJonuo",
-            authDomain: "lusson-web.firebaseapp.com",
-            projectId: "lusson-web",
-            storageBucket: "lusson-web.firebasestorage.app",
-            messagingSenderId: "445073966036",
-            appId: "1:445073966036:web:f6c56d465f68ace86a4c41"
-        };
+        const firebaseConfig = { /* Manten tus credenciales actuales */ };
         firebase.initializeApp(firebaseConfig);
         const auth = firebase.auth();
         const db = firebase.firestore();
 
         function login() {
             auth.signInWithEmailAndPassword(document.getElementById('email').value, document.getElementById('password').value)
-                .catch(() => alert("Error de acceso"));
+                .catch(() => alert("Acceso denegado"));
         }
 
         auth.onAuthStateChanged(user => {
@@ -125,20 +120,38 @@
             }
         });
 
-        function actualizarInicio() {
-            const tipo = document.getElementById('tipo-inicio').value;
-            const url = document.getElementById('url-inicio').value;
-            if(!url) return alert("Pega un enlace");
-            if(tipo === "banners") {
-                db.collection("banners").add({ img: url, orden: Date.now() }).then(() => alert("Añadido"));
-            } else {
-                db.collection("config_inicio").doc(tipo).set({ img: url }).then(() => alert("Actualizado"));
-            }
-            document.getElementById('url-inicio').value = "";
+        function toggleForm() {
+            document.getElementById('form-prod').classList.toggle('hidden');
         }
 
-        // FUNCIÓN MODIFICADA CON TODOS LOS CAMPOS NUEVOS
+        // FUNCIÓN PARA CARGAR DATOS EN EL FORMULARIO (EDITAR)
+        function prepararEdicion(id, col) {
+            db.collection(col).doc(id).get().then(doc => {
+                const p = doc.data();
+                document.getElementById('form-prod').classList.remove('hidden');
+                document.getElementById('form-titulo').innerText = "✍️ Editando Producto";
+                document.getElementById('btn-final').innerText = "ACTUALIZAR CAMBIOS";
+                
+                document.getElementById('edit-id').value = id;
+                document.getElementById('p-nombre').value = p.nombre || '';
+                document.getElementById('p-precio').value = p.precio || '';
+                document.getElementById('p-stock').value = p.stock || 0;
+                document.getElementById('p-img1').value = p.img || '';
+                document.getElementById('p-img2').value = p.img2 || '';
+                document.getElementById('p-img3').value = p.img3 || '';
+                document.getElementById('p-img4').value = p.img4 || '';
+                document.getElementById('p-img5').value = p.img5 || '';
+                document.getElementById('p-desc').value = p.descripcion || '';
+                document.getElementById('p-specs').value = p.especificaciones || '';
+                document.getElementById('p-tonos').value = p.tonos || '';
+                document.getElementById('p-col').value = col;
+                
+                window.scrollTo(0, 200);
+            });
+        }
+
         function guardarProducto() {
+            const id = document.getElementById('edit-id').value;
             const col = document.getElementById('p-col').value;
             const data = {
                 nombre: document.getElementById('p-nombre').value,
@@ -154,13 +167,20 @@
                 tonos: document.getElementById('p-tonos').value
             };
 
-            if(!data.nombre || !data.img) return alert("Nombre e Imagen Principal son obligatorios");
-
-            db.collection(col).add(data).then(() => {
-                alert("¡Producto guardado con éxito!");
-                document.getElementById('form-prod').classList.add('hidden');
-                limpiarCampos();
-            }).catch(e => alert("Error: " + e));
+            if(id) {
+                // ACTUALIZAR PRODUCTO EXISTENTE
+                db.collection(col).doc(id).update(data).then(() => {
+                    alert("¡Producto actualizado!");
+                    cancelarEdicion();
+                });
+            } else {
+                // CREAR NUEVO PRODUCTO
+                db.collection(col).add(data).then(() => {
+                    alert("¡Producto creado!");
+                    limpiarCampos();
+                    document.getElementById('form-prod').classList.add('hidden');
+                });
+            }
         }
 
         function cargarLista() {
@@ -177,23 +197,31 @@
                                 <strong>${d.nombre || 'Sin nombre'}</strong><br>
                                 <small>Stock: ${d.stock || 0}</small>
                             </div>
+                            <button class="btn-edit" onclick="prepararEdicion('${doc.id}', '${col}')">Editar</button>
                             <button onclick="eliminar('${doc.id}', '${col}')" style="width:auto; background:#ff4d4d; padding:5px 10px;">X</button>
                         </div>`;
                 });
             });
         }
 
+        function cancelarEdicion() {
+            document.getElementById('edit-id').value = '';
+            document.getElementById('form-titulo').innerText = "💄 Agregar Nuevo Producto";
+            document.getElementById('btn-final').innerText = "GUARDAR EN FIREBASE";
+            limpiarCampos();
+            document.getElementById('form-prod').classList.add('hidden');
+        }
+
         function eliminar(id, col) {
-            if(confirm("¿Eliminar este producto?")) db.collection(col).doc(id).delete();
+            if(confirm("¿Eliminar?")) db.collection(col).doc(id).delete();
         }
 
         function limpiarCampos() {
-            const ids = ['p-nombre','p-precio','p-stock','p-img1','p-img2','p-img3','p-img4','p-img5','p-desc','p-specs','p-tonos'];
-            ids.forEach(id => document.getElementById(id).value = '');
+            const ids = ['p-nombre','p-precio','p-stock','p-img1','p-img2','p-img3','p-img4','p-img5','p-desc','p-specs','p-tonos','edit-id'];
+            ids.forEach(id => { if(document.getElementById(id)) document.getElementById(id).value = ''; });
         }
 
         function logout() { auth.signOut(); window.location.reload(); }
     </script>
 </body>
-    </html>
-
+</html>
