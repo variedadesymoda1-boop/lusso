@@ -3,177 +3,269 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lusson | Alta Cosmética</title>
+    <title>LUSSON | Alta Cosmética</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Montserrat:wght@300;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 
     <style>
-        :root { --oro: #bca07d; --negro: #1a1a1a; --crema: #fdfaf7; }
+        :root { 
+            --oro: #c5a059; 
+            --negro: #111; 
+            --crema-lujo: #fcf8f2; 
+            --rosa-soft: #fdf0f0;
+        }
+
         body { font-family: 'Montserrat', sans-serif; margin: 0; background: #fff; color: var(--negro); overflow-x: hidden; }
 
-        /* HEADER */
-        header { background: #fff; padding: 30px; text-align: center; border-bottom: 1px solid #f0f0f0; }
-        header img { height: 50px; margin-bottom: 10px; }
-        header h1 { font-family: 'Playfair Display', serif; font-size: 2.2rem; letter-spacing: 12px; margin: 0; }
-
-        /* NAVEGACIÓN PROFESIONAL */
-        nav { display: flex; justify-content: center; gap: 20px; padding: 15px; background: white; sticky; top: 0; z-index: 1000; box-shadow: 0 2px 5px rgba(0,0,0,0.02); }
-        nav a { text-decoration: none; color: var(--negro); font-size: 0.75rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; transition: 0.3s; }
-        nav a:hover { color: var(--oro); }
-
-        /* SECCIÓN CARRUSEL INTERACTIVO */
-        .seccion-categorias { padding: 60px 0; background: #fff; }
-        .titulo-lujo { text-align: center; font-family: 'Playfair Display', serif; font-size: 1.8rem; letter-spacing: 4px; margin-bottom: 40px; }
-        
-        .swiper { width: 100%; padding: 20px 0 50px; }
-        .swiper-slide { width: 220px; transition: 0.4s; }
-        .card-categoria { 
-            background: white; border-radius: 15px; overflow: hidden; 
-            box-shadow: 0 10px 25px rgba(0,0,0,0.05); text-align: center; 
-            cursor: pointer; text-decoration: none; color: inherit; display: block;
+        /* LOGO GRANDE Y ELEGANTE */
+        header { 
+            background: #fff; 
+            padding: 40px 20px; 
+            text-align: center; 
         }
-        .card-categoria img { width: 100%; height: 250px; object-fit: cover; transition: 0.5s; }
-        .card-categoria:hover img { transform: scale(1.05); }
-        .card-categoria .info { padding: 20px; }
-        .card-categoria span { font-size: 0.8rem; font-weight: 600; letter-spacing: 3px; color: var(--negro); }
+        .logo-container img { 
+            width: 100%; 
+            max-width: 350px; /* Logo más grande */
+            height: auto;
+            margin-bottom: 15px;
+        }
+        header h1 { 
+            font-family: 'Playfair Display', serif; 
+            font-size: 3rem; 
+            letter-spacing: 15px; 
+            margin: 0; 
+            color: var(--negro);
+        }
 
-        /* SECCIÓN PROMOCIONES (CUADRO ELEGANTE) */
-        .seccion-ofertas { padding: 80px 20px; background: var(--crema); text-align: center; }
-        .grid-ofertas { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; max-width: 1200px; margin: 0 auto; }
-        .promo-box { background: white; padding: 40px; border: 1px solid #eee; position: relative; }
-        .promo-box h3 { font-family: 'Playfair Display', serif; font-size: 1.5rem; margin-top: 0; }
-        .tag-rojo { color: #ff4d4d; font-size: 0.7rem; font-weight: 700; letter-spacing: 2px; }
+        /* NAVEGACIÓN ADAPTABLE */
+        nav { 
+            display: flex; 
+            justify-content: center; 
+            gap: 15px; 
+            padding: 20px; 
+            background: white; 
+            position: sticky; 
+            top: 0; 
+            z-index: 1000; 
+            border-bottom: 1px solid #eee;
+            flex-wrap: wrap; /* Para que en celular se acomoden solos */
+        }
+        nav a { 
+            text-decoration: none; 
+            color: var(--negro); 
+            font-size: 0.8rem; 
+            font-weight: 600; 
+            letter-spacing: 2px; 
+            text-transform: uppercase; 
+            padding: 8px 12px;
+            transition: 0.3s;
+        }
+        nav a:hover { color: var(--oro); border-bottom: 2px solid var(--oro); }
+
+        /* CARRUSEL INTERACTIVO CON FOTOS DE CATÁLOGO */
+        .seccion-carrusel { padding: 60px 0; background: var(--rosa-soft); }
+        .titulo-seccion { 
+            text-align: center; 
+            font-family: 'Playfair Display', serif; 
+            font-size: 2rem; 
+            margin-bottom: 40px;
+            letter-spacing: 3px;
+        }
+        
+        .swiper { width: 100%; padding: 20px 0 60px; }
+        .swiper-slide { width: 280px; } /* Ajustado para tablet y móvil */
+        
+        .card-cat { 
+            background: white; 
+            border-radius: 20px; 
+            overflow: hidden; 
+            box-shadow: 0 15px 35px rgba(0,0,0,0.08); 
+            text-decoration: none; 
+            color: inherit; 
+            display: block;
+            transition: transform 0.3s;
+        }
+        .card-cat:hover { transform: translateY(-10px); }
+        .card-cat img { width: 100%; height: 320px; object-fit: cover; }
+        .card-cat .label { 
+            padding: 20px; 
+            text-align: center; 
+            font-weight: 600; 
+            letter-spacing: 3px; 
+            font-size: 0.9rem;
+        }
+
+        /* SECCIONES COMBOS Y PROMOCIONES */
+        .grid-ventas { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); 
+            gap: 20px; 
+            padding: 40px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .item-venta { 
+            position: relative; 
+            height: 450px; 
+            overflow: hidden; 
+            border-radius: 15px; 
+            display: flex; 
+            align-items: flex-end; 
+            padding: 30px;
+            color: white;
+            text-decoration: none;
+        }
+        .item-venta img { 
+            position: absolute; 
+            top: 0; left: 0; width: 100%; height: 100%; 
+            object-fit: cover; 
+            z-index: 1;
+            transition: 0.5s;
+        }
+        .item-venta:hover img { transform: scale(1.1); }
+        .item-venta::after { 
+            content: ''; 
+            position: absolute; 
+            top: 0; left: 0; width: 100%; height: 100%; 
+            background: linear-gradient(to top, rgba(0,0,0,0.7), transparent); 
+            z-index: 2;
+        }
+        .info-venta { z-index: 3; position: relative; }
+        .info-venta h3 { font-family: 'Playfair Display', serif; font-size: 2rem; margin: 0; }
 
         /* QUIÉNES SOMOS */
-        .quienes-somos { display: flex; align-items: center; padding: 100px 10%; gap: 50px; flex-wrap: wrap; }
-        .qs-texto { flex: 1; min-width: 300px; }
-        .qs-texto h2 { font-family: 'Playfair Display', serif; font-size: 2.5rem; margin-bottom: 20px; }
-        .qs-texto p { line-height: 1.8; color: #666; font-weight: 300; }
-        .qs-img { flex: 1; min-width: 300px; }
-        .qs-img img { width: 100%; border-radius: 5px; box-shadow: 20px 20px 0px var(--oro); }
+        .nosotros { 
+            display: flex; 
+            align-items: center; 
+            padding: 80px 10%; 
+            gap: 50px; 
+            flex-wrap: wrap; 
+            background: var(--crema-lujo);
+        }
+        .nosotros-txt { flex: 1; min-width: 300px; }
+        .nosotros-txt h2 { font-family: 'Playfair Display', serif; font-size: 2.5rem; margin-bottom: 20px; }
+        .nosotros-img { flex: 1; min-width: 300px; }
+        .nosotros-img img { width: 100%; border-radius: 10px; box-shadow: 20px 20px 0 var(--oro); }
 
         /* FOOTER */
-        footer { background: var(--negro); color: white; padding: 80px 20px 40px; text-align: center; }
-        footer h2 { font-family: 'Playfair Display', serif; letter-spacing: 10px; font-size: 2rem; }
-        .footer-links { margin: 30px 0; }
-        .footer-links a { color: #888; text-decoration: none; margin: 0 15px; font-size: 0.7rem; letter-spacing: 2px; }
-        #secret-point { position: absolute; bottom: 10px; right: 10px; width: 30px; height: 30px; cursor: default; }
-
+        footer { background: var(--negro); color: white; padding: 60px 20px; text-align: center; }
+        .footer-links a { color: #aaa; text-decoration: none; margin: 0 15px; font-size: 0.8rem; }
+        
         /* WHATSAPP */
-        .wa-btn { position: fixed; bottom: 30px; left: 30px; background: #25d366; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 2000; box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
-        .wa-btn img { width: 35px; }
+        .wa { position: fixed; bottom: 30px; left: 30px; background: #25d366; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 1000; }
+        .wa img { width: 35px; }
 
-        @media (max-width: 768px) {
-            .quienes-somos { padding: 50px 5%; text-align: center; }
-            .qs-img img { box-shadow: 10px 10px 0px var(--oro); }
+        /* RESPONSIVO MÓVIL */
+        @media (max-width: 600px) {
+            header h1 { font-size: 2rem; letter-spacing: 8px; }
+            .nosotros { padding: 40px 5%; text-align: center; }
+            .nosotros-img img { box-shadow: 10px 10px 0 var(--oro); }
+            .item-venta { height: 350px; }
         }
     </style>
 </head>
 <body>
 
     <header>
-        <img src="assets/subirlo.png" alt="Logo Lusson">
+        <div class="logo-container">
+            <img src="assets/subirlo.png" alt="Lusson Colombia Logo">
+        </div>
         <h1>LUSSON</h1>
     </header>
 
     <nav>
-        <a href="bases.html">Bases</a>
+        <a href="bases.html">Bases y Correctores</a>
         <a href="labiales.html">Labiales</a>
+        <a href="polvos.html">Polvos</a>
         <a href="rubores.html">Rubores</a>
         <a href="skincare.html">Skincare</a>
-        <a href="#nosotros">Nosotros</a>
     </nav>
 
-    <section class="seccion-categorias">
-        <h2 class="titulo-lujo">COLECCIONES DE LUJO</h2>
+    <section class="seccion-carrusel">
+        <h2 class="titulo-seccion">NUESTRA COLECCIÓN</h2>
         <div class="swiper mySwiper">
             <div class="swiper-wrapper">
-                <a href="rubores.html" class="swiper-slide card-categoria">
-                    <img src="https://images.pexels.com/photos/3373739/pexels-photo-3373739.jpeg?auto=compress&w=400">
-                    <div class="info"><span>RUBORES</span></div>
+                <a href="labiales.html" class="swiper-slide card-cat">
+                    <img src="https://images.pexels.com/photos/2533266/pexels-photo-2533266.jpeg?auto=compress&w=500">
+                    <div class="label">LABIALES</div>
                 </a>
-                <a href="labiales.html" class="swiper-slide card-categoria">
-                    <img src="https://images.pexels.com/photos/2533266/pexels-photo-2533266.jpeg?auto=compress&w=400">
-                    <div class="info"><span>LABIALES</span></div>
+                <a href="rubores.html" class="swiper-slide card-cat">
+                    <img src="https://images.pexels.com/photos/3373739/pexels-photo-3373739.jpeg?auto=compress&w=500">
+                    <div class="label">RUBORES</div>
                 </a>
-                <a href="skincare.html" class="swiper-slide card-categoria">
-                    <img src="https://images.pexels.com/photos/4046316/pexels-photo-4046316.jpeg?auto=compress&w=400">
-                    <div class="info"><span>SKINCARE</span></div>
-                </a>
-                <a href="bases.html" class="swiper-slide card-categoria">
+                <a href="bases.html" class="swiper-slide card-cat">
                     <img src="assets/Base de maquillaje.png">
-                    <div class="info"><span>BASES</span></div>
+                    <div class="label">BASES</div>
                 </a>
-                <a href="rubores.html" class="swiper-slide card-categoria">
-                    <img src="https://images.pexels.com/photos/3373739/pexels-photo-3373739.jpeg?auto=compress&w=400">
-                    <div class="info"><span>RUBORES</span></div>
+                <a href="skincare.html" class="swiper-slide card-cat">
+                    <img src="https://images.pexels.com/photos/4046316/pexels-photo-4046316.jpeg?auto=compress&w=500">
+                    <div class="label">SKINCARE</div>
+                </a>
+                <a href="polvos.html" class="swiper-slide card-cat">
+                    <img src="https://images.pexels.com/photos/3373736/pexels-photo-3373736.jpeg?auto=compress&w=500">
+                    <div class="label">POLVOS</div>
                 </a>
             </div>
         </div>
     </section>
 
-    <section class="seccion-ofertas">
-        <h2 class="titulo-lujo">OFERTAS Y COMBOS</h2>
-        <div class="grid-ofertas">
-            <div class="promo-box">
-                <span class="tag-rojo">LIMITADO</span>
-                <h3>Combos de Maquillaje</h3>
-                <p>Arma tu set profesional con un 20% de descuento adicional.</p>
-                <a href="#" style="color: var(--oro); font-weight: 600; text-decoration: none;">VER COMBOS →</a>
+    <div class="grid-ventas">
+        <a href="#" class="item-venta">
+            <img src="https://images.pexels.com/photos/3018845/pexels-photo-3018845.jpeg?auto=compress&w=800">
+            <div class="info-venta">
+                <h3>Combos</h3>
+                <p>Kits profesionales para un look completo.</p>
             </div>
-            <div class="promo-box">
-                <span class="tag-rojo">ESTRENA</span>
-                <h3>Productos en Descuento</h3>
-                <p>Nuestras colecciones anteriores con precios de locura por tiempo limitado.</p>
-                <a href="#" style="color: var(--oro); font-weight: 600; text-decoration: none;">COMPRAR AHORA →</a>
+        </a>
+        <a href="#" class="item-venta">
+            <img src="https://images.pexels.com/photos/2533266/pexels-photo-2533266.jpeg?auto=compress&w=800">
+            <div class="info-venta">
+                <h3>Promociones</h3>
+                <p>Tus favoritos con precios especiales.</p>
             </div>
-        </div>
-    </section>
+        </a>
+    </div>
 
-    <section class="quienes-somos" id="nosotros">
-        <div class="qs-img">
-            <img src="https://images.pexels.com/photos/3738339/pexels-photo-3738339.jpeg?auto=compress&w=800" alt="Nosotros">
+    <section class="nosotros">
+        <div class="nosotros-img">
+            <img src="https://images.pexels.com/photos/3738339/pexels-photo-3738339.jpeg?auto=compress&w=800">
         </div>
-        <div class="qs-texto">
+        <div class="nosotros-txt">
             <h2>Quiénes Somos</h2>
-            <p>En <strong>Lusson Colombia</strong>, creemos que la belleza no es solo un producto, es una experiencia de empoderamiento. Nos dedicamos a seleccionar la cosmética más fina para resaltar la elegancia natural de cada mujer.</p>
-            <p>Nacimos con el propósito de traer el lujo al alcance de tu mano, combinando calidad excepcional con un servicio personalizado.</p>
+            <p><strong>Lusson Colombia</strong> es el refugio de la elegancia y la alta cosmética. Nuestra misión es empoderar a cada mujer a través de productos que no solo embellecen, sino que cuidan y resaltan su esencia única.</p>
+            <p>Calidad premium y sofisticación en cada detalle.</p>
         </div>
     </section>
 
     <footer>
         <h2>LUSSON</h2>
-        <p style="color: var(--oro); letter-spacing: 4px; margin: 15px 0;">ELEGANCIA EN CADA DETALLE</p>
         <div class="footer-links">
             <a href="#">INSTAGRAM</a>
             <a href="#">TIKTOK</a>
-            <a href="#">CATÁLOGO PDF</a>
+            <a href="#">PDF</a>
         </div>
-        <p style="font-size: 0.6rem; color: #444; margin-top: 40px;">© 2026 LUSSON COLOMBIA - TODOS LOS DERECHOS RESERVADOS</p>
-        <div id="secret-point" onclick="modoJefa()"></div>
+        <p style="font-size: 0.6rem; color: #555; margin-top: 30px;">© 2026 LUSSON COLOMBIA - SISTEMA SEGURO</p>
+        <div style="width:20px; height:20px; cursor:default; margin:auto;" onclick="modoJefa()"></div>
     </footer>
 
-    <a href="https://wa.me/573000000000" class="wa-btn" target="_blank">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
+    <a href="https://wa.me/573000000000" class="wa" target="_blank">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg">
     </a>
 
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script>
-        // Configuración del Carrusel Interactivo
+        // CARRUSEL CONFIG
         const swiper = new Swiper(".mySwiper", {
             slidesPerView: "auto",
-            spaceBetween: 30,
+            spaceBetween: 25,
             centeredSlides: true,
             loop: true,
-            autoplay: {
-                delay: 2500,
-                disableOnInteraction: false, // No se detiene si tocas
-            },
-            grabCursor: true, // Cambia el ratón a una mano
+            autoplay: { delay: 3000, disableOnInteraction: false },
+            grabCursor: true,
         });
 
-        // Modo Administradora
+        // MODO ADMIN
         let toques = 0;
         function modoJefa() {
             toques++;
@@ -183,4 +275,3 @@
     </script>
 </body>
 </html>
-
