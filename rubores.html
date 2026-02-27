@@ -33,10 +33,14 @@
         /* GRID PRODUCTOS */
         .container { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
         .grid-productos { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 25px; }
-        .card { background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.05); transition: 0.3s; border: 1px solid var(--pink-cute); text-align: center; }
+        
+        /* TARJETA CON CLIC AL DETALLE */
+        .card { background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.05); transition: 0.3s; border: 1px solid var(--pink-cute); text-align: center; cursor: pointer; position: relative; }
+        .card:hover { transform: translateY(-5px); border-color: var(--pink-accent); }
         .card img { width: 100%; height: 280px; object-fit: cover; }
         .card h3 { font-family: 'Playfair Display', serif; margin: 15px 0 5px; }
-        .btn-add { width: 80%; padding: 10px; background: var(--pink-cute); border: none; border-radius: 20px; cursor: pointer; font-weight: 600; margin-bottom: 15px; }
+        .btn-add { width: 80%; padding: 10px; background: var(--pink-cute); border: none; border-radius: 20px; cursor: pointer; font-weight: 600; margin-bottom: 15px; position: relative; z-index: 2; }
+        .btn-add:hover { background: var(--pink-accent); color: white; }
 
         /* PANEL CARRITO */
         .cart-panel { position: fixed; top: 0; right: -400px; width: 320px; height: 100%; background: white; z-index: 2001; transition: 0.4s; padding: 25px; box-shadow: -5px 0 15px rgba(0,0,0,0.1); display: flex; flex-direction: column; }
@@ -146,17 +150,25 @@
             grid.innerHTML = '';
             snapshot.forEach((doc) => {
                 const p = doc.data();
+                const id = doc.id;
+                
                 grid.innerHTML += `
-                    <div class="card">
+                    <div class="card" onclick="irAlDetalle('${id}', 'lusso', event)">
                         <img src="${p.img}" alt="${p.nombre}">
                         <h3>${p.nombre}</h3>
                         <p>$${p.precio}</p>
-                        <button class="btn-add" onclick="agregarAlCarrito('${p.nombre}', ${p.precio})">AGREGAR</button>
+                        <button class="btn-add" onclick="agregarAlCarrito('${p.nombre}', ${p.precio}, event)">AGREGAR</button>
                     </div>`;
             });
         });
 
-        function agregarAlCarrito(nombre, precio) {
+        // NUEVA FUNCIÓN: Ir al detalle pasando ID y Colección
+        function irAlDetalle(id, coleccion, event) {
+            window.location.href = `detalle.html?id=${id}&col=${coleccion}`;
+        }
+
+        function agregarAlCarrito(nombre, precio, event) {
+            event.stopPropagation(); // Evita que al tocar el botón se abra el detalle
             const itemExistente = carrito.find(item => item.nombre === nombre);
             if (itemExistente) {
                 itemExistente.cantidad++;
@@ -209,4 +221,3 @@
     </script>
 </body>
 </html>
-
