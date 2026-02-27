@@ -3,65 +3,121 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LUSSON - Bases y Correctores</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    
+    <title>Bases y Correctores LUSSON | Piel Perfecta y Natural</title>
+    <meta name="description" content="Encuentra tu tono ideal con las bases y correctores LUSSON. Cobertura profesional, hidratación y acabado de lujo para tu rostro.">
+    <meta name="keywords" content="bases de maquillaje, correctores, maquillaje profesional, lusson colombia, base liquida">
+    <link rel="canonical" href="https://variedadesymoda1-boop.github.io/lusso/bases.html">
+
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
+    
+    <style>
+        :root { --pink-cute: #ffdeeb; --pink-accent: #f8bbd0; --blanco: #ffffff; --negro: #333; }
+        body { font-family: 'Montserrat', sans-serif; margin: 0; background: var(--blanco); color: var(--negro); overflow-x: hidden; }
+
+        /* HEADER */
+        header { background: white; padding: 15px; display: flex; align-items: center; justify-content: center; gap: 15px; }
+        header img { height: 60px; width: auto; }
+        header h1 { font-family: 'Playfair Display', serif; font-size: 2.2rem; letter-spacing: 4px; margin: 0; }
+
+        /* NAVEGACIÓN STICKY */
+        .nav-franja { background: var(--pink-cute); position: sticky; top: 0; z-index: 1000; padding: 10px 0; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+        .nav-container { display: flex; justify-content: center; align-items: center; max-width: 1200px; margin: auto; padding: 0 20px; position: relative; }
+        nav { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
+        nav a { text-decoration: none; color: var(--negro); font-size: 0.7rem; font-weight: 600; text-transform: uppercase; padding: 8px 15px; background: white; border-radius: 5px; transition: 0.3s; }
+        
+        /* BOLSA DE COMPRAS */
+        .cart-icon-container { position: absolute; right: 20px; cursor: pointer; color: var(--negro); font-size: 1.2rem; }
+        #cart-count { position: absolute; top: -10px; right: -10px; background: var(--pink-accent); color: white; font-size: 10px; padding: 2px 6px; border-radius: 50%; font-weight: bold; }
+
+        /* GRID PRODUCTOS */
+        .container { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
+        .grid-productos { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 25px; }
+        .card { background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.05); transition: 0.3s; border: 1px solid var(--pink-cute); text-align: center; }
+        .card img { width: 100%; height: 280px; object-fit: cover; }
+        .card h3 { font-family: 'Playfair Display', serif; margin: 15px 0 5px; }
+        .btn-add { width: 80%; padding: 10px; background: var(--pink-cute); border: none; border-radius: 20px; cursor: pointer; font-weight: 600; margin-bottom: 15px; }
+
+        /* PANEL CARRITO */
+        .cart-panel { position: fixed; top: 0; right: -400px; width: 320px; height: 100%; background: white; z-index: 2001; transition: 0.4s; padding: 25px; box-shadow: -5px 0 15px rgba(0,0,0,0.1); display: flex; flex-direction: column; }
+        .cart-panel.active { right: 0; }
+        .cart-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.2); z-index: 2000; display: none; }
+        .cart-overlay.active { display: block; }
+
+        /* FOOTER */
+        .main-footer { background: var(--pink-cute); padding: 50px 10% 20px; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; margin-top: 50px; }
+        .footer-col h4 { text-transform: uppercase; border-bottom: 2px solid white; padding-bottom: 5px; margin-bottom: 15px; }
+        .footer-col ul { list-style: none; padding: 0; font-size: 0.85rem; }
+        .footer-col a { text-decoration: none; color: var(--negro); }
+
+        /* BOTÓN WHATSAPP */
+        .wa-float { position: fixed; bottom: 25px; left: 25px; background: #25d366; width: 55px; height: 55px; border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 1000; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+    </style>
 </head>
 <body>
 
-    <div class="menu-overlay" id="menuOverlay" onclick="toggleMenu(false)">
-        <div class="side-menu" onclick="event.stopPropagation()">
-            <div style="display: flex; justify-content: space-between; align-items: center;">
-                <span style="letter-spacing: 2px; font-weight: 700;">MENÚ</span>
-                <i class="fa-solid fa-xmark" onclick="toggleMenu(false)" style="cursor: pointer;"></i>
-            </div>
-            <ul>
-                <li><a href="index.html">Inicio</a></li>
-                <li><a href="rubores.html">Rubores</a></li>
-                <li><a href="labiales.html">Labiales</a></li>
-                <li><a href="polvos.html">Polvos</a></li>
-                <li><a href="bases.html" class="active">Bases y Correctores</a></li>
-                <li><a href="skincare.html">Skincare</a></li>
-            </ul>
-        </div>
-    </div>
+    <header>
+        <img src="assets/subirlo.png" alt="Logo Lusson">
+        <h1>LUSSON</h1>
+    </header>
 
-    <nav class="navbar">
-        <i class="fa-solid fa-bars" onclick="toggleMenu(true)" style="cursor: pointer; font-size: 20px;"></i>
-        <a href="index.html" class="logo">LUSSON</a>
-        <div class="nav-icons">
-            <div style="position: relative; cursor: pointer;" onclick="toggleCart(true)">
+    <div class="nav-franja">
+        <div class="nav-container">
+            <nav>
+                <a href="index.html">Inicio</a>
+                <a href="bases.html">Bases</a>
+                <a href="labiales.html">Labiales</a>
+                <a href="polvos.html">Polvos</a>
+                <a href="rubores.html">Rubores</a>
+                <a href="skincare.html">Skincare</a>
+            </nav>
+            <div class="cart-icon-container" onclick="toggleCart(true)">
                 <i class="fa-solid fa-bag-shopping"></i>
-                <span id="cart-count" style="position: absolute; top: -8px; right: -8px; background: #c5a059; color: white; font-size: 9px; padding: 2px 5px; border-radius: 50%;">0</span>
+                <span id="cart-count">0</span>
             </div>
         </div>
-    </nav>
-
-    <div id="grid-productos" class="grid-productos">
-        <p style="grid-column: 1/-1; text-align: center; padding: 50px;">Cargando colección de Bases...</p>
     </div>
 
+    <div class="container">
+        <h2 style="text-align: center; font-family: 'Playfair Display'; color: var(--pink-accent);">Bases y Correctores</h2>
+        <div id="grid-productos" class="grid-productos">
+            <p style="text-align: center; grid-column: 1/-1;">Explorando tonos para tu piel...</p>
+        </div>
+    </div>
+
+    <div class="cart-overlay" id="cartOverlay" onclick="toggleCart(false)"></div>
     <div class="cart-panel" id="cartPanel">
-        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; padding-bottom: 15px;">
-            <h2 style="font-size: 16px; letter-spacing: 2px;">MI BOLSA</h2>
+        <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding-bottom: 15px;">
+            <h2 style="font-size: 16px; letter-spacing: 2px; margin:0;">MI BOLSA</h2>
             <i class="fa-solid fa-xmark" onclick="toggleCart(false)" style="cursor: pointer;"></i>
         </div>
         <div id="cart-items" style="margin-top: 20px; flex-grow: 1; overflow-y: auto;"></div>
-        <div style="border-top: 1px solid #eee; padding-top: 15px; margin-top: 20px;">
-            <div style="display: flex; justify-content: space-between; font-weight: 700; margin-bottom: 20px;">
+        <div style="border-top: 1px solid #eee; padding-top: 15px;">
+            <div style="display: flex; justify-content: space-between; font-weight: bold; margin-bottom: 20px;">
                 <span>TOTAL</span>
                 <span>$<span id="total-price">0</span></span>
             </div>
-            <button onclick="enviarPedido()" style="width: 100%; background: #25d366; color: white; border: none; padding: 15px; font-weight: 700; cursor: pointer; border-radius: 5px;">PEDIR POR WHATSAPP</button>
+            <button onclick="enviarPedido()" style="width: 100%; background: #25d366; color: white; border: none; padding: 12px; font-weight: bold; border-radius: 5px; cursor: pointer;">PEDIR POR WHATSAPP</button>
         </div>
     </div>
 
-    <a href="https://wa.me/573000000000" class="wa-float" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
-
-    <footer class="footer">
-        <p>© 2026 LUSSON COLOMBIA - Alta Cosmética<span id="punto-secreto" style="display: inline-block; width: 40px; height: 20px; color: rgba(0,0,0,0.01); cursor: default; margin-left: 5px;">.</span></p>
+    <footer class="main-footer">
+        <div class="footer-col">
+            <h4>Ayuda</h4>
+            <ul><li><a href="#">Contacto</a></li><li><a href="#">Horarios</a></li></ul>
+        </div>
+        <div class="footer-col">
+            <h4>Lusson</h4>
+            <ul><li><a href="nosotros.html">Historia</a></li><li><a href="#">Instagram</a></li></ul>
+        </div>
+        <div class="footer-col">
+            <h4>Políticas</h4>
+            <ul><li><a href="#">Privacidad</a></li><li><a href="#">Cambios</a></li></ul>
+        </div>
     </footer>
+
+    <a href="https://wa.me/570000000000" class="wa-float" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" width="30"></a>
 
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
@@ -77,13 +133,14 @@
         };
         firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
-
         let carrito = [];
 
-        function toggleMenu(show) { document.getElementById('menuOverlay').classList.toggle('active', show); }
-        function toggleCart(show) { document.getElementById('cartPanel').classList.toggle('active', show); }
+        function toggleCart(show) {
+            document.getElementById('cartPanel').classList.toggle('active', show);
+            document.getElementById('cartOverlay').classList.toggle('active', show);
+        }
 
-        // CARGAR DESDE LA COLECCIÓN "bases"
+        // CARGA COLECCIÓN "bases"
         db.collection("bases").onSnapshot((snapshot) => {
             const grid = document.getElementById('grid-productos');
             grid.innerHTML = '';
@@ -95,13 +152,17 @@
                         <h3>${p.nombre}</h3>
                         <p>$${p.precio}</p>
                         <button class="btn-add" onclick="agregarAlCarrito('${p.nombre}', ${p.precio})">AGREGAR</button>
-                    </div>
-                `;
+                    </div>`;
             });
         });
 
         function agregarAlCarrito(nombre, precio) {
-            carrito.push({nombre, precio});
+            const itemExistente = carrito.find(item => item.nombre === nombre);
+            if (itemExistente) {
+                itemExistente.cantidad++;
+            } else {
+                carrito.push({ nombre, precio, cantidad: 1 });
+            }
             actualizarCarrito();
             toggleCart(true);
         }
@@ -112,32 +173,40 @@
             const countE = document.getElementById('cart-count');
             container.innerHTML = '';
             let total = 0;
+            let totalProductos = 0;
+
             carrito.forEach((item, index) => {
-                total += item.precio;
-                container.innerHTML += `<div style="display:flex; justify-content:space-between; margin-bottom:10px;"><span>${item.nombre}</span><span>$${item.precio} <i class="fa-solid fa-trash" onclick="eliminar(${index})" style="color:red; cursor:pointer;"></i></span></div>`;
+                const subtotal = item.precio * item.cantidad;
+                total += subtotal;
+                totalProductos += item.cantidad;
+                container.innerHTML += `
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px; font-size:12px;">
+                        <div>
+                            <strong>${item.nombre}</strong><br>
+                            ${item.cantidad} unidad(es) x $${item.precio}
+                        </div>
+                        <div style="text-align:right;">
+                            $${subtotal} <br>
+                            <i class="fa-solid fa-trash" onclick="eliminar(${index})" style="color:red; cursor:pointer; font-size:14px; margin-top:5px;"></i>
+                        </div>
+                    </div>`;
             });
             totalE.innerText = total.toLocaleString();
-            countE.innerText = carrito.length;
+            countE.innerText = totalProductos;
         }
 
-        function eliminar(idx) { carrito.splice(idx, 1); actualizarCarrito(); }
+        function eliminar(idx) {
+            carrito.splice(idx, 1);
+            actualizarCarrito();
+        }
 
         function enviarPedido() {
+            if(carrito.length === 0) return alert("Bolsa vacía");
             let texto = "Hola LUSSON, mi pedido de Bases y Correctores es: \n";
-            carrito.forEach(i => texto += `- ${i.nombre}: $${i.precio} \n`);
-            window.open(`https://wa.me/573000000000?text=${encodeURIComponent(texto)}`);
+            carrito.forEach(i => texto += `- ${i.nombre} (${i.cantidad} unidades): $${i.precio * i.cantidad} \n`);
+            window.open(`https://wa.me/570000000000?text=${encodeURIComponent(texto)}`);
         }
-
-        // TRUCO 5 TOQUES
-        let toques = 0;
-        let timer;
-        const punto = document.getElementById('punto-secreto');
-        punto.addEventListener('click', function() {
-            toques++;
-            clearTimeout(timer);
-            if (toques === 5) { window.location.href = "admin/index.html"; toques = 0; }
-            timer = setTimeout(() => { toques = 0; }, 3000);
-        });
     </script>
 </body>
 </html>
+
