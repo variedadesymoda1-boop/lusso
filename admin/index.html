@@ -3,131 +3,185 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Panel Admin LUSSON | Gestión de Imagen</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+    <title>LUSSON | Panel Administrativo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        body { font-family: 'Montserrat', sans-serif; background: #fdf2f5; margin: 0; padding: 20px; }
-        .admin-container { max-width: 800px; margin: auto; background: white; padding: 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-        h1 { color: #f8bbd0; text-align: center; }
-        .upload-card { border: 2px dashed #f8bbd0; padding: 20px; border-radius: 15px; margin-bottom: 30px; text-align: center; }
-        input[type="file"] { margin: 15px 0; }
-        button { background: #f8bbd0; color: white; border: none; padding: 12px 25px; border-radius: 25px; cursor: pointer; font-weight: 600; transition: 0.3s; }
-        button:hover { background: #ffdeeb; color: #333; }
-        .progress-bar { width: 0%; height: 10px; background: #25d366; border-radius: 5px; margin-top: 10px; transition: 0.3s; }
-        .preview-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin-top: 20px; }
-        .preview-item { border: 1px solid #eee; padding: 10px; border-radius: 10px; position: relative; }
-        .preview-item img { width: 100%; border-radius: 8px; }
-        .btn-delete { background: #ff4d4d; padding: 5px 10px; font-size: 12px; margin-top: 5px; }
+        :root { --pink-cute: #ffdeeb; --pink-accent: #f8bbd0; --negro: #1a1a1a; --crema: #fdfaf5; }
+        body { background: var(--crema); font-family: 'Inter', sans-serif; margin: 0; padding: 20px; }
+        .container { max-width: 650px; margin: auto; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+        .hidden { display: none; }
+        input, select { width: 100%; padding: 12px; margin: 10px 0; border: 2px solid var(--pink-cute); border-radius: 8px; box-sizing: border-box; }
+        button { width: 100%; padding: 14px; background: var(--negro); color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; margin-top: 10px; }
+        .btn-accent { background: var(--pink-accent); color: var(--negro); margin-bottom: 20px; }
+        .section-card { background: #fffafa; padding: 20px; border: 1px solid var(--pink-cute); border-radius: 12px; margin-bottom: 30px; }
+        .product-item { display: flex; align-items: center; justify-content: space-between; padding: 10px; border-bottom: 1px solid var(--pink-cute); }
+        .product-item img { width: 50px; height: 50px; object-fit: cover; border-radius: 4px; }
+        .hint-box { background: #e3f2fd; padding: 15px; border-radius: 8px; font-size: 0.85rem; color: #0d47a1; margin-bottom: 20px; text-align: center; }
+        .wa-post { color: #2196f3; font-weight: bold; text-decoration: none; }
     </style>
 </head>
 <body>
 
-<div class="admin-container">
-    <h1>Administrador LUSSON</h1>
-
-    <div class="upload-card">
-        <h3>Subir Nueva Imagen al Carrusel</h3>
-        <input type="file" id="file-banner" accept="image/*">
-        <br>
-        <input type="number" id="order-banner" placeholder="Orden (ej: 1)" style="padding: 8px; border-radius: 5px; border: 1px solid #ddd;">
-        <button onclick="uploadImage('banner')">Subir al Carrusel</button>
-        <div id="progress-banner" class="progress-bar"></div>
+    <div id="login-section" class="container">
+        <h2 style="text-align:center; font-family:'Playfair Display'; color: var(--pink-accent);">Acceso LUSSON</h2>
+        <input type="email" id="email" placeholder="Correo">
+        <input type="password" id="password" placeholder="Contraseña">
+        <button onclick="login()">INGRESAR AL PANEL</button>
     </div>
 
-    <div class="upload-card">
-        <h3>Actualizar Combos o Promociones</h3>
-        <select id="type-static" style="padding: 8px; border-radius: 5px;">
-            <option value="combos">Cuadro de Combos</option>
-            <option value="promos">Cuadro de Promociones</option>
-        </select>
-        <input type="file" id="file-static" accept="image/*">
-        <button onclick="uploadImage('static')">Actualizar Imagen</button>
-        <div id="progress-static" class="progress-bar"></div>
+    <div id="admin-section" class="container hidden">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+            <h2 style="font-family:'Playfair Display';">Panel de Control</h2>
+            <button onclick="logout()" style="width:auto; background:#757575; padding:5px 15px;">Salir</button>
+        </div>
+
+        <div class="hint-box">
+            <strong>¿Nueva foto?</strong> Súbela a <a href="https://postimages.org/" target="_blank" class="wa-post">Postimages.org</a> <br>
+            Copia el <strong>"Enlace directo"</strong> y pégalo abajo.
+        </div>
+
+        <div class="section-card">
+            <h3>📸 Imágenes de Inicio</h3>
+            <select id="seccion-inicio">
+                <option value="banners">Añadir al Carrusel</option>
+                <option value="combos">Actualizar Cuadro Combos</option>
+                <option value="promos">Actualizar Cuadro Promociones</option>
+            </select>
+            <input type="text" id="url-inicio" placeholder="Pega el Enlace Directo de la imagen">
+            <button class="btn-accent" onclick="actualizarInicio()">ACTUALIZAR INICIO</button>
+        </div>
+
+        <div class="section-card">
+            <h3>💄 Gestión de Productos</h3>
+            <button class="btn-accent" onclick="document.getElementById('form-producto').classList.toggle('hidden')">+ NUEVO PRODUCTO</button>
+            
+            <div id="form-producto" class="hidden">
+                <input type="hidden" id="edit-id">
+                <input type="text" id="prod-nombre" placeholder="Nombre del producto">
+                <input type="number" id="prod-precio" placeholder="Precio (solo números)">
+                <input type="text" id="prod-img" placeholder="Enlace directo de la imagen">
+                <select id="prod-coleccion">
+                    <option value="labiales">Labiales</option>
+                    <option value="rubores">Rubores</option>
+                    <option value="bases">Bases y Correctores</option>
+                    <option value="polvos">Polvos</option>
+                    <option value="skincare">Skincare</option>
+                </select>
+                <button onclick="guardarProducto()" style="background:var(--pink-accent); color:black;">GUARDAR EN CATÁLOGO</button>
+            </div>
+        </div>
+
+        <div id="lista-gestion">
+            <h3 style="border-bottom: 2px solid var(--pink-cute); padding-bottom: 5px;">Inventario Actual</h3>
+            <select id="filtro-lista" onchange="cargarInventario()">
+                <option value="labiales">Ver Labiales</option>
+                <option value="rubores">Ver Rubores</option>
+                <option value="bases">Ver Bases</option>
+                <option value="polvos">Ver Polvos</option>
+                <option value="skincare">Ver Skincare</option>
+                <option value="banners">Ver Carrusel Inicio</option>
+            </select>
+            <div id="items-container"></div>
+        </div>
     </div>
 
-    <hr>
-    <h3>Imágenes actuales en Inicio</h3>
-    <div id="admin-list" class="preview-list"></div>
-</div>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
 
-<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyCMCFn8zuekM5rIh6Uq02zu_ypblsJonuo",
+            authDomain: "lusson-web.firebaseapp.com",
+            projectId: "lusson-web",
+            storageBucket: "lusson-web.firebasestorage.app",
+            messagingSenderId: "445073966036",
+            appId: "1:445073966036:web:f6c56d465f68ace86a4c41"
+        };
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const db = firebase.firestore();
 
-<script>
-    const firebaseConfig = {
-        apiKey: "AIzaSyCMCFn8zuekM5rIh6Uq02zu_ypblsJonuo",
-        authDomain: "lusson-web.firebaseapp.com",
-        projectId: "lusson-web",
-        storageBucket: "lusson-web.appspot.com", // Asegúrate que termine en .appspot.com
-        messagingSenderId: "445073966036",
-        appId: "1:445073966036:web:f6c56d465f68ace86a4c41"
-    };
-    firebase.initializeApp(firebaseConfig);
-    const db = firebase.firestore();
-    const storage = firebase.storage();
+        // LOGIN POR URL
+        function login() {
+            auth.signInWithEmailAndPassword(document.getElementById('email').value, document.getElementById('password').value)
+                .catch(e => alert("Error: Acceso no autorizado"));
+        }
 
-    async function uploadImage(mode) {
-        const fileInput = mode === 'banner' ? document.getElementById('file-banner') : document.getElementById('file-static');
-        const progressBar = mode === 'banner' ? document.getElementById('progress-banner') : document.getElementById('progress-static');
-        const file = fileInput.files[0];
-        
-        if (!file) return alert("Selecciona un archivo primero");
-
-        // 1. Crear referencia en Storage
-        const storageRef = storage.ref(`inicio/${Date.now()}_${file.name}`);
-        const uploadTask = storageRef.put(file);
-
-        uploadTask.on('state_changed', 
-            (snapshot) => {
-                const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-                progressBar.style.width = progress + '%';
-            }, 
-            (error) => alert("Error al subir: " + error.message), 
-            async () => {
-                // 2. Obtener la URL de descarga
-                const downloadURL = await uploadTask.snapshot.ref.getDownloadURL();
-                
-                if (mode === 'banner') {
-                    const orden = document.getElementById('order-banner').value || 1;
-                    await db.collection("banners").add({
-                        img: downloadURL,
-                        orden: parseInt(orden)
-                    });
-                } else {
-                    const docId = document.getElementById('type-static').value;
-                    await db.collection("config_inicio").doc(docId).set({
-                        img: downloadURL
-                    });
-                }
-                
-                alert("¡Imagen actualizada con éxito!");
-                progressBar.style.width = '0%';
-                fileInput.value = '';
+        auth.onAuthStateChanged(user => {
+            if (user) {
+                document.getElementById('login-section').classList.add('hidden');
+                document.getElementById('admin-section').classList.remove('hidden');
+                cargarInventario();
+            } else {
+                document.getElementById('login-section').classList.remove('hidden');
+                document.getElementById('admin-section').classList.add('hidden');
             }
-        );
-    }
-
-    // Listar imágenes para borrar
-    db.collection("banners").orderBy("orden", "asc").onSnapshot(snap => {
-        const list = document.getElementById('admin-list');
-        list.innerHTML = '';
-        snap.forEach(doc => {
-            const data = doc.data();
-            list.innerHTML += `
-                <div class="preview-item">
-                    <img src="${data.img}">
-                    <button class="btn-delete" onclick="deleteBanner('${doc.id}')">Borrar</button>
-                </div>
-            `;
         });
-    });
 
-    async function deleteBanner(id) {
-        if(confirm("¿Borrar esta imagen?")) await db.collection("banners").doc(id).delete();
-    }
-</script>
+        // ACTUALIZAR IMÁGENES DE INICIO (Carrusel, Combos, Promos)
+        function actualizarInicio() {
+            const seccion = document.getElementById('seccion-inicio').value;
+            const url = document.getElementById('url-inicio').value;
+            if(!url) return alert("Pega un link");
 
+            if(seccion === "banners") {
+                db.collection("banners").add({ img: url, orden: Date.now() }).then(() => alert("Añadido al carrusel"));
+            } else {
+                db.collection("config_inicio").doc(seccion).set({ img: url }).then(() => alert("Cuadro de " + seccion + " actualizado"));
+            }
+            document.getElementById('url-inicio').value = "";
+        }
+
+        // GESTIÓN DE PRODUCTOS
+        function guardarProducto() {
+            const id = document.getElementById('edit-id').value;
+            const col = document.getElementById('prod-coleccion').value;
+            const data = {
+                nombre: document.getElementById('prod-nombre').value,
+                precio: Number(document.getElementById('prod-precio').value),
+                img: document.getElementById('prod-img').value
+            };
+
+            if(id) {
+                db.collection(col).doc(id).update(data).then(() => alert("Actualizado"));
+            } else {
+                db.collection(col).add(data).then(() => alert("Producto Creado"));
+            }
+            document.getElementById('form-producto').classList.add('hidden');
+            limpiarCampos();
+        }
+
+        function cargarInventario() {
+            const col = document.getElementById('filtro-lista').value;
+            db.collection(col).onSnapshot(snap => {
+                const container = document.getElementById('items-container');
+                container.innerHTML = '';
+                snap.forEach(doc => {
+                    const p = doc.data();
+                    container.innerHTML += `
+                        <div class="product-item">
+                            <img src="${p.img}">
+                            <div style="flex:1; margin-left:15px;"><strong>${p.nombre || 'Banner'}</strong></div>
+                            <button onclick="eliminar('${doc.id}', '${col}')" style="width:auto; background:#ff4d4d; padding:5px 10px;">X</button>
+                        </div>`;
+                });
+            });
+        }
+
+        function eliminar(id, col) {
+            if(confirm("¿Eliminar definitivamente?")) db.collection(col).doc(id).delete();
+        }
+
+        function limpiarCampos() {
+            document.getElementById('prod-nombre').value = '';
+            document.getElementById('prod-precio').value = '';
+            document.getElementById('prod-img').value = '';
+            document.getElementById('edit-id').value = '';
+        }
+
+        function logout() { auth.signOut(); }
+    </script>
 </body>
 </html>
-
