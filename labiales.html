@@ -6,6 +6,7 @@
     
     <title>Labiales LUSSON | Colección de Lujo y Larga Duración</title>
     <meta name="description" content="Explora la gama de labiales LUSSON. Tonos vibrantes, hidratación profunda y elegancia para tus labios. Calidad profesional en Colombia.">
+    <meta name="keywords" content="labiales, labial matte, maquillaje labios, lusson colombia, labiales de lujo">
     <link rel="canonical" href="https://variedadesymoda1-boop.github.io/lusso/labiales.html">
 
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
@@ -91,8 +92,24 @@
         .social-icons a { font-size: 1.5rem; color: var(--negro); }
         .copyright { text-align: center; padding: 30px; background: white; font-size: 0.7rem; letter-spacing: 2px; color: #888; }
 
-        /* WHATSAPP */
-        .wa-float { position: fixed; bottom: 30px; left: 30px; background: #25d366; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 1000; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+        /* BOTÓN FLOTANTE WHATSAPP */
+        .wa-float { 
+            position: fixed; 
+            bottom: 30px; 
+            left: 30px; 
+            background: #25d366; 
+            width: 60px; 
+            height: 60px; 
+            border-radius: 50%; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            z-index: 1000; 
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2); 
+            transition: 0.3s;
+        }
+        .wa-float:hover { transform: scale(1.1); }
+        .wa-float img { width: 35px; }
     </style>
 </head>
 <body>
@@ -168,7 +185,7 @@
     <div class="copyright">© 2026 LUSSON COLOMBIA - TODOS LOS DERECHOS RESERVADOS</div>
 
     <a href="https://wa.me/570000000000" class="wa-float" target="_blank">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" width="35">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp Lusson">
     </a>
 
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
@@ -192,7 +209,6 @@
             document.getElementById('cartOverlay').classList.toggle('active', show);
         }
 
-        // CARGAR DESDE COLECCIÓN "labiales"
         db.collection("labiales").onSnapshot((snapshot) => {
             const grid = document.getElementById('grid-productos');
             grid.innerHTML = '';
@@ -244,4 +260,4 @@
     </script>
 </body>
     </html>
-
+                                               
