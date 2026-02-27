@@ -3,152 +3,149 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Detalle de Producto | Lusson</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;1,400&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <title>Detalle de Producto | LUSSON</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        :root { --nude-bg: #f5eee6; --oro: #bca07d; --negro: #1a1a1a; --blanco: #ffffff; }
-        body { margin: 0; font-family: 'Montserrat', sans-serif; background: var(--blanco); color: var(--negro); overflow-x: hidden; }
+        :root { --pink-cute: #ffdeeb; --pink-accent: #f8bbd0; --negro: #1a1a1a; --blanco: #ffffff; --oro: #bca07d; }
+        body { margin: 0; font-family: 'Montserrat', sans-serif; background: var(--blanco); color: var(--negro); }
         
-        header { background: var(--nude-bg); padding: 20px; text-align: center; }
-        .logo { font-family: 'Playfair Display', serif; font-size: 1.5rem; letter-spacing: 10px; text-decoration: none; color: var(--negro); }
+        /* NAVBAR ESTILO LUSSON */
+        .nav-franja { background: var(--pink-cute); padding: 10px 0; position: sticky; top: 0; z-index: 1000; }
+        .nav-container { display: flex; justify-content: space-between; align-items: center; max-width: 1100px; margin: auto; padding: 0 20px; }
+        .logo { font-family: 'Playfair Display', serif; font-size: 1.5rem; letter-spacing: 5px; text-decoration: none; color: var(--negro); }
+        .cart-icon { position: relative; cursor: pointer; font-size: 1.2rem; }
+        #cart-count { position: absolute; top: -10px; right: -10px; background: var(--pink-accent); color: white; font-size: 10px; padding: 2px 6px; border-radius: 50%; font-weight: bold; }
 
-        .btn-regresar { display: inline-block; text-decoration: none; color: var(--negro); font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 20px; cursor: pointer; border: 1px solid #ddd; padding: 10px 15px; }
-
-        .contenedor-detalle { max-width: 1100px; margin: 20px auto; padding: 20px; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; }
-
-        /* --- GALERÍA COMPACTA --- */
-        .seccion-imagenes { display: flex; flex-direction: column; gap: 15px; }
-        .visor-principal { width: 100%; height: 450px; overflow: hidden; border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
-        .visor-principal img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s ease; }
+        .contenedor-detalle { max-width: 1100px; margin: 40px auto; padding: 20px; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; }
+        .visor-principal { width: 100%; height: 450px; border-radius: 8px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        .visor-principal img { width: 100%; height: 100%; object-fit: cover; }
         
-        .fila-miniaturas { display: flex; gap: 10px; justify-content: flex-start; }
-        .miniatura { width: calc(33.33% - 7px); height: 100px; object-fit: cover; border-radius: 5px; cursor: pointer; border: 2px solid transparent; transition: 0.3s; }
-        .miniatura:hover, .miniatura.activa { border-color: var(--oro); opacity: 0.8; }
-
         .info-producto { display: flex; flex-direction: column; gap: 15px; }
-        .nombre-p { font-family: 'Playfair Display', serif; font-size: 2.2rem; margin: 0; }
-        .precio-p { font-size: 1.8rem; font-weight: 600; color: var(--negro); }
+        .nombre-p { font-family: 'Playfair Display', serif; font-size: 2.5rem; margin: 0; }
+        .precio-p { font-size: 1.8rem; font-weight: 600; color: var(--pink-accent); }
         
-        .seccion-texto { margin-top: 20px; border-top: 1px solid #eee; padding-top: 15px; }
-        .titulo-seccion { font-weight: 600; font-size: 0.75rem; letter-spacing: 2px; text-transform: uppercase; color: var(--oro); margin-bottom: 8px; display: block; }
-        .texto-contenido { line-height: 1.6; color: #555; font-size: 0.85rem; margin-bottom: 15px; }
-
-        .control-cantidad { display: flex; align-items: center; gap: 10px; margin: 10px 0; }
-        .btn-qty { background: #f8f8f8; border: 1px solid #ddd; width: 40px; height: 40px; font-size: 1.1rem; cursor: pointer; }
-        #cantidad-valor { width: 35px; text-align: center; font-weight: 600; }
+        .titulo-seccion { font-weight: 600; font-size: 0.75rem; letter-spacing: 2px; text-transform: uppercase; color: var(--oro); margin-top: 20px; display: block; }
+        .texto-contenido { line-height: 1.6; color: #555; font-size: 0.9rem; margin-bottom: 10px; white-space: pre-line; }
 
         .btn-comprar { background: #25d366; color: white; border: none; padding: 18px; text-transform: uppercase; letter-spacing: 3px; cursor: pointer; font-weight: 600; width: 100%; border-radius: 5px; margin-top: 15px; }
-
-        /* Carrusel Infinito */
-        .contenedor-carrusel { overflow: hidden; width: 100%; padding: 20px 0; }
-        .fila-movimiento { display: flex; width: calc(250px * 10); animation: deslizar 25s linear infinite; }
-        .item-rec { width: 160px; flex-shrink: 0; margin: 0 15px; text-align: center; }
-        .item-rec img { width: 100%; height: 160px; object-fit: cover; border-radius: 5px; }
-        @keyframes deslizar { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-
-        @media (max-width: 600px) {
-            .visor-principal { height: 320px; }
-            .fila-miniaturas .miniatura { height: 80px; }
-            .nombre-p { font-size: 1.7rem; }
-        }
+        
+        /* CARRITO LATERAL */
+        .cart-panel { position: fixed; top: 0; right: -400px; width: 320px; height: 100%; background: white; z-index: 2001; transition: 0.4s; padding: 25px; box-shadow: -5px 0 15px rgba(0,0,0,0.1); display: flex; flex-direction: column; }
+        .cart-panel.active { right: 0; }
+        .cart-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.2); z-index: 2000; display: none; }
+        .cart-overlay.active { display: block; }
     </style>
 </head>
 <body>
 
-    <header><a href="index.html" class="logo">LUSSON</a></header>
+    <div class="nav-franja">
+        <div class="nav-container">
+            <a href="index.html" class="logo">LUSSON</a>
+            <div class="cart-icon" onclick="toggleCart(true)">
+                <i class="fa-solid fa-bag-shopping"></i>
+                <span id="cart-count">0</span>
+            </div>
+        </div>
+    </div>
 
     <div class="contenedor-detalle">
         <div class="seccion-imagenes">
             <div class="visor-principal">
-                <img id="img-grande" src="" alt="Vista principal">
-            </div>
-            <div class="fila-miniaturas">
-                <img id="thumb1" src="" class="miniatura activa" onclick="actualizarVisor(this)">
-                <img id="thumb2" src="https://images.pexels.com/photos/3373739/pexels-photo-3373739.jpeg?auto=compress&w=400" class="miniatura" onclick="actualizarVisor(this)">
-                <img id="thumb3" src="https://images.pexels.com/photos/2688991/pexels-photo-2688991.jpeg?auto=compress&w=400" class="miniatura" onclick="actualizarVisor(this)">
+                <img id="img-grande" src="" alt="Producto">
             </div>
         </div>
         
         <div class="info-producto">
-            <a href="javascript:history.back()" class="btn-regresar">← Volver</a>
             <h1 id="nombre-producto" class="nombre-p">Cargando...</h1>
             <p id="precio-producto" class="precio-p">$0</p>
             
             <div class="seccion-texto">
                 <span class="titulo-seccion">Descripción</span>
-                <p class="texto-contenido">Fórmula Lusson Professional de alta pigmentación. Proporciona un acabado sedoso y duradero, ideal para cualquier ocasión. Enriquecido con componentes que cuidan la salud de tus labios.</p>
+                <p id="desc-producto" class="texto-contenido">...</p>
                 
                 <span class="titulo-seccion">Especificaciones Técnicas</span>
-                <p class="texto-contenido">
-                    • Larga duración (hasta 12h)<br>
-                    • Efecto Mate Terciopelo<br>
-                    • Contenido neto: 5.0 ml<br>
-                    • Producto Cruelty-Free
-                </p>
+                <p id="specs-producto" class="texto-contenido">...</p>
             </div>
             
-            <div>
-                <label style="font-size:0.7rem; font-weight:600; letter-spacing:1px;">CANTIDAD:</label>
-                <div class="control-cantidad">
-                    <button class="btn-qty" onclick="cambiarCantidad(-1)">-</button>
-                    <span id="cantidad-valor">1</span>
-                    <button class="btn-qty" onclick="cambiarCantidad(1)">+</button>
-                </div>
-            </div>
-
-            <button class="btn-comprar" onclick="enviarWhatsApp()">Comprar por WhatsApp</button>
+            <button class="btn-comprar" onclick="agregarAlCarrito()">Agregar a la bolsa</button>
         </div>
     </div>
 
-    <div class="recomendados" style="padding: 40px 0; border-top: 1px solid #eee;">
-        <h3 style="text-align: center; font-family: 'Playfair Display', serif; font-size: 1.1rem; letter-spacing: 2px;">TE PUEDE INTERESAR</h3>
-        <div class="contenedor-carrusel">
-            <div class="fila-movimiento">
-                <div class="item-rec"><img src="assets/labial1.png"><p style="font-size:0.6rem;">Matte N1</p></div>
-                <div class="item-rec"><img src="assets/labial2.png"><p style="font-size:0.6rem;">Gloss Shimmer</p></div>
-                <div class="item-rec"><img src="assets/labial3.png"><p style="font-size:0.6rem;">Tinta Silk</p></div>
-                <div class="item-rec"><img src="assets/labial1.png"><p style="font-size:0.6rem;">Matte N1</p></div>
-                <div class="item-rec"><img src="assets/labial2.png"><p style="font-size:0.6rem;">Gloss Shimmer</p></div>
-            </div>
+    <div class="cart-overlay" id="cartOverlay" onclick="toggleCart(false)"></div>
+    <div class="cart-panel" id="cartPanel">
+        <h3>MI BOLSA</h3>
+        <div id="cart-items" style="flex-grow:1; overflow-y:auto;"></div>
+        <div style="border-top:1px solid #eee; padding-top:15px;">
+            <strong>TOTAL: $<span id="total-price">0</span></strong>
+            <button onclick="enviarWhatsApp()" style="width:100%; background:#25d366; color:white; border:none; padding:12px; margin-top:10px; border-radius:5px; cursor:pointer;">FINALIZAR POR WHATSAPP</button>
         </div>
     </div>
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
 
     <script>
-        // Cargar datos del catálogo
+        const firebaseConfig = { /* TU CONFIGURACIÓN AQUÍ */ };
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+
         const params = new URLSearchParams(window.location.search);
-        const nombreProd = params.get('nombre') || 'Labial Lusson';
-        const precioProd = params.get('precio') || '0';
-        const fotoProd = params.get('foto') || '';
+        const prodId = params.get('id');
+        const col = params.get('col'); // Ej: 'labiales'
+        let productoActual = null;
+        let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
 
-        document.getElementById('nombre-producto').innerText = nombreProd;
-        document.getElementById('precio-producto').innerText = '$' + precioProd;
-        
-        // Inicializar galería: la foto grande y la primera miniatura son la misma
-        const visor = document.getElementById('img-grande');
-        const thumb1 = document.getElementById('thumb1');
-        visor.src = fotoProd;
-        thumb1.src = fotoProd;
-
-        function actualizarVisor(elemento) {
-            // Cambiar la imagen grande
-            visor.src = elemento.src;
-            // Quitar clase activa de todas y ponerla en la seleccionada
-            document.querySelectorAll('.miniatura').forEach(t => t.classList.remove('activa'));
-            elemento.classList.add('activa');
+        // BUSCAR DATOS EN FIREBASE
+        if(prodId && col) {
+            db.collection(col).doc(prodId).get().then((doc) => {
+                if(doc.exists) {
+                    productoActual = doc.data();
+                    document.getElementById('nombre-producto').innerText = productoActual.nombre;
+                    document.getElementById('precio-producto').innerText = '$' + productoActual.precio.toLocaleString();
+                    document.getElementById('img-grande').src = productoActual.img;
+                    document.getElementById('desc-producto').innerText = productoActual.descripcion || "Sin descripción";
+                    document.getElementById('specs-producto').innerText = productoActual.specs || "Sin especificaciones";
+                }
+            });
         }
 
-        let cantidad = 1;
-        function cambiarCantidad(v) { 
-            cantidad += v; 
-            if(cantidad < 1) cantidad = 1; 
-            document.getElementById('cantidad-valor').innerText = cantidad; 
+        function toggleCart(show) {
+            document.getElementById('cartPanel').classList.toggle('active', show);
+            document.getElementById('cartOverlay').classList.toggle('active', show);
+        }
+
+        function agregarAlCarrito() {
+            const index = carrito.findIndex(item => item.nombre === productoActual.nombre);
+            if(index > -1) carrito[index].cantidad++;
+            else carrito.push({ ...productoActual, cantidad: 1 });
+            
+            localStorage.setItem('carrito', JSON.stringify(carrito));
+            actualizarCarritoUI();
+            toggleCart(true);
+        }
+
+        function actualizarCarritoUI() {
+            const container = document.getElementById('cart-items');
+            container.innerHTML = '';
+            let total = 0;
+            carrito.forEach((item, idx) => {
+                total += item.precio * item.cantidad;
+                container.innerHTML += `<div style="margin-bottom:10px; font-size:12px;">
+                    ${item.nombre} x${item.cantidad} - $${(item.precio * item.cantidad).toLocaleString()}
+                </div>`;
+            });
+            document.getElementById('total-price').innerText = total.toLocaleString();
+            document.getElementById('cart-count').innerText = carrito.length;
         }
 
         function enviarWhatsApp() {
-            const miTel = "573000000000"; // ← CAMBIA POR TU NÚMERO
-            const msg = `¡Hola Lusson! ✨ Quiero comprar:\nProducto: ${nombreProd}\nCantidad: ${cantidad}\nTotal: $${(parseInt(precioProd.replace(/\./g, '')) * cantidad).toLocaleString()}\n¿Me das info del pago?`;
-            window.open(`https://wa.me/${miTel}?text=${encodeURIComponent(msg)}`, '_blank');
+            let msg = "¡Hola LUSSON! Mi pedido es:\n";
+            carrito.forEach(i => msg += `- ${i.nombre} x${i.cantidad}\n`);
+            window.open(`https://wa.me/570000000000?text=${encodeURIComponent(msg)}`);
         }
+        
+        actualizarCarritoUI();
     </script>
 </body>
 </html>
