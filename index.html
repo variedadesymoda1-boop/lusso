@@ -62,7 +62,7 @@
         .card-cat img { width: 100%; height: 320px; object-fit: cover; }
         .card-cat .label { padding: 15px; text-align: center; font-weight: 600; letter-spacing: 2px; }
 
-        /* SECCIÓN COMBOS Y PROMOCIONES (VUELVEN LOS CUADROS) */
+        /* SECCIÓN COMBOS Y PROMOCIONES */
         .grid-ventas { 
             display: grid; 
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); 
@@ -104,6 +104,25 @@
         .social-icons a { font-size: 1.5rem; color: var(--negro); }
 
         .copyright { text-align: center; padding: 30px; background: white; font-size: 0.7rem; letter-spacing: 2px; color: #888; }
+
+        /* BOTÓN FLOTANTE WHATSAPP (RECUPERADO) */
+        .wa-float { 
+            position: fixed; 
+            bottom: 30px; 
+            left: 30px; 
+            background: #25d366; 
+            width: 60px; 
+            height: 60px; 
+            border-radius: 50%; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            z-index: 2000; 
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2); 
+            transition: 0.3s;
+        }
+        .wa-float:hover { transform: scale(1.1); background: #128c7e; }
+        .wa-float img { width: 35px; }
     </style>
 </head>
 <body>
@@ -198,6 +217,10 @@
         <div style="width:15px; height:15px; cursor:default; display:inline-block; margin-left:10px;" onclick="modoJefa()"></div>
     </div>
 
+    <a href="https://wa.me/570000000000" class="wa-float" target="_blank">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp Lusson">
+    </a>
+
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script>
         const swiper = new Swiper(".mySwiper", {
@@ -217,3 +240,4 @@
     </script>
 </body>
 </html>
+    
