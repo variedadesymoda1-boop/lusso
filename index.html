@@ -5,55 +5,46 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LUSSON | Alta Cosmética Cute</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 
     <style>
         :root { 
-            --pink-cute: #ffdeeb; /* Rosa pastel suave */
-            --pink-accent: #f8bbd0; /* Rosa un poco más marcado */
-            --crema: #fff9fb; /* Fondo casi blanco rosado */
-            --negro: #2d2d2d; 
+            --pink-cute: #ffdeeb; 
+            --pink-accent: #f8bbd0; 
             --blanco: #ffffff;
+            --negro: #333;
         }
 
         body { font-family: 'Montserrat', sans-serif; margin: 0; background: var(--blanco); color: var(--negro); overflow-x: hidden; }
 
-        /* HEADER CUTE CON LOGO Y NOMBRE */
+        /* HEADER */
         header { 
-            background: var(--blanco); 
-            padding: 30px 20px; 
+            background: white; 
+            padding: 20px; 
             display: flex; 
             align-items: center; 
             justify-content: center; 
             gap: 20px;
-            border-bottom: 2px solid var(--pink-cute);
         }
-        header img { 
-            height: 80px; /* Logo más grande como pediste */
-            width: auto;
-            filter: drop-shadow(0 2px 5px rgba(255,192,203,0.5));
-        }
-        header h1 { 
-            font-family: 'Playfair Display', serif; 
-            font-size: 2.8rem; 
-            letter-spacing: 8px; 
-            margin: 0; 
-            color: var(--negro);
-            font-weight: 700;
-        }
+        header img { height: 90px; width: auto; }
+        header h1 { font-family: 'Playfair Display', serif; font-size: 3rem; letter-spacing: 5px; margin: 0; }
 
-        /* NAVEGACIÓN ADAPTABLE */
+        /* FRANJA DE NAVEGACIÓN PEGAJOSA (STICKY) */
+        .nav-franja {
+            background: var(--pink-cute);
+            position: sticky; 
+            top: 0;
+            z-index: 1000;
+            padding: 12px 0;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
         nav { 
             display: flex; 
             justify-content: center; 
-            gap: 12px; 
-            padding: 15px; 
-            background: var(--pink-cute); 
-            position: sticky; 
-            top: 0; 
-            z-index: 1000; 
-            flex-wrap: wrap; /* Se adapta a celulares automáticamente */
+            gap: 15px; 
+            flex-wrap: wrap; 
         }
         nav a { 
             text-decoration: none; 
@@ -62,112 +53,50 @@
             font-weight: 600; 
             letter-spacing: 1px; 
             text-transform: uppercase; 
-            padding: 10px 18px;
-            background: var(--blanco);
-            border-radius: 30px; /* Botones redondeados cute */
-            transition: 0.3s;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-        }
-        nav a:hover { 
-            background: var(--pink-accent);
-            color: white;
-            transform: scale(1.05);
-        }
-
-        /* CARRUSEL INTERACTIVO (SIN FILTROS QUE TAPEN) */
-        .seccion-carrusel { padding: 50px 0; background: var(--crema); }
-        .titulo-seccion { 
-            text-align: center; 
-            font-family: 'Playfair Display', serif; 
-            font-size: 2rem; 
-            margin-bottom: 30px;
-            color: var(--pink-accent);
-        }
-        
-        .swiper { width: 100%; padding: 20px 0 60px; }
-        .swiper-slide { width: 260px; } 
-        
-        .card-cat { 
-            background: white; 
-            border-radius: 20px; 
-            overflow: hidden; 
-            box-shadow: 0 10px 20px rgba(255,182,193,0.2); 
-            text-decoration: none; 
-            color: inherit; 
-            display: block;
-            border: 1px solid var(--pink-cute);
-        }
-        .card-cat img { 
-            width: 100%; 
-            height: 300px; 
-            object-fit: cover; 
-            display: block; /* Imagen clara sin filtros */
-        }
-        .card-cat .label { 
-            padding: 15px; 
-            text-align: center; 
-            font-weight: 600; 
-            letter-spacing: 2px; 
-            font-size: 0.85rem;
+            padding: 10px 20px;
             background: white;
-        }
-
-        /* COMBOS Y PROMOS (LIMPIOS Y CLAROS) */
-        .grid-ventas { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
-            gap: 25px; 
-            padding: 50px 20px;
-            max-width: 1100px;
-            margin: 0 auto;
-        }
-        .item-venta { 
-            text-decoration: none;
-            color: var(--negro);
-            text-align: center;
-        }
-        .item-venta img { 
-            width: 100%; 
-            height: 350px; 
-            object-fit: cover; 
-            border-radius: 25px; 
-            border: 4px solid var(--pink-cute);
-            margin-bottom: 15px;
+            border-radius: 8px; /* Cajón redondeado */
             transition: 0.3s;
+            border: 1px solid transparent;
         }
-        .item-venta:hover img { transform: rotate(1deg) scale(1.02); }
-        .item-venta h3 { font-family: 'Playfair Display', serif; font-size: 1.8rem; margin: 0; color: var(--pink-accent); }
+        nav a:hover { border-color: var(--pink-accent); transform: translateY(-2px); }
 
-        /* QUIÉNES SOMOS CUTE */
-        .nosotros { 
-            display: flex; 
-            align-items: center; 
-            padding: 80px 10%; 
-            gap: 40px; 
-            flex-wrap: wrap; 
-            background: var(--crema);
-        }
-        .nosotros-txt { flex: 1; min-width: 300px; }
-        .nosotros-txt h2 { font-family: 'Playfair Display', serif; font-size: 2.5rem; color: var(--pink-accent); }
-        .nosotros-img { flex: 1; min-width: 300px; }
-        .nosotros-img img { width: 100%; border-radius: 50px 5px 50px 5px; border: 5px solid var(--blanco); box-shadow: 15px 15px 0 var(--pink-cute); }
-
-        /* FOOTER */
-        footer { background: var(--pink-cute); color: var(--negro); padding: 50px 20px; text-align: center; }
-        .footer-links a { color: var(--negro); text-decoration: none; margin: 0 10px; font-size: 0.75rem; font-weight: 600; }
+        /* SECCIONES Y CARRUSEL */
+        .seccion-carrusel { padding: 40px 0; background: #fffafc; }
+        .titulo-seccion { text-align: center; font-family: 'Playfair Display', serif; font-size: 2.2rem; margin-bottom: 30px; color: var(--pink-accent); }
         
-        /* WHATSAPP */
-        .wa { position: fixed; bottom: 25px; left: 25px; background: #25d366; width: 55px; height: 55px; border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 1000; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-        .wa img { width: 32px; }
+        .swiper-slide { width: 280px; }
+        .card-cat { background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.05); text-decoration: none; color: inherit; display: block; border: 1px solid var(--pink-cute); }
+        .card-cat img { width: 100%; height: 320px; object-fit: cover; }
+        .card-cat .label { padding: 15px; text-align: center; font-weight: 600; letter-spacing: 2px; }
 
-        /* RESPONSIVO */
-        @media (max-width: 768px) {
-            header { flex-direction: column; gap: 10px; }
-            header h1 { font-size: 2rem; letter-spacing: 4px; }
-            header img { height: 60px; }
-            .nosotros { padding: 40px 5%; text-align: center; }
-            nav { gap: 8px; }
+        .grid-ventas { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; padding: 40px 20px; max-width: 1200px; margin: 0 auto; }
+        .item-venta { position: relative; border-radius: 20px; overflow: hidden; height: 400px; text-decoration: none; display: flex; align-items: flex-end; padding: 25px; border: 3px solid var(--pink-cute); }
+        .item-venta img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1; }
+        .item-venta h3 { position: relative; z-index: 2; font-family: 'Playfair Display', serif; font-size: 2.2rem; margin: 0; color: var(--pink-accent); background: white; padding: 5px 15px; border-radius: 5px; }
+
+        /* PIE DE PÁGINA PERSONALIZADO LUSSON */
+        .main-footer { 
+            background: var(--pink-cute); 
+            padding: 60px 10% 20px; 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
+            gap: 40px; 
         }
+        .footer-col h4 { text-transform: uppercase; letter-spacing: 2px; margin-bottom: 20px; border-bottom: 2px solid white; padding-bottom: 8px; color: var(--negro); }
+        .footer-col ul { list-style: none; padding: 0; }
+        .footer-col ul li { margin-bottom: 12px; }
+        .footer-col ul li a { text-decoration: none; color: var(--negro); font-size: 0.85rem; transition: 0.3s; }
+        .footer-col ul li a:hover { color: white; }
+        
+        .social-icons { display: flex; gap: 20px; margin-top: 10px; }
+        .social-icons a { font-size: 1.5rem; color: var(--negro); transition: 0.3s; }
+        .social-icons a:hover { color: white; }
+
+        .copyright { text-align: center; padding: 30px; background: white; font-size: 0.7rem; letter-spacing: 2px; color: #888; border-top: 1px solid var(--pink-cute); }
+
+        /* WHATSAPP */
+        .wa { position: fixed; bottom: 30px; left: 30px; background: #25d366; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 2000; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
     </style>
 </head>
 <body>
@@ -177,16 +106,18 @@
         <h1>LUSSON</h1>
     </header>
 
-    <nav>
-        <a href="labiales.html">Labiales</a>
-        <a href="rubores.html">Rubores</a>
-        <a href="polvos.html">Polvos</a>
-        <a href="bases.html">Bases</a>
-        <a href="skincare.html">Skincare</a>
-    </nav>
+    <div class="nav-franja">
+        <nav>
+            <a href="bases.html">Bases</a>
+            <a href="labiales.html">Labiales</a>
+            <a href="polvos.html">Polvos</a>
+            <a href="rubores.html">Rubores</a>
+            <a href="skincare.html">Skincare</a>
+        </nav>
+    </div>
 
     <section class="seccion-carrusel">
-        <h2 class="titulo-seccion">Nuestra Colección Cute</h2>
+        <h2 class="titulo-seccion">Nuestra Colección Glam</h2>
         <div class="swiper mySwiper">
             <div class="swiper-wrapper">
                 <a href="labiales.html" class="swiper-slide card-cat">
@@ -200,10 +131,6 @@
                 <a href="bases.html" class="swiper-slide card-cat">
                     <img src="assets/Base de maquillaje.png">
                     <div class="label">BASES</div>
-                </a>
-                <a href="skincare.html" class="swiper-slide card-cat">
-                    <img src="https://images.pexels.com/photos/4046316/pexels-photo-4046316.jpeg?auto=compress&w=500">
-                    <div class="label">SKINCARE</div>
                 </a>
             </div>
         </div>
@@ -220,28 +147,44 @@
         </a>
     </div>
 
-    <section class="nosotros">
-        <div class="nosotros-img">
-            <img src="https://images.pexels.com/photos/3738339/pexels-photo-3738339.jpeg?auto=compress&w=800">
+    <footer class="main-footer">
+        <div class="footer-col">
+            <h4>Atención al Cliente</h4>
+            <ul>
+                <li><a href="#">Contacto Directo</a></li>
+                <li><a href="#">Horarios de atención</a></li>
+            </ul>
         </div>
-        <div class="nosotros-txt">
-            <h2>Nuestra Esencia</h2>
-            <p><strong>Lusson Colombia</strong> es elegancia con un toque tierno. Seleccionamos lo mejor de la cosmética para que te sientas linda y segura todos los días.</p>
-        </div>
-    </section>
 
-    <footer>
-        <h2 style="font-family: 'Playfair Display'; margin: 0; color: white;">LUSSON</h2>
-        <div class="footer-links" style="margin-top: 15px;">
-            <a href="#">INSTAGRAM</a>
-            <a href="#">TIKTOK</a>
+        <div class="footer-col">
+            <h4>Conócenos</h4>
+            <ul>
+                <li><a href="nosotros.html">Nuestra Historia</a></li>
+                <li>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-tiktok"></i></a>
+                    </div>
+                </li>
+            </ul>
         </div>
-        <p style="font-size: 0.6rem; margin-top: 25px; opacity: 0.6;">© 2026 LUSSON COLOMBIA - SISTEMA SEGURO</p>
-        <div style="width:20px; height:20px; margin: 10px auto;" onclick="modoJefa()"></div>
+
+        <div class="footer-col">
+            <h4>Políticas Lusson</h4>
+            <ul>
+                <li><a href="#">Cambios y Devoluciones</a></li>
+                <li><a href="#">Privacidad</a></li>
+            </ul>
+        </div>
     </footer>
 
-    <a href="https://wa.me/573000000000" class="wa" target="_blank">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg">
+    <div class="copyright">
+        © 2026 LUSSON COLOMBIA - ALTA COSMÉTICA
+        <div style="width:15px; height:15px; cursor:default; display:inline-block; margin-left:10px;" onclick="modoJefa()"></div>
+    </div>
+
+    <a href="https://wa.me/570000000000" class="wa" target="_blank">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" width="35">
     </a>
 
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
@@ -251,8 +194,7 @@
             spaceBetween: 25,
             centeredSlides: true,
             loop: true,
-            autoplay: { delay: 3000, disableOnInteraction: false },
-            grabCursor: true,
+            autoplay: { delay: 3000 },
         });
 
         let toques = 0;
@@ -264,4 +206,3 @@
     </script>
 </body>
 </html>
-
