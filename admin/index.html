@@ -3,60 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LUSSON - Administrador Profesional</title>
+    <title>LUSSON - Panel de Control Privado</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        :root { --oro: #c5a059; --negro: #1a1a1a; --crema: #fdfaf5; }
+        :root { --pink-cute: #ffdeeb; --pink-accent: #f8bbd0; --negro: #1a1a1a; --crema: #fdfaf5; }
         body { background: var(--crema); font-family: 'Inter', sans-serif; margin: 0; padding: 20px; }
         .container { max-width: 600px; margin: auto; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
         .hidden { display: none; }
-        input, select { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 6px; box-sizing: border-box; }
-        button { width: 100%; padding: 14px; background: var(--negro); color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: 600; margin-top: 10px; }
-        .btn-new { background: #28a745; margin-bottom: 20px; }
-        .product-item { display: flex; align-items: center; justify-content: space-between; padding: 15px; border-bottom: 1px solid #eee; }
+        input, select { width: 100%; padding: 12px; margin: 10px 0; border: 2px solid var(--pink-cute); border-radius: 8px; box-sizing: border-box; }
+        button { width: 100%; padding: 14px; background: var(--negro); color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; margin-top: 10px; }
+        .btn-new { background: var(--pink-accent); color: var(--negro); margin-bottom: 20px; }
+        .product-item { display: flex; align-items: center; justify-content: space-between; padding: 15px; border-bottom: 1px solid var(--pink-cute); }
         .product-item img { width: 50px; height: 50px; object-fit: cover; border-radius: 4px; }
         .actions { display: flex; gap: 10px; }
-        .btn-edit { background: var(--oro); padding: 5px 10px; font-size: 12px; }
-        .btn-delete { background: #ff4d4d; padding: 5px 10px; font-size: 12px; }
+        .btn-edit { background: #e3f2fd; color: #1976d2; padding: 5px 10px; font-size: 12px; border-radius: 4px; border:none; cursor:pointer;}
+        .btn-delete { background: #ffebee; color: #c62828; padding: 5px 10px; font-size: 12px; border-radius: 4px; border:none; cursor:pointer;}
     </style>
 </head>
 <body>
 
     <div id="login-section" class="container">
-        <h2 style="text-align:center; font-family:'Playfair Display';">Acceso Privado</h2>
-        <input type="email" id="email" placeholder="Correo">
-        <input type="password" id="password" placeholder="Contraseña">
-        <button onclick="login()">INGRESAR</button>
+        <h2 style="text-align:center; font-family:'Playfair Display'; color: var(--pink-accent);">LUSSON Privado</h2>
+        <input type="email" id="email" placeholder="Correo de Administradora">
+        <input type="password" id="password" placeholder="Contraseña Segura">
+        <button onclick="login()">ACCEDER AL PANEL</button>
     </div>
 
     <div id="admin-section" class="container hidden">
         <div style="display:flex; justify-content:space-between; align-items:center;">
-            <h2 style="font-family:'Playfair Display';">Panel LUSSON</h2>
-            <button onclick="logout()" style="width:auto; background:#757575; padding:5px 10px;">Salir</button>
+            <h2 style="font-family:'Playfair Display';">Gestión de Tienda</h2>
+            <button onclick="logout()" style="width:auto; background:#757575; padding:5px 15px;">Cerrar Sesión</button>
         </div>
 
-        <button class="btn-new" onclick="mostrarFormulario()"><i class="fa-solid fa-plus"></i> AGREGAR PRODUCTO NUEVO</button>
+        <button class="btn-new" onclick="mostrarFormulario()"><i class="fa-solid fa-plus"></i> NUEVO PRODUCTO</button>
 
-        <div id="form-producto" class="hidden" style="background: #f9f9f9; padding: 15px; border-radius: 8px; margin-bottom: 30px;">
-            <h3 id="form-title">Nuevo Producto</h3>
+        <div id="form-producto" class="hidden" style="background: #fffafa; padding: 20px; border: 1px solid var(--pink-cute); border-radius: 12px; margin-bottom: 30px;">
+            <h3 id="form-title">Datos del Producto</h3>
             <input type="hidden" id="edit-id">
             <input type="text" id="nombre" placeholder="Nombre">
             <input type="number" id="precio" placeholder="Precio">
-            <input type="text" id="img" placeholder="URL Imagen">
-            <select id="coleccion">
-    <option value="lusso">Rubores</option>
-    <option value="labiales">Labiales</option>
-    <option value="bases">Bases y Correctores</option>
-    <option value="polvos">Polvos</option>
-    <option value="skincare">Skincare</option>
+            <input type="text" id="img" placeholder="URL de Imagen (Postimg)">
+            <select id="coleccion" onchange="cargarInventario()">
+                <option value="lusso">Rubores</option>
+                <option value="labiales">Labiales</option>
+                <option value="bases">Bases y Correctores</option>
+                <option value="polvos">Polvos</option>
+                <option value="skincare">Skincare</option>
             </select>
-            <button id="btn-guardar" onclick="guardarProducto()" style="background: var(--oro);">GUARDAR CAMBIOS</button>
-            <button onclick="cancelarEdicion()" style="background: #ccc; color: #333;">CANCELAR</button>
+            <button id="btn-guardar" onclick="guardarProducto()" style="background: var(--pink-accent); color:black;">GUARDAR CAMBIOS</button>
+            <button onclick="cancelarEdicion()" style="background: #eee; color: #333;">CANCELAR</button>
         </div>
 
         <div id="lista-gestion">
-            <h3 style="border-bottom: 2px solid var(--oro); padding-bottom: 5px;">Inventario</h3>
+            <h3 style="border-bottom: 2px solid var(--pink-cute); padding-bottom: 5px;">Inventario Actual</h3>
             <div id="items-container"></div>
         </div>
     </div>
@@ -78,9 +78,15 @@
         const auth = firebase.auth();
         const db = firebase.firestore();
 
+        // SEGURIDAD REFORZADA: No guarda la sesión para siempre
         function login() {
-            auth.signInWithEmailAndPassword(document.getElementById('email').value, document.getElementById('password').value)
-                .catch(e => alert("Error de acceso"));
+            const email = document.getElementById('email').value;
+            const pass = document.getElementById('password').value;
+            auth.setPersistence(firebase.auth.Auth.Persistence.SESSION)
+                .then(() => {
+                    return auth.signInWithEmailAndPassword(email, pass);
+                })
+                .catch(e => alert("Acceso denegado: Verifica tus datos"));
         }
 
         auth.onAuthStateChanged(user => {
@@ -95,7 +101,8 @@
         });
 
         function cargarInventario() {
-            db.collection("lusso").onSnapshot(snap => {
+            const col = document.getElementById('coleccion').value;
+            db.collection(col).onSnapshot(snap => {
                 const container = document.getElementById('items-container');
                 container.innerHTML = '';
                 snap.forEach(doc => {
@@ -130,6 +137,7 @@
             document.getElementById('nombre').value = nombre;
             document.getElementById('precio').value = precio;
             document.getElementById('img').value = img;
+            window.scrollTo(0,0);
         }
 
         function guardarProducto() {
@@ -142,15 +150,18 @@
             const col = document.getElementById('coleccion').value;
 
             if(id) {
-                db.collection(col).doc(id).update(data).then(() => alert("Actualizado"));
+                db.collection(col).doc(id).update(data).then(() => alert("Producto actualizado con éxito"));
             } else {
-                db.collection(col).add(data).then(() => alert("Creado"));
+                db.collection(col).add(data).then(() => alert("Producto creado en " + col));
             }
             cancelarEdicion();
         }
 
         function eliminar(id) {
-            if(confirm("¿Borrar definitivamente?")) db.collection("lusso").doc(id).delete();
+            const col = document.getElementById('coleccion').value;
+            if(confirm("¿Eliminar este producto de " + col + "?")) {
+                db.collection(col).doc(id).delete();
+            }
         }
 
         function cancelarEdicion() {
@@ -168,3 +179,4 @@
     </script>
 </body>
 </html>
+
