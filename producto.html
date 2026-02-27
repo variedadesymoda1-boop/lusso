@@ -3,38 +3,59 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Detalle de Producto | LUSSON</title>
+    <title>LUSSON | Detalle de Producto</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <style>
-        :root { --pink-cute: #ffdeeb; --pink-accent: #f8bbd0; --negro: #1a1a1a; --blanco: #ffffff; --oro: #bca07d; }
-        body { margin: 0; font-family: 'Montserrat', sans-serif; background: var(--blanco); color: var(--negro); }
+        :root { --pink-cute: #ffdeeb; --pink-accent: #f8bbd0; --negro: #1a1a1a; --gris: #f4f4f4; }
+        body { margin: 0; font-family: 'Montserrat', sans-serif; background: #fff; color: var(--negro); }
         
-        /* NAVBAR ESTILO LUSSON */
-        .nav-franja { background: var(--pink-cute); padding: 10px 0; position: sticky; top: 0; z-index: 1000; }
+        /* HEADER STICKY */
+        .nav-franja { background: var(--pink-cute); padding: 10px 0; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
         .nav-container { display: flex; justify-content: space-between; align-items: center; max-width: 1100px; margin: auto; padding: 0 20px; }
         .logo { font-family: 'Playfair Display', serif; font-size: 1.5rem; letter-spacing: 5px; text-decoration: none; color: var(--negro); }
-        .cart-icon { position: relative; cursor: pointer; font-size: 1.2rem; }
-        #cart-count { position: absolute; top: -10px; right: -10px; background: var(--pink-accent); color: white; font-size: 10px; padding: 2px 6px; border-radius: 50%; font-weight: bold; }
 
-        .contenedor-detalle { max-width: 1100px; margin: 40px auto; padding: 20px; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; }
-        .visor-principal { width: 100%; height: 450px; border-radius: 8px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
-        .visor-principal img { width: 100%; height: 100%; object-fit: cover; }
-        
-        .info-producto { display: flex; flex-direction: column; gap: 15px; }
-        .nombre-p { font-family: 'Playfair Display', serif; font-size: 2.5rem; margin: 0; }
-        .precio-p { font-size: 1.8rem; font-weight: 600; color: var(--pink-accent); }
-        
-        .titulo-seccion { font-weight: 600; font-size: 0.75rem; letter-spacing: 2px; text-transform: uppercase; color: var(--oro); margin-top: 20px; display: block; }
-        .texto-contenido { line-height: 1.6; color: #555; font-size: 0.9rem; margin-bottom: 10px; white-space: pre-line; }
+        .contenedor-principal { max-width: 1100px; margin: 30px auto; padding: 20px; display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 40px; }
 
-        .btn-comprar { background: #25d366; color: white; border: none; padding: 18px; text-transform: uppercase; letter-spacing: 3px; cursor: pointer; font-weight: 600; width: 100%; border-radius: 5px; margin-top: 15px; }
+        /* GALERÍA CON PUNTOS */
+        .swiper { width: 100%; height: 450px; border-radius: 15px; background: var(--gris); }
+        .swiper-slide img { width: 100%; height: 100%; object-fit: cover; }
+        .swiper-pagination-bullet-active { background: var(--pink-accent) !important; }
+
+        /* INFO PRODUCTO */
+        .info-col { display: flex; flex-direction: column; gap: 15px; }
+        .precio { font-size: 2rem; font-weight: 600; color: var(--pink-accent); }
+        .stock-status { font-size: 0.8rem; font-weight: bold; }
+        .no-disponible { color: #ff4d4d; border: 1px solid #ff4d4d; padding: 10px; text-align: center; border-radius: 8px; display: none; }
+
+        /* TONOS Y CANTIDAD */
+        .selector-tonos { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 10px; }
+        .tono-circulo { width: 30px; height: 30px; border-radius: 50%; border: 2px solid #ddd; cursor: pointer; transition: 0.3s; }
+        .tono-circulo.active { border-color: var(--negro); transform: scale(1.1); }
+
+        .qty-box { display: flex; align-items: center; gap: 15px; margin: 20px 0; }
+        .btn-qty { width: 35px; height: 35px; border: 1px solid #ddd; background: white; cursor: pointer; border-radius: 5px; }
         
-        /* CARRITO LATERAL */
-        .cart-panel { position: fixed; top: 0; right: -400px; width: 320px; height: 100%; background: white; z-index: 2001; transition: 0.4s; padding: 25px; box-shadow: -5px 0 15px rgba(0,0,0,0.1); display: flex; flex-direction: column; }
-        .cart-panel.active { right: 0; }
-        .cart-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.2); z-index: 2000; display: none; }
-        .cart-overlay.active { display: block; }
+        /* BOTONES ACCIÓN */
+        .btns-accion { display: grid; gap: 10px; }
+        .btn-cart { background: white; border: 2px solid var(--negro); padding: 15px; font-weight: 600; cursor: pointer; border-radius: 8px; }
+        .btn-buy { background: #25d366; color: white; border: none; padding: 15px; font-weight: 600; cursor: pointer; border-radius: 8px; }
+        .btn-disabled { background: #ccc !important; cursor: not-allowed !important; }
+
+        /* TABS DE INFORMACIÓN (AHORRO DE ESPACIO) */
+        .tabs-container { margin-top: 30px; border: 1px solid #eee; border-radius: 10px; overflow: hidden; }
+        .tabs-header { display: flex; background: var(--gris); }
+        .tab-btn { flex: 1; padding: 15px; border: none; cursor: pointer; font-weight: 600; font-size: 0.8rem; transition: 0.3s; }
+        .tab-btn.active { background: white; border-bottom: 3px solid var(--pink-accent); }
+        .tab-content { padding: 20px; font-size: 0.9rem; line-height: 1.6; display: none; }
+        .tab-content.active { display: block; }
+
+        /* WHATSAPP FLOTANTE */
+        .wa-float { position: fixed; bottom: 25px; left: 25px; background: #25d366; color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 30px; z-index: 1000; box-shadow: 0 4px 10px rgba(0,0,0,0.2); text-decoration: none; }
+
+        /* PIE DE PÁGINA */
+        .footer { background: var(--pink-cute); padding: 40px 10%; margin-top: 50px; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; }
     </style>
 </head>
 <body>
@@ -42,111 +63,124 @@
     <div class="nav-franja">
         <div class="nav-container">
             <a href="index.html" class="logo">LUSSON</a>
-            <div class="cart-icon" onclick="toggleCart(true)">
+            <div style="position:relative; cursor:pointer;" onclick="location.href='cart.html'">
                 <i class="fa-solid fa-bag-shopping"></i>
                 <span id="cart-count">0</span>
             </div>
         </div>
     </div>
 
-    <div class="contenedor-detalle">
-        <div class="seccion-imagenes">
-            <div class="visor-principal">
-                <img id="img-grande" src="" alt="Producto">
-            </div>
+    <div class="contenedor-principal">
+        <div class="swiper mySwiper">
+            <div class="swiper-wrapper" id="galeria-fotos">
+                </div>
+            <div class="swiper-pagination"></div>
         </div>
-        
-        <div class="info-producto">
-            <h1 id="nombre-producto" class="nombre-p">Cargando...</h1>
-            <p id="precio-producto" class="precio-p">$0</p>
-            
-            <div class="seccion-texto">
-                <span class="titulo-seccion">Descripción</span>
-                <p id="desc-producto" class="texto-contenido">...</p>
-                
-                <span class="titulo-seccion">Especificaciones Técnicas</span>
-                <p id="specs-producto" class="texto-contenido">...</p>
+
+        <div class="info-col">
+            <h1 id="p-nombre" style="font-family:'Playfair Display'; margin:0;">Cargando...</h1>
+            <div id="p-precio" class="precio">$0</div>
+            <div id="p-stock" class="stock-status">Stock disponible: --</div>
+            <div id="msg-agotado" class="no-disponible">PRODUCTO NO DISPONIBLE</div>
+
+            <div id="seccion-tonos">
+                <p style="font-size:0.8rem; font-weight:600;">COLOR / TONO:</p>
+                <div class="selector-tonos" id="lista-tonos"></div>
             </div>
-            
-            <button class="btn-comprar" onclick="agregarAlCarrito()">Agregar a la bolsa</button>
+
+            <div class="qty-box" id="caja-cantidad">
+                <button class="btn-qty" onclick="cambiarCantidad(-1)">-</button>
+                <span id="cant-num">1</span>
+                <button class="btn-qty" onclick="cambiarCantidad(1)">+</button>
+            </div>
+
+            <div class="btns-accion" id="caja-botones">
+                <button class="btn-cart" onclick="agregarAlCarrito()">AGREGAR AL CARRITO</button>
+                <button class="btn-buy" onclick="comprarAhora()">COMPRAR AHORA</button>
+            </div>
+
+            <div class="tabs-container">
+                <div class="tabs-header">
+                    <button class="tab-btn active" onclick="verTab(event, 'desc')">DESCRIPCIÓN</button>
+                    <button class="tab-btn" onclick="verTab(event, 'specs')">ESPECIFICACIONES</button>
+                </div>
+                <div id="desc" class="tab-content active">Cargando descripción...</div>
+                <div id="specs" class="tab-content">Cargando especificaciones...</div>
+            </div>
         </div>
     </div>
 
-    <div class="cart-overlay" id="cartOverlay" onclick="toggleCart(false)"></div>
-    <div class="cart-panel" id="cartPanel">
-        <h3>MI BOLSA</h3>
-        <div id="cart-items" style="flex-grow:1; overflow-y:auto;"></div>
-        <div style="border-top:1px solid #eee; padding-top:15px;">
-            <strong>TOTAL: $<span id="total-price">0</span></strong>
-            <button onclick="enviarWhatsApp()" style="width:100%; background:#25d366; color:white; border:none; padding:12px; margin-top:10px; border-radius:5px; cursor:pointer;">FINALIZAR POR WHATSAPP</button>
-        </div>
-    </div>
+    <footer class="footer">
+        <div><h4>LUSSON</h4><p>Alta Cosmética</p></div>
+        <div><h4>AYUDA</h4><p>Contacto<br>Envíos</p></div>
+        <div><h4>SÍGUENOS</h4><i class="fa-brands fa-instagram"></i></div>
+    </footer>
+
+    <a href="https://wa.me/570000000000" class="wa-float" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
 
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
     <script>
-        const firebaseConfig = { /* TU CONFIGURACIÓN AQUÍ */ };
+        const firebaseConfig = { /* Tu config */ };
         firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
 
         const params = new URLSearchParams(window.location.search);
-        const prodId = params.get('id');
-        const col = params.get('col'); // Ej: 'labiales'
-        let productoActual = null;
-        let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+        const id = params.get('id');
+        const col = params.get('col');
+        let producto = null;
+        let cantidad = 1;
 
-        // BUSCAR DATOS EN FIREBASE
-        if(prodId && col) {
-            db.collection(col).doc(prodId).get().then((doc) => {
-                if(doc.exists) {
-                    productoActual = doc.data();
-                    document.getElementById('nombre-producto').innerText = productoActual.nombre;
-                    document.getElementById('precio-producto').innerText = '$' + productoActual.precio.toLocaleString();
-                    document.getElementById('img-grande').src = productoActual.img;
-                    document.getElementById('desc-producto').innerText = productoActual.descripcion || "Sin descripción";
-                    document.getElementById('specs-producto').innerText = productoActual.specs || "Sin especificaciones";
-                }
+        // CARGAR DATOS
+        db.collection(col).doc(id).onSnapshot(doc => {
+            producto = doc.data();
+            renderDetalle();
+        });
+
+        function renderDetalle() {
+            document.getElementById('p-nombre').innerText = producto.nombre;
+            document.getElementById('p-precio').innerText = '$' + producto.precio.toLocaleString();
+            document.getElementById('p-stock').innerText = `Stock disponible: ${producto.stock}`;
+            document.getElementById('desc').innerText = producto.descripcion;
+            document.getElementById('specs').innerText = producto.especificaciones;
+
+            // Galería de 5 fotos
+            const gal = document.getElementById('galeria-fotos');
+            gal.innerHTML = '';
+            [producto.img, producto.img2, producto.img3, producto.img4, producto.img5].forEach(url => {
+                if(url) gal.innerHTML += `<div class="swiper-slide"><img src="${url}"></div>`;
             });
+
+            // Lógica de Stock
+            if(producto.stock <= 0) {
+                document.getElementById('caja-botones').style.display = 'none';
+                document.getElementById('caja-cantidad').style.display = 'none';
+                document.getElementById('msg-agotado').style.display = 'block';
+            }
+
+            new Swiper(".mySwiper", { pagination: { el: ".swiper-pagination", clickable: true } });
         }
 
-        function toggleCart(show) {
-            document.getElementById('cartPanel').classList.toggle('active', show);
-            document.getElementById('cartOverlay').classList.toggle('active', show);
+        function cambiarCantidad(v) {
+            if(cantidad + v > producto.stock) return alert("No hay más unidades en inventario");
+            cantidad += v;
+            if(cantidad < 1) cantidad = 1;
+            document.getElementById('cant-num').innerText = cantidad;
         }
 
-        function agregarAlCarrito() {
-            const index = carrito.findIndex(item => item.nombre === productoActual.nombre);
-            if(index > -1) carrito[index].cantidad++;
-            else carrito.push({ ...productoActual, cantidad: 1 });
-            
-            localStorage.setItem('carrito', JSON.stringify(carrito));
-            actualizarCarritoUI();
-            toggleCart(true);
+        function verTab(evt, tabId) {
+            document.querySelectorAll('.tab-content').forEach(tc => tc.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(tb => tb.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+            evt.currentTarget.classList.add('active');
         }
 
-        function actualizarCarritoUI() {
-            const container = document.getElementById('cart-items');
-            container.innerHTML = '';
-            let total = 0;
-            carrito.forEach((item, idx) => {
-                total += item.precio * item.cantidad;
-                container.innerHTML += `<div style="margin-bottom:10px; font-size:12px;">
-                    ${item.nombre} x${item.cantidad} - $${(item.precio * item.cantidad).toLocaleString()}
-                </div>`;
-            });
-            document.getElementById('total-price').innerText = total.toLocaleString();
-            document.getElementById('cart-count').innerText = carrito.length;
-        }
-
-        function enviarWhatsApp() {
-            let msg = "¡Hola LUSSON! Mi pedido es:\n";
-            carrito.forEach(i => msg += `- ${i.nombre} x${i.cantidad}\n`);
+        function comprarAhora() {
+            const msg = `¡Hola! Quiero comprar: ${producto.nombre}\nCantidad: ${cantidad}\nTotal: $${(producto.precio * cantidad).toLocaleString()}`;
             window.open(`https://wa.me/570000000000?text=${encodeURIComponent(msg)}`);
         }
-        
-        actualizarCarritoUI();
     </script>
 </body>
 </html>
-
