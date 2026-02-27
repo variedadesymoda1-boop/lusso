@@ -3,138 +3,184 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lusson | Cosmética de Lujo</title>
+    <title>Lusson | Alta Cosmética</title>
     
-    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@300;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Montserrat:wght@300;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 
     <style>
         :root { --oro: #bca07d; --negro: #1a1a1a; --crema: #fdfaf7; }
-        
         body { font-family: 'Montserrat', sans-serif; margin: 0; background: #fff; color: var(--negro); overflow-x: hidden; }
 
-        /* HEADER Y LOGO */
-        header { background: #f5eee6; padding: 20px; text-align: center; display: flex; align-items: center; justify-content: center; gap: 15px; }
-        header img { height: 60px; width: auto; }
-        header h1 { font-family: 'Playfair Display', serif; font-size: 2rem; letter-spacing: 10px; margin: 0; }
+        /* HEADER */
+        header { background: #fff; padding: 30px; text-align: center; border-bottom: 1px solid #f0f0f0; }
+        header img { height: 50px; margin-bottom: 10px; }
+        header h1 { font-family: 'Playfair Display', serif; font-size: 2.2rem; letter-spacing: 12px; margin: 0; }
 
-        /* NAVEGACIÓN */
-        nav { display: flex; justify-content: center; gap: 15px; padding: 15px; background: white; border-bottom: 1px solid #eee; flex-wrap: wrap; }
-        nav a { text-decoration: none; color: var(--negro); font-size: 0.7rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; padding: 5px 10px; }
+        /* NAVEGACIÓN PROFESIONAL */
+        nav { display: flex; justify-content: center; gap: 20px; padding: 15px; background: white; sticky; top: 0; z-index: 1000; box-shadow: 0 2px 5px rgba(0,0,0,0.02); }
+        nav a { text-decoration: none; color: var(--negro); font-size: 0.75rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; transition: 0.3s; }
+        nav a:hover { color: var(--oro); }
 
-        /* LANZAMIENTOS (CARRUSEL) */
-        .seccion-lanzamientos { background: var(--crema); padding: 40px 0; border-bottom: 1px solid #eee; }
-        .titulo-seccion { text-align: center; font-family: 'Playfair Display', serif; letter-spacing: 4px; color: var(--oro); margin-bottom: 5px; }
-        .oferta-tag { text-align: center; font-size: 0.7rem; letter-spacing: 2px; color: #ff4d4d; font-weight: bold; margin-bottom: 20px; }
+        /* SECCIÓN CARRUSEL INTERACTIVO */
+        .seccion-categorias { padding: 60px 0; background: #fff; }
+        .titulo-lujo { text-align: center; font-family: 'Playfair Display', serif; font-size: 1.8rem; letter-spacing: 4px; margin-bottom: 40px; }
         
-        .carrusel-contenedor { overflow: hidden; width: 100%; }
-        .fila-animada { display: flex; width: max-content; animation: deslizarInfinito 30s linear infinite; }
-        .card-lanzamiento { width: 180px; margin: 0 15px; background: white; padding: 15px; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); text-align: center; }
-        .card-lanzamiento img { width: 100%; height: 180px; object-fit: cover; border-radius: 8px; margin-bottom: 10px; }
-        .card-lanzamiento span { font-size: 0.65rem; font-weight: 600; letter-spacing: 1px; }
+        .swiper { width: 100%; padding: 20px 0 50px; }
+        .swiper-slide { width: 220px; transition: 0.4s; }
+        .card-categoria { 
+            background: white; border-radius: 15px; overflow: hidden; 
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05); text-align: center; 
+            cursor: pointer; text-decoration: none; color: inherit; display: block;
+        }
+        .card-categoria img { width: 100%; height: 250px; object-fit: cover; transition: 0.5s; }
+        .card-categoria:hover img { transform: scale(1.05); }
+        .card-categoria .info { padding: 20px; }
+        .card-categoria span { font-size: 0.8rem; font-weight: 600; letter-spacing: 3px; color: var(--negro); }
 
-        /* MOSAICO PRINCIPAL (CONTROL DE IMÁGENES GIGANTES) */
-        .mosaico { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 10px; padding: 10px; }
-        .mosaico img { width: 100%; height: 400px; object-fit: cover; }
-        .caja-actitud { background: var(--crema); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 40px; }
-        .caja-actitud h2 { font-family: 'Playfair Display', serif; font-style: italic; font-size: 1.5rem; }
+        /* SECCIÓN PROMOCIONES (CUADRO ELEGANTE) */
+        .seccion-ofertas { padding: 80px 20px; background: var(--crema); text-align: center; }
+        .grid-ofertas { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; max-width: 1200px; margin: 0 auto; }
+        .promo-box { background: white; padding: 40px; border: 1px solid #eee; position: relative; }
+        .promo-box h3 { font-family: 'Playfair Display', serif; font-size: 1.5rem; margin-top: 0; }
+        .tag-rojo { color: #ff4d4d; font-size: 0.7rem; font-weight: 700; letter-spacing: 2px; }
 
-        /* FOOTER PROFESIONAL */
-        footer { background: var(--negro); color: white; padding: 60px 20px; text-align: center; position: relative; }
-        footer h2 { font-family: 'Playfair Display', serif; letter-spacing: 8px; margin-bottom: 10px; }
-        .footer-links { display: flex; justify-content: center; gap: 30px; margin: 20px 0; }
-        .footer-links a { color: white; text-decoration: none; font-size: 0.7rem; letter-spacing: 1px; opacity: 0.7; }
-        
-        /* BOTÓN FLOTANTE WHATSAPP */
-        .whatsapp-float { position: fixed; width: 50px; height: 50px; bottom: 20px; left: 20px; background: #25d366; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 10px rgba(0,0,0,0.3); z-index: 100; }
-        .whatsapp-float img { width: 30px; }
+        /* QUIÉNES SOMOS */
+        .quienes-somos { display: flex; align-items: center; padding: 100px 10%; gap: 50px; flex-wrap: wrap; }
+        .qs-texto { flex: 1; min-width: 300px; }
+        .qs-texto h2 { font-family: 'Playfair Display', serif; font-size: 2.5rem; margin-bottom: 20px; }
+        .qs-texto p { line-height: 1.8; color: #666; font-weight: 300; }
+        .qs-img { flex: 1; min-width: 300px; }
+        .qs-img img { width: 100%; border-radius: 5px; box-shadow: 20px 20px 0px var(--oro); }
 
-        /* PUNTO SECRETO ADMINISTRADOR */
-        #secret-point { position: absolute; bottom: 10px; right: 10px; width: 15px; height: 15px; cursor: pointer; opacity: 0.1; }
+        /* FOOTER */
+        footer { background: var(--negro); color: white; padding: 80px 20px 40px; text-align: center; }
+        footer h2 { font-family: 'Playfair Display', serif; letter-spacing: 10px; font-size: 2rem; }
+        .footer-links { margin: 30px 0; }
+        .footer-links a { color: #888; text-decoration: none; margin: 0 15px; font-size: 0.7rem; letter-spacing: 2px; }
+        #secret-point { position: absolute; bottom: 10px; right: 10px; width: 30px; height: 30px; cursor: default; }
 
-        @keyframes deslizarInfinito { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+        /* WHATSAPP */
+        .wa-btn { position: fixed; bottom: 30px; left: 30px; background: #25d366; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 2000; box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
+        .wa-btn img { width: 35px; }
 
-        /* AJUSTE PARA MÓVILES */
-        @media (max-width: 600px) {
-            header h1 { font-size: 1.5rem; letter-spacing: 5px; }
-            .mosaico img { height: 300px; }
+        @media (max-width: 768px) {
+            .quienes-somos { padding: 50px 5%; text-align: center; }
+            .qs-img img { box-shadow: 10px 10px 0px var(--oro); }
         }
     </style>
 </head>
 <body>
 
     <header>
-        <img src="assets/subirlo.png" alt="Lusson Logo">
+        <img src="assets/subirlo.png" alt="Logo Lusson">
         <h1>LUSSON</h1>
     </header>
 
     <nav>
         <a href="bases.html">Bases</a>
-        <a href="#">Sombras</a>
-        <a href="#">Pestañas</a>
         <a href="labiales.html">Labiales</a>
         <a href="rubores.html">Rubores</a>
-        <a href="skincare.html">skincare</a>
+        <a href="skincare.html">Skincare</a>
+        <a href="#nosotros">Nosotros</a>
     </nav>
 
-    <section class="seccion-lanzamientos">
-        <h2 class="titulo-seccion">NUEVOS LANZAMIENTOS</h2>
-        <p class="oferta-tag">DESCUENTOS DE TEMPORADA 🏷️</p>
-        <div class="carrusel-contenedor">
-            <div class="fila-animada">
-                <div class="card-lanzamiento"><img src="https://images.pexels.com/photos/3373739/pexels-photo-3373739.jpeg?auto=compress&w=300"><span>RUBORES</span></div>
-                <div class="card-lanzamiento"><img src="https://images.pexels.com/photos/3373736/pexels-photo-3373736.jpeg?auto=compress&w=300"><span>PESTAÑAS</span></div>
-                <div class="card-lanzamiento"><img src="https://images.pexels.com/photos/4046316/pexels-photo-4046316.jpeg?auto=compress&w=300"><span>SKINCARE</span></div>
-                <div class="card-lanzamiento"><img src="assets/Base de maquillaje.png"><span>BASES</span></div>
-                <div class="card-lanzamiento"><img src="https://images.pexels.com/photos/2533266/pexels-photo-2533266.jpeg?auto=compress&w=300"><span>LABIALES</span></div>
-                <div class="card-lanzamiento"><img src="https://images.pexels.com/photos/3373739/pexels-photo-3373739.jpeg?auto=compress&w=300"><span>RUBORES</span></div>
-                <div class="card-lanzamiento"><img src="https://images.pexels.com/photos/3373736/pexels-photo-3373736.jpeg?auto=compress&w=300"><span>PESTAÑAS</span></div>
+    <section class="seccion-categorias">
+        <h2 class="titulo-lujo">COLECCIONES DE LUJO</h2>
+        <div class="swiper mySwiper">
+            <div class="swiper-wrapper">
+                <a href="rubores.html" class="swiper-slide card-categoria">
+                    <img src="https://images.pexels.com/photos/3373739/pexels-photo-3373739.jpeg?auto=compress&w=400">
+                    <div class="info"><span>RUBORES</span></div>
+                </a>
+                <a href="labiales.html" class="swiper-slide card-categoria">
+                    <img src="https://images.pexels.com/photos/2533266/pexels-photo-2533266.jpeg?auto=compress&w=400">
+                    <div class="info"><span>LABIALES</span></div>
+                </a>
+                <a href="skincare.html" class="swiper-slide card-categoria">
+                    <img src="https://images.pexels.com/photos/4046316/pexels-photo-4046316.jpeg?auto=compress&w=400">
+                    <div class="info"><span>SKINCARE</span></div>
+                </a>
+                <a href="bases.html" class="swiper-slide card-categoria">
+                    <img src="assets/Base de maquillaje.png">
+                    <div class="info"><span>BASES</span></div>
+                </a>
+                <a href="rubores.html" class="swiper-slide card-categoria">
+                    <img src="https://images.pexels.com/photos/3373739/pexels-photo-3373739.jpeg?auto=compress&w=400">
+                    <div class="info"><span>RUBORES</span></div>
+                </a>
             </div>
         </div>
     </section>
 
-    <main class="mosaico">
-        <img src="https://images.pexels.com/photos/3738339/pexels-photo-3738339.jpeg?auto=compress&w=800" alt="Sombras">
-        <div class="caja-actitud">
-            <h2>"La elegancia es una cuestión de actitud"</h2>
-            <p>Lusson Colombia</p>
+    <section class="seccion-ofertas">
+        <h2 class="titulo-lujo">OFERTAS Y COMBOS</h2>
+        <div class="grid-ofertas">
+            <div class="promo-box">
+                <span class="tag-rojo">LIMITADO</span>
+                <h3>Combos de Maquillaje</h3>
+                <p>Arma tu set profesional con un 20% de descuento adicional.</p>
+                <a href="#" style="color: var(--oro); font-weight: 600; text-decoration: none;">VER COMBOS →</a>
+            </div>
+            <div class="promo-box">
+                <span class="tag-rojo">ESTRENA</span>
+                <h3>Productos en Descuento</h3>
+                <p>Nuestras colecciones anteriores con precios de locura por tiempo limitado.</p>
+                <a href="#" style="color: var(--oro); font-weight: 600; text-decoration: none;">COMPRAR AHORA →</a>
+            </div>
         </div>
-        <img src="https://images.pexels.com/photos/3018845/pexels-photo-3018845.jpeg?auto=compress&w=800" alt="Maquillaje">
-        <img src="https://images.pexels.com/photos/2533266/pexels-photo-2533266.jpeg?auto=compress&w=800" alt="Labiales">
-    </main>
+    </section>
+
+    <section class="quienes-somos" id="nosotros">
+        <div class="qs-img">
+            <img src="https://images.pexels.com/photos/3738339/pexels-photo-3738339.jpeg?auto=compress&w=800" alt="Nosotros">
+        </div>
+        <div class="qs-texto">
+            <h2>Quiénes Somos</h2>
+            <p>En <strong>Lusson Colombia</strong>, creemos que la belleza no es solo un producto, es una experiencia de empoderamiento. Nos dedicamos a seleccionar la cosmética más fina para resaltar la elegancia natural de cada mujer.</p>
+            <p>Nacimos con el propósito de traer el lujo al alcance de tu mano, combinando calidad excepcional con un servicio personalizado.</p>
+        </div>
+    </section>
 
     <footer>
         <h2>LUSSON</h2>
-        <p style="color: var(--oro); letter-spacing: 2px; font-size: 0.8rem;">ELEGANCIA EN CADA DETALLE</p>
+        <p style="color: var(--oro); letter-spacing: 4px; margin: 15px 0;">ELEGANCIA EN CADA DETALLE</p>
         <div class="footer-links">
             <a href="#">INSTAGRAM</a>
             <a href="#">TIKTOK</a>
             <a href="#">CATÁLOGO PDF</a>
         </div>
-        <p style="font-size: 0.6rem; color: #555; margin-top: 20px;">© 2026 LUSSON - TODOS LOS DERECHOS RESERVADOS</p>
-        
+        <p style="font-size: 0.6rem; color: #444; margin-top: 40px;">© 2026 LUSSON COLOMBIA - TODOS LOS DERECHOS RESERVADOS</p>
         <div id="secret-point" onclick="modoJefa()"></div>
     </footer>
 
-    <a href="https://wa.me/573000000000" class="whatsapp-float" target="_blank">
+    <a href="https://wa.me/573000000000" class="wa-btn" target="_blank">
         <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
     </a>
 
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script>
+        // Configuración del Carrusel Interactivo
+        const swiper = new Swiper(".mySwiper", {
+            slidesPerView: "auto",
+            spaceBetween: 30,
+            centeredSlides: true,
+            loop: true,
+            autoplay: {
+                delay: 2500,
+                disableOnInteraction: false, // No se detiene si tocas
+            },
+            grabCursor: true, // Cambia el ratón a una mano
+        });
+
+        // Modo Administradora
         let toques = 0;
         function modoJefa() {
             toques++;
             if (toques === 5) { window.location.href = "admin/index.html"; }
             setTimeout(() => { toques = 0; }, 3000);
         }
-
-        if (window.netlifyIdentity) {
-            window.netlifyIdentity.on("init", user => {
-                if (!user) {
-                    window.netlifyIdentity.on("login", () => { document.location.href = "/admin/"; });
-                }
-            });
-        }
     </script>
 </body>
 </html>
+
