@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Panel Admin LUSSON | Gestión Total</title>
+    <title>Panel Admin LUSSON | Gestión Pro</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root { --pink-cute: #ffdeeb; --pink-accent: #f8bbd0; --negro: #1a1a1a; }
         body { font-family: 'Montserrat', sans-serif; background: #fdfaf5; padding: 20px; }
-        .container { max-width: 700px; margin: auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.05); }
+        .container { max-width: 800px; margin: auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.05); }
         .hidden { display: none; }
         input, select, textarea { width: 100%; padding: 12px; margin: 10px 0; border: 2px solid var(--pink-cute); border-radius: 8px; box-sizing: border-box; }
         button { width: 100%; padding: 14px; background: var(--negro); color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; }
@@ -17,12 +17,13 @@
         .section-card { background: #fffafa; padding: 20px; border: 1px solid var(--pink-cute); border-radius: 12px; margin-bottom: 30px; }
         .item-list { display: flex; align-items: center; justify-content: space-between; padding: 10px; border-bottom: 1px solid var(--pink-cute); }
         .item-list img { width: 50px; height: 50px; object-fit: cover; border-radius: 4px; }
+        .grid-imgs { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
     </style>
 </head>
 <body>
 
     <div id="login-section" class="container">
-        <h2 style="text-align:center;">Acceso Privado</h2>
+        <h2 style="text-align:center;">Acceso Privado LUSSON</h2>
         <input type="email" id="email" placeholder="Correo">
         <input type="password" id="password" placeholder="Contraseña">
         <button onclick="login()">INGRESAR</button>
@@ -35,35 +36,48 @@
         </div>
 
         <div class="section-card">
-            <h3>🖼️ Editar Imágenes de Inicio</h3>
-            <p style="font-size: 0.8rem; color: #666;">Sube a Postimg y pega el "Enlace directo" aquí.</p>
+            <h3>🖼️ Imágenes de Inicio</h3>
             <select id="tipo-inicio">
                 <option value="banners">Añadir al Carrusel (Banner)</option>
                 <option value="combos">Cambiar Imagen de Combos</option>
                 <option value="promos">Cambiar Imagen de Promociones</option>
             </select>
-            <input type="text" id="url-inicio" placeholder="URL de la Imagen">
+            <input type="text" id="url-inicio" placeholder="Pega el 'Enlace directo' de Postimg">
             <button class="btn-pink" onclick="actualizarInicio()">ACTUALIZAR INICIO</button>
         </div>
 
         <div class="section-card">
-            <h3>💄 Gestión de Catálogo</h3>
-            <button class="btn-pink" onclick="document.getElementById('form-prod').classList.toggle('hidden')">+ NUEVO PRODUCTO</button>
+            <h3>💄 Nuevo Producto Detallado</h3>
+            <button class="btn-pink" onclick="document.getElementById('form-prod').classList.toggle('hidden')">+ AGREGAR PRODUCTO</button>
             
             <div id="form-prod" class="hidden">
-                <input type="text" id="p-nombre" placeholder="Nombre">
-                <input type="number" id="p-precio" placeholder="Precio">
-                <input type="text" id="p-img" placeholder="URL Imagen (Postimg)">
-                <textarea id="p-desc" placeholder="Descripción para el Detalle" style="height:80px;"></textarea>
-                <textarea id="p-specs" placeholder="Especificaciones (puntos)" style="height:80px;"></textarea>
+                <input type="text" id="p-nombre" placeholder="Nombre del Producto">
+                <div class="grid-imgs">
+                    <input type="number" id="p-precio" placeholder="Precio">
+                    <input type="number" id="p-stock" placeholder="Cantidad en Stock (Inventario)">
+                </div>
+                
+                <p style="font-size: 0.8rem; margin: 10px 0 0; font-weight: bold;">Galería de Imágenes (Pega los links de Postimg):</p>
+                <input type="text" id="p-img1" placeholder="URL Imagen Principal (Obligatoria)">
+                <div class="grid-imgs">
+                    <input type="text" id="p-img2" placeholder="URL Imagen 2">
+                    <input type="text" id="p-img3" placeholder="URL Imagen 3">
+                    <input type="text" id="p-img4" placeholder="URL Imagen 4">
+                    <input type="text" id="p-img5" placeholder="URL Imagen 5">
+                </div>
+
+                <input type="text" id="p-tonos" placeholder="Tonos disponibles (ej: Rojo, Rosa, Nude)">
+                <textarea id="p-desc" placeholder="Descripción para el cliente" style="height:80px;"></textarea>
+                <textarea id="p-specs" placeholder="Especificaciones Técnicas (puntos)" style="height:80px;"></textarea>
+                
                 <select id="p-col">
                     <option value="labiales">Labiales</option>
-                    <option value="rubores">Rubores</option>
+                    <option value="rubores">Rubores (lusso)</option>
                     <option value="bases">Bases y Correctores</option>
                     <option value="polvos">Polvos</option>
                     <option value="skincare">Skincare</option>
                 </select>
-                <button onclick="guardarProducto()" style="background:var(--pink-accent);">GUARDAR PRODUCTO</button>
+                <button onclick="guardarProducto()" style="background:var(--pink-accent);">GUARDAR EN FIREBASE</button>
             </div>
         </div>
 
@@ -71,11 +85,11 @@
             <h3>Inventario Actual</h3>
             <select id="ver-col" onchange="cargarLista()">
                 <option value="labiales">Labiales</option>
-                <option value="rubores">Rubores</option>
+                <option value="lusso">Rubores (lusso)</option>
                 <option value="bases">Bases</option>
                 <option value="polvos">Polvos</option>
                 <option value="skincare">Skincare</option>
-                <option value="banners">Carrusel (Inicio)</option>
+                <option value="banners">Carrusel Inicio</option>
             </select>
             <div id="lista-items"></div>
         </div>
@@ -111,33 +125,42 @@
             }
         });
 
-        // NUEVA FUNCIÓN PARA EDITAR EL INICIO
         function actualizarInicio() {
             const tipo = document.getElementById('tipo-inicio').value;
             const url = document.getElementById('url-inicio').value;
             if(!url) return alert("Pega un enlace");
-
             if(tipo === "banners") {
-                db.collection("banners").add({ img: url, orden: Date.now() }).then(() => alert("Añadido al carrusel"));
+                db.collection("banners").add({ img: url, orden: Date.now() }).then(() => alert("Añadido"));
             } else {
-                db.collection("config_inicio").doc(tipo).set({ img: url }).then(() => alert("Imagen de " + tipo + " actualizada"));
+                db.collection("config_inicio").doc(tipo).set({ img: url }).then(() => alert("Actualizado"));
             }
             document.getElementById('url-inicio').value = "";
         }
 
+        // FUNCIÓN MODIFICADA CON TODOS LOS CAMPOS NUEVOS
         function guardarProducto() {
             const col = document.getElementById('p-col').value;
             const data = {
                 nombre: document.getElementById('p-nombre').value,
                 precio: Number(document.getElementById('p-precio').value),
-                img: document.getElementById('p-img').value,
+                stock: Number(document.getElementById('p-stock').value),
+                img: document.getElementById('p-img1').value,
+                img2: document.getElementById('p-img2').value,
+                img3: document.getElementById('p-img3').value,
+                img4: document.getElementById('p-img4').value,
+                img5: document.getElementById('p-img5').value,
                 descripcion: document.getElementById('p-desc').value,
-                specs: document.getElementById('p-specs').value
+                especificaciones: document.getElementById('p-specs').value,
+                tonos: document.getElementById('p-tonos').value
             };
+
+            if(!data.nombre || !data.img) return alert("Nombre e Imagen Principal son obligatorios");
+
             db.collection(col).add(data).then(() => {
-                alert("Producto guardado con éxito");
+                alert("¡Producto guardado con éxito!");
                 document.getElementById('form-prod').classList.add('hidden');
-            });
+                limpiarCampos();
+            }).catch(e => alert("Error: " + e));
         }
 
         function cargarLista() {
@@ -150,7 +173,10 @@
                     container.innerHTML += `
                         <div class="item-list">
                             <img src="${d.img}">
-                            <div style="flex:1; margin-left:15px;"><strong>${d.nombre || 'Banner'}</strong></div>
+                            <div style="flex:1; margin-left:15px;">
+                                <strong>${d.nombre || 'Sin nombre'}</strong><br>
+                                <small>Stock: ${d.stock || 0}</small>
+                            </div>
                             <button onclick="eliminar('${doc.id}', '${col}')" style="width:auto; background:#ff4d4d; padding:5px 10px;">X</button>
                         </div>`;
                 });
@@ -158,11 +184,16 @@
         }
 
         function eliminar(id, col) {
-            if(confirm("¿Eliminar?")) db.collection(col).doc(id).delete();
+            if(confirm("¿Eliminar este producto?")) db.collection(col).doc(id).delete();
+        }
+
+        function limpiarCampos() {
+            const ids = ['p-nombre','p-precio','p-stock','p-img1','p-img2','p-img3','p-img4','p-img5','p-desc','p-specs','p-tonos'];
+            ids.forEach(id => document.getElementById(id).value = '');
         }
 
         function logout() { auth.signOut(); window.location.reload(); }
     </script>
 </body>
-</html>
+    </html>
 
