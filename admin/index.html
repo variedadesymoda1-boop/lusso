@@ -3,43 +3,59 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LUSSON - Panel Seguro</title>
+    <title>LUSSON - Administrador Profesional</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        body { background: #fdfaf5; font-family: 'Inter', sans-serif; display: flex; align-items: center; justify-content: center; min-height: 100vh; margin: 0; flex-direction: column; }
-        .box { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); width: 90%; max-width: 400px; }
+        :root { --oro: #c5a059; --negro: #1a1a1a; --crema: #fdfaf5; }
+        body { background: var(--crema); font-family: 'Inter', sans-serif; margin: 0; padding: 20px; }
+        .container { max-width: 600px; margin: auto; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
         .hidden { display: none; }
         input, select { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 6px; box-sizing: border-box; }
-        button { width: 100%; padding: 14px; background: #1a1a1a; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: 600; margin-top: 10px; }
-        .btn-logout { background: #757575; width: auto; padding: 5px 15px; margin-bottom: 20px; }
+        button { width: 100%; padding: 14px; background: var(--negro); color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: 600; margin-top: 10px; }
+        .btn-new { background: #28a745; margin-bottom: 20px; }
+        .product-item { display: flex; align-items: center; justify-content: space-between; padding: 15px; border-bottom: 1px solid #eee; }
+        .product-item img { width: 50px; height: 50px; object-fit: cover; border-radius: 4px; }
+        .actions { display: flex; gap: 10px; }
+        .btn-edit { background: var(--oro); padding: 5px 10px; font-size: 12px; }
+        .btn-delete { background: #ff4d4d; padding: 5px 10px; font-size: 12px; }
     </style>
 </head>
 <body>
 
-    <div id="login-section" class="box">
+    <div id="login-section" class="container">
         <h2 style="text-align:center; font-family:'Playfair Display';">Acceso Privado</h2>
-        <input type="email" id="email" placeholder="Correo electrónico">
+        <input type="email" id="email" placeholder="Correo">
         <input type="password" id="password" placeholder="Contraseña">
-        <button onclick="login()">ENTRAR CON MI LLAVE</button>
+        <button onclick="login()">INGRESAR</button>
     </div>
 
-    <div id="admin-section" class="box hidden">
-        <div style="display:flex; justify-content:space-between;">
-            <button class="btn-logout" onclick="logout()">Cerrar Sesión</button>
-            <a href="../rubores.html" style="font-size: 12px; color: #c5a059; text-decoration: none;">VER TIENDA</a>
+    <div id="admin-section" class="container hidden">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+            <h2 style="font-family:'Playfair Display';">Panel LUSSON</h2>
+            <button onclick="logout()" style="width:auto; background:#757575; padding:5px 10px;">Salir</button>
         </div>
-        <h2 style="font-family:'Playfair Display'; margin-bottom: 20px;">Gestionar Productos</h2>
-        
-        <input type="text" id="nombre" placeholder="Nombre del Producto">
-        <input type="number" id="precio" placeholder="Precio">
-        <input type="text" id="img" placeholder="URL Imagen (Postimg)">
-        
-        <select id="coleccion">
-            <option value="lusso">Rubores</option>
-            <option value="labiales">Labiales</option>
-        </select>
-        
-        <button onclick="guardarProducto()" style="background:#c5a059;">GUARDAR CAMBIOS EN FIREBASE</button>
+
+        <button class="btn-new" onclick="mostrarFormulario()"><i class="fa-solid fa-plus"></i> AGREGAR PRODUCTO NUEVO</button>
+
+        <div id="form-producto" class="hidden" style="background: #f9f9f9; padding: 15px; border-radius: 8px; margin-bottom: 30px;">
+            <h3 id="form-title">Nuevo Producto</h3>
+            <input type="hidden" id="edit-id">
+            <input type="text" id="nombre" placeholder="Nombre">
+            <input type="number" id="precio" placeholder="Precio">
+            <input type="text" id="img" placeholder="URL Imagen">
+            <select id="coleccion">
+                <option value="lusso">Rubores</option>
+                <option value="labiales">Labiales</option>
+            </select>
+            <button id="btn-guardar" onclick="guardarProducto()" style="background: var(--oro);">GUARDAR CAMBIOS</button>
+            <button onclick="cancelarEdicion()" style="background: #ccc; color: #333;">CANCELAR</button>
+        </div>
+
+        <div id="lista-gestion">
+            <h3 style="border-bottom: 2px solid var(--oro); padding-bottom: 5px;">Inventario</h3>
+            <div id="items-container"></div>
+        </div>
     </div>
 
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
@@ -59,36 +75,90 @@
         const auth = firebase.auth();
         const db = firebase.firestore();
 
-        // Lógica de seguridad
         function login() {
-            const email = document.getElementById('email').value;
-            const pass = document.getElementById('password').value;
-            auth.signInWithEmailAndPassword(email, pass)
-                .catch(error => alert("Clave o correo incorrectos"));
+            auth.signInWithEmailAndPassword(document.getElementById('email').value, document.getElementById('password').value)
+                .catch(e => alert("Error de acceso"));
         }
 
         auth.onAuthStateChanged(user => {
             if (user) {
                 document.getElementById('login-section').classList.add('hidden');
                 document.getElementById('admin-section').classList.remove('hidden');
+                cargarInventario();
             } else {
                 document.getElementById('login-section').classList.remove('hidden');
                 document.getElementById('admin-section').classList.add('hidden');
             }
         });
 
+        function cargarInventario() {
+            db.collection("lusso").onSnapshot(snap => {
+                const container = document.getElementById('items-container');
+                container.innerHTML = '';
+                snap.forEach(doc => {
+                    const p = doc.data();
+                    container.innerHTML += `
+                        <div class="product-item">
+                            <img src="${p.img}">
+                            <div style="flex:1; margin-left:15px;">
+                                <strong>${p.nombre}</strong><br>
+                                <small>$${p.precio}</small>
+                            </div>
+                            <div class="actions">
+                                <button class="btn-edit" onclick="prepararEdicion('${doc.id}', '${p.nombre}', ${p.precio}, '${p.img}')">Editar</button>
+                                <button class="btn-delete" onclick="eliminar('${doc.id}')">X</button>
+                            </div>
+                        </div>`;
+                });
+            });
+        }
+
+        function mostrarFormulario() {
+            document.getElementById('form-producto').classList.remove('hidden');
+            document.getElementById('form-title').innerText = "Nuevo Producto";
+            document.getElementById('edit-id').value = "";
+            limpiarCampos();
+        }
+
+        function prepararEdicion(id, nombre, precio, img) {
+            document.getElementById('form-producto').classList.remove('hidden');
+            document.getElementById('form-title').innerText = "Editando: " + nombre;
+            document.getElementById('edit-id').value = id;
+            document.getElementById('nombre').value = nombre;
+            document.getElementById('precio').value = precio;
+            document.getElementById('img').value = img;
+        }
+
         function guardarProducto() {
-            const nombre = document.getElementById('nombre').value;
-            const precio = Number(document.getElementById('precio').value);
-            const img = document.getElementById('img').value;
+            const id = document.getElementById('edit-id').value;
+            const data = {
+                nombre: document.getElementById('nombre').value,
+                precio: Number(document.getElementById('precio').value),
+                img: document.getElementById('img').value
+            };
             const col = document.getElementById('coleccion').value;
 
-            if(!nombre || !precio || !img) return alert("Llena todos los campos");
+            if(id) {
+                db.collection(col).doc(id).update(data).then(() => alert("Actualizado"));
+            } else {
+                db.collection(col).add(data).then(() => alert("Creado"));
+            }
+            cancelarEdicion();
+        }
 
-            db.collection(col).add({ nombre, precio, img }).then(() => {
-                alert("¡Producto guardado! Los cambios ya están en tu tienda.");
-                window.location.href = "../rubores.html";
-            });
+        function eliminar(id) {
+            if(confirm("¿Borrar definitivamente?")) db.collection("lusso").doc(id).delete();
+        }
+
+        function cancelarEdicion() {
+            document.getElementById('form-producto').classList.add('hidden');
+            limpiarCampos();
+        }
+
+        function limpiarCampos() {
+            document.getElementById('nombre').value = '';
+            document.getElementById('precio').value = '';
+            document.getElementById('img').value = '';
         }
 
         function logout() { auth.signOut(); }
