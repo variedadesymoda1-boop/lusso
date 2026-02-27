@@ -3,180 +3,131 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LUSSON - Panel de Control Privado</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Panel Admin LUSSON | Gestión de Imagen</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
     <style>
-        :root { --pink-cute: #ffdeeb; --pink-accent: #f8bbd0; --negro: #1a1a1a; --crema: #fdfaf5; }
-        body { background: var(--crema); font-family: 'Inter', sans-serif; margin: 0; padding: 20px; }
-        .container { max-width: 600px; margin: auto; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
-        .hidden { display: none; }
-        input, select { width: 100%; padding: 12px; margin: 10px 0; border: 2px solid var(--pink-cute); border-radius: 8px; box-sizing: border-box; }
-        button { width: 100%; padding: 14px; background: var(--negro); color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; margin-top: 10px; }
-        .btn-new { background: var(--pink-accent); color: var(--negro); margin-bottom: 20px; }
-        .product-item { display: flex; align-items: center; justify-content: space-between; padding: 15px; border-bottom: 1px solid var(--pink-cute); }
-        .product-item img { width: 50px; height: 50px; object-fit: cover; border-radius: 4px; }
-        .actions { display: flex; gap: 10px; }
-        .btn-edit { background: #e3f2fd; color: #1976d2; padding: 5px 10px; font-size: 12px; border-radius: 4px; border:none; cursor:pointer;}
-        .btn-delete { background: #ffebee; color: #c62828; padding: 5px 10px; font-size: 12px; border-radius: 4px; border:none; cursor:pointer;}
+        body { font-family: 'Montserrat', sans-serif; background: #fdf2f5; margin: 0; padding: 20px; }
+        .admin-container { max-width: 800px; margin: auto; background: white; padding: 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        h1 { color: #f8bbd0; text-align: center; }
+        .upload-card { border: 2px dashed #f8bbd0; padding: 20px; border-radius: 15px; margin-bottom: 30px; text-align: center; }
+        input[type="file"] { margin: 15px 0; }
+        button { background: #f8bbd0; color: white; border: none; padding: 12px 25px; border-radius: 25px; cursor: pointer; font-weight: 600; transition: 0.3s; }
+        button:hover { background: #ffdeeb; color: #333; }
+        .progress-bar { width: 0%; height: 10px; background: #25d366; border-radius: 5px; margin-top: 10px; transition: 0.3s; }
+        .preview-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin-top: 20px; }
+        .preview-item { border: 1px solid #eee; padding: 10px; border-radius: 10px; position: relative; }
+        .preview-item img { width: 100%; border-radius: 8px; }
+        .btn-delete { background: #ff4d4d; padding: 5px 10px; font-size: 12px; margin-top: 5px; }
     </style>
 </head>
 <body>
 
-    <div id="login-section" class="container">
-        <h2 style="text-align:center; font-family:'Playfair Display'; color: var(--pink-accent);">LUSSON Privado</h2>
-        <input type="email" id="email" placeholder="Correo de Administradora">
-        <input type="password" id="password" placeholder="Contraseña Segura">
-        <button onclick="login()">ACCEDER AL PANEL</button>
+<div class="admin-container">
+    <h1>Administrador LUSSON</h1>
+
+    <div class="upload-card">
+        <h3>Subir Nueva Imagen al Carrusel</h3>
+        <input type="file" id="file-banner" accept="image/*">
+        <br>
+        <input type="number" id="order-banner" placeholder="Orden (ej: 1)" style="padding: 8px; border-radius: 5px; border: 1px solid #ddd;">
+        <button onclick="uploadImage('banner')">Subir al Carrusel</button>
+        <div id="progress-banner" class="progress-bar"></div>
     </div>
 
-    <div id="admin-section" class="container hidden">
-        <div style="display:flex; justify-content:space-between; align-items:center;">
-            <h2 style="font-family:'Playfair Display';">Gestión de Tienda</h2>
-            <button onclick="logout()" style="width:auto; background:#757575; padding:5px 15px;">Cerrar Sesión</button>
-        </div>
-
-        <button class="btn-new" onclick="mostrarFormulario()"><i class="fa-solid fa-plus"></i> NUEVO PRODUCTO</button>
-
-        <div id="form-producto" class="hidden" style="background: #fffafa; padding: 20px; border: 1px solid var(--pink-cute); border-radius: 12px; margin-bottom: 30px;">
-            <h3 id="form-title">Datos del Producto</h3>
-            <input type="hidden" id="edit-id">
-            <input type="text" id="nombre" placeholder="Nombre">
-            <input type="number" id="precio" placeholder="Precio">
-            <input type="text" id="img" placeholder="URL de Imagen (Postimg)">
-            <select id="coleccion" onchange="cargarInventario()">
-                <option value="lusso">Rubores</option>
-                <option value="labiales">Labiales</option>
-                <option value="bases">Bases y Correctores</option>
-                <option value="polvos">Polvos</option>
-                <option value="skincare">Skincare</option>
-            </select>
-            <button id="btn-guardar" onclick="guardarProducto()" style="background: var(--pink-accent); color:black;">GUARDAR CAMBIOS</button>
-            <button onclick="cancelarEdicion()" style="background: #eee; color: #333;">CANCELAR</button>
-        </div>
-
-        <div id="lista-gestion">
-            <h3 style="border-bottom: 2px solid var(--pink-cute); padding-bottom: 5px;">Inventario Actual</h3>
-            <div id="items-container"></div>
-        </div>
+    <div class="upload-card">
+        <h3>Actualizar Combos o Promociones</h3>
+        <select id="type-static" style="padding: 8px; border-radius: 5px;">
+            <option value="combos">Cuadro de Combos</option>
+            <option value="promos">Cuadro de Promociones</option>
+        </select>
+        <input type="file" id="file-static" accept="image/*">
+        <button onclick="uploadImage('static')">Actualizar Imagen</button>
+        <div id="progress-static" class="progress-bar"></div>
     </div>
 
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    <hr>
+    <h3>Imágenes actuales en Inicio</h3>
+    <div id="admin-list" class="preview-list"></div>
+</div>
 
-    <script>
-        const firebaseConfig = {
-            apiKey: "AIzaSyCMCFn8zuekM5rIh6Uq02zu_ypblsJonuo",
-            authDomain: "lusson-web.firebaseapp.com",
-            projectId: "lusson-web",
-            storageBucket: "lusson-web.firebasestorage.app",
-            messagingSenderId: "445073966036",
-            appId: "1:445073966036:web:f6c56d465f68ace86a4c41"
-        };
-        firebase.initializeApp(firebaseConfig);
-        const auth = firebase.auth();
-        const db = firebase.firestore();
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
 
-        // SEGURIDAD REFORZADA: No guarda la sesión para siempre
-        function login() {
-            const email = document.getElementById('email').value;
-            const pass = document.getElementById('password').value;
-            auth.setPersistence(firebase.auth.Auth.Persistence.SESSION)
-                .then(() => {
-                    return auth.signInWithEmailAndPassword(email, pass);
-                })
-                .catch(e => alert("Acceso denegado: Verifica tus datos"));
-        }
+<script>
+    const firebaseConfig = {
+        apiKey: "AIzaSyCMCFn8zuekM5rIh6Uq02zu_ypblsJonuo",
+        authDomain: "lusson-web.firebaseapp.com",
+        projectId: "lusson-web",
+        storageBucket: "lusson-web.appspot.com", // Asegúrate que termine en .appspot.com
+        messagingSenderId: "445073966036",
+        appId: "1:445073966036:web:f6c56d465f68ace86a4c41"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+    const storage = firebase.storage();
 
-        auth.onAuthStateChanged(user => {
-            if (user) {
-                document.getElementById('login-section').classList.add('hidden');
-                document.getElementById('admin-section').classList.remove('hidden');
-                cargarInventario();
-            } else {
-                document.getElementById('login-section').classList.remove('hidden');
-                document.getElementById('admin-section').classList.add('hidden');
+    async function uploadImage(mode) {
+        const fileInput = mode === 'banner' ? document.getElementById('file-banner') : document.getElementById('file-static');
+        const progressBar = mode === 'banner' ? document.getElementById('progress-banner') : document.getElementById('progress-static');
+        const file = fileInput.files[0];
+        
+        if (!file) return alert("Selecciona un archivo primero");
+
+        // 1. Crear referencia en Storage
+        const storageRef = storage.ref(`inicio/${Date.now()}_${file.name}`);
+        const uploadTask = storageRef.put(file);
+
+        uploadTask.on('state_changed', 
+            (snapshot) => {
+                const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                progressBar.style.width = progress + '%';
+            }, 
+            (error) => alert("Error al subir: " + error.message), 
+            async () => {
+                // 2. Obtener la URL de descarga
+                const downloadURL = await uploadTask.snapshot.ref.getDownloadURL();
+                
+                if (mode === 'banner') {
+                    const orden = document.getElementById('order-banner').value || 1;
+                    await db.collection("banners").add({
+                        img: downloadURL,
+                        orden: parseInt(orden)
+                    });
+                } else {
+                    const docId = document.getElementById('type-static').value;
+                    await db.collection("config_inicio").doc(docId).set({
+                        img: downloadURL
+                    });
+                }
+                
+                alert("¡Imagen actualizada con éxito!");
+                progressBar.style.width = '0%';
+                fileInput.value = '';
             }
+        );
+    }
+
+    // Listar imágenes para borrar
+    db.collection("banners").orderBy("orden", "asc").onSnapshot(snap => {
+        const list = document.getElementById('admin-list');
+        list.innerHTML = '';
+        snap.forEach(doc => {
+            const data = doc.data();
+            list.innerHTML += `
+                <div class="preview-item">
+                    <img src="${data.img}">
+                    <button class="btn-delete" onclick="deleteBanner('${doc.id}')">Borrar</button>
+                </div>
+            `;
         });
+    });
 
-        function cargarInventario() {
-            const col = document.getElementById('coleccion').value;
-            db.collection(col).onSnapshot(snap => {
-                const container = document.getElementById('items-container');
-                container.innerHTML = '';
-                snap.forEach(doc => {
-                    const p = doc.data();
-                    container.innerHTML += `
-                        <div class="product-item">
-                            <img src="${p.img}">
-                            <div style="flex:1; margin-left:15px;">
-                                <strong>${p.nombre}</strong><br>
-                                <small>$${p.precio}</small>
-                            </div>
-                            <div class="actions">
-                                <button class="btn-edit" onclick="prepararEdicion('${doc.id}', '${p.nombre}', ${p.precio}, '${p.img}')">Editar</button>
-                                <button class="btn-delete" onclick="eliminar('${doc.id}')">X</button>
-                            </div>
-                        </div>`;
-                });
-            });
-        }
+    async function deleteBanner(id) {
+        if(confirm("¿Borrar esta imagen?")) await db.collection("banners").doc(id).delete();
+    }
+</script>
 
-        function mostrarFormulario() {
-            document.getElementById('form-producto').classList.remove('hidden');
-            document.getElementById('form-title').innerText = "Nuevo Producto";
-            document.getElementById('edit-id').value = "";
-            limpiarCampos();
-        }
-
-        function prepararEdicion(id, nombre, precio, img) {
-            document.getElementById('form-producto').classList.remove('hidden');
-            document.getElementById('form-title').innerText = "Editando: " + nombre;
-            document.getElementById('edit-id').value = id;
-            document.getElementById('nombre').value = nombre;
-            document.getElementById('precio').value = precio;
-            document.getElementById('img').value = img;
-            window.scrollTo(0,0);
-        }
-
-        function guardarProducto() {
-            const id = document.getElementById('edit-id').value;
-            const data = {
-                nombre: document.getElementById('nombre').value,
-                precio: Number(document.getElementById('precio').value),
-                img: document.getElementById('img').value
-            };
-            const col = document.getElementById('coleccion').value;
-
-            if(id) {
-                db.collection(col).doc(id).update(data).then(() => alert("Producto actualizado con éxito"));
-            } else {
-                db.collection(col).add(data).then(() => alert("Producto creado en " + col));
-            }
-            cancelarEdicion();
-        }
-
-        function eliminar(id) {
-            const col = document.getElementById('coleccion').value;
-            if(confirm("¿Eliminar este producto de " + col + "?")) {
-                db.collection(col).doc(id).delete();
-            }
-        }
-
-        function cancelarEdicion() {
-            document.getElementById('form-producto').classList.add('hidden');
-            limpiarCampos();
-        }
-
-        function limpiarCampos() {
-            document.getElementById('nombre').value = '';
-            document.getElementById('precio').value = '';
-            document.getElementById('img').value = '';
-        }
-
-        function logout() { auth.signOut(); }
-    </script>
 </body>
 </html>
 
