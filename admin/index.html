@@ -3,86 +3,81 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LUSSON | Panel Administrativo</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <title>Panel Admin LUSSON | Gestión Total</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        :root { --pink-cute: #ffdeeb; --pink-accent: #f8bbd0; --negro: #1a1a1a; --crema: #fdfaf5; }
-        body { background: var(--crema); font-family: 'Inter', sans-serif; margin: 0; padding: 20px; }
-        .container { max-width: 650px; margin: auto; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+        :root { --pink-cute: #ffdeeb; --pink-accent: #f8bbd0; --negro: #1a1a1a; }
+        body { font-family: 'Montserrat', sans-serif; background: #fdfaf5; padding: 20px; }
+        .container { max-width: 700px; margin: auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.05); }
         .hidden { display: none; }
-        input, select { width: 100%; padding: 12px; margin: 10px 0; border: 2px solid var(--pink-cute); border-radius: 8px; box-sizing: border-box; }
-        button { width: 100%; padding: 14px; background: var(--negro); color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; margin-top: 10px; }
-        .btn-accent { background: var(--pink-accent); color: var(--negro); margin-bottom: 20px; }
+        input, select, textarea { width: 100%; padding: 12px; margin: 10px 0; border: 2px solid var(--pink-cute); border-radius: 8px; box-sizing: border-box; }
+        button { width: 100%; padding: 14px; background: var(--negro); color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; }
+        .btn-pink { background: var(--pink-accent); color: white; margin-bottom: 20px; }
         .section-card { background: #fffafa; padding: 20px; border: 1px solid var(--pink-cute); border-radius: 12px; margin-bottom: 30px; }
-        .product-item { display: flex; align-items: center; justify-content: space-between; padding: 10px; border-bottom: 1px solid var(--pink-cute); }
-        .product-item img { width: 50px; height: 50px; object-fit: cover; border-radius: 4px; }
-        .hint-box { background: #e3f2fd; padding: 15px; border-radius: 8px; font-size: 0.85rem; color: #0d47a1; margin-bottom: 20px; text-align: center; }
-        .wa-post { color: #2196f3; font-weight: bold; text-decoration: none; }
+        .item-list { display: flex; align-items: center; justify-content: space-between; padding: 10px; border-bottom: 1px solid var(--pink-cute); }
+        .item-list img { width: 50px; height: 50px; object-fit: cover; border-radius: 4px; }
     </style>
 </head>
 <body>
 
     <div id="login-section" class="container">
-        <h2 style="text-align:center; font-family:'Playfair Display'; color: var(--pink-accent);">Acceso LUSSON</h2>
+        <h2 style="text-align:center;">Acceso Privado</h2>
         <input type="email" id="email" placeholder="Correo">
         <input type="password" id="password" placeholder="Contraseña">
-        <button onclick="login()">INGRESAR AL PANEL</button>
+        <button onclick="login()">INGRESAR</button>
     </div>
 
     <div id="admin-section" class="container hidden">
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
-            <h2 style="font-family:'Playfair Display';">Panel de Control</h2>
-            <button onclick="logout()" style="width:auto; background:#757575; padding:5px 15px;">Salir</button>
-        </div>
-
-        <div class="hint-box">
-            <strong>¿Nueva foto?</strong> Súbela a <a href="https://postimages.org/" target="_blank" class="wa-post">Postimages.org</a> <br>
-            Copia el <strong>"Enlace directo"</strong> y pégalo abajo.
+            <h2>Panel LUSSON</h2>
+            <button onclick="logout()" style="width:auto; background:#757575;">Salir</button>
         </div>
 
         <div class="section-card">
-            <h3>📸 Imágenes de Inicio</h3>
-            <select id="seccion-inicio">
-                <option value="banners">Añadir al Carrusel</option>
-                <option value="combos">Actualizar Cuadro Combos</option>
-                <option value="promos">Actualizar Cuadro Promociones</option>
+            <h3>🖼️ Editar Imágenes de Inicio</h3>
+            <p style="font-size: 0.8rem; color: #666;">Sube a Postimg y pega el "Enlace directo" aquí.</p>
+            <select id="tipo-inicio">
+                <option value="banners">Añadir al Carrusel (Banner)</option>
+                <option value="combos">Cambiar Imagen de Combos</option>
+                <option value="promos">Cambiar Imagen de Promociones</option>
             </select>
-            <input type="text" id="url-inicio" placeholder="Pega el Enlace Directo de la imagen">
-            <button class="btn-accent" onclick="actualizarInicio()">ACTUALIZAR INICIO</button>
+            <input type="text" id="url-inicio" placeholder="URL de la Imagen">
+            <button class="btn-pink" onclick="actualizarInicio()">ACTUALIZAR INICIO</button>
         </div>
 
         <div class="section-card">
-            <h3>💄 Gestión de Productos</h3>
-            <button class="btn-accent" onclick="document.getElementById('form-producto').classList.toggle('hidden')">+ NUEVO PRODUCTO</button>
+            <h3>💄 Gestión de Catálogo</h3>
+            <button class="btn-pink" onclick="document.getElementById('form-prod').classList.toggle('hidden')">+ NUEVO PRODUCTO</button>
             
-            <div id="form-producto" class="hidden">
-                <input type="hidden" id="edit-id">
-                <input type="text" id="prod-nombre" placeholder="Nombre del producto">
-                <input type="number" id="prod-precio" placeholder="Precio (solo números)">
-                <input type="text" id="prod-img" placeholder="Enlace directo de la imagen">
-                <select id="prod-coleccion">
+            <div id="form-prod" class="hidden">
+                <input type="text" id="p-nombre" placeholder="Nombre">
+                <input type="number" id="p-precio" placeholder="Precio">
+                <input type="text" id="p-img" placeholder="URL Imagen (Postimg)">
+                <textarea id="p-desc" placeholder="Descripción para el Detalle" style="height:80px;"></textarea>
+                <textarea id="p-specs" placeholder="Especificaciones (puntos)" style="height:80px;"></textarea>
+                <select id="p-col">
                     <option value="labiales">Labiales</option>
                     <option value="rubores">Rubores</option>
                     <option value="bases">Bases y Correctores</option>
                     <option value="polvos">Polvos</option>
                     <option value="skincare">Skincare</option>
                 </select>
-                <button onclick="guardarProducto()" style="background:var(--pink-accent); color:black;">GUARDAR EN CATÁLOGO</button>
+                <button onclick="guardarProducto()" style="background:var(--pink-accent);">GUARDAR PRODUCTO</button>
             </div>
         </div>
 
-        <div id="lista-gestion">
-            <h3 style="border-bottom: 2px solid var(--pink-cute); padding-bottom: 5px;">Inventario Actual</h3>
-            <select id="filtro-lista" onchange="cargarInventario()">
-                <option value="labiales">Ver Labiales</option>
-                <option value="rubores">Ver Rubores</option>
-                <option value="bases">Ver Bases</option>
-                <option value="polvos">Ver Polvos</option>
-                <option value="skincare">Ver Skincare</option>
-                <option value="banners">Ver Carrusel Inicio</option>
+        <div id="inventario">
+            <h3>Inventario Actual</h3>
+            <select id="ver-col" onchange="cargarLista()">
+                <option value="labiales">Labiales</option>
+                <option value="rubores">Rubores</option>
+                <option value="bases">Bases</option>
+                <option value="polvos">Polvos</option>
+                <option value="skincare">Skincare</option>
+                <option value="banners">Carrusel (Inicio)</option>
             </select>
-            <div id="items-container"></div>
+            <div id="lista-items"></div>
         </div>
     </div>
 
@@ -103,67 +98,59 @@
         const auth = firebase.auth();
         const db = firebase.firestore();
 
-        // LOGIN POR URL
         function login() {
             auth.signInWithEmailAndPassword(document.getElementById('email').value, document.getElementById('password').value)
-                .catch(e => alert("Error: Acceso no autorizado"));
+                .catch(() => alert("Error de acceso"));
         }
 
         auth.onAuthStateChanged(user => {
             if (user) {
                 document.getElementById('login-section').classList.add('hidden');
                 document.getElementById('admin-section').classList.remove('hidden');
-                cargarInventario();
-            } else {
-                document.getElementById('login-section').classList.remove('hidden');
-                document.getElementById('admin-section').classList.add('hidden');
+                cargarLista();
             }
         });
 
-        // ACTUALIZAR IMÁGENES DE INICIO (Carrusel, Combos, Promos)
+        // NUEVA FUNCIÓN PARA EDITAR EL INICIO
         function actualizarInicio() {
-            const seccion = document.getElementById('seccion-inicio').value;
+            const tipo = document.getElementById('tipo-inicio').value;
             const url = document.getElementById('url-inicio').value;
-            if(!url) return alert("Pega un link");
+            if(!url) return alert("Pega un enlace");
 
-            if(seccion === "banners") {
+            if(tipo === "banners") {
                 db.collection("banners").add({ img: url, orden: Date.now() }).then(() => alert("Añadido al carrusel"));
             } else {
-                db.collection("config_inicio").doc(seccion).set({ img: url }).then(() => alert("Cuadro de " + seccion + " actualizado"));
+                db.collection("config_inicio").doc(tipo).set({ img: url }).then(() => alert("Imagen de " + tipo + " actualizada"));
             }
             document.getElementById('url-inicio').value = "";
         }
 
-        // GESTIÓN DE PRODUCTOS
         function guardarProducto() {
-            const id = document.getElementById('edit-id').value;
-            const col = document.getElementById('prod-coleccion').value;
+            const col = document.getElementById('p-col').value;
             const data = {
-                nombre: document.getElementById('prod-nombre').value,
-                precio: Number(document.getElementById('prod-precio').value),
-                img: document.getElementById('prod-img').value
+                nombre: document.getElementById('p-nombre').value,
+                precio: Number(document.getElementById('p-precio').value),
+                img: document.getElementById('p-img').value,
+                descripcion: document.getElementById('p-desc').value,
+                specs: document.getElementById('p-specs').value
             };
-
-            if(id) {
-                db.collection(col).doc(id).update(data).then(() => alert("Actualizado"));
-            } else {
-                db.collection(col).add(data).then(() => alert("Producto Creado"));
-            }
-            document.getElementById('form-producto').classList.add('hidden');
-            limpiarCampos();
+            db.collection(col).add(data).then(() => {
+                alert("Producto guardado con éxito");
+                document.getElementById('form-prod').classList.add('hidden');
+            });
         }
 
-        function cargarInventario() {
-            const col = document.getElementById('filtro-lista').value;
+        function cargarLista() {
+            const col = document.getElementById('ver-col').value;
             db.collection(col).onSnapshot(snap => {
-                const container = document.getElementById('items-container');
+                const container = document.getElementById('lista-items');
                 container.innerHTML = '';
                 snap.forEach(doc => {
-                    const p = doc.data();
+                    const d = doc.data();
                     container.innerHTML += `
-                        <div class="product-item">
-                            <img src="${p.img}">
-                            <div style="flex:1; margin-left:15px;"><strong>${p.nombre || 'Banner'}</strong></div>
+                        <div class="item-list">
+                            <img src="${d.img}">
+                            <div style="flex:1; margin-left:15px;"><strong>${d.nombre || 'Banner'}</strong></div>
                             <button onclick="eliminar('${doc.id}', '${col}')" style="width:auto; background:#ff4d4d; padding:5px 10px;">X</button>
                         </div>`;
                 });
@@ -171,17 +158,10 @@
         }
 
         function eliminar(id, col) {
-            if(confirm("¿Eliminar definitivamente?")) db.collection(col).doc(id).delete();
+            if(confirm("¿Eliminar?")) db.collection(col).doc(id).delete();
         }
 
-        function limpiarCampos() {
-            document.getElementById('prod-nombre').value = '';
-            document.getElementById('prod-precio').value = '';
-            document.getElementById('prod-img').value = '';
-            document.getElementById('edit-id').value = '';
-        }
-
-        function logout() { auth.signOut(); }
+        function logout() { auth.signOut(); window.location.reload(); }
     </script>
 </body>
 </html>
