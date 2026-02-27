@@ -23,7 +23,7 @@
 
         body { font-family: 'Montserrat', sans-serif; margin: 0; background: var(--blanco); color: var(--negro); overflow-x: hidden; }
 
-        /* HEADER */
+        /* HEADER CON LOGO Y NOMBRE */
         header { 
             background: white; 
             padding: 20px; 
@@ -35,7 +35,7 @@
         header img { height: 90px; width: auto; }
         header h1 { font-family: 'Playfair Display', serif; font-size: 3rem; letter-spacing: 5px; margin: 0; }
 
-        /* NAVEGACIÓN STICKY */
+        /* NAVEGACIÓN STICKY (BAJA CONTIGO) */
         .nav-franja {
             background: var(--pink-cute);
             position: sticky; 
@@ -44,10 +44,10 @@
             padding: 12px 0;
             box-shadow: 0 4px 10px rgba(0,0,0,0.05);
         }
-        nav { display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; }
+        nav { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
         nav a { 
             text-decoration: none; color: var(--negro); font-size: 0.75rem; font-weight: 600; 
-            letter-spacing: 1px; text-transform: uppercase; padding: 10px 20px;
+            letter-spacing: 1px; text-transform: uppercase; padding: 10px 18px;
             background: white; border-radius: 8px; transition: 0.3s;
         }
         nav a:hover { background: var(--pink-accent); color: white; }
@@ -62,7 +62,7 @@
         .card-cat img { width: 100%; height: 320px; object-fit: cover; }
         .card-cat .label { padding: 15px; text-align: center; font-weight: 600; letter-spacing: 2px; }
 
-        /* SECCIÓN COMBOS Y PROMOCIONES */
+        /* SECCIÓN COMBOS Y PROMOCIONES (LINKS LIMPIOS) */
         .grid-ventas { 
             display: grid; 
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); 
@@ -88,7 +88,7 @@
         .item-venta h3 { font-family: 'Playfair Display', serif; font-size: 2.2rem; margin: 0; color: var(--pink-accent); }
         .item-venta:hover { transform: scale(1.02); }
 
-        /* PIE DE PÁGINA */
+        /* PIE DE PÁGINA PROFESIONAL */
         .main-footer { 
             background: var(--pink-cute); 
             padding: 60px 10% 20px; 
@@ -105,7 +105,7 @@
 
         .copyright { text-align: center; padding: 30px; background: white; font-size: 0.7rem; letter-spacing: 2px; color: #888; }
 
-        /* BOTÓN FLOTANTE WHATSAPP (RECUPERADO) */
+        /* BOTÓN FLOTANTE WHATSAPP */
         .wa-float { 
             position: fixed; 
             bottom: 30px; 
@@ -119,16 +119,14 @@
             justify-content: center; 
             z-index: 2000; 
             box-shadow: 0 4px 10px rgba(0,0,0,0.2); 
-            transition: 0.3s;
         }
-        .wa-float:hover { transform: scale(1.1); background: #128c7e; }
         .wa-float img { width: 35px; }
     </style>
 </head>
 <body>
 
     <header>
-        <img src="assets/subirlo.png" alt="Lusson Colombia Logo">
+        <img src="assets/subirlo.png" alt="Logo Lusson">
         <h1>LUSSON</h1>
     </header>
 
@@ -155,7 +153,7 @@
                     <div class="label">RUBORES</div>
                 </a>
                 <a href="bases.html" class="swiper-slide card-cat">
-                    <img src="assets/Base de maquillaje.png" alt="Bases de maquillaje Lusson">
+                    <img src="assets/Base de maquillaje.png" alt="Bases Lusson">
                     <div class="label">BASES</div>
                 </a>
                 <a href="skincare.html" class="swiper-slide card-cat">
@@ -163,7 +161,7 @@
                     <div class="label">SKINCARE</div>
                 </a>
                 <a href="polvos.html" class="swiper-slide card-cat">
-                    <img src="https://images.pexels.com/photos/3373736/pexels-photo-3373736.jpeg?auto=compress&w=500" alt="Polvos Compactos Lusson">
+                    <img src="https://images.pexels.com/photos/3373736/pexels-photo-3373736.jpeg?auto=compress&w=500" alt="Polvos Lusson">
                     <div class="label">POLVOS</div>
                 </a>
             </div>
@@ -171,11 +169,11 @@
     </section>
 
     <section class="grid-ventas">
-        <a href="#" class="item-venta">
-            <img src="https://images.pexels.com/photos/3018845/pexels-photo-3018845.jpeg?auto=compress&w=800" alt="Combos de Maquillaje Lusson">
+        <a href="javascript:void(0)" class="item-venta">
+            <img src="https://images.pexels.com/photos/3018845/pexels-photo-3018845.jpeg?auto=compress&w=800" alt="Combos Lusson">
             <h3>Combos</h3>
         </a>
-        <a href="#" class="item-venta">
+        <a href="javascript:void(0)" class="item-venta">
             <img src="https://images.pexels.com/photos/2533266/pexels-photo-2533266.jpeg?auto=compress&w=800" alt="Promociones Lusson">
             <h3>Promociones</h3>
         </a>
@@ -240,4 +238,3 @@
     </script>
 </body>
 </html>
-    
