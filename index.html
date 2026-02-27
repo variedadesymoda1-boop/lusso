@@ -3,205 +3,177 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LUSSON | Alta Cosmética | Barbie Style</title>
+    <title>LUSSON | Alta Cosmética Cute</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 
     <style>
         :root { 
-            --barbie-pink: #ff007f; /* Rosa Fucsia vibrante */
-            --chicle-pink: #ffc0cb; /* Rosa Chicle suave */
-            --pastel-pink: #fff0f5; /* Rosa Pastel muy claro */
-            --negro: #111; 
-            --oro: #c5a059;
+            --pink-cute: #ffdeeb; /* Rosa pastel suave */
+            --pink-accent: #f8bbd0; /* Rosa un poco más marcado */
+            --crema: #fff9fb; /* Fondo casi blanco rosado */
+            --negro: #2d2d2d; 
+            --blanco: #ffffff;
         }
 
-        body { font-family: 'Montserrat', sans-serif; margin: 0; background: #fff; color: var(--negro); overflow-x: hidden; }
+        body { font-family: 'Montserrat', sans-serif; margin: 0; background: var(--blanco); color: var(--negro); overflow-x: hidden; }
 
-        /* HEADER ESTILO BARBIE */
+        /* HEADER CUTE CON LOGO Y NOMBRE */
         header { 
-            background: var(--barbie-pink); 
-            padding: 20px; 
-            text-align: center; 
+            background: var(--blanco); 
+            padding: 30px 20px; 
             display: flex; 
             align-items: center; 
             justify-content: center; 
-            gap: 15px;
-            color: white;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            gap: 20px;
+            border-bottom: 2px solid var(--pink-cute);
         }
-        .logo-container img { 
-            height: 50px; /* Logo más pequeño */
+        header img { 
+            height: 80px; /* Logo más grande como pediste */
             width: auto;
+            filter: drop-shadow(0 2px 5px rgba(255,192,203,0.5));
         }
         header h1 { 
             font-family: 'Playfair Display', serif; 
-            font-size: 2.5rem; 
-            letter-spacing: 10px; 
+            font-size: 2.8rem; 
+            letter-spacing: 8px; 
             margin: 0; 
-            color: white;
-            text-transform: uppercase;
+            color: var(--negro);
+            font-weight: 700;
         }
 
-        /* NAVEGACIÓN ADAPTABLE (TONOS ROSAS) */
+        /* NAVEGACIÓN ADAPTABLE */
         nav { 
             display: flex; 
             justify-content: center; 
-            gap: 10px; 
+            gap: 12px; 
             padding: 15px; 
-            background: var(--pastel-pink); 
+            background: var(--pink-cute); 
             position: sticky; 
             top: 0; 
             z-index: 1000; 
-            border-bottom: 2px solid var(--chicle-pink);
-            flex-wrap: wrap; /* Para celular */
+            flex-wrap: wrap; /* Se adapta a celulares automáticamente */
         }
         nav a { 
             text-decoration: none; 
             color: var(--negro); 
             font-size: 0.75rem; 
             font-weight: 600; 
-            letter-spacing: 2px; 
+            letter-spacing: 1px; 
             text-transform: uppercase; 
-            padding: 8px 15px;
-            border-radius: 20px;
+            padding: 10px 18px;
+            background: var(--blanco);
+            border-radius: 30px; /* Botones redondeados cute */
             transition: 0.3s;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
         }
         nav a:hover { 
-            color: white; 
-            background: var(--barbie-pink);
+            background: var(--pink-accent);
+            color: white;
+            transform: scale(1.05);
         }
 
-        /* CARRUSEL INTERACTIVO CON FOTOS REALES */
-        .seccion-carrusel { padding: 60px 0; background: #fff; }
+        /* CARRUSEL INTERACTIVO (SIN FILTROS QUE TAPEN) */
+        .seccion-carrusel { padding: 50px 0; background: var(--crema); }
         .titulo-seccion { 
             text-align: center; 
             font-family: 'Playfair Display', serif; 
-            font-size: 2.2rem; 
-            margin-bottom: 40px;
-            letter-spacing: 3px;
-            color: var(--barbie-pink);
+            font-size: 2rem; 
+            margin-bottom: 30px;
+            color: var(--pink-accent);
         }
         
         .swiper { width: 100%; padding: 20px 0 60px; }
-        .swiper-slide { width: 280px; } /* Ajustado para tablet y móvil */
+        .swiper-slide { width: 260px; } 
         
         .card-cat { 
             background: white; 
-            border-radius: 25px; 
+            border-radius: 20px; 
             overflow: hidden; 
-            box-shadow: 0 15px 35px rgba(255, 0, 127, 0.1); /* Sombra Rosa */
+            box-shadow: 0 10px 20px rgba(255,182,193,0.2); 
             text-decoration: none; 
             color: inherit; 
             display: block;
-            transition: transform 0.3s, box-shadow 0.3s;
-            border: 2px solid var(--pastel-pink);
+            border: 1px solid var(--pink-cute);
         }
-        .card-cat:hover { 
-            transform: translateY(-10px); 
-            box-shadow: 0 20px 45px rgba(255, 0, 127, 0.2);
+        .card-cat img { 
+            width: 100%; 
+            height: 300px; 
+            object-fit: cover; 
+            display: block; /* Imagen clara sin filtros */
         }
-        .card-cat img { width: 100%; height: 320px; object-fit: cover; }
         .card-cat .label { 
-            padding: 20px; 
+            padding: 15px; 
             text-align: center; 
             font-weight: 600; 
-            letter-spacing: 3px; 
-            font-size: 0.9rem;
-            color: var(--negro);
-            background: var(--pastel-pink);
+            letter-spacing: 2px; 
+            font-size: 0.85rem;
+            background: white;
         }
 
-        /* SECCIONES COMBOS Y PROMOCIONES (ESTILO BARBIE) */
+        /* COMBOS Y PROMOS (LIMPIOS Y CLAROS) */
         .grid-ventas { 
             display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); 
-            gap: 20px; 
-            padding: 40px 20px;
-            max-width: 1200px;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+            gap: 25px; 
+            padding: 50px 20px;
+            max-width: 1100px;
             margin: 0 auto;
-            background: var(--pastel-pink);
         }
         .item-venta { 
-            position: relative; 
-            height: 450px; 
-            overflow: hidden; 
-            border-radius: 20px; 
-            display: flex; 
-            align-items: flex-end; 
-            padding: 30px;
-            color: white;
             text-decoration: none;
-            border: 3px solid var(--chicle-pink);
+            color: var(--negro);
+            text-align: center;
         }
         .item-venta img { 
-            position: absolute; 
-            top: 0; left: 0; width: 100%; height: 100%; 
+            width: 100%; 
+            height: 350px; 
             object-fit: cover; 
-            z-index: 1;
-            transition: 0.5s;
+            border-radius: 25px; 
+            border: 4px solid var(--pink-cute);
+            margin-bottom: 15px;
+            transition: 0.3s;
         }
-        .item-venta:hover img { transform: scale(1.1); }
-        .item-venta::after { 
-            content: ''; 
-            position: absolute; 
-            top: 0; left: 0; width: 100%; height: 100%; 
-            background: linear-gradient(to top, rgba(255,0,127,0.8), transparent); /* Gradiente Rosa */
-            z-index: 2;
-        }
-        .info-venta { z-index: 3; position: relative; }
-        .info-venta h3 { font-family: 'Playfair Display', serif; font-size: 2.2rem; margin: 0; letter-spacing: 2px; }
+        .item-venta:hover img { transform: rotate(1deg) scale(1.02); }
+        .item-venta h3 { font-family: 'Playfair Display', serif; font-size: 1.8rem; margin: 0; color: var(--pink-accent); }
 
-        /* QUIÉNES SOMOS (FONDO ROSA CLARO) */
+        /* QUIÉNES SOMOS CUTE */
         .nosotros { 
             display: flex; 
             align-items: center; 
             padding: 80px 10%; 
-            gap: 50px; 
+            gap: 40px; 
             flex-wrap: wrap; 
-            background: #fff;
+            background: var(--crema);
         }
         .nosotros-txt { flex: 1; min-width: 300px; }
-        .nosotros-txt h2 { 
-            font-family: 'Playfair Display', serif; 
-            font-size: 2.8rem; 
-            margin-bottom: 20px; 
-            color: var(--barbie-pink);
-        }
-        .nosotros-txt p { line-height: 1.8; color: #444; }
+        .nosotros-txt h2 { font-family: 'Playfair Display', serif; font-size: 2.5rem; color: var(--pink-accent); }
         .nosotros-img { flex: 1; min-width: 300px; }
-        .nosotros-img img { width: 100%; border-radius: 15px; box-shadow: 20px 20px 0 var(--chicle-pink); }
+        .nosotros-img img { width: 100%; border-radius: 50px 5px 50px 5px; border: 5px solid var(--blanco); box-shadow: 15px 15px 0 var(--pink-cute); }
 
-        /* FOOTER (NEGRO Y ROSA) */
-        footer { background: var(--negro); color: white; padding: 60px 20px; text-align: center; }
-        footer h2 { font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--barbie-pink); letter-spacing: 8px; }
-        .footer-links a { color: #aaa; text-decoration: none; margin: 0 15px; font-size: 0.8rem; letter-spacing: 1px; }
+        /* FOOTER */
+        footer { background: var(--pink-cute); color: var(--negro); padding: 50px 20px; text-align: center; }
+        .footer-links a { color: var(--negro); text-decoration: none; margin: 0 10px; font-size: 0.75rem; font-weight: 600; }
         
         /* WHATSAPP */
-        .wa { position: fixed; bottom: 30px; left: 30px; background: #25d366; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 1000; box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
-        .wa img { width: 35px; }
+        .wa { position: fixed; bottom: 25px; left: 25px; background: #25d366; width: 55px; height: 55px; border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 1000; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .wa img { width: 32px; }
 
-        /* MODO ADMIN POINT */
-        #secret-point { width: 25px; height: 25px; cursor: default; margin: 20px auto 0; background: transparent; }
-
-        /* RESPONSIVO MÓVIL */
+        /* RESPONSIVO */
         @media (max-width: 768px) {
-            header h1 { font-size: 1.8rem; letter-spacing: 6px; }
+            header { flex-direction: column; gap: 10px; }
+            header h1 { font-size: 2rem; letter-spacing: 4px; }
+            header img { height: 60px; }
             .nosotros { padding: 40px 5%; text-align: center; }
-            .nosotros-img img { box-shadow: 10px 10px 0 var(--chicle-pink); }
-            .item-venta { height: 350px; }
-            nav { gap: 8px; padding: 10px; }
-            nav a { font-size: 0.7rem; padding: 6px 12px; }
+            nav { gap: 8px; }
         }
     </style>
 </head>
 <body>
 
     <header>
-        <div class="logo-container">
-            <img src="assets/subirlo.png" alt="Lusson Colombia Logo">
-        </div>
+        <img src="assets/subirlo.png" alt="Logo Lusson">
         <h1>LUSSON</h1>
     </header>
 
@@ -209,12 +181,12 @@
         <a href="labiales.html">Labiales</a>
         <a href="rubores.html">Rubores</a>
         <a href="polvos.html">Polvos</a>
-        <a href="bases.html">Bases y Correctores</a>
+        <a href="bases.html">Bases</a>
         <a href="skincare.html">Skincare</a>
     </nav>
 
     <section class="seccion-carrusel">
-        <h2 class="titulo-seccion">COLECCIÓN GLAM</h2>
+        <h2 class="titulo-seccion">Nuestra Colección Cute</h2>
         <div class="swiper mySwiper">
             <div class="swiper-wrapper">
                 <a href="labiales.html" class="swiper-slide card-cat">
@@ -233,10 +205,6 @@
                     <img src="https://images.pexels.com/photos/4046316/pexels-photo-4046316.jpeg?auto=compress&w=500">
                     <div class="label">SKINCARE</div>
                 </a>
-                <a href="polvos.html" class="swiper-slide card-cat">
-                    <img src="https://images.pexels.com/photos/3373736/pexels-photo-3373736.jpeg?auto=compress&w=500">
-                    <div class="label">POLVOS</div>
-                </a>
             </div>
         </div>
     </section>
@@ -244,17 +212,11 @@
     <div class="grid-ventas">
         <a href="#" class="item-venta">
             <img src="https://images.pexels.com/photos/3018845/pexels-photo-3018845.jpeg?auto=compress&w=800">
-            <div class="info-venta">
-                <h3>Combos</h3>
-                <p>Kits glamorosos para un look completo.</p>
-            </div>
+            <h3>Combos</h3>
         </a>
         <a href="#" class="item-venta">
             <img src="https://images.pexels.com/photos/2533266/pexels-photo-2533266.jpeg?auto=compress&w=800">
-            <div class="info-venta">
-                <h3>Promociones</h3>
-                <p>Tus favoritos con precios chic.</p>
-            </div>
+            <h3>Promociones</h3>
         </a>
     </div>
 
@@ -263,21 +225,19 @@
             <img src="https://images.pexels.com/photos/3738339/pexels-photo-3738339.jpeg?auto=compress&w=800">
         </div>
         <div class="nosotros-txt">
-            <h2>Quiénes Somos</h2>
-            <p><strong>Lusson Colombia</strong> es el refugio de la elegancia y la alta cosmética. Nuestra misión es empoderar a cada mujer a través de productos que no solo embellecen, sino que cuidan y resaltan su esencia única.</p>
-            <p>Calidad premium y sofisticación en cada detalle.</p>
+            <h2>Nuestra Esencia</h2>
+            <p><strong>Lusson Colombia</strong> es elegancia con un toque tierno. Seleccionamos lo mejor de la cosmética para que te sientas linda y segura todos los días.</p>
         </div>
     </section>
 
     <footer>
-        <h2>LUSSON</h2>
-        <div class="footer-links">
+        <h2 style="font-family: 'Playfair Display'; margin: 0; color: white;">LUSSON</h2>
+        <div class="footer-links" style="margin-top: 15px;">
             <a href="#">INSTAGRAM</a>
             <a href="#">TIKTOK</a>
-            <a href="#">PDF</a>
         </div>
-        <p style="font-size: 0.6rem; color: #555; margin-top: 30px;">© 2026 LUSSON COLOMBIA - SISTEMA SEGURO</p>
-        <div id="secret-point" onclick="modoJefa()"></div>
+        <p style="font-size: 0.6rem; margin-top: 25px; opacity: 0.6;">© 2026 LUSSON COLOMBIA - SISTEMA SEGURO</p>
+        <div style="width:20px; height:20px; margin: 10px auto;" onclick="modoJefa()"></div>
     </footer>
 
     <a href="https://wa.me/573000000000" class="wa" target="_blank">
@@ -286,7 +246,6 @@
 
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script>
-        // CARRUSEL CONFIG
         const swiper = new Swiper(".mySwiper", {
             slidesPerView: "auto",
             spaceBetween: 25,
@@ -296,7 +255,6 @@
             grabCursor: true,
         });
 
-        // MODO ADMIN
         let toques = 0;
         function modoJefa() {
             toques++;
